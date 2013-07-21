@@ -1,0 +1,113 @@
+/*
+Basic Tags
+ */
+body {
+    background-image: url('background.png');
+    font: 13px/175% 'Asap', sans-serif;
+    text-align: justify;
+    background-color: #4a525a;
+}
+
+h1 {
+    color: #cfcfcf;
+    font: 41px 'Asap', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 11px;
+    padding-bottom: 11px;
+    padding-left: 0px;
+    border-style: dashed;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: thick dotted;
+    text-shadow: 1px 1px 1px #333;
+    letter-spacing: 19px;
+}
+
+a {
+    color: #e3e3e3;
+}
+
+a.title {
+    text-decoration: none;
+}
+
+h2 {
+    color: #e3e3e3;
+    font: 29px/50% 'Asap', sans-serif;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 39px;
+    margin-bottom: 7px;
+    line-height: 100%;
+    text-shadow: 1px 1px 1px #101010;
+    letter-spacing: 5px;
+}
+
+p.box {
+    border-style: dashed;
+    width: 489px;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 5px;
+    color: #e3e3e3;
+    margin-bottom: 0px;
+}
+
+p {
+    width: 500px;
+    text-align: justify;
+}
+
+img.dropshadow {
+    box-shadow: 5px 5px 25px -2px #333;
+}
+
+img {
+    vertical-align: text-bottom;
+}
+
+/* 
+Main Tags
+*/
+#content {
+    background-image: url('../images/background.png');
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -250px;
+    width: 500px;
+    height: auto;
+    color: #e3e3e3;
+}
+
+.text {
+    width: 430px;
+    height: auto;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 20px;
+    color: inherit;
+    float: left;
+}
+
+.center {
+	width: 430px;
+    height: auto;
+    text-align: center;
+    padding: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.footer {
+    width: 515px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 11px;
+    margin: 0px;
+    margin-top: 15px;
+}
