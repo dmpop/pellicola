@@ -19,8 +19,18 @@
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 	
-	$files = glob($photodir.'*.jpg', GLOB_BRACE);
-	$fileCount = count(glob($photodir.'*.jpg'));
+	$f = $_GET['f'];
+	if (empty($f))
+		{
+		$dir=$basedir;
+		}
+	else
+		{
+		$dir=$basedir.$f."/";
+		}
+	
+	$files = glob($dir.'*.jpg', GLOB_BRACE);
+	$fileCount = count(glob($dir.'*.jpg'));
 	
 	for ($i=($fileCount-1); $i>=0; $i--)  {  
 	$exif = exif_read_data($files[$i], 0, true);

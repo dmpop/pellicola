@@ -4,7 +4,7 @@ $title = 'Photocrumbs';
 
 $tagline=" -- Uncomplicated photo publishing --";
 
-$photodir='photos/';
+$basedir='photos/';
 
 $footer='Powered by Photocrumbs';
 
