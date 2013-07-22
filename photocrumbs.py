@@ -1,13 +1,16 @@
-import android, time, ftplib
+import android, time, os, ftplib
 
 droid = android.Android()
 
+if not os.path.exists('/sdcard/photocrumbs/'):
+	os.makedirs('/sdcard/photocrumbs/')
+
 timestamp = time.strftime('%Y%m%d-%H%M%S', time.localtime())
-droid.cameraInteractiveCapturePicture('/sdcard/' + timestamp + '.jpg')
+droid.cameraInteractiveCapturePicture('/sdcard/photocrumbs/' + timestamp + '.jpg')
 
 notetext = droid.dialogGetInput('Note', 'Add a note to the photocrumb:').result
 note = timestamp + '.php'
-file = open('/sdcard/' + note, 'a')
+file = open('/sdcard/photocrumbs/' + note, 'a')
 file.write('%s\n' % (notetext))
 file.close()
 
@@ -19,10 +22,10 @@ password = 'password'
 droid.dialogCreateSpinnerProgress('Uploading to FTP...')
 droid.dialogShow()
 conn = ftplib.FTP(server, username, password)
-file = open ('/sdcard/' + timestamp + '.jpg', 'rb')
+file = open ('/sdcard/photocrumbs/' + timestamp + '.jpg', 'rb')
 conn.storbinary('STOR ' + timestamp + '.jpg', file)
 file.close()
-file = open ('/sdcard/' + note, 'rb')
+file = open ('/sdcard/photocrumbs/' + note, 'rb')
 conn.storbinary('STOR ' + note, file)
 file.close()
 conn.quit()
