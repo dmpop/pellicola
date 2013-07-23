@@ -1,5 +1,10 @@
 import android, time, os, ftplib
 
+# Specify FTP connection info
+server = '127.0.0.1'
+username = 'username'
+password = 'password'
+
 droid = android.Android()
 
 if not os.path.exists('/sdcard/photocrumbs/'):
@@ -13,10 +18,6 @@ note = timestamp + '.php'
 file = open('/sdcard/photocrumbs/' + note, 'a')
 file.write('%s\n' % (notetext))
 file.close()
-
-server = '127.0.0.1'
-username = 'username'
-password = 'password'
 
 droid.dialogCreateAlert('Upload the photocrumb and the note?')
 droid.dialogSetPositiveButtonText('Yes')
