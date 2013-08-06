@@ -19,6 +19,15 @@
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 	
+	$dirs = array_filter(glob($basedir.'/*'), 'is_dir');
+	echo "<div class='center'>";
+	foreach($dirs as $value){
+		$parts = explode('/', $value);
+		$last = end($parts);
+	echo "<a href='index.php?f=".$last."'>".$last."</a> ";
+	}
+	echo "</div>";
+	
 	$f = $_GET['f'];
 	if (empty($f))
 		{
