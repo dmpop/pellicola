@@ -13,3 +13,5 @@ Photocrumbs is a simple PHP app for publishing photos on the web.
 4. Put photos into the *photos* directory.
 5. Make sure that the *photos/thumbs* directory is writable by the server.
 6. Point the browser to *http://127.0.0.1/photocrumbs/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
+
+You can add descriptions to a photos by creating *.php* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.php* file containing a short text. You can use HTML markup for formatting the text.
