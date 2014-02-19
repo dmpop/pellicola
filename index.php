@@ -116,6 +116,7 @@
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
 
+	// http://webcheatsheet.com/php/create_thumbnail_images.php
 	function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth )
 	{
 		// open the directory
@@ -156,7 +157,26 @@
 	// in which thumbnails will be placed and the thumbnail's width.
 	// We are assuming that the path will be a relative path working
 	// both in the filesystem, and through the web for links
-	createThumbs($basedir,$basedir."thumbs/",500);
+	// createThumbs($basedir,$basedir."thumbs/",500);
+
+	// http://stackoverflow.com/questions/9673866/checking-if-thumbnail-exists-in-php
+// Open directory, and proceed to read its contents
+	if (is_dir($basedir)) {
+		if ($dh = opendir($basedir)) {
+		// Walk through directory, $file by $file
+		while (($file = readdir($dh)) !== false) {
+			// Make sure we're dealing with jpegs
+			if (preg_match('/\.jpg$/i', $file)) {
+			// don't bother processing things that already have thumbnails
+			if (!file_exists($basedir . "thumbs/" . $file)) {
+				createThumbs($basedir,$basedir."thumbs/",500);
+				}
+			}
+		}
+		// clean up after ourselves
+		closedir($dh);
+		}
+	}
 
 	echo "<title>$title</title>";
 	echo "</head>";
