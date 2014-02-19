@@ -5,6 +5,7 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<style>
@@ -16,9 +17,10 @@
 		}
 		h1 {
 		color: #cfcfcf;
-		font: 41px 'Asap', sans-serif;
-		font-weight: 700;
+		font: 41px 'Maven Pro', sans-serif;
+		font-weight: 500;
 		text-align: center;
+		margin-top: 51px;
 		margin-bottom: 11px;
 		padding-bottom: 11px;
 		padding-left: 0px;
@@ -28,7 +30,7 @@
 		border-right: none;
 		border-bottom: thick dotted;
 		text-shadow: 1px 1px 1px #333;
-		letter-spacing: 19px;
+		letter-spacing: 26px;
 	}
 	a {
 		color: #e3e3e3;
@@ -38,7 +40,7 @@
 	}
 	h2 {
 	color: #e3e3e3;
-		font: 29px/50% 'Asap', sans-serif;
+		font: 29px/50% 'Maven Pro', sans-serif;
 		font-weight: 400;
 		text-align: left;
 		margin-top: 39px;
