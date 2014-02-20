@@ -20,7 +20,7 @@
 		font: 41px 'Maven Pro', sans-serif;
 		font-weight: 500;
 		text-align: center;
-		margin-top: 51px;
+		margin-top: 35px;
 		margin-bottom: 11px;
 		padding-bottom: 11px;
 		padding-left: 0px;
