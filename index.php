@@ -10,10 +10,9 @@
 
 	<style>
 		body {
-		background-image: url('background.png');
 		font: 13px/175% 'Open Sans', sans-serif;
 		text-align: justify;
-		background-color: #4a525a;
+		background-color: #777777 ;
 		}
 		h1 {
 		color: #cfcfcf;
@@ -29,7 +28,7 @@
 		border-left: none;
 		border-right: none;
 		border-bottom: thick dotted;
-		text-shadow: 1px 1px 1px #333;
+		text-shadow: 1px 1px 1px #585858;
 		letter-spacing: 26px;
 	}
 	a {
@@ -46,7 +45,7 @@
 		margin-top: 39px;
 		margin-bottom: 7px;
 		line-height: 100%;
-		text-shadow: 1px 1px 1px #101010;
+		text-shadow: 1px 1px 1px #585858;
 		letter-spacing: 5px;
 	}
 	p.box {
@@ -63,13 +62,12 @@
 		text-align: justify;
 	}
 	img.dropshadow {
-		box-shadow: 5px 5px 25px -2px #333;
+		box-shadow: 5px 5px 25px -2px #585858;
 	}
 	img {
 		vertical-align: text-bottom;
 	}
 	#content {
-		background-image: url('../images/background.png');
 		position: absolute;
 		top: 10%;
 		left: 50%;
