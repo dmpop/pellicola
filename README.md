@@ -1,9 +1,11 @@
+##About Photocrumbs
+
 Photocrumbs is a simple single-file PHP app for publishing photos as a chronological stream.
 
 ##Features
 
 * **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Photocrumbs requires no installation, and it can be deployed on any web server with PHP and the GD library.
-* **Instant and easy photo publishing** Upload photos, and Photocrumbs takes care of the rest.
+* **Instant and easy photo publishing** Upload photos, and Photocrumbs does the rest.
 * **Automatic thumbnail generation** Photocrumbs automatically generates thumbnails for faster preview.
 * **Basic EXIF data** The app extract and displays basic EXIF info for each photo, including aperture, shutter speed, ISO, and timestamp.
 * **Optional description** You can add a description to each photo by creating an accompanying *.php* file. The app can also read and display description from the photo's *UserComment* EXIF field.
