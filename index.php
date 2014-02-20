@@ -196,11 +196,12 @@
 	echo "<h2>".$filepath['filename']."</h2>";
 	echo "<p>";
 	include $dir.$filepath['filename'].'.php';
+	echo $exif['COMPUTED']['UserComment'];
 	echo "</p>";
     echo '<a href="'.$files[$i].'"><img class="dropshadow" src="'.$thumbs[$i].'" alt=""></a>';
     $Fnumber = explode("/", $exif['EXIF']['FNumber']);
     $Fnumber = $Fnumber[0] / $Fnumber[1];
-    echo "<p class='box'>Aperture: f/".$Fnumber." Shutter speed: " .$exif['EXIF']['ExposureTime']. " ISO: ".$exif['EXIF']['ISOSpeedRatings']. " Date: ".$exif['EXIF']['DateTimeOriginal']."</p>";
+    echo "<p class='box'>Aperture: <strong>f/".$Fnumber."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
     }
 
     echo "<div class='footer'>$footer</div>";
