@@ -112,11 +112,25 @@
 	$tagline=" -- Uncomplicated photo publishing --";
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
+	$expire = 'false'; //set to 'true' to enable the expiration feature
+	$days = 15; // expiration period
 	// ----------------------------
 
 	// Create the thumbs directory if it doesn't exist
 	if (!file_exists($basedir.'thumbs')) {
 		mkdir($basedir.'thumbs', 0777, true);
+	}
+
+	// If $expire set to 'true', remove file older than specified number of $days
+	if ($expire = 'true')
+	{
+		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) // http://stackoverflow.com/questions/12109042/php-get-file-listing-including-sub-directories
+		{
+			if(is_file($file)
+			&& time() - filemtime($file) >= $days*24*60*60) {
+				unlink($file);
+			}
+		}
 	}
 
 	// http://webcheatsheet.com/php/create_thumbnail_images.php
