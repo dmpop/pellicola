@@ -4,14 +4,14 @@
 
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link href='http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<style>
 		body {
 		background-image: url('background.png');
-		font: 13px/175% 'Asap', sans-serif;
+		font: 13px/175% 'Open Sans', sans-serif;
 		text-align: justify;
 		background-color: #4a525a;
 		}
@@ -110,11 +110,16 @@
 	<?php
 
 	// User-defined settings
-
 	$title = 'Photocrumbs';
 	$tagline=" -- Uncomplicated photo publishing --";
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
+	// ----------------------------
+
+	// Create the thumbs directory if it doesn't exist
+	if (!file_exists($basedir.'thumbs')) {
+		mkdir($basedir.'thumbs', 0777, true);
+	}
 
 	// http://webcheatsheet.com/php/create_thumbnail_images.php
 	function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth )
