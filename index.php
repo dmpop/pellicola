@@ -122,7 +122,7 @@
 	}
 
 	// If $expire set to 'true', remove file older than specified number of $days
-	if ($expire = 'true')
+	if ($expire == 'true')
 	{
 		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) // http://stackoverflow.com/questions/12109042/php-get-file-listing-including-sub-directories
 		{
