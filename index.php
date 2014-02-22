@@ -208,17 +208,16 @@
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 
-	$dir=$basedir."/";
-	$files = glob($dir.'*.jpg', GLOB_BRACE);
-	$thumbs = glob($dir.'thumbs/*.jpg', GLOB_BRACE);
-	$fileCount = count(glob($dir.'*.jpg'));
+	$files = glob($basedir.'*.jpg', GLOB_BRACE);
+	$thumbs = glob($basedir.'thumbs/*.jpg', GLOB_BRACE);
+	$fileCount = count(glob($basedir.'*.jpg'));
 
 	for ($i=($fileCount-1); $i>=0; $i--) {
 		$exif = exif_read_data($files[$i], 0, true);
 		$filepath = pathinfo($files[$i]);
 		echo "<h2>".$filepath['filename']."</h2>";
 		echo "<p>";
-		include $dir.$filepath['filename'].'.php';
+		include $basedir.$filepath['filename'].'.php';
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
 		echo '<a href="'.$files[$i].'"><img class="dropshadow" src="'.$thumbs[$i].'" alt=""></a>';
