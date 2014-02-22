@@ -11,19 +11,18 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<style>
 		body {
-			font: 13px/175% 'Open Sans', sans-serif;
+			font: 15px/175% 'Open Sans', sans-serif;
 			text-align: justify;
 			background-color: #777777 ;
 		}
 		h1 {
 			color: #cfcfcf;
-			font: 41px 'Maven Pro', sans-serif;
-			font-weight: 500;
+			font: 41px 'Open Sans', sans-serif;
+			font-weight: 700;
 			text-align: center;
 			margin-top: 35px;
 			margin-bottom: 11px;
@@ -35,7 +34,7 @@
 			border-right: none;
 			border-bottom: thick dotted;
 			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 35px;
+			letter-spacing: 27px;
 		}
 		a {
 			color: #e3e3e3;
@@ -45,7 +44,7 @@
 		}
 		h2 {
 			color: #e3e3e3;
-			font: 29px/50% 'Maven Pro', sans-serif;
+			font: 29px/50% 'Open Sans', sans-serif;
 			font-weight: 400;
 			text-align: left;
 			margin-top: 39px;
@@ -62,6 +61,7 @@
 			padding: 5px;
 			color: #e3e3e3;
 			margin-bottom: 0px;
+			text-align: center;
 		}
 		p {
 			width: 600px;
@@ -114,7 +114,7 @@
 	<?php
 
 	// User-defined settings
-	$title = 'Photocrumbs';
+	$title = 'PHOTOCRUMBS';
 	$tagline=" -- Uncomplicated photo publishing --";
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
@@ -131,40 +131,40 @@
 	}
 
 	// http://webcheatsheet.com/php/create_thumbnail_images.php
-	function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth )
+	function createThumbs($pathToImages, $pathToThumbs, $thumbWidth)
 	{
 		// open the directory
-		$dir = opendir( $pathToImages );
+		$dir = opendir($pathToImages);
 
 		// loop through it, looking for any/all JPG files:
-		while (false !== ($fname = readdir( $dir ))) {
+		while (false !== ($fname = readdir($dir))) {
 			// parse path for the extension
 			$info = pathinfo($pathToImages . $fname);
 			// continue only if this is a JPEG image
-			if ( strtolower($info['extension']) == 'jpg' )
+			if (strtolower($info['extension']) == 'jpg')
 			{
 
 				// load image and get image size
-				$img = imagecreatefromjpeg( "{$pathToImages}{$fname}" );
-				$width = imagesx( $img );
-				$height = imagesy( $img );
+				$img = imagecreatefromjpeg("{$pathToImages}{$fname}");
+				$width = imagesx($img);
+				$height = imagesy($img);
 
 				// calculate thumbnail size
 				$new_width = $thumbWidth;
-				$new_height = floor( $height * ( $thumbWidth / $width ) );
+				$new_height = floor( $height * ($thumbWidth / $width));
 
 				// create a new temporary image
-				$tmp_img = imagecreatetruecolor( $new_width, $new_height );
+				$tmp_img = imagecreatetruecolor($new_width, $new_height);
 
 				// copy and resize old image into new image
-				imagecopyresampled( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+				imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
 				// save thumbnail into a file
-				imagejpeg( $tmp_img, "{$pathToThumbs}{$fname}" );
+				imagejpeg($tmp_img, "{$pathToThumbs}{$fname}");
 			}
 		}
 		// close the directory
-		closedir( $dir );
+		closedir($dir);
 	}
 	// call createThumb function and pass to it as parameters the path
 	// to the directory that contains images, the path to the directory
