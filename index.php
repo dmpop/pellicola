@@ -10,99 +10,99 @@
 
 	<style>
 		body {
-		font: 13px/175% 'Open Sans', sans-serif;
-		text-align: justify;
-		background-color: #777777 ;
+			font: 13px/175% 'Open Sans', sans-serif;
+			text-align: justify;
+			background-color: #777777 ;
 		}
 		h1 {
-		color: #cfcfcf;
-		font: 41px 'Maven Pro', sans-serif;
-		font-weight: 500;
-		text-align: center;
-		margin-top: 35px;
-		margin-bottom: 11px;
-		padding-bottom: 11px;
-		padding-left: 0px;
-		border-style: dashed;
-		border-top: none;
-		border-left: none;
-		border-right: none;
-		border-bottom: thick dotted;
-		text-shadow: 1px 1px 1px #585858;
-		letter-spacing: 26px;
-	}
-	a {
-		color: #e3e3e3;
-	}
-	a.title {
-		text-decoration: none;
-	}
-	h2 {
-	color: #e3e3e3;
-		font: 29px/50% 'Maven Pro', sans-serif;
-		font-weight: 400;
-		text-align: left;
-		margin-top: 39px;
-		margin-bottom: 7px;
-		line-height: 100%;
-		text-shadow: 1px 1px 1px #585858;
-		letter-spacing: 5px;
-	}
-	p.box {
-		border-style: dashed;
-		width: 489px;
-		border-width: 1px;
-		font-size: 12px;
-		padding: 5px;
-		color: #e3e3e3;
-		margin-bottom: 0px;
-	}
-	p {
-		width: 500px;
-		text-align: justify;
-	}
-	img.dropshadow {
-		box-shadow: 5px 5px 25px -2px #585858;
-	}
-	img {
-		vertical-align: text-bottom;
-	}
-	#content {
-		position: absolute;
-		top: 10%;
-		left: 50%;
-		margin-top: -75px;
-		margin-left: -250px;
-		width: 500px;
-		height: auto;
-		color: #e3e3e3;
-	}
-	.text {
-		width: 430px;
-		height: auto;
-		text-align: left;
-		padding: 0px;
-		margin: 0px;
-		margin-right: 20px;
-		color: inherit;
-		float: left;
-	}
-	.center {
-		width: 430px;
-		height: auto;
-		text-align: center;
-		padding: 0px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.footer {
-		width: 515px;
-		text-align: center;
-		font-family: monospace;
-		font-size: 11px;
-		margin: 0px;
-		margin-top: 15px;
-	}
+			color: #cfcfcf;
+			font: 41px 'Maven Pro', sans-serif;
+			font-weight: 500;
+			text-align: center;
+			margin-top: 35px;
+			margin-bottom: 11px;
+			padding-bottom: 11px;
+			padding-left: 0px;
+			border-style: dashed;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: thick dotted;
+			text-shadow: 1px 1px 1px #585858;
+			letter-spacing: 26px;
+		}
+		a {
+			color: #e3e3e3;
+		}
+		a.title {
+			text-decoration: none;
+		}
+		h2 {
+			color: #e3e3e3;
+			font: 29px/50% 'Maven Pro', sans-serif;
+			font-weight: 400;
+			text-align: left;
+			margin-top: 39px;
+			margin-bottom: 7px;
+			line-height: 100%;
+			text-shadow: 1px 1px 1px #585858;
+			letter-spacing: 5px;
+		}
+		p.box {
+			border-style: dashed;
+			width: 489px;
+			border-width: 1px;
+			font-size: 12px;
+			padding: 5px;
+			color: #e3e3e3;
+			margin-bottom: 0px;
+		}
+		p {
+			width: 500px;
+			text-align: justify;
+		}
+		img.dropshadow {
+			box-shadow: 5px 5px 25px -2px #585858;
+		}
+		img {
+			vertical-align: text-bottom;
+		}
+		#content {
+			position: absolute;
+			top: 10%;
+			left: 50%;
+			margin-top: -75px;
+			margin-left: -250px;
+			width: 500px;
+			height: auto;
+			color: #e3e3e3;
+		}
+		.text {
+			width: 430px;
+			height: auto;
+			text-align: left;
+			padding: 0px;
+			margin: 0px;
+			margin-right: 20px;
+			color: inherit;
+			float: left;
+		}
+		.center {
+			width: 430px;
+			height: auto;
+			text-align: center;
+			padding: 0px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.footer {
+			width: 515px;
+			text-align: center;
+			font-family: monospace;
+			font-size: 11px;
+			margin: 0px;
+			margin-top: 15px;
+		}
 	</style>
 
 	<?php
@@ -207,21 +207,20 @@
 	$thumbs = glob($dir.'thumbs/*.jpg', GLOB_BRACE);
 	$fileCount = count(glob($dir.'*.jpg'));
 
-	for ($i=($fileCount-1); $i>=0; $i--)  {
-	$exif = exif_read_data($files[$i], 0, true);
-	$filepath = pathinfo($files[$i]);
-	echo "<h2>".$filepath['filename']."</h2>";
-	echo "<p>";
-	include $dir.$filepath['filename'].'.php';
-	echo $exif['COMPUTED']['UserComment'];
-	echo "</p>";
-    echo '<a href="'.$files[$i].'"><img class="dropshadow" src="'.$thumbs[$i].'" alt=""></a>';
-    $Fnumber = explode("/", $exif['EXIF']['FNumber']);
-    $Fnumber = $Fnumber[0] / $Fnumber[1];
-    echo "<p class='box'>Aperture: <strong>f/".$Fnumber."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
-    }
-
-    echo "<div class='footer'>$footer</div>";
+	for ($i=($fileCount-1); $i>=0; $i--) {
+		$exif = exif_read_data($files[$i], 0, true);
+		$filepath = pathinfo($files[$i]);
+		echo "<h2>".$filepath['filename']."</h2>";
+		echo "<p>";
+		include $dir.$filepath['filename'].'.php';
+		echo $exif['COMPUTED']['UserComment'];
+		echo "</p>";
+		echo '<a href="'.$files[$i].'"><img class="dropshadow" src="'.$thumbs[$i].'" alt=""></a>';
+		$Fnumber = explode("/", $exif['EXIF']['FNumber']);
+		$Fnumber = $Fnumber[0] / $Fnumber[1];
+		echo "<p class='box'>Aperture: <strong>f/".$Fnumber."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
+	}
+		echo "<div class='footer'>$footer</div>";
 
 	?>
 	</div>
