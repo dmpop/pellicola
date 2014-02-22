@@ -1,6 +1,6 @@
 ##About Photocrumbs
 
-Photocrumbs is a simple single-file PHP app for publishing photos as a chronological stream. The app features expiration functionality. When enabled, it deletes photos that are older than a user-defined number of days.
+Photocrumbs is a forgetful single-file PHP app for  instantly publishing photos as a chronological stream. The app features expiration functionality. When enabled, it deletes photos that are older than a user-defined number of days -- hence the forgetful moniker.
 
 ##Features
 
