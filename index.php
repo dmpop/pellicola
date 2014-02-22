@@ -2,6 +2,12 @@
 
 <html>
 
+<!--
+	Author: Dmitri Popov
+	License: GPLv3 https://www.gnu.org/licenses/gpl-3.0.txt
+	Source code: https://github.com/dmpop/photocrumbs
+-->
+
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
