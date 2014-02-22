@@ -2,12 +2,6 @@
 
 <html>
 
-	<!--
-	Autor: Dmitri Popov dmpop@linux.com
-	License: GPLv3 https://www.gnu.org/licenses/gpl-3.0.txt
-	Source code: https://github.com/dmpop/photocrumbs
-	-->
-
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -122,21 +116,12 @@
 	$days = 15; // expiration period
 	// ----------------------------
 
-	// Create the thumbs directory if it doesn't exist
+	// Create the required directories if it don't exist
+		if (!file_exists($basedir)) {
+		mkdir($basedir, 0777, true);
+	}
 	if (!file_exists($basedir.'thumbs')) {
 		mkdir($basedir.'thumbs', 0777, true);
-	}
-
-	// If $expire set to 'true', remove file older than specified number of $days
-	if ($expire == 'true')
-	{
-		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) // http://stackoverflow.com/questions/12109042/php-get-file-listing-including-sub-directories
-		{
-			if(is_file($file)
-			&& time() - filemtime($file) >= $days*24*60*60) {
-				unlink($file);
-			}
-		}
 	}
 
 	// http://webcheatsheet.com/php/create_thumbnail_images.php
@@ -193,11 +178,26 @@
 			// don't bother processing things that already have thumbnails
 			if (!file_exists($basedir . "thumbs/" . $file)) {
 				createThumbs($basedir,$basedir."thumbs/",500);
+				touch ($file);
 				}
 			}
 		}
 		// clean up after ourselves
 		closedir($dh);
+		}
+	}
+
+	// If $expire set to 'true', remove file older than specified number of $days
+	if ($expire == 'true')
+	{
+		$files = glob($basedir.'*');
+		foreach ($files as $file)
+		{
+			if(is_file($file)
+			&& time() - filemtime($file) >= $days*24*60*60) {
+				unlink($file);
+				unlink($basedir.'thumbs/'.basename($file));
+			}
 		}
 	}
 
@@ -208,16 +208,17 @@
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 
-	$files = glob($basedir.'*.jpg', GLOB_BRACE);
-	$thumbs = glob($basedir.'thumbs/*.jpg', GLOB_BRACE);
-	$fileCount = count(glob($basedir.'*.jpg'));
+	$dir=$basedir."/";
+	$files = glob($dir.'*.jpg', GLOB_BRACE);
+	$thumbs = glob($dir.'thumbs/*.jpg', GLOB_BRACE);
+	$fileCount = count(glob($dir.'*.jpg'));
 
 	for ($i=($fileCount-1); $i>=0; $i--) {
 		$exif = exif_read_data($files[$i], 0, true);
 		$filepath = pathinfo($files[$i]);
 		echo "<h2>".$filepath['filename']."</h2>";
 		echo "<p>";
-		include $basedir.$filepath['filename'].'.php';
+		include $dir.$filepath['filename'].'.php';
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
 		echo '<a href="'.$files[$i].'"><img class="dropshadow" src="'.$thumbs[$i].'" alt=""></a>';
