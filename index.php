@@ -35,7 +35,7 @@
 			border-right: none;
 			border-bottom: thick dotted;
 			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 26px;
+			letter-spacing: 35px;
 		}
 		a {
 			color: #e3e3e3;
@@ -56,7 +56,7 @@
 		}
 		p.box {
 			border-style: dashed;
-			width: 489px;
+			width: 589px;
 			border-width: 1px;
 			font-size: 12px;
 			padding: 5px;
@@ -64,7 +64,7 @@
 			margin-bottom: 0px;
 		}
 		p {
-			width: 500px;
+			width: 600px;
 			text-align: justify;
 		}
 		img.dropshadow {
@@ -78,13 +78,13 @@
 			top: 10%;
 			left: 50%;
 			margin-top: -75px;
-			margin-left: -250px;
-			width: 500px;
+			margin-left: -300px;
+			width: 600px;
 			height: auto;
 			color: #e3e3e3;
 		}
 		.text {
-			width: 430px;
+			width: 530px;
 			height: auto;
 			text-align: left;
 			padding: 0px;
@@ -94,7 +94,7 @@
 			float: left;
 		}
 		.center {
-			width: 430px;
+			width: 530px;
 			height: auto;
 			text-align: center;
 			padding: 0px;
@@ -102,7 +102,7 @@
 			margin-right: auto;
 		}
 		.footer {
-			width: 515px;
+			width: 615px;
 			text-align: center;
 			font-family: monospace;
 			font-size: 11px;
@@ -183,7 +183,7 @@
 			if (preg_match('/\.jpg$/i', $file)) {
 			// don't bother processing things that already have thumbnails
 			if (!file_exists($basedir . "thumbs/" . $file)) {
-				createThumbs($basedir,$basedir."thumbs/",500);
+				createThumbs($basedir,$basedir."thumbs/",600);
 				touch ($file);
 				}
 			}
