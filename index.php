@@ -34,7 +34,7 @@
 			border-right: none;
 			border-bottom: thick dotted;
 			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 27px;
+			letter-spacing: 26px;
 		}
 		a {
 			color: #e3e3e3;
