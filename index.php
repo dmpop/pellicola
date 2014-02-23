@@ -27,12 +27,11 @@
 			margin-top: 35px;
 			margin-bottom: 11px;
 			padding-bottom: 11px;
-			padding-left: 0px;
 			border-style: dashed;
 			border-top: none;
 			border-left: none;
 			border-right: none;
-			border-bottom: thick dotted;
+			border-bottom: dotted;
 			text-shadow: 1px 1px 1px #585858;
 			letter-spacing: 26px;
 		}
