@@ -140,10 +140,6 @@
 		while (false !== ($fname = readdir($dir))) {
 			// parse path for the extension
 			$info = pathinfo($pathToImages . $fname);
-			// continue only if this is a JPEG image
-			if (strtolower($info['extension']) == 'jpg')
-			{
-
 				// load image and get image size
 				$img = imagecreatefromjpeg("{$pathToImages}{$fname}");
 				$width = imagesx($img);
@@ -161,7 +157,6 @@
 
 				// save thumbnail into a file
 				imagejpeg($tmp_img, "{$pathToThumbs}{$fname}");
-			}
 		}
 		// close the directory
 		closedir($dir);
@@ -173,23 +168,14 @@
 	// both in the filesystem, and through the web for links
 	// createThumbs($basedir,$basedir."thumbs/",500);
 
-	// http://stackoverflow.com/questions/9673866/checking-if-thumbnail-exists-in-php
-// Open directory, and proceed to read its contents
-	if (is_dir($basedir)) {
-		if ($dh = opendir($basedir)) {
-		// Walk through directory, $file by $file
-		while (($file = readdir($dh)) !== false) {
-			// Make sure we're dealing with jpegs
-			if (preg_match('/\.jpg$/i', $file)) {
-			// don't bother processing things that already have thumbnails
-			if (!file_exists($basedir . "thumbs/" . $file)) {
-				createThumbs($basedir,$basedir."thumbs/",600);
-				touch ($file);
-				}
-			}
-		}
-		// clean up after ourselves
-		closedir($dh);
+	// Generate thumbnails for newly added files
+	$files = glob($basedir."*.{jpg,JPG,JPEG}", GLOB_BRACE);
+	foreach ($files as $file)
+		{
+		if (!file_exists($basedir."thumbs/".basename($file)))
+		{
+			createThumbs($basedir,$basedir."thumbs/",600);
+			touch ($file);
 		}
 	}
 
@@ -214,9 +200,9 @@
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 
-	$files = glob($basedir.'*.jpg', GLOB_BRACE);
-	$thumbs = glob($basedir.'thumbs/*.jpg', GLOB_BRACE);
-	$fileCount = count(glob($basedir.'*.jpg'));
+	$files = glob($basedir."*.{jpg,JPG,JPEG}", GLOB_BRACE);
+	$thumbs = glob($basedir."thumbs/*.{jpg,JPG,JPEG}", GLOB_BRACE);
+	$fileCount = count(glob($basedir."*.{jpg,JPG,JPEG}", GLOB_BRACE));
 
 	for ($i=($fileCount-1); $i>=0; $i--) {
 		$exif = exif_read_data($files[$i], 0, true);
