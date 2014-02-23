@@ -122,7 +122,7 @@
 	$days = 15; // expiration period
 	// ----------------------------
 
-	// Create the required directories if it don't exist
+	// Create the required directories if they don't exist
 		if (!file_exists($basedir)) {
 		mkdir($basedir, 0777, true);
 	}
