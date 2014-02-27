@@ -168,7 +168,7 @@
 	// createThumbs($basedir,$basedir."thumbs/",500);
 
 	// Generate thumbnails for newly added files
-	$files = glob($basedir."*.{jpg,JPG,JPEG}", GLOB_BRACE);
+	$files = glob($basedir."*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
 	foreach ($files as $file)
 		{
 		if (!file_exists($basedir."thumbs/".basename($file)))
@@ -199,9 +199,9 @@
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 
-	$files = glob($basedir."*.{jpg,JPG,JPEG}", GLOB_BRACE);
-	$thumbs = glob($basedir."thumbs/*.{jpg,JPG,JPEG}", GLOB_BRACE);
-	$fileCount = count(glob($basedir."*.{jpg,JPG,JPEG}", GLOB_BRACE));
+	$files = glob($basedir."*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE);
+	$thumbs = glob($basedir."thumbs/*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE);
+	$fileCount = count(glob($basedir."*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE));
 
 	for ($i=($fileCount-1); $i>=0; $i--) {
 		$exif = exif_read_data($files[$i], 0, true);
