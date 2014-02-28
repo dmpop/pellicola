@@ -1,1 +1,3 @@
- .directory
+.directory
+photos/*
+!photos/README.txt

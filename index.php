@@ -117,7 +117,7 @@
 	$tagline=" -- Uncomplicated photo publishing --";
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
-	$expire = 'false'; //set to 'true' to enable the expiration feature
+	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
 	// ----------------------------
 
@@ -129,89 +129,97 @@
 		mkdir($basedir.'thumbs', 0777, true);
 	}
 
-	// http://webcheatsheet.com/php/create_thumbnail_images.php
-	function createThumbs($pathToImages, $pathToThumbs, $thumbWidth)
+    // get file info
+    $files = glob($basedir."*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
+    $fileCount = count($files);
+
+    /**
+     * Creates a thumbnail for the given file
+     *
+     * @param string $original path to the original image
+     * @param string $thumb
+     * @param int $thumbWidth
+     * @return bool true if thumbnail creation worked
+     */
+    function createThumb($original, $thumb, $thumbWidth)
 	{
-		// open the directory
-		$dir = opendir($pathToImages);
+        // load image
+        $img    = @imagecreatefromjpeg($original);
+        if($img) return false; // we couldn't read the image, abort
 
-		// loop through it, looking for any/all JPG files:
-		while (false !== ($fname = readdir($dir))) {
-			// parse path for the extension
-			$info = pathinfo($pathToImages . $fname);
-				// load image and get image size
-				$img = imagecreatefromjpeg("{$pathToImages}{$fname}");
-				$width = imagesx($img);
-				$height = imagesy($img);
+        // get image size
+        $width  = imagesx($img);
+        $height = imagesy($img);
 
-				// calculate thumbnail size
-				$new_width = $thumbWidth;
-				$new_height = floor( $height * ($thumbWidth / $width));
+        // calculate thumbnail size
+        $new_width  = $thumbWidth;
+        $new_height = floor($height * ($thumbWidth / $width));
 
-				// create a new temporary image
-				$tmp_img = imagecreatetruecolor($new_width, $new_height);
+        // create a new temporary image
+        $tmp_img = imagecreatetruecolor($new_width, $new_height);
 
-				// copy and resize old image into new image
-				imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        // copy and resize old image into new image
+        imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-				// save thumbnail into a file
-				imagejpeg($tmp_img, "{$pathToThumbs}{$fname}");
-		}
-		// close the directory
-		closedir($dir);
+        // save thumbnail into a file
+        $ok = @imagejpeg($tmp_img, $thumb);
+
+        // cleanup
+        imagedestroy($img);
+        imagedestroy($tmp_img);
+
+        return $ok;
 	}
 	// call createThumb function and pass to it as parameters the path
 	// to the directory that contains images, the path to the directory
 	// in which thumbnails will be placed and the thumbnail's width.
 	// We are assuming that the path will be a relative path working
 	// both in the filesystem, and through the web for links
-	// createThumbs($basedir,$basedir."thumbs/",500);
 
-	// Generate thumbnails for newly added files
-	$files = glob($basedir."*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
-	foreach ($files as $file)
-		{
-		if (!file_exists($basedir."thumbs/".basename($file)))
-		{
-			createThumbs($basedir,$basedir."thumbs/",600);
-			touch ($file);
-		}
-	}
+    // Generate any missing thumbnails and check expiry times
+    for($i = 0; $i < $fileCount; $i++) {
+        $file  = $files[$i];
+        $thumb = $basedir."thumbs/".basename($file);
 
-	// If $expire set to 'true', remove file older than specified number of $days
-	if ($expire == 'true')
-	{
-		$files = glob($basedir.'*');
-		foreach ($files as $file)
-		{
-			if(is_file($file)
-			&& time() - filemtime($file) >= $days*24*60*60) {
-				unlink($file);
-				unlink($basedir.'thumbs/'.basename($file));
-			}
-		}
-	}
+        if(!file_exists($thumb)) {
+            if(createThumb($file, $thumb, 600)) {
+                // this is a new file, update last mod for expiry feature
+                touch($file);
+            } else {
+                // we couldn't create a thumbnail remove the image from our list
+                unset($files[$i]);
+            }
+        }
 
-	echo "<title>$title</title>";
+        if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
+            unlink($file);
+            unlink($tumb);
+        }
+    }
+
+    // update count - we might have removed some files
+    $fileCount = count($files);
+
+
+    echo "<title>$title</title>";
 	echo "</head>";
 	echo "<body>";
 
 	echo "<div id='content'><h1>$title</h1>";
 	echo "<div class='center'>$tagline</div>";
 
-	$files = glob($basedir."*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE);
-	$thumbs = glob($basedir."thumbs/*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE);
-	$fileCount = count(glob($basedir."*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE));
-
 	for ($i=($fileCount-1); $i>=0; $i--) {
-		$exif = exif_read_data($files[$i], 0, true);
-		$filepath = pathinfo($files[$i]);
+        $file  = $files[$i];
+        $thumb = $basedir."thumbs/".basename($file);
+
+        $exif = exif_read_data($file, 0, true);
+		$filepath = pathinfo($file);
 		echo "<h2>".$filepath['filename']."</h2>";
 		echo "<p>";
-		include $basedir.$filepath['filename'].'.php';
+		@include $basedir.$filepath['filename'].'.php';
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
-		echo '<a href="'.$files[$i].'"><img class="dropshadow" src="'.$thumbs[$i].'" alt=""></a>';
+		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0] / $fstop[1];
 		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
