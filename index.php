@@ -13,103 +13,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
-	<style>
-		body {
-			font: 15px/175% 'Open Sans', sans-serif;
-			text-align: justify;
-			background-color: #777777 ;
-		}
-		h1 {
-			color: #cfcfcf;
-			font: 41px 'Open Sans', sans-serif;
-			font-weight: 700;
-			text-align: center;
-			margin-top: 35px;
-			margin-bottom: 11px;
-			padding-bottom: 11px;
-			border-style: dashed;
-			border-top: none;
-			border-left: none;
-			border-right: none;
-			border-bottom: dotted;
-			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 26px;
-		}
-		a {
-			color: #e3e3e3;
-		}
-		a.title {
-			text-decoration: none;
-		}
-		h2 {
-			color: #e3e3e3;
-			font: 29px/50% 'Open Sans', sans-serif;
-			font-weight: 400;
-			text-align: left;
-			margin-top: 39px;
-			margin-bottom: 7px;
-			line-height: 100%;
-			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 5px;
-		}
-		p.box {
-			border-style: dashed;
-			width: 589px;
-			border-width: 1px;
-			font-size: 12px;
-			padding: 5px;
-			color: #e3e3e3;
-			margin-bottom: 0px;
-			text-align: center;
-		}
-		p {
-			width: 600px;
-			text-align: justify;
-		}
-		img.dropshadow {
-			box-shadow: 5px 5px 25px -2px #585858;
-		}
-		img {
-			vertical-align: text-bottom;
-		}
-		#content {
-			position: absolute;
-			top: 10%;
-			left: 50%;
-			margin-top: -75px;
-			margin-left: -300px;
-			width: 600px;
-			height: auto;
-			color: #e3e3e3;
-		}
-		.text {
-			width: 530px;
-			height: auto;
-			text-align: left;
-			padding: 0px;
-			margin: 0px;
-			margin-right: 20px;
-			color: inherit;
-			float: left;
-		}
-		.center {
-			width: 530px;
-			height: auto;
-			text-align: center;
-			padding: 0px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.footer {
-			width: 615px;
-			text-align: center;
-			font-family: monospace;
-			font-size: 11px;
-			margin: 0px;
-			margin-top: 15px;
-		}
-	</style>
-
 	<?php
 
 	// User-defined settings
@@ -170,13 +73,8 @@
 
         return $ok;
 	}
-	// call createThumb function and pass to it as parameters the path
-	// to the directory that contains images, the path to the directory
-	// in which thumbnails will be placed and the thumbnail's width.
-	// We are assuming that the path will be a relative path working
-	// both in the filesystem, and through the web for links
 
-    // Generate any missing thumbnails and check expiry times
+    // Generate any missing thumbnails and check expiration
     for($i = 0; $i < $fileCount; $i++) {
         $file  = $files[$i];
         $thumb = $basedir."thumbs/".basename($file);
@@ -228,5 +126,102 @@
 
 	?>
 	</div>
+
+		<style>
+		body {
+			font: 15px/175% 'Open Sans', sans-serif;
+			text-align: justify;
+			background-color: #777777 ;
+			}
+		h1 {
+			color: #cfcfcf;
+			font: 41px 'Open Sans', sans-serif;
+			font-weight: 700;
+			text-align: center;
+			margin-top: 35px;
+			margin-bottom: 11px;
+			padding-bottom: 11px;
+			border-style: dashed;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: dotted;
+			text-shadow: 1px 1px 1px #585858;
+			letter-spacing: 26px;
+			}
+		a {
+			color: #e3e3e3;
+			}
+		a.title {
+			text-decoration: none;
+			}
+		h2 {
+			color: #e3e3e3;
+			font: 29px/50% 'Open Sans', sans-serif;
+			font-weight: 400;
+			text-align: left;
+			margin-top: 39px;
+			margin-bottom: 7px;
+			line-height: 100%;
+			text-shadow: 1px 1px 1px #585858;
+			letter-spacing: 5px;
+			}
+		p.box {
+			border-style: dashed;
+			width: 589px;
+			border-width: 1px;
+			font-size: 12px;
+			padding: 5px;
+			color: #e3e3e3;
+			margin-bottom: 0px;
+			text-align: center;
+			}
+		p {
+			width: 600px;
+			text-align: justify;
+			}
+		img.dropshadow {
+			box-shadow: 5px 5px 25px -2px #585858;
+			}
+		img {
+			vertical-align: text-bottom;
+			}
+		#content {
+			position: absolute;
+			top: 10%;
+			left: 50%;
+			margin-top: -75px;
+			margin-left: -300px;
+			width: 600px;
+			height: auto;
+			color: #e3e3e3;
+			}
+		.text {
+			width: 530px;
+			height: auto;
+			text-align: left;
+			padding: 0px;
+			margin: 0px;
+			margin-right: 20px;
+			color: inherit;
+			float: left;
+			}
+		.center {
+			width: 530px;
+			height: auto;
+			text-align: center;
+			padding: 0px;
+			margin-left: auto;
+			margin-right: auto;
+			}
+		.footer {
+			width: 615px;
+			text-align: center;
+			font-family: monospace;
+			font-size: 11px;
+			margin: 0px;
+			margin-top: 15px;
+			}
+		</style>
 	</body>
 </html>
