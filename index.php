@@ -21,6 +21,7 @@
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
 	$expire = false; //set to true to enable the expiration feature
+	$log = false; //set to true to enable ip logging
 	$days = 15; // expiration period
 	// ----------------------------
 
@@ -47,11 +48,11 @@
     function createThumb($original, $thumb, $thumbWidth)
 	{
         // load image
-        $img    = @imagecreatefromjpeg($original);
+        $img = @imagecreatefromjpeg($original);
         if($img) return false; // we couldn't read the image, abort
 
         // get image size
-        $width  = imagesx($img);
+        $width = imagesx($img);
         $height = imagesy($img);
 
         // calculate thumbnail size
@@ -123,6 +124,14 @@
 		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
 	}
 		echo "<div class='footer'>$footer</div>";
+
+		if ($log) {
+			$ip=$_SERVER['REMOTE_ADDR'];
+			$date = $date = date('Y-m-d H:i:s');
+			$file = fopen("ip.log", "a+");
+			fputs($file, " $ip  $page $date \n");
+			fclose($file);
+		}
 
 	?>
 	</div>
