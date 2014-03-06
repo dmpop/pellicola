@@ -33,74 +33,75 @@
 		mkdir($basedir.'thumbs', 0777, true);
 	}
 
-    // get file info
-    $files = glob($basedir."*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
-    $fileCount = count($files);
+	// get file info
+	$files = glob($basedir."*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
+	$fileCount = count($files);
 
-    /**
-     * Creates a thumbnail for the given file
-     *
-     * @param string $original path to the original image
-     * @param string $thumb
-     * @param int $thumbWidth
-     * @return bool true if thumbnail creation worked
-     */
-    function createThumb($original, $thumb, $thumbWidth)
+	/**
+	* Creates a thumbnail for the given file
+	*
+	* @param string $original path to the original image
+	* @param string $thumb
+	* @param int $thumbWidth
+	* @return bool true if thumbnail creation worked
+	*/
+
+	function createThumb($original, $thumb, $thumbWidth)
 	{
-        // load image
-        $img = @imagecreatefromjpeg($original);
-        if(!$img) return false; // we couldn't read the image, abort
+		// load image
+		$img = @imagecreatefromjpeg($original);
+		if(!$img) return false; // we couldn't read the image, abort
 
-        // get image size
-        $width = imagesx($img);
-        $height = imagesy($img);
+		// get image size
+		$width = imagesx($img);
+		$height = imagesy($img);
 
-        // calculate thumbnail size
-        $new_width  = $thumbWidth;
-        $new_height = floor($height * ($thumbWidth / $width));
+		// calculate thumbnail size
+		$new_width  = $thumbWidth;
+		$new_height = floor($height * ($thumbWidth / $width));
 
-        // create a new temporary image
-        $tmp_img = imagecreatetruecolor($new_width, $new_height);
+		// create a new temporary image
+		$tmp_img = imagecreatetruecolor($new_width, $new_height);
 
-        // copy and resize old image into new image
-        imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+		// copy and resize old image into new image
+		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-        // save thumbnail into a file
-        $ok = @imagejpeg($tmp_img, $thumb);
+		// save thumbnail into a file
+		$ok = @imagejpeg($tmp_img, $thumb);
 
-        // cleanup
-        imagedestroy($img);
-        imagedestroy($tmp_img);
+		// cleanup
+		imagedestroy($img);
+		imagedestroy($tmp_img);
 
-        return $ok;
+		return $ok;
 	}
 
-    // Generate any missing thumbnails and check expiration
-    for($i = 0; $i < $fileCount; $i++) {
-        $file  = $files[$i];
-        $thumb = $basedir."thumbs/".basename($file);
+	// Generate any missing thumbnails and check expiration
+	for($i = 0; $i < $fileCount; $i++) {
+		$file  = $files[$i];
+		$thumb = $basedir."thumbs/".basename($file);
 
-        if(!file_exists($thumb)) {
-            if(createThumb($file, $thumb, 600)) {
-                // this is a new file, update last mod for expiry feature
-                touch($file);
-            } else {
-                // we couldn't create a thumbnail remove the image from our list
-                unset($files[$i]);
-            }
-        }
+		if(!file_exists($thumb)) {
+			if(createThumb($file, $thumb, 600)) {
+				// this is a new file, update last mod for expiry feature
+				touch($file);
+			} else {
+				// we couldn't create a thumbnail remove the image from our list
+				unset($files[$i]);
+			}
+		}
 
-        if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
-            unlink($file);
-            unlink($tumb);
-        }
-    }
+		if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
+			unlink($file);
+			unlink($tumb);
+		}
+	}
 
-    // update count - we might have removed some files
-    $fileCount = count($files);
+	// update count - we might have removed some files
+	$fileCount = count($files);
 
 
-    echo "<title>$title</title>";
+	echo "<title>$title</title>";
 	echo "</head>";
 	echo "<body>";
 
@@ -108,10 +109,10 @@
 	echo "<div class='center'>$tagline</div>";
 
 	for ($i=($fileCount-1); $i>=0; $i--) {
-        $file  = $files[$i];
-        $thumb = $basedir."thumbs/".basename($file);
+		$file  = $files[$i];
+		$thumb = $basedir."thumbs/".basename($file);
 
-        $exif = exif_read_data($file, 0, true);
+		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		echo "<h2>".$filepath['filename']."</h2>";
 		echo "<p>";
