@@ -49,7 +49,7 @@
 	{
         // load image
         $img = @imagecreatefromjpeg($original);
-        if($img) return false; // we couldn't read the image, abort
+        if(!$img) return false; // we couldn't read the image, abort
 
         // get image size
         $width = imagesx($img);
