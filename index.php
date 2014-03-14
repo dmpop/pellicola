@@ -11,18 +11,18 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Sofia' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<?php
 
 	// User-defined settings
-	$title = 'PHOTOCRUMBS';
-	$tagline=" -- Uncomplicated photo publishing --";
+	$title = 'Photocrumbs';
 	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
 	$expire = false; //set to true to enable the expiration feature
-	$log = false; //set to true to enable ip logging
 	$days = 15; // expiration period
+	$log = false; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -105,8 +105,8 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<div id='content'><h1>$title</h1>";
-	echo "<div class='center'>$tagline</div>";
+	echo "<h1>$title</h1>";
+	echo "<div id='content'>";
 
 	for ($i=($fileCount-1); $i>=0; $i--) {
 		$file  = $files[$i];
@@ -144,20 +144,18 @@
 			background-color: #777777 ;
 			}
 		h1 {
-			color: #cfcfcf;
-			font: 41px 'Open Sans', sans-serif;
-			font-weight: 700;
+			color: #FFFFFF;
+			font: 31px 'Sofia', cursive;
 			text-align: center;
-			margin-top: 35px;
-			margin-bottom: 11px;
-			padding-bottom: 11px;
-			border-style: dashed;
-			border-top: none;
-			border-left: none;
-			border-right: none;
-			border-bottom: dotted;
-			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 26px;
+			margin-top: 25px;
+			margin-left: -7px;
+			padding-bottom: 3px;
+			padding-top: 3px;
+			padding-left: 5px;
+			padding-right: 7px;
+			position:fixed;
+			background-color:#FFCE08;
+			box-shadow: 1px 1px 7px -2px #585858;
 			}
 		a {
 			color: #e3e3e3;
@@ -170,7 +168,7 @@
 			font: 29px/50% 'Open Sans', sans-serif;
 			font-weight: 400;
 			text-align: left;
-			margin-top: 39px;
+			margin-top: 25px;
 			margin-bottom: 7px;
 			line-height: 100%;
 			text-shadow: 1px 1px 1px #585858;
@@ -198,17 +196,14 @@
 			}
 		#content {
 			position: absolute;
-			top: 10%;
 			left: 50%;
-			margin-top: -75px;
+			margin-top: 0px;
 			margin-left: -300px;
 			width: 600px;
-			height: auto;
 			color: #e3e3e3;
 			}
 		.text {
 			width: 530px;
-			height: auto;
 			text-align: left;
 			padding: 0px;
 			margin: 0px;
