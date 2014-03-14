@@ -93,7 +93,7 @@
 
 		if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
 			unlink($file);
-			unlink($tumb);
+			unlink($thumb);
 		}
 	}
 
