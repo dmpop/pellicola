@@ -18,7 +18,6 @@
 
 	// User-defined settings
 	$title = 'Photocrumbs';
-	$basedir='photos/';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
@@ -26,25 +25,16 @@
 	// ----------------------------
 
 	// Create the required directories if they don't exist
-		if (!file_exists($basedir)) {
-		mkdir($basedir, 0777, true);
+		if (!file_exists('photos')) {
+		mkdir('photos', 0777, true);
 	}
-	if (!file_exists($basedir.'thumbs')) {
-		mkdir($basedir.'thumbs', 0777, true);
+	if (!file_exists('photos/thumbs')) {
+		mkdir('photos/thumbs', 0777, true);
 	}
 
 	// get file info
-	$files = glob($basedir."*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
+	$files = glob("photos/*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
 	$fileCount = count($files);
-
-	/**
-	* Creates a thumbnail for the given file
-	*
-	* @param string $original path to the original image
-	* @param string $thumb
-	* @param int $thumbWidth
-	* @return bool true if thumbnail creation worked
-	*/
 
 	function createThumb($original, $thumb, $thumbWidth)
 	{
@@ -73,13 +63,14 @@
 		imagedestroy($img);
 		imagedestroy($tmp_img);
 
+		// return bool true if thumbnail creation worked
 		return $ok;
 	}
 
 	// Generate any missing thumbnails and check expiration
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
-		$thumb = $basedir."thumbs/".basename($file);
+		$thumb = "photos/thumbs/".basename($file);
 
 		if(!file_exists($thumb)) {
 			if(createThumb($file, $thumb, 600)) {
@@ -100,6 +91,21 @@
 	// update count - we might have removed some files
 	$fileCount = count($files);
 
+	function showPhoto($file) {
+		$thumb = "photos/thumbs/".basename($file);
+		$exif = exif_read_data($file, 0, true);
+		$filepath = pathinfo($file);
+		echo "<h2>".$filepath['filename']."</h2>";
+		echo "<p>";
+		@include 'photos/'.$filepath['filename'].'.php';
+		echo $exif['COMPUTED']['UserComment'];
+		echo "</p>";
+		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
+		$fstop = explode("/", $exif['EXIF']['FNumber']);
+		$fstop = $fstop[0] / $fstop[1];
+		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
+	}
+
 
 	echo "<title>$title</title>";
 	echo "</head>";
@@ -108,31 +114,29 @@
 	echo "<h1>$title</h1>";
 	echo "<div id='content'>";
 
-	for ($i=($fileCount-1); $i>=0; $i--) {
-		$file  = $files[$i];
-		$thumb = $basedir."thumbs/".basename($file);
-
-		$exif = exif_read_data($file, 0, true);
-		$filepath = pathinfo($file);
-		echo "<h2>".$filepath['filename']."</h2>";
-		echo "<p>";
-		@include $basedir.$filepath['filename'].'.php';
-		echo $exif['COMPUTED']['UserComment'];
-		echo "</p>";
-		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
-		$fstop = explode("/", $exif['EXIF']['FNumber']);
-		$fstop = $fstop[0] / $fstop[1];
-		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
+	// Get the $id parameter from the URL. If $id is not empty, then show only the specified photo
+	$file = $_GET['id'];
+	if (!empty($file)) {
+		showPhoto($file);
 	}
-		echo "<div class='footer'>$footer</div>";
+	// If $id is empty, show all photos
+	else {
 
-		if ($log) {
-			$ip=$_SERVER['REMOTE_ADDR'];
-			$date = $date = date('Y-m-d H:i:s');
-			$file = fopen("ip.log", "a+");
-			fputs($file, " $ip  $page $date \n");
-			fclose($file);
+		for ($i=($fileCount-1); $i>=0; $i--) {
+			$file = $files[$i];
+			showPhoto($file);
 		}
+	}
+
+	echo "<div class='footer'>$footer</div>";
+
+	if ($log) {
+		$ip=$_SERVER['REMOTE_ADDR'];
+		$date = $date = date('Y-m-d H:i:s');
+		$file = fopen("ip.log", "a+");
+		fputs($file, " $ip  $page $date \n");
+		fclose($file);
+	}
 
 	?>
 	</div>
