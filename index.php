@@ -22,7 +22,7 @@
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = false; //set to true to enable ip logging
+	$log = true; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -147,7 +147,7 @@
 			color: #FFFFFF;
 			font: 31px 'Sofia', cursive;
 			text-align: center;
-			margin-top: 25px;
+			margin-top: 27px;
 			margin-left: -7px;
 			padding-bottom: 3px;
 			padding-top: 3px;
@@ -196,9 +196,7 @@
 			}
 		#content {
 			position: absolute;
-			left: 50%;
-			margin-top: 0px;
-			margin-left: -300px;
+			left: 235px;
 			width: 600px;
 			color: #e3e3e3;
 			}
@@ -206,7 +204,6 @@
 			width: 530px;
 			text-align: left;
 			padding: 0px;
-			margin: 0px;
 			margin-right: 20px;
 			color: inherit;
 			float: left;
@@ -224,7 +221,6 @@
 			text-align: center;
 			font-family: monospace;
 			font-size: 11px;
-			margin: 0px;
 			margin-top: 15px;
 			}
 		</style>
