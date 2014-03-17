@@ -21,7 +21,7 @@
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = true; //set to true to enable ip logging
+	$log = false; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -111,7 +111,7 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<h1>$title</h1>";
+	echo "<h1><a class='title' href='".basename($_SERVER['PHP_SELF'])."'>$title</a></h1>";
 	echo "<div id='content'>";
 
 	// Get the $id parameter from the URL. If $id is not empty, then show only the specified photo
@@ -166,6 +166,7 @@
 			}
 		a.title {
 			text-decoration: none;
+			color: #FFFFFF;
 			}
 		h2 {
 			color: #e3e3e3;
