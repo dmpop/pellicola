@@ -145,7 +145,7 @@
 		body {
 			font: 15px/175% 'Open Sans', sans-serif;
 			text-align: justify;
-			background-color: #3B3B3B;
+			background-color: #777777;
 			}
 		h1 {
 			color: #FFFFFF;
@@ -159,7 +159,7 @@
 			padding-right: 7px;
 			position:fixed;
 			background-color:#FFCE08;
-			box-shadow: 1px 1px 7px -2px #0A0A0A;
+			box-shadow: 1px 1px 7px -2px #585858;
 			}
 		a {
 			color: #e3e3e3;
@@ -169,13 +169,14 @@
 			color: #FFFFFF;
 			}
 		h2 {
-			color: #e3e3e3;
+			color: #E3E3E3;
 			font: 29px/50% 'Open Sans', sans-serif;
 			font-weight: 400;
 			text-align: left;
 			margin-top: 25px;
 			margin-bottom: 7px;
 			line-height: 100%;
+			text-shadow: 1px 1px 1px #585858;
 			letter-spacing: 5px;
 			}
 		p.box {
@@ -193,7 +194,7 @@
 			text-align: justify;
 			}
 		img.dropshadow {
-			box-shadow: 5px 5px 25px -2px #292929;
+			box-shadow: 5px 5px 25px -2px #585858;
 			}
 		img {
 			vertical-align: text-bottom;
@@ -202,7 +203,7 @@
 			position: absolute;
 			left: 235px;
 			width: 600px;
-			color: #e3e3e3;
+			color: #E3E3E3;
 			}
 		.text {
 			width: 530px;
