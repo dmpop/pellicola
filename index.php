@@ -145,7 +145,7 @@
 		body {
 			font: 15px/175% 'Open Sans', sans-serif;
 			text-align: justify;
-			background-color: #777777 ;
+			background-color: #3B3B3B;
 			}
 		h1 {
 			color: #FFFFFF;
@@ -159,7 +159,7 @@
 			padding-right: 7px;
 			position:fixed;
 			background-color:#FFCE08;
-			box-shadow: 1px 1px 7px -2px #585858;
+			box-shadow: 1px 1px 7px -2px #0A0A0A;
 			}
 		a {
 			color: #e3e3e3;
@@ -176,7 +176,6 @@
 			margin-top: 25px;
 			margin-bottom: 7px;
 			line-height: 100%;
-			text-shadow: 1px 1px 1px #585858;
 			letter-spacing: 5px;
 			}
 		p.box {
@@ -194,7 +193,7 @@
 			text-align: justify;
 			}
 		img.dropshadow {
-			box-shadow: 5px 5px 25px -2px #585858;
+			box-shadow: 5px 5px 25px -2px #292929;
 			}
 		img {
 			vertical-align: text-bottom;
