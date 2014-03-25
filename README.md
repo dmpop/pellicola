@@ -32,4 +32,4 @@ You can use Photocrumbs to display a single photo by specifying the *id* paramet
 
 ##Demo
 
-[Photocrumbs demo](http://dmpop.homelinux.com/photocrumbs/).
+[Photocrumbs demo](http://dmpop.homelinux.com/photocrumbs/) for your viewing pleasure.
