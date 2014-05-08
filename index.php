@@ -104,7 +104,7 @@
 		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0] / $fstop[1];
-		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong> Timestamp: <strong>".$exif['EXIF']['DateTimeOriginal']."</strong></p>";
+		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong></p>";
 	}
 
 
