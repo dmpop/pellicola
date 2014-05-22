@@ -18,6 +18,7 @@
 	// User-defined settings
 	$title = 'Photocrumbs';
 	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
+	$quote='Which of my photographs is my favourite? The one I\'m going to take tomorrow. --Imogen Cunningham (1883 – 1976)';
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
 	$log = false; //set to true to enable ip logging
@@ -112,6 +113,7 @@
 	echo "<body>";
 
 	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='photocrumbs.png' /></a>";
+	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
 	// Get the $id parameter from the URL. If $id is not empty, then show only the specified photo
@@ -179,6 +181,19 @@
 			width: 600px;
 			text-align: justify;
 			}
+		p.quote {
+			font: 11px/175% 'Open Sans', sans-serif;
+			text-align: center;
+			color: #e3e3e3;
+			margin-top: 171px;
+			margin-left: -1px;
+			width:175px;
+			padding-bottom: 3px;
+			padding-top: 3px;
+			padding-left: 5px;
+			padding-right: 7px;
+			position:fixed;
+		}
 		img.logo {
 			margin-top: 21px;
 			margin-left: -1px;
