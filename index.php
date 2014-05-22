@@ -11,7 +11,6 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Sofia' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<?php
@@ -96,7 +95,7 @@
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
-		echo "<h2>".$filepath['filename']."</h2>";
+		echo "<h1>".$filepath['filename']."</h1>";
 		echo "<p>";
 		@include 'photos/'.$filepath['filename'].'.php';
 		echo $exif['COMPUTED']['UserComment'];
@@ -112,7 +111,7 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<h1><a class='title' href='".basename($_SERVER['PHP_SELF'])."'>$title</a></h1>";
+	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='photocrumbs.png' /></a>";
 	echo "<div id='content'>";
 
 	// Get the $id parameter from the URL. If $id is not empty, then show only the specified photo
@@ -148,20 +147,6 @@
 			text-align: justify;
 			background-color: #777777;
 			}
-		h1 {
-			color: #FFFFFF;
-			font: 31px 'Sofia', cursive;
-			text-align: center;
-			margin-top: 27px;
-			margin-left: -7px;
-			padding-bottom: 3px;
-			padding-top: 3px;
-			padding-left: 5px;
-			padding-right: 7px;
-			position:fixed;
-			background-color:#FFCE08;
-			box-shadow: 1px 1px 7px -2px #585858;
-			}
 		a {
 			color: #e3e3e3;
 			}
@@ -169,7 +154,7 @@
 			text-decoration: none;
 			color: #FFFFFF;
 			}
-		h2 {
+		h1 {
 			color: #E3E3E3;
 			font: 29px/50% 'Open Sans', sans-serif;
 			font-weight: 400;
@@ -194,8 +179,14 @@
 			width: 600px;
 			text-align: justify;
 			}
-		img.dropshadow {
-			box-shadow: 5px 5px 25px -2px #585858;
+		img.logo {
+			margin-top: 21px;
+			margin-left: -1px;
+			padding-bottom: 3px;
+			padding-top: 3px;
+			padding-left: 5px;
+			padding-right: 7px;
+			position:fixed;
 			}
 		img {
 			vertical-align: text-bottom;
