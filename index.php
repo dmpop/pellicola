@@ -112,7 +112,7 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='photocrumbs.png' /></a>";
+	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='photocrumbs.svg' width='175' /></a>";
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
