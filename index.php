@@ -125,7 +125,7 @@
 // Get the $view parameter from the URL. If $view is not empty, show thumbnails as a pseudo table.
 	$view = $_GET['view'];
 	if (!empty($view)) {
-		echo "<h1>$title</h1>";
+		echo "<h1>All ".$fileCount." ".$title."</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
