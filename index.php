@@ -73,8 +73,8 @@
 		$thumb = "photos/thumbs/".basename($file);
 
 		if(!file_exists($thumb)) {
-			if(createThumb($file, $thumb, 800)) {
-				// this is a new file, update last mod for expiry feature
+			if(createThumb($file, $thumb, 700)) {
+				// this is a new file, update last mod for expiration feature
 				touch($file);
 			} else {
 				// we couldn't create a thumbnail remove the image from our list
@@ -124,6 +124,7 @@
 
 	// The $view parameter is used to hide the thumbnails
 	$view = $_GET['view'];
+	if (empty($view)) {
 		echo "<h1>".$fileCount." ".$title."</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
@@ -177,7 +178,7 @@
 			}
 		p.box {
 			border-style: dashed;
-			width: 788px;
+			width: 688px;
 			border-width: 1px;
 			font-size: 12px;
 			padding: 5px;
@@ -186,7 +187,7 @@
 			text-align: center;
 			}
 		p {
-			width: 800px;
+			width: 700px;
 			text-align: justify;
 			}
 		p.quote {
@@ -217,7 +218,7 @@
 		#content {
 			position: absolute;
 			left: 235px;
-			width: 800px;
+			width: 700px;
 			color: #E3E3E3;
 			}
 		.text {
