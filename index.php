@@ -122,8 +122,8 @@
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
-// The $view parameter is used to hide the thumbnails
-	if (empty($view)) {
+	// The $view parameter is used to hide the thumbnails
+	$view = $_GET['view'];
 		echo "<h1>".$fileCount." ".$title."</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
