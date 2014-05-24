@@ -153,7 +153,7 @@
 
 		<style>
 		body {
-			font: 15px/175% 'Open Sans', sans-serif;
+			font: 15px/25px 'Open Sans', sans-serif;
 			text-align: justify;
 			background-color: #777777;
 			}
