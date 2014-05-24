@@ -130,7 +130,7 @@
 		}
 	}
 
-	echo "<div class='footer'>$footer</div>";
+	echo "<div class='footer'>$footer Photo count: ".$fileCount."</div>";
 
 	if ($log) {
 		$ip=$_SERVER['REMOTE_ADDR'];
