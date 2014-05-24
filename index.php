@@ -111,7 +111,7 @@
 	function showPhotoTbl($file) {
 		$thumb = "photos/thumbs/".basename($file);
 		$filepath = pathinfo($file);
-		echo '<a href="'.$file.'"><img src="'.$thumb.'" alt="" width=64 hspace="1"></a>';
+		echo '<a href="index.php?id='.$file.'"><img src="'.$thumb.'" alt="" width=64 hspace="1"></a>';
 	}
 
 	echo "<title>$title</title>";
