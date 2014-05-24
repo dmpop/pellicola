@@ -73,7 +73,7 @@
 		$thumb = "photos/thumbs/".basename($file);
 
 		if(!file_exists($thumb)) {
-			if(createThumb($file, $thumb, 600)) {
+			if(createThumb($file, $thumb, 800)) {
 				// this is a new file, update last mod for expiry feature
 				touch($file);
 			} else {
@@ -111,7 +111,7 @@
 	function showPhotoTbl($file) {
 		$thumb = "photos/thumbs/".basename($file);
 		$filepath = pathinfo($file);
-		echo '<a href="index.php?id='.$file.'"><img src="'.$thumb.'" alt="" width=64 hspace="1"></a>';
+		echo '<a href="index.php?id='.$file.'&view=1"><img src="'.$thumb.'" alt="" width=128 hspace="1"></a>';
 	}
 
 	echo "<title>$title</title>";
@@ -124,8 +124,8 @@
 
 // Get the $view parameter from the URL. If $view is not empty, show thumbnails as a pseudo table.
 	$view = $_GET['view'];
-	if (!empty($view)) {
-		echo "<h1>All ".$fileCount." ".$title."</h1>";
+	if (empty($view)) {
+		echo "<h1>".$fileCount." ".$title."</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
@@ -137,15 +137,6 @@
 	$file = $_GET['id'];
 	if (!empty($file)) {
 		showPhoto($file);
-	}
-	// If $id is empty, show all photos
-
-	else {
-
-		for ($i=($fileCount-1); $i>=0; $i--) {
-			$file = $files[$i];
-			showPhoto($file);
-		}
 	}
 
 	echo "<div class='footer'>$footer</div>";
@@ -187,7 +178,7 @@
 			}
 		p.box {
 			border-style: dashed;
-			width: 589px;
+			width: 788px;
 			border-width: 1px;
 			font-size: 12px;
 			padding: 5px;
@@ -196,7 +187,7 @@
 			text-align: center;
 			}
 		p {
-			width: 600px;
+			width: 800px;
 			text-align: justify;
 			}
 		p.quote {
@@ -227,7 +218,7 @@
 		#content {
 			position: absolute;
 			left: 235px;
-			width: 600px;
+			width: 800px;
 			color: #E3E3E3;
 			}
 		.text {

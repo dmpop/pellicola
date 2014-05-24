@@ -1,6 +1,6 @@
 ##About Photocrumbs
 
-Photocrumbs is a forgetful single-file PHP web app for instantly publishing photos as a chronological stream. The app features expiration functionality. When enabled, it deletes photos older than a user-defined number of days -- hence the *forgetful* moniker.
+Photocrumbs is a forgetful single-file PHP web app for instant photo publishing. The app features expiration functionality. When enabled, it deletes photos older than a user-defined number of days -- hence the *forgetful* moniker.
 
 ##Features
 
@@ -27,10 +27,6 @@ Photocrumbs is a forgetful single-file PHP web app for instantly publishing phot
 You can add descriptions to photos by creating accompanying *.php* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.php* file containing a short text. You can use HTML markup for formatting the text.
 
 To enable the expiration feature, change the *$expire = false;* line in the *index.php* script to *$expire = true;* and specify the desired expiration period by modifying the *$days* variable.
-
-You can use Photocrumbs to display a single photo by specifying the *id* parameter in the URL. For example, the http://127.0.0.1/photocrumbs/index.php?id=photos/F994362-R1-14-15.jpg URL shows the *F994362-R1-14-15.jpg* photo.
-
-To view thumbnails of all photos, add the *?view=1* parameter to the URL as follows: http://127.0.0.1/photocrumbs/index.php?view=1
 
 ##Demo
 
