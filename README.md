@@ -30,6 +30,8 @@ To enable the expiration feature, change the *$expire = false;* line in the *ind
 
 You can use Photocrumbs to display a single photo by specifying the *id* parameter in the URL. For example, the http://127.0.0.1/photocrumbs/index.php?id=photos/F994362-R1-14-15.jpg URL shows the *F994362-R1-14-15.jpg* photo.
 
+To view thumbnails of all photos, add the *?view=1* parameter to the URL as follows: http://127.0.0.1/photocrumbs/index.php?view=1
+
 ##Demo
 
 A [Photocrumbs demo](http://dmpop.homelinux.com/photocrumbs/) is available for your viewing pleasure.
