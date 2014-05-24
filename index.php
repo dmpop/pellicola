@@ -107,6 +107,12 @@
 		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong></p>";
 	}
 
+// Version of the showPhoto function that displays all thumbnails as a pseudo table
+	function showPhotoTbl($file) {
+		$thumb = "photos/thumbs/".basename($file);
+		$filepath = pathinfo($file);
+		echo '<a href="'.$file.'"><img src="'.$thumb.'" alt="" width=64 hspace="1"></a>';
+	}
 
 	echo "<title>$title</title>";
 	echo "</head>";
@@ -116,12 +122,24 @@
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
+// Get the $view parameter from the URL. If $view is not empty, show thumbnails as a pseudo table.
+	$view = $_GET['view'];
+	if (!empty($view)) {
+		echo "<h1>$title</h1>";
+		echo "<p>";
+		for ($i=($fileCount-1); $i>=0; $i--) {
+			$file = $files[$i];
+			showPhotoTbl($file);
+		}
+	}
+
 	// Get the $id parameter from the URL. If $id is not empty, then show only the specified photo
 	$file = $_GET['id'];
 	if (!empty($file)) {
 		showPhoto($file);
 	}
 	// If $id is empty, show all photos
+
 	else {
 
 		for ($i=($fileCount-1); $i>=0; $i--) {
