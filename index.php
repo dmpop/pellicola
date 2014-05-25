@@ -230,7 +230,7 @@
 			}
 		.footer {
 			width: 615px;
-			text-align: center;
+			text-align: left;
 			font-family: monospace;
 			font-size: 11px;
 			margin-top: 15px;
