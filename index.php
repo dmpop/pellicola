@@ -92,28 +92,6 @@
 	// update count - we might have removed some files
 	$fileCount = count($files);
 
-	function showPhoto($file) {
-		$thumb = "photos/thumbs/".basename($file);
-		$exif = exif_read_data($file, 0, true);
-		$filepath = pathinfo($file);
-		echo "<h1>".$filepath['filename']."</h1>";
-		echo "<p>";
-		@include 'photos/'.$filepath['filename'].'.php';
-		echo $exif['COMPUTED']['UserComment'];
-		echo "</p>";
-		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
-		$fstop = explode("/", $exif['EXIF']['FNumber']);
-		$fstop = $fstop[0] / $fstop[1];
-		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong></p>";
-	}
-
-// Version of the showPhoto function that displays all thumbnails
-	function showPhotoTbl($file) {
-		$thumb = "photos/thumbs/".basename($file);
-		$filepath = pathinfo($file);
-		echo '<a href="index.php?id='.$file.'&view=1"><img src="'.$thumb.'" alt="" width=128 hspace="1"></a>';
-	}
-
 	echo "<title>$title</title>";
 	echo "</head>";
 	echo "<body>";
@@ -129,14 +107,27 @@
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
-			showPhotoTbl($file);
+			$thumb = "photos/thumbs/".basename($file);
+			$filepath = pathinfo($file);
+			echo '<a href="index.php?id='.$file.'&view=1"><img src="'.$thumb.'" alt="" width=128 hspace="1"></a>';
 		}
 	}
 
 	// The $id parameter is used to display an individual photo
 	$file = $_GET['id'];
 	if (!empty($file)) {
-		showPhoto($file);
+		$thumb = "photos/thumbs/".basename($file);
+		$exif = exif_read_data($file, 0, true);
+		$filepath = pathinfo($file);
+		echo "<h1>".$filepath['filename']."</h1>";
+		echo "<p>";
+		@include 'photos/'.$filepath['filename'].'.php';
+		echo $exif['COMPUTED']['UserComment'];
+		echo "</p>";
+		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
+		$fstop = explode("/", $exif['EXIF']['FNumber']);
+		$fstop = $fstop[0] / $fstop[1];
+		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong></p>";
 	}
 
 	echo "<div class='footer'>$footer</div>";
