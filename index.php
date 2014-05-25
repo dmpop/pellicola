@@ -109,7 +109,7 @@
 			$file = $files[$i];
 			$thumb = "photos/thumbs/".basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?id='.$file.'&view=1"><img src="'.$thumb.'" alt="" width=128 hspace="1"></a>';
+			echo '<a href="index.php?id='.$file.'&view=1"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128 hspace="1"></a>';
 		}
 	}
 
