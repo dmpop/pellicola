@@ -100,8 +100,8 @@
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
-	// The $view parameter is used to hide the thumbnails
-	$view = $_GET['view'];
+	// The $t parameter is used to hide the thumbnails
+	$view = $_GET['t'];
 	if (empty($view)) {
 		echo "<h1>".$fileCount." ".$title."</h1>";
 		echo "<p>";
@@ -109,12 +109,12 @@
 			$file = $files[$i];
 			$thumb = "photos/thumbs/".basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?id='.$file.'&view=1"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128 hspace="1"></a>';
+			echo '<a href="index.php?p='.$file.'&t=1"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128 hspace="1"></a>';
 		}
 	}
 
-	// The $id parameter is used to display an individual photo
-	$file = $_GET['id'];
+	// The $p parameter is used to display an individual photo
+	$file = $_GET['p'];
 	if (!empty($file)) {
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
