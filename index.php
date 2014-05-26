@@ -21,7 +21,7 @@
 	$quote='Which of my photographs is my favourite? The one I\'m going to take tomorrow. --Imogen Cunningham (1883 – 1976)';
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = false; //set to true to enable ip logging
+	$log = true; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -127,7 +127,22 @@
 		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0] / $fstop[1];
-		echo "<p class='box'>Aperture: <strong>f/".$fstop."</strong> Shutter speed: <strong>" .$exif['EXIF']['ExposureTime']. "</strong> ISO: <strong>".$exif['EXIF']['ISOSpeedRatings']. "</strong></p>";
+		if (empty($fstop)) {
+			$fstop = "n/a";
+		}
+		$exposuretime=$exif['EXIF']['ExposureTime'];
+		if (empty($exposuretime)) {
+			$exposuretime="n/a";
+		}
+		$iso=$exif['EXIF']['ISOSpeedRatings'];
+		if (empty($iso)) {
+			$iso="n/a";
+		}
+		$datetime=$exif['EXIF']['DateTimeOriginal'];
+		if (empty($datetime)) {
+			$datetime="n/a";
+		}
+		echo "<p class='box'>Aperture: ".$fstop." Shutter speed: " .$exposuretime. " ISO: ".$iso. " Timestamp: ".$datetime."</p>";
 	}
 
 	echo "<div class='footer'>$footer</div>";
