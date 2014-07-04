@@ -13,7 +13,7 @@ Photocrumbs is a forgetful single-file PHP web app for instant photo publishing.
 
 ##Requirements
 
-* Apache server with PHP5 and the GD library
+* A web server with PHP5 and the GD library. (Tested with Apache and lighttpd)
 * Git (optional)
 
 ##Installation and Usage
