@@ -16,12 +16,12 @@
 	<?php
 
 	// User-defined settings
-	$title = 'Photocrumbs';
-	$footer='Powered by <a href="https://github.com/dmpop/photocrumbs">Photocrumbs</a>';
-	$quote='Which of my photographs is my favourite? The one I\'m going to take tomorrow. --Imogen Cunningham (1883 – 1976)';
+	$title = "Photocrumbs";
+	$footer="Powered by <a href='https://github.com/dmpop/photocrumbs'>Photocrumbs</a>";
+	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = true; //set to true to enable ip logging
+	$log = false; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -116,6 +116,7 @@
 	// The $p parameter is used to display an individual photo
 	$file = $_GET['p'];
 	if (!empty($file)) {
+		$key = array_search($file, $files); // determine the array key of the current item
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
@@ -143,6 +144,7 @@
 			$datetime="n/a";
 		}
 		echo "<p class='box'>Aperture: ".$fstop." Shutter speed: " .$exposuretime. " ISO: ".$iso. " Timestamp: ".$datetime."</p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
 	echo "<div class='footer'>$footer</div>";
@@ -190,6 +192,11 @@
 			padding: 5px;
 			color: #e3e3e3;
 			margin-bottom: 0px;
+			text-align: center;
+			}
+			p.center {
+			font-size: 12px;
+			padding: 1px;
 			text-align: center;
 			}
 		p {
@@ -244,11 +251,10 @@
 			margin-right: auto;
 			}
 		.footer {
-			width: 615px;
-			text-align: left;
+			text-align: center;
 			font-family: monospace;
 			font-size: 11px;
-			margin-top: 15px;
+			margin-top: 31px;
 			}
 		</style>
 
