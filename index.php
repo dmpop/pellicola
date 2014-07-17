@@ -17,7 +17,7 @@
 
 	// User-defined settings
 	$title = "Photocrumbs";
-	$footer="Powered by <a href='https://github.com/dmpop/photocrumbs'>Photocrumbs</a>";
+	$footer="Powered by <a href='https://github.com/dmpop/photocrumbs'>Photocrumbs</a> &mdash; pastebin for your photos";
 	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
