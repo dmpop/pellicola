@@ -122,7 +122,8 @@
 		$filepath = pathinfo($file);
 		echo "<h1>".$filepath['filename']."</h1>";
 		echo "<p>";
-		@include 'photos/'.$filepath['filename'].'.php';
+		//@include 'photos/'.$filepath['filename'].'.php';
+		echo file_get_contents('photos/'.$filepath['filename'].'.txt');
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
 		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
