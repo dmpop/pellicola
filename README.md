@@ -24,7 +24,7 @@ Photocrumbs is a forgetful single-file PHP web app for instant photo publishing.
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* files only).
 5. Point the browser to *http://127.0.0.1/photocrumbs/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
 
-You can add descriptions to photos by creating accompanying *.php* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.php* file containing a short text. You can use HTML markup for formatting the text.
+You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text.
 
 To enable the expiration feature, change the *$expire = false;* line in the *index.php* script to *$expire = true;* and specify the desired expiration period by modifying the *$days* variable.
 
