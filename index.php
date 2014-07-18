@@ -21,7 +21,7 @@
 	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = true; //set to true to enable ip logging
+	$log = false; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -96,7 +96,7 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='mejiro.svg' width='176' /></a>";
+	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='mejiro.svg' width='177' /></a>";
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
