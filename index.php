@@ -5,7 +5,7 @@
 <!--
 	Author: Dmitri Popov
 	License: GPLv3 https://www.gnu.org/licenses/gpl-3.0.txt
-	Source code: https://github.com/dmpop/photocrumbs
+	Source code: https://github.com/dmpop/mejiro
 -->
 
 	<head>
@@ -16,8 +16,8 @@
 	<?php
 
 	// User-defined settings
-	$title = "Photocrumbs";
-	$footer="Powered by <a href='https://github.com/dmpop/photocrumbs'>Photocrumbs</a> &mdash; pastebin for your photos";
+	$title = "Mejiro";
+	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
@@ -96,7 +96,7 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='photocrumbs.svg' width='175' /></a>";
+	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='mejiro.svg' width='175' /></a>";
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
