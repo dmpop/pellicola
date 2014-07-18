@@ -18,10 +18,9 @@
 	// User-defined settings
 	$title = "Mejiro &mdash; 目白";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
-	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = true; //set to true to enable ip logging
+	$log = false; //set to true to enable IP logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -234,7 +233,6 @@
 			text-align: center;
 			font-family: monospace;
 			font-size: 11px;
-			margin-top: 19px;
 		}
 		</style>
 
