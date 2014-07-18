@@ -21,7 +21,7 @@
 	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = false; //set to true to enable ip logging
+	$log = true; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -103,7 +103,6 @@
 	// The $t parameter is used to hide the thumbnails
 	$view = $_GET['t'];
 	if (empty($view)) {
-		echo "<h1>".$title." (".$fileCount." photos)</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
@@ -208,8 +207,8 @@
 			font: 11px/175% 'Open Sans', sans-serif;
 			text-align: center;
 			color: #e3e3e3;
-			margin-top: 171px;
-			margin-left: -1px;
+			margin-top: 131px;
+			margin-left: 15px;
 			width:175px;
 			padding-bottom: 3px;
 			padding-top: 3px;
@@ -219,7 +218,7 @@
 		}
 		img.logo {
 			margin-top: 21px;
-			margin-left: -1px;
+			margin-left: 15px;
 			padding-bottom: 3px;
 			padding-top: 3px;
 			padding-left: 5px;
