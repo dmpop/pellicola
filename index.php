@@ -16,12 +16,12 @@
 	<?php
 
 	// User-defined settings
-	$title = "Mejiro";
+	$title = "Mejiro &mdash; 目白";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$quote="No place is boring if you&rsquo;ve had a good night&rsquo;s sleep and have a pocket full of unexposed film. --Robert Adams";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = false; //set to true to enable ip logging
+	$log = true; //set to true to enable ip logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -95,14 +95,12 @@
 	echo "<title>$title</title>";
 	echo "</head>";
 	echo "<body>";
-
-	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='mejiro.svg' width='177' /></a>";
-	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
 	// The $t parameter is used to hide the thumbnails
 	$view = $_GET['t'];
 	if (empty($view)) {
+		echo "<h1>".$title."</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
@@ -115,13 +113,12 @@
 	// The $p parameter is used to display an individual photo
 	$file = $_GET['p'];
 	if (!empty($file)) {
-		$key = array_search($file, $files); // determine the array key of the current item
+		$key = array_search($file, $files); // determine the array key of the current item (we need this for generating the Next and Previous links)
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		echo "<h1>".$filepath['filename']."</h1>";
 		echo "<p>";
-		//@include 'photos/'.$filepath['filename'].'.php';
 		echo file_get_contents('photos/'.$filepath['filename'].'.txt');
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
@@ -147,6 +144,7 @@
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
+	echo "<div class='quote'>".$quote."</div>";
 	echo "<div class='footer'>$footer</div>";
 
 	if ($log) {
@@ -203,34 +201,11 @@
 			width: 800px;
 			text-align: justify;
 			}
-		p.quote {
-			font: 11px/175% 'Open Sans', sans-serif;
-			text-align: center;
-			color: #e3e3e3;
-			margin-top: 131px;
-			margin-left: 15px;
-			width:175px;
-			padding-bottom: 3px;
-			padding-top: 3px;
-			padding-left: 5px;
-			padding-right: 7px;
-			position:fixed;
-		}
-		img.logo {
-			margin-top: 13px;
-			margin-left: 15px;
-			padding-bottom: 3px;
-			padding-top: 3px;
-			padding-left: 5px;
-			padding-right: 7px;
-			position:fixed;
-			}
 		img {
 			vertical-align: text-bottom;
 			}
 		#content {
-			position: absolute;
-			left: 235px;
+			margin: 0px auto;
 			width: 800px;
 			color: #E3E3E3;
 			}
@@ -254,8 +229,13 @@
 			text-align: center;
 			font-family: monospace;
 			font-size: 11px;
-			margin-top: 31px;
 			}
+		.quote {
+			text-align: center;
+			font-family: monospace;
+			font-size: 11px;
+			margin-top: 19px;
+		}
 		</style>
 
 	</body>
