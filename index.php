@@ -178,7 +178,7 @@
 			font: 29px/50% 'Open Sans', sans-serif;
 			font-weight: 400;
 			text-align: left;
-			margin-top: 25px;
+			margin-top: 13px;
 			margin-bottom: 7px;
 			line-height: 100%;
 			text-shadow: 1px 1px 1px #585858;
@@ -208,7 +208,7 @@
 			text-align: center;
 			color: #e3e3e3;
 			margin-top: 131px;
-			margin-left: 15px;
+			margin-left: 13px;
 			width:175px;
 			padding-bottom: 3px;
 			padding-top: 3px;
@@ -217,8 +217,8 @@
 			position:fixed;
 		}
 		img.logo {
-			margin-top: 21px;
-			margin-left: 15px;
+			margin-top: 13px;
+			margin-left: 13px;
 			padding-bottom: 3px;
 			padding-top: 3px;
 			padding-left: 5px;
