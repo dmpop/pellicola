@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="239.53084"
-   height="131.52623"
+   width="241"
+   height="131.53"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -42,7 +42,7 @@
      inkscape:window-x="-3"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
-     units="cm" />
+     units="px" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -59,10 +59,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-61.735423,-423.11291)">
+     transform="translate(-61.735423,-423.10914)">
     <text
        xml:space="preserve"
-       style="font-size:142.52154540999998744px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:142.52154541px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:none;font-family:Sans"
        x="41.55415"
        y="537.38068"
        id="text2985"
@@ -71,6 +71,6 @@
          id="tspan2987"
          x="41.55415"
          y="537.38068"
-         style="font-size:142.52154540999998744px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#f2f2f2;font-family:Open Sans;-inkscape-font-specification:Open Sans">目白</tspan></text>
+         style="font-size:142.52154541px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#f2f2f2;font-family:Open Sans;-inkscape-font-specification:Open Sans">目白</tspan></text>
   </g>
 </svg>

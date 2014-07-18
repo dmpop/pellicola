@@ -73,7 +73,7 @@
 		$thumb = "photos/thumbs/".basename($file);
 
 		if(!file_exists($thumb)) {
-			if(createThumb($file, $thumb, 700)) {
+			if(createThumb($file, $thumb, 800)) {
 				// this is a new file, update last mod for expiration feature
 				touch($file);
 			} else {
@@ -96,7 +96,7 @@
 	echo "</head>";
 	echo "<body>";
 
-	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='mejiro.svg' width='175' /></a>";
+	echo "<a class='title' href='".basename($_SERVER['PHP_SELF'])."'><img class='logo' src='mejiro.svg' width='176' /></a>";
 	echo "<p class='quote'><em>".$quote."</em></p>";
 	echo "<div id='content'>";
 
@@ -186,7 +186,7 @@
 			}
 		p.box {
 			border-style: dashed;
-			width: 688px;
+			width: 788px;
 			border-width: 1px;
 			font-size: 12px;
 			padding: 5px;
@@ -200,7 +200,7 @@
 			text-align: center;
 			}
 		p {
-			width: 700px;
+			width: 800px;
 			text-align: justify;
 			}
 		p.quote {
@@ -208,7 +208,7 @@
 			text-align: center;
 			color: #e3e3e3;
 			margin-top: 131px;
-			margin-left: 13px;
+			margin-left: 15px;
 			width:175px;
 			padding-bottom: 3px;
 			padding-top: 3px;
@@ -218,7 +218,7 @@
 		}
 		img.logo {
 			margin-top: 13px;
-			margin-left: 13px;
+			margin-left: 15px;
 			padding-bottom: 3px;
 			padding-top: 3px;
 			padding-left: 5px;
@@ -231,7 +231,7 @@
 		#content {
 			position: absolute;
 			left: 235px;
-			width: 700px;
+			width: 800px;
 			color: #E3E3E3;
 			}
 		.text {
