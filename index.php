@@ -103,7 +103,7 @@
 	// The $t parameter is used to hide the thumbnails
 	$view = $_GET['t'];
 	if (empty($view)) {
-		echo "<h1>".$fileCount." ".$title."</h1>";
+		echo "<h1>".$title." (".$fileCount." photos)</h1>";
 		echo "<p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
