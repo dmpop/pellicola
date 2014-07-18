@@ -20,7 +20,7 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = false; //set to true to enable IP logging
+	$log = true; //set to true to enable IP logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -143,7 +143,6 @@
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
-	echo "<div class='quote'>".$quote."</div>";
 	echo "<div class='footer'>$footer</div>";
 
 	if ($log) {
@@ -191,7 +190,7 @@
 			margin-bottom: 0px;
 			text-align: center;
 			}
-			p.center {
+		p.center {
 			font-size: 12px;
 			padding: 1px;
 			text-align: center;
@@ -209,7 +208,6 @@
 			color: #E3E3E3;
 			}
 		.text {
-			width: 530px;
 			text-align: left;
 			padding: 0px;
 			margin-right: 20px;
@@ -217,7 +215,6 @@
 			float: left;
 			}
 		.center {
-			width: 530px;
 			height: auto;
 			text-align: center;
 			padding: 0px;
@@ -229,11 +226,6 @@
 			font-family: monospace;
 			font-size: 11px;
 			}
-		.quote {
-			text-align: center;
-			font-family: monospace;
-			font-size: 11px;
-		}
 		</style>
 
 	</body>
