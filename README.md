@@ -9,6 +9,7 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 * **Automatic thumbnail generation** Mejiro automatically generates thumbnails for faster preview.
 * **Expiration functionality** The app can automatically delete photos older than a specific number of days.
 * **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
+* **Display geographical coordinates on OpenStreetMap** For geotagged photos, you can view their exact locations on OpenStreetMap.
 * **Optional description** You can add a description to each photo by creating an accompanying *.php* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
 
 ##Requirements
