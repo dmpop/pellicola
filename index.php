@@ -20,7 +20,7 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
-	$log = true; //set to true to enable IP logging
+	$log = false; //set to true to enable IP logging
 	// ----------------------------
 
 	// Create the required directories if they don't exist
@@ -173,7 +173,7 @@
 			color: #E3E3E3;
 			font: 29px/50% 'Open Sans', sans-serif;
 			font-weight: 400;
-			text-align: left;
+			text-align: center;
 			margin-top: 13px;
 			margin-bottom: 7px;
 			line-height: 100%;
