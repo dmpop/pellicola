@@ -11,7 +11,6 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	//<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<?php
@@ -28,7 +27,7 @@
  * Returns an array of latitude and longitude from the Image file
  * @param image $file
  * @return multitype:number |boolean
- * Source: http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
+ * http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
  */
 function read_gps_location($file){
     if (is_file($file)) {
@@ -188,7 +187,20 @@ function read_gps_location($file){
 		if (empty($datetime)) {
 			$datetime="n/a";
 		}
-		echo "<p class='box'>f/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[long]."&zoom=18' target='_blank'>Map</a></p>";
+		// Parse IPTC metadata and extract keywords
+		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
+		$size = getimagesize($file, $info);
+		if(isset($info['APP13'])) {
+			$iptc = iptcparse($info['APP13']);
+				if(isset($iptc['2#025'])) {
+					$keywords = $iptc['2#025'];
+				} else {
+					$keywords = array();
+				}
+		}
+		$keyword = implode(", ", $keywords);
+
+		echo "<p class='box'>f/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[long]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 	echo "<div class='footer'>$footer</div>";
