@@ -261,6 +261,7 @@ function read_gps_location($file){
 			}
 		img {
 			vertical-align: text-bottom;
+			padding-right: 1px;
 			}
 		#content {
 			margin: 0px auto;
