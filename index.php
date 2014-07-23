@@ -36,7 +36,7 @@
 			isset($info['GPSLatitudeRef']) && isset($info['GPSLongitudeRef']) &&
 			in_array($info['GPSLatitudeRef'], array('E','W','N','S')) && in_array($info['GPSLongitudeRef'], array('E','W','N','S'))) {
 
-			$GPSLatitudeRef  = strtolower(trim($info['GPSLatitudeRef']));
+			$GPSLatitudeRef = strtolower(trim($info['GPSLatitudeRef']));
 			$GPSLongitudeRef = strtolower(trim($info['GPSLongitudeRef']));
 
 			$lat_degrees_a = explode('/',$info['GPSLatitude'][0]);
@@ -58,7 +58,7 @@
 
 			//If the latitude is South, make it negative.
 			//If the longitude is west, make it negative
-			$GPSLatitudeRef  == 's' ? $lat *= -1 : '';
+			$GPSLatitudeRef == 's' ? $lat *= -1 : '';
 			$GPSLongitudeRef == 'w' ? $lng *= -1 : '';
 
 			return array(
@@ -93,7 +93,7 @@
 		$height = imagesy($img);
 
 		// calculate thumbnail size
-		$new_width  = $thumbWidth;
+		$new_width = $thumbWidth;
 		$new_height = floor($height * ($thumbWidth / $width));
 
 		// create a new temporary image
@@ -115,7 +115,7 @@
 
 	// Generate any missing thumbnails and check expiration
 	for($i = 0; $i < $fileCount; $i++) {
-		$file  = $files[$i];
+		$file = $files[$i];
 		$thumb = "photos/thumbs/".basename($file);
 
 		if(!file_exists($thumb)) {
@@ -209,7 +209,7 @@
 		$ip=$_SERVER['REMOTE_ADDR'];
 		$date = $date = date('Y-m-d H:i:s');
 		$file = fopen("ip.log", "a+");
-		fputs($file, " $ip  $page $date \n");
+		fputs($file, " $ip    $page    $date\n");
 		fclose($file);
 	}
 
