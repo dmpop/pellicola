@@ -72,7 +72,7 @@ function read_gps_location($file){
 
 	// Create the required directories if they don't exist
 		if (!file_exists('photos')) {
-		mkdir('photos', 0777, true);
+		mkdir('photos', 0744, true);
 	}
 	if (!file_exists('photos/thumbs')) {
 		mkdir('photos/thumbs', 0777, true);
