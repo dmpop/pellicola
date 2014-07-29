@@ -75,7 +75,7 @@ function read_gps_location($file){
 		mkdir('photos', 0744, true);
 	}
 	if (!file_exists('photos/thumbs')) {
-		mkdir('photos/thumbs', 0777, true);
+		mkdir('photos/thumbs', 0744, true);
 	}
 
 	// get file info
