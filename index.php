@@ -13,6 +13,79 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
+	<style>
+		body {
+			font: 15px/25px 'Open Sans', sans-serif;
+			text-align: justify;
+			background-color: #777777;
+			}
+		a {
+			color: #e3e3e3;
+			}
+		a.title {
+			text-decoration: none;
+			color: #FFFFFF;
+			}
+		h1 {
+			color: #E3E3E3;
+			font: 29px/50% 'Open Sans', sans-serif;
+			font-weight: 400;
+			text-align: center;
+			margin-top: 13px;
+			margin-bottom: 7px;
+			line-height: 100%;
+			text-shadow: 1px 1px 1px #585858;
+			letter-spacing: 5px;
+			}
+		p.box {
+			border-style: dashed;
+			width: 788px;
+			border-width: 1px;
+			font-size: 12px;
+			padding: 5px;
+			color: #e3e3e3;
+			margin-bottom: 0px;
+			text-align: center;
+			}
+		p.center {
+			font-size: 12px;
+			padding: 1px;
+			text-align: center;
+			}
+		p {
+			width: 800px;
+			text-align: justify;
+			}
+		img {
+			vertical-align: text-bottom;
+			padding-right: 1px;
+			}
+		#content {
+			margin: 0px auto;
+			width: 800px;
+			color: #E3E3E3;
+			}
+		.text {
+			text-align: left;
+			padding: 0px;
+			margin-right: 20px;
+			color: inherit;
+			float: left;
+			}
+		.center {
+			height: auto;
+			text-align: center;
+			padding: 0px;
+			margin-left: auto;
+			margin-right: auto;
+			}
+		.footer {
+			text-align: center;
+			font-family: monospace;
+			font-size: 11px;
+			}
+		</style>
+
 	<?php
 
 	// User-defined settings
@@ -21,6 +94,7 @@
 	$expire = false; //set to true to enable the expiration feature
 	$days = 15; // expiration period
 	$log = false; //set to true to enable IP logging
+	$password='m0nk3y'; //upload password
 	// ----------------------------
 
 	/**
@@ -157,7 +231,7 @@ function read_gps_location($file){
 	$view = $_GET['t'];
 	if (!isset($view)) {
 		echo "<h1>".$title."</h1>";
-		echo "<p>";
+		echo "<p></p>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
 			$thumb = "photos/thumbs/".basename($file);
@@ -165,6 +239,27 @@ function read_gps_location($file){
 			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128 hspace="1"></a>';
 		}
 	}
+	//Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
+		$scriptname = basename($_SERVER["SCRIPT_NAME"]);
+		if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
+			sleep(3); // Reduce brute-force attack effectiveness.
+		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
+			$filename = 'photos/'.basename( $_FILES['filetoupload']['name']);
+			if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
+			if(move_uploaded_file($_FILES['filetoupload']['tmp_name'], $filename)){
+				$serverport=''; if ($_SERVER["SERVER_PORT"]!='80') { $serverport=':'.$_SERVER["SERVER_PORT"]; }
+	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
+	print '<br /><p class="box">Upload successfull. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to see the added file.</p>';
+	}
+	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
+	header($_SERVER['PHP_SELF']);
+	}
+	print <<<EOD
+	<p><div class='center'><form method="post" action="$scriptname" enctype="multipart/form-data">
+	File: <input type="file" name="filetoupload" size="60">
+	<input type="hidden" name="MAX_FILE_SIZE" value="256000000"> Password: <input type="password" name="password"> <input type="submit" value="Upload">
+	</form></div></p>
+EOD;
 
 	// The $p parameter is used to display an individual photo
 	$file = $_GET['p'];
@@ -225,79 +320,5 @@ function read_gps_location($file){
 
 	?>
 	</div>
-
-		<style>
-		body {
-			font: 15px/25px 'Open Sans', sans-serif;
-			text-align: justify;
-			background-color: #777777;
-			}
-		a {
-			color: #e3e3e3;
-			}
-		a.title {
-			text-decoration: none;
-			color: #FFFFFF;
-			}
-		h1 {
-			color: #E3E3E3;
-			font: 29px/50% 'Open Sans', sans-serif;
-			font-weight: 400;
-			text-align: center;
-			margin-top: 13px;
-			margin-bottom: 7px;
-			line-height: 100%;
-			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 5px;
-			}
-		p.box {
-			border-style: dashed;
-			width: 788px;
-			border-width: 1px;
-			font-size: 12px;
-			padding: 5px;
-			color: #e3e3e3;
-			margin-bottom: 0px;
-			text-align: center;
-			}
-		p.center {
-			font-size: 12px;
-			padding: 1px;
-			text-align: center;
-			}
-		p {
-			width: 800px;
-			text-align: justify;
-			}
-		img {
-			vertical-align: text-bottom;
-			padding-right: 1px;
-			}
-		#content {
-			margin: 0px auto;
-			width: 800px;
-			color: #E3E3E3;
-			}
-		.text {
-			text-align: left;
-			padding: 0px;
-			margin-right: 20px;
-			color: inherit;
-			float: left;
-			}
-		.center {
-			height: auto;
-			text-align: center;
-			padding: 0px;
-			margin-left: auto;
-			margin-right: auto;
-			}
-		.footer {
-			text-align: center;
-			font-family: monospace;
-			font-size: 11px;
-			}
-		</style>
-
 	</body>
 </html>
