@@ -227,7 +227,7 @@ function read_gps_location($file){
 		exit("Thumbnails have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild thumbnails.");
 		}
 
-	// The $t parameter is used to show/hide the thumbnails and the upload form.
+	// The $t parameter is used to show and hide the thumbnails.
 	$view = $_GET['t'];
 	if (!isset($view)) {
 		echo "<h1>".$title."</h1>";
@@ -239,7 +239,7 @@ function read_gps_location($file){
 			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128 hspace="1"></a>';
 		}
 	}
-	// The $p parameter is used to display an individual photo
+	// The $p parameter is used to display an individual photo.
 	$file = $_GET['p'];
 	if (!empty($file)) {
 		$key = array_search($file, $files); // determine the array key of the current item (we need this for generating the Next and Previous links)
@@ -288,7 +288,10 @@ function read_gps_location($file){
 	}
 
 	//Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
-	$scriptname = basename($_SERVER["SCRIPT_NAME"]);
+	// The $u parameter is used to show the upload form.
+	$upload = $_GET['u'];
+	if (isset($upload)) {
+	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?u';
 	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
 			sleep(3); // Reduce brute-force attack effectiveness.
 		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
@@ -296,10 +299,9 @@ function read_gps_location($file){
 			if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
 			if(move_uploaded_file($_FILES['filetoupload']['tmp_name'], $filename)){ $serverport=''; if ($_SERVER["SERVER_PORT"]!='80') { $serverport=':'.$_SERVER["SERVER_PORT"]; }
 	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
-	print '<br /><p class="box">Upload successful. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to see the added file.</p>';
+	print '<br /><p class="box">Upload successful. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to finish.</p>';
 	}
 	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
-	header($_SERVER['PHP_SELF']);
 	}
 	print <<<EOD
 	<p><div class='center'><form method="post" action="$scriptname" enctype="multipart/form-data">
@@ -307,6 +309,7 @@ function read_gps_location($file){
 	<input type="hidden" name="MAX_FILE_SIZE" value="256000000"> Password: <input type="password" name="password"> <input type="submit" value="Upload">
 	</form></div></p>
 EOD;
+}
 
 	echo "<div class='footer'>$footer</div>";
 
