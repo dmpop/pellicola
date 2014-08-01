@@ -10,12 +10,12 @@
 
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<style>
 		body {
-			font: 15px/25px 'Open Sans', sans-serif;
+			font: 15px/25px 'Fira Sans', sans-serif;
 			text-align: justify;
 			background-color: #777777;
 			}
@@ -28,7 +28,7 @@
 			}
 		h1 {
 			color: #E3E3E3;
-			font: 29px/50% 'Open Sans', sans-serif;
+			font: 29px/50% 'Fira Sans', sans-serif;
 			font-weight: 400;
 			text-align: center;
 			margin-top: 13px;
@@ -37,24 +37,24 @@
 			text-shadow: 1px 1px 1px #585858;
 			letter-spacing: 5px;
 			}
+		p {
+			width: 800px;
+			text-align: justify;
+			}
 		p.box {
 			border-style: dashed;
 			width: 788px;
 			border-width: 1px;
-			font-size: 12px;
+			font-size: 13px;
 			padding: 5px;
 			color: #e3e3e3;
 			margin-bottom: 0px;
 			text-align: center;
 			}
 		p.center {
-			font-size: 12px;
+			font-size: 15px;
 			padding: 1px;
 			text-align: center;
-			}
-		p {
-			width: 800px;
-			text-align: justify;
 			}
 		img {
 			vertical-align: text-bottom;
@@ -217,7 +217,7 @@ function read_gps_location($file){
 	echo "<body>";
 	echo "<div id='content'>";
 
-	// The $r parameter is used to clear the photos/thumbs directory
+	// The $r parameter is used to clear the photos/thumbs directory.
 	$rebuild = $_GET['r'];
 	if (isset($rebuild)) {
 		$files = glob('photos/thumbs/*');
@@ -288,7 +288,7 @@ function read_gps_location($file){
 	}
 
 	//Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
-	// The $u parameter is used to show the upload form.
+	//The $u parameter is used to show the upload form.
 	$upload = $_GET['u'];
 	if (isset($upload)) {
 	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?u';
