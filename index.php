@@ -238,29 +238,7 @@ function read_gps_location($file){
 			$filepath = pathinfo($file);
 			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128 hspace="1"></a>';
 		}
-		//Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
-		$scriptname = basename($_SERVER["SCRIPT_NAME"]);
-		if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
-			sleep(3); // Reduce brute-force attack effectiveness.
-		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
-			$filename = 'photos/'.basename( $_FILES['filetoupload']['name']);
-		if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
-		if(move_uploaded_file($_FILES['filetoupload']['tmp_name'], $filename)){
-			$serverport=''; if ($_SERVER["SERVER_PORT"]!='80') { $serverport=':'.$_SERVER["SERVER_PORT"]; }
-		$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
-		print '<br /><p class="box">Upload successfull. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to see the added file.</p>';
-		}
-		else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
-		header($_SERVER['PHP_SELF']);
-		}
-		print <<<EOD
-		<p><div class='center'><form method="post" action="$scriptname" enctype="multipart/form-data">
-		File: <input type="file" name="filetoupload" size="60">
-		<input type="hidden" name="MAX_FILE_SIZE" value="256000000"> Password: <input type="password" name="password"> <input type="submit" value="Upload">
-		</form></div></p>
-EOD;
 	}
-
 	// The $p parameter is used to display an individual photo
 	$file = $_GET['p'];
 	if (!empty($file)) {
@@ -308,6 +286,28 @@ EOD;
 		echo "<p class='box'>f/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[long]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
+
+	//Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
+	$scriptname = basename($_SERVER["SCRIPT_NAME"]);
+	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
+			sleep(3); // Reduce brute-force attack effectiveness.
+		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
+			$filename = 'photos/'.basename( $_FILES['filetoupload']['name']);
+			if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
+			if(move_uploaded_file($_FILES['filetoupload']['tmp_name'], $filename)){ $serverport=''; if ($_SERVER["SERVER_PORT"]!='80') { $serverport=':'.$_SERVER["SERVER_PORT"]; }
+	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
+	print '<br /><p class="box">Upload successful. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to see the added file.</p>';
+	}
+	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
+	header($_SERVER['PHP_SELF']);
+	}
+	print <<<EOD
+	<p><div class='center'><form method="post" action="$scriptname" enctype="multipart/form-data">
+	File: <input type="file" name="filetoupload" size="60">
+	<input type="hidden" name="MAX_FILE_SIZE" value="256000000"> Password: <input type="password" name="password"> <input type="submit" value="Upload">
+	</form></div></p>
+EOD;
+
 	echo "<div class='footer'>$footer</div>";
 
 	if ($log) {
