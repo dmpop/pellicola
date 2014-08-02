@@ -92,10 +92,10 @@
 	// User-defined settings
 	$title = "Mejiro &mdash; 目白";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
-	$expire = false; //set to true to enable the expiration feature
-	$days = 15; // expiration period
-	$log = false; //set to true to enable IP logging
-	$password='m0nk3y'; //upload password
+	$expire = false; // Set to true to enable the expiration feature
+	$days = 15; // Expiration period
+	$log = false; // Set to true to enable IP logging
+	$password='m0nk3y'; //Upload password
 	// ----------------------------
 
 	/**
@@ -131,8 +131,8 @@ function read_gps_location($file){
             $lat = (float) $lat_degrees+((($lat_minutes*60)+($lat_seconds))/3600);
             $lng = (float) $lng_degrees+((($lng_minutes*60)+($lng_seconds))/3600);
 
-            //If the latitude is South, make it negative.
-            //If the longitude is west, make it negative
+            // If the latitude is South, make it negative
+            // If the longitude is west, make it negative
             $GPSLatitudeRef  == 's' ? $lat *= -1 : '';
             $GPSLongitudeRef == 'w' ? $lng *= -1 : '';
 
@@ -153,38 +153,38 @@ function read_gps_location($file){
 		mkdir('photos/thumbs', 0744, true);
 	}
 
-	// get file info
+	// Get file info
 	$files = glob("photos/*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
 	$fileCount = count($files);
 
 	function createThumb($original, $thumb, $thumbWidth)
 	{
-		// load image
+		// Load image
 		$img = @imagecreatefromjpeg($original);
 		if(!$img) return false; // we couldn't read the image, abort
 
-		// get image size
+		// Get image size
 		$width = imagesx($img);
 		$height = imagesy($img);
 
-		// calculate thumbnail size
+		// Calculate thumbnail size
 		$new_width  = $thumbWidth;
 		$new_height = floor($height * ($thumbWidth / $width));
 
-		// create a new temporary image
+		// Create a new temporary image
 		$tmp_img = imagecreatetruecolor($new_width, $new_height);
 
 		// copy and resize old image into new image
 		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-		// save thumbnail into a file
+		// Save thumbnail into a file
 		$ok = @imagejpeg($tmp_img, $thumb);
 
-		// cleanup
+		// Cleanup
 		imagedestroy($img);
 		imagedestroy($tmp_img);
 
-		// return bool true if thumbnail creation worked
+		// Return bool true if thumbnail creation worked
 		return $ok;
 	}
 
@@ -195,10 +195,10 @@ function read_gps_location($file){
 
 		if(!file_exists($thumb)) {
 			if(createThumb($file, $thumb, 800)) {
-				// this is a new file, update last mod for expiration feature
+				// This is a new file, update last modification date for expiration feature
 				touch($file);
 			} else {
-				// we couldn't create a thumbnail remove the image from our list
+				// We couldn't create a thumbnail remove the image from our list
 				unset($files[$i]);
 			}
 		}
@@ -210,7 +210,7 @@ function read_gps_location($file){
 		}
 	}
 
-	// update count - we might have removed some files
+	// Update count (we might have removed some files)
 	$fileCount = count($files);
 
 	echo "<title>$title</title>";
@@ -228,7 +228,7 @@ function read_gps_location($file){
 		exit("Thumbnails have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild thumbnails.");
 		}
 
-	// The $t parameter is used to show and hide the thumbnails.
+	// The $t parameter is used to show the thumbnails
 	$view = $_GET['t'];
 	if (!isset($view)) {
 		echo "<h1>".$title."</h1>";
@@ -240,10 +240,10 @@ function read_gps_location($file){
 			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128></a>';
 		}
 	}
-	// The $p parameter is used to display an individual photo.
+	// The $p parameter is used to show an individual photo
 	$file = $_GET['p'];
 	if (!empty($file)) {
-		$key = array_search($file, $files); // determine the array key of the current item (we need this for generating the Next and Previous links)
+		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
@@ -288,8 +288,8 @@ function read_gps_location($file){
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
-	//Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
-	//The $u parameter is used to show the upload form.
+	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
+	// The $u parameter is used to show the upload form
 	$upload = $_GET['u'];
 	if (isset($upload)) {
 	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?u';
@@ -312,7 +312,13 @@ function read_gps_location($file){
 EOD;
 }
 
-	echo "<div class='footer'>$footer</div>";
+	// The $h parameter is used to show help
+	$help = $_GET['h'];
+	if (isset($help)) {
+		echo '<br /><p class="box">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?r - rebuild thumbnails<br />'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?u - enable upload form</p>';
+	}
+
+	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?h">Help</a></div>';
 
 	if ($log) {
 		$ip=$_SERVER['REMOTE_ADDR'];
