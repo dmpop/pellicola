@@ -43,7 +43,7 @@
 			text-align: justify;
 			}
 		p.box {
-			border-style: dashed;
+			border-style: dotted;
 			width: 788px;
 			border-width: 1px;
 			font-size: 13px;
@@ -291,7 +291,7 @@ function read_gps_location($file){
 	// The $h parameter is used to show help
 	$help = $_GET['h'];
 	if (isset($help)) {
-		echo '<br /><p class="box">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?r - rebuild thumbnails<br />'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?u - enable upload form</p>';
+		echo '<br /><p class="box">Rebuild thumbnails: <a href="'.$_SERVER['PHP_SELF'].'?r">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?r</a><br />Enable upload form: <a href="'.$_SERVER['PHP_SELF'].'?u">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?u</a></p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
