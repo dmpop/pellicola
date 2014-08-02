@@ -308,7 +308,7 @@ function read_gps_location($file){
 	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
 	print '<br /><p class="box">Upload successful. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to finish.</p>';
 	}
-	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; print_r(error_get_last()); }
+	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
 	}
 	print <<<EOD
 	<p><div class='center'><form method="post" action="$scriptname" enctype="multipart/form-data">
