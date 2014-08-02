@@ -242,7 +242,7 @@ function read_gps_location($file){
 	}
 	// The $p parameter is used to show an individual photo
 	$file = $_GET['p'];
-	if (!empty($file)) {
+	if (isset($file)) {
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
@@ -288,13 +288,19 @@ function read_gps_location($file){
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
+	// The $h parameter is used to show help
+	$help = $_GET['h'];
+	if (isset($help)) {
+		echo '<br /><p class="box">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?r - rebuild thumbnails<br />'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?u - enable upload form</p>';
+	}
+
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
 	// The $u parameter is used to show the upload form
 	$upload = $_GET['u'];
 	if (isset($upload)) {
 	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?u';
 	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
-			sleep(3); // Reduce brute-force attack effectiveness.
+			sleep(3); // Reduce brute-force attack effectiveness
 		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
 			$filename = 'photos/'.basename( $_FILES['filetoupload']['name']);
 			if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
@@ -302,7 +308,7 @@ function read_gps_location($file){
 	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
 	print '<br /><p class="box">Upload successful. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to finish.</p>';
 	}
-	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
+	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; print_r(error_get_last()); }
 	}
 	print <<<EOD
 	<p><div class='center'><form method="post" action="$scriptname" enctype="multipart/form-data">
@@ -311,12 +317,6 @@ function read_gps_location($file){
 	</form></div></p>
 EOD;
 }
-
-	// The $h parameter is used to show help
-	$help = $_GET['h'];
-	if (isset($help)) {
-		echo '<br /><p class="box">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?r - rebuild thumbnails<br />'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?u - enable upload form</p>';
-	}
 
 	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?h">Help</a></div>';
 
