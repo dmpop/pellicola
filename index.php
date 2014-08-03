@@ -14,79 +14,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" />
 
-	<style>
-		body {
-			font: 15px/25px 'Fira Sans', sans-serif;
-			text-align: justify;
-			background-color: #777777;
-			}
-		a {
-			color: #e3e3e3;
-			}
-		a.title {
-			text-decoration: none;
-			color: #FFFFFF;
-			}
-		h1 {
-			color: #E3E3E3;
-			font: 29px/50% 'Fira Sans', sans-serif;
-			font-weight: 400;
-			text-align: center;
-			margin-top: 13px;
-			margin-bottom: 7px;
-			line-height: 100%;
-			text-shadow: 1px 1px 1px #585858;
-			letter-spacing: 5px;
-			}
-		p {
-			width: 800px;
-			text-align: justify;
-			}
-		p.box {
-			border-style: dotted;
-			width: 788px;
-			border-width: 1px;
-			font-size: 13px;
-			padding: 5px;
-			color: #e3e3e3;
-			margin-bottom: 0px;
-			text-align: center;
-			}
-		p.center {
-			font-size: 15px;
-			padding: 1px;
-			text-align: center;
-			}
-		img {
-			vertical-align: text-bottom;
-			padding-right: 1px;
-			}
-		#content {
-			margin: 0px auto;
-			width: 800px;
-			color: #E3E3E3;
-			}
-		.text {
-			text-align: left;
-			padding: 0px;
-			margin-right: 20px;
-			color: inherit;
-			float: left;
-			}
-		.center {
-			height: auto;
-			text-align: center;
-			padding: 0px;
-			margin-left: auto;
-			margin-right: auto;
-			}
-		.footer {
-			text-align: center;
-			font-family: monospace;
-			font-size: 11px;
-			}
-		</style>
-
 	<?php
 
 	// User-defined settings
@@ -96,7 +23,25 @@
 	$days = 15; // Expiration period
 	$log = false; // Set to true to enable IP logging
 	$password='m0nk3y'; //Upload password
-	// ----------------------------
+	// ---------------------
+	?>
+
+	<style>
+		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #777777; }
+		a { color: #e3e3e3; }
+		a.title { text-decoration: none; color: #FFFFFF; }
+		h1 { color: #E3E3E3; font: 29px/50% 'Fira Sans', sans-serif; font-weight: 400; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; text-shadow: 1px 1px 1px #585858; letter-spacing: 5px; }
+		p { width: 800px; text-align: justify; }
+		p.box { border-style: dotted; width: 788px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
+		p.center { font-size: 15px; padding: 1px; text-align: center; }
+		img { vertical-align: text-bottom; padding-right: 1px; }
+		#content { margin: 0px auto; width: 800px; color: #e3e3e3; }
+		.text { text-align: left; padding: 0px; margin-right: 20px; color: inherit; float: left; }
+		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
+		.footer { text-align: center; font-family: monospace; font-size: 11px; }
+		</style>
+
+	<?php
 
 	/**
  * Returns an array of latitude and longitude from the Image file
