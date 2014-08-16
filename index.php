@@ -21,7 +21,7 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
-	$log = false; // Set to true to enable IP logging
+	$log = true; // Set to true to enable IP logging
 	$password='m0nk3y'; //Upload password
 	// ---------------------
 	?>
