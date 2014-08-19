@@ -21,7 +21,7 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
-	$log = true; // Set to true to enable IP logging
+	$log = false; // Set to true to enable IP logging
 	$password='m0nk3y'; //Upload password
 	// ---------------------
 	?>
@@ -38,7 +38,7 @@
 		#content { margin: 0px auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: left; padding: 0px; margin-right: 20px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
-		.footer { text-align: center; font-family: monospace; font-size: 11px; }
+		.footer { margin-top: 7px; text-align: center; font-family: monospace; font-size: 11px; }
 		</style>
 
 	<?php
@@ -163,7 +163,7 @@ function read_gps_location($file){
 	echo "<body>";
 	echo "<div id='content'>";
 
-	// The $r parameter is used to clear the photos/thumbs directory.
+	// The $r parameter is used to empty the /photos/thumbs directory.
 	$rebuild = $_GET['r'];
 	if (isset($rebuild)) {
 		$files = glob('photos/thumbs/*');
@@ -233,10 +233,10 @@ function read_gps_location($file){
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
-	// The $h parameter is used to show help
+	// The $h parameter is used to show options
 	$help = $_GET['h'];
 	if (isset($help)) {
-		echo '<br /><p class="box">Rebuild thumbnails: <a href="'.$_SERVER['PHP_SELF'].'?r">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?r</a><br />Enable upload form: <a href="'.$_SERVER['PHP_SELF'].'?u">'.$_SERVER[HTTP_HOST].$_SERVER['PHP_SELF'].'?u</a></p>';
+		echo '<br /><p class="center"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
@@ -263,7 +263,7 @@ function read_gps_location($file){
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?h">Help</a></div>';
+	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?h">Options</a></div>';
 
 	if ($log) {
 		$ip=$_SERVER['REMOTE_ADDR'];
