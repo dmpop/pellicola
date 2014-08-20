@@ -182,7 +182,7 @@ function read_gps_location($file){
 			$file = $files[$i];
 			$thumb = "photos/thumbs/".basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=128></a>';
+			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=132></a>';
 		}
 	}
 	// The $p parameter is used to show an individual photo
@@ -236,7 +236,7 @@ function read_gps_location($file){
 	// The $h parameter is used to show options
 	$help = $_GET['h'];
 	if (isset($help)) {
-		echo '<br /><p class="center"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
+		echo '<br /><p class="box"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
