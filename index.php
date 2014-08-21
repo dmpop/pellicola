@@ -35,6 +35,7 @@
 		p.box { border-style: dotted; width: 788px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: text-bottom; padding-right: 1px; }
+		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; vertical-align: text-bottom; padding-right: 1px; }
 		#content { margin: 0px auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: left; padding: 0px; margin-right: 20px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
@@ -178,12 +179,14 @@ function read_gps_location($file){
 	if (!isset($view)) {
 		echo "<h1>".$title."</h1>";
 		echo "<p></p>";
+		echo "<p class='center'>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
 			$thumb = "photos/thumbs/".basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?t&p='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width=132></a>';
+			echo '<a href="index.php?t&p='.$file.'"><img class="thumbnail" src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
 		}
+		echo "</p>";
 	}
 	// The $p parameter is used to show an individual photo
 	$file = $_GET['p'];
