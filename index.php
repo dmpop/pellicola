@@ -17,7 +17,8 @@
 	<?php
 
 	// User-defined settings
-	$title = "Mejiro &mdash; 目白";
+	$title = "Mejiro";
+	$tagline = "Open source no-frills photo grid";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
@@ -178,7 +179,7 @@ function read_gps_location($file){
 	$view = $_GET['t'];
 	if (!isset($view)) {
 		echo "<h1>".$title."</h1>";
-		echo "<p></p>";
+		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
@@ -239,7 +240,7 @@ function read_gps_location($file){
 	// The $h parameter is used to show options
 	$help = $_GET['h'];
 	if (isset($help)) {
-		echo '<br /><p class="box"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
+		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
