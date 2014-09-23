@@ -18,7 +18,7 @@
 
 	// User-defined settings
 	$title = "Mejiro";
-	$tagline = "Open source no-frills photo grid";
+	$tagline = "No-frills open source photo grid";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
