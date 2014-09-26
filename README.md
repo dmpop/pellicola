@@ -11,7 +11,8 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 * **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
 * **IPTC keywords** Mejiro parses IPTC metadata and displays keywords assigned to photos.
 * **Display geographical coordinates on OpenStreetMap** For geotagged photos, you can view their exact locations on OpenStreetMap.
-* **Optional description** You can add a description to each photo by creating an accompanying *.php* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
+* **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
+* **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 
 ##Requirements
 
@@ -26,7 +27,7 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* files only).
 5. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
 
-You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text.
+You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: *de-F994362-R1-14-15.txt* (for German), *ja-F994362-R1-14-15.txt* (for Japanese), etc.
 
 To enable the expiration feature, change the *$expire = false;* line in the *index.php* script to *$expire = true;* and specify the desired expiration period by modifying the *$days* variable.
 
