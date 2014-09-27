@@ -242,7 +242,7 @@
 		}
 		$keyword = implode(", ", $keywords);
 
-		echo "<p class='box'>f/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[long]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
+		echo "<p class='box'>&fnof;/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[long]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 	}
 
