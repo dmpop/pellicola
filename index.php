@@ -41,7 +41,7 @@
 		.text { text-align: left; padding: 0px; margin-right: 20px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
 		.footer { text-align: center; font-family: monospace; font-size: 11px; }
-		</style>
+	</style>
 
 	<?php
 
