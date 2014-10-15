@@ -1,8 +1,8 @@
-##About Mejiro
+## About Mejiro
 
 Mejiro is a forgetful single-file PHP web app for instant photo publishing. The app features expiration functionality. When enabled, it deletes photos older than a user-defined number of days -- hence the *forgetful* moniker.
 
-##Features
+## Features
 
 * **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP5 and the GD library.
 * **Instant and easy photo publishing** Upload photos, and Mejiro does the rest.
@@ -14,12 +14,12 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 * **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
 * **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 
-##Requirements
+## Requirements
 
 * A web server with PHP5 and the GD library. (Tested with Apache and lighttpd)
 * Git (optional)
 
-##Installation and Usage
+## Installation and Usage
 
 1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt-get install apache2 php5 php5-gd git`
 2. In the terminal, switch to the root directory of the server (e.g., */var/www*) and use the `git clone git clone https://github.com/dmpop/mejiro.git` command to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
@@ -31,6 +31,6 @@ You can add descriptions to photos by creating accompanying *.txt* files. For ex
 
 To enable the expiration feature, change the *$expire = false;* line in the *index.php* script to *$expire = true;* and specify the desired expiration period by modifying the *$days* variable.
 
-##Demo
+## Demo
 
 A [Mejiro demo](http://dmpop.dhcp.io/mejiro/) is available for your viewing pleasure.
