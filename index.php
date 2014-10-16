@@ -30,10 +30,10 @@
 	<style>
 		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #777777; }
 		a { color: #e3e3e3; }
-		a.title { text-decoration: none; color: #FFFFFF; }
-		h1 { color: #E3E3E3; font: 29px/50% 'Fira Sans', sans-serif; font-weight: 400; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; text-shadow: 1px 1px 1px #585858; letter-spacing: 5px; }
+		a.title { text-decoration: none; color: #ffffff; }
+		h1 { color: #e3e3e3; font: 29px/50% 'Fira Sans', sans-serif; font-weight: 400; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; text-shadow: 1px 1px 1px #585858; letter-spacing: 5px; }
 		p { width: 800px; text-align: justify; }
-		p.box { border-style: dotted; width: 788px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
+		p.box { border-style: dotted; border-radius: 9px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: text-bottom; padding-right: 1px; }
 		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; vertical-align: text-bottom; padding-right: 1px; }
