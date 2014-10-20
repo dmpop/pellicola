@@ -2,6 +2,8 @@
 
 Mejiro is a forgetful single-file PHP web app for instant photo publishing. The app features expiration functionality. When enabled, it deletes photos older than a user-defined number of days -- hence the *forgetful* moniker.
 
+<img src="mejiro.png" alt="Mejiro" style="width: 375px;"/>
+
 ## Features
 
 * **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP5 and the GD library.
