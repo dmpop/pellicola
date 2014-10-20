@@ -67,28 +67,28 @@
 				$lat_degrees_a = explode('/',$info['GPSLatitude'][0]);
 				$lat_minutes_a = explode('/',$info['GPSLatitude'][1]);
 				$lat_seconds_a = explode('/',$info['GPSLatitude'][2]);
-				$lng_degrees_a = explode('/',$info['GPSLongitude'][0]);
-				$lng_minutes_a = explode('/',$info['GPSLongitude'][1]);
-				$lng_seconds_a = explode('/',$info['GPSLongitude'][2]);
+				$lon_degrees_a = explode('/',$info['GPSLongitude'][0]);
+				$lon_minutes_a = explode('/',$info['GPSLongitude'][1]);
+				$lon_seconds_a = explode('/',$info['GPSLongitude'][2]);
 
 				$lat_degrees = $lat_degrees_a[0] / $lat_degrees_a[1];
 				$lat_minutes = $lat_minutes_a[0] / $lat_minutes_a[1];
 				$lat_seconds = $lat_seconds_a[0] / $lat_seconds_a[1];
-				$lng_degrees = $lng_degrees_a[0] / $lng_degrees_a[1];
-				$lng_minutes = $lng_minutes_a[0] / $lng_minutes_a[1];
-				$lng_seconds = $lng_seconds_a[0] / $lng_seconds_a[1];
+				$lon_degrees = $lon_degrees_a[0] / $lon_degrees_a[1];
+				$lon_minutes = $lon_minutes_a[0] / $lon_minutes_a[1];
+				$lon_seconds = $lon_seconds_a[0] / $lon_seconds_a[1];
 
 				$lat = (float) $lat_degrees+((($lat_minutes*60)+($lat_seconds))/3600);
-				$lng = (float) $lng_degrees+((($lng_minutes*60)+($lng_seconds))/3600);
+				$lon = (float) $lon_degrees+((($lon_minutes*60)+($lon_seconds))/3600);
 
 				// If the latitude is South, make it negative
 			// If the longitude is west, make it negative
 				$GPSLatitudeRef  == 's' ? $lat *= -1 : '';
-				$GPSLongitudeRef == 'w' ? $lng *= -1 : '';
+				$GPSLongitudeRef == 'w' ? $lon *= -1 : '';
 
 				return array(
 					'lat' => $lat,
-					'long' => $lng
+					'lon' => $lon
 				);
 			}
 		}
@@ -242,8 +242,25 @@
 		}
 		$keyword = implode(", ", $keywords);
 
-		echo "<p class='box'>&fnof;/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[long]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
+		// Disable the Map link if the photo has no geographical coordinates
+		if (empty($gps[lat])) {
+			echo "<p class='box'>&fnof;/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | Map<br />".$keyword."</p>";
+		}
+		else {
+		echo "<p class='box'>&fnof;/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
+		}
+
+		// Disable the Next link if this is the last photo
+		if (empty($files[$key+1])) {
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
+		}
+		// Disable the Previous link if this is the first photo
+		elseif (empty($files[$key-1])) {
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | Previous</p>";
+		}
+		else {
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
+		}
 	}
 
 	// The $h parameter is used to show options
