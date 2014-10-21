@@ -9,15 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="124.01575"
-   height="187.79527"
+   width="330"
+   height="330"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="mejiro_sticker.svg"
-   inkscape:export-filename="/home/dmpop/mejiro_sticker.png"
-   inkscape:export-xdpi="299.72"
-   inkscape:export-ydpi="299.72">
+   sodipodi:docname="drawing.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,26 +22,23 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="-103.06148"
-     inkscape:cy="120.27958"
+     inkscape:zoom="0.7"
+     inkscape:cx="311.68007"
+     inkscape:cy="117.14288"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="969"
+     inkscape:window-width="1440"
+     inkscape:window-height="845"
      inkscape:window-x="-2"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0"
-     units="cm"
-     showguides="true"
-     inkscape:guide-bbox="true" />
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -53,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -61,71 +55,35 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0.35482266,-914.16655)">
-    <path
-       sodipodi:type="arc"
-       style="fill:#d4ff2a;fill-opacity:1;stroke:none"
-       id="path3018"
-       sodipodi:cx="65.659912"
-       sodipodi:cy="57.289322"
-       sodipodi:rx="18.182745"
-       sodipodi:ry="12.121831"
-       d="m 83.842657,57.289322 c 0,6.694702 -8.140692,12.121831 -18.182745,12.121831 -10.042053,0 -18.182745,-5.427129 -18.182745,-12.121831 0,-6.694702 8.140692,-12.121831 18.182745,-12.121831 10.042053,0 18.182745,5.427129 18.182745,12.121831 z"
-       transform="matrix(1.4728647,0,0,1.4728647,-33.883761,896.07884)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#aad400;fill-opacity:1;stroke:none"
-       id="path3016"
-       sodipodi:cx="79.802048"
-       sodipodi:cy="37.086269"
-       sodipodi:rx="22.223356"
-       sodipodi:ry="14.142136"
-       d="m 102.0254,37.086269 c 0,7.810486 -9.949732,14.142136 -22.223352,14.142136 -12.273621,0 -22.223357,-6.33165 -22.223357,-14.142136 0,-7.810485 9.949736,-14.142135 22.223357,-14.142135 12.27362,0 22.223352,6.33165 22.223352,14.142135 z"
-       transform="matrix(1.4728647,0,0,1.4728647,-54.642461,888.69956)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:none"
-       id="path3020"
-       sodipodi:cx="70.710678"
-       sodipodi:cy="30.520279"
-       sodipodi:rx="7.0710678"
-       sodipodi:ry="8.586297"
-       d="m 77.781746,30.520279 c 0,4.742081 -3.165825,8.586297 -7.071068,8.586297 -3.905243,0 -7.071068,-3.844216 -7.071068,-8.586297 0,-4.742081 3.165825,-8.586297 7.071068,-8.586297 3.905243,0 7.071068,3.844216 7.071068,8.586297 z"
-       transform="matrix(1.4728647,0,0,1.4728647,-32.42585,898.07884)" />
+     transform="translate(-154.28572,-319.50507)">
+    <g
+       id="g3786">
+      <rect
+         y="319.50507"
+         x="154.28572"
+         height="330"
+         width="330"
+         id="rect2985"
+         style="fill:#2323a4;fill-opacity:1" />
+      <rect
+         y="336.47314"
+         x="318.57144"
+         height="296.06381"
+         width="142.85715"
+         id="rect3755"
+         style="fill:#7676e6;fill-opacity:1" />
+    </g>
     <text
        xml:space="preserve"
-       style="font-size:28.35241699px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Fira Mono;-inkscape-font-specification:Fira Mono"
-       x="11.879715"
-       y="953.63086"
-       id="text2985"
+       style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
+       x="181.00656"
+       y="602.31049"
+       id="text3757"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan2987"
-         x="11.879715"
-         y="953.63086"> ( 0)&gt;</tspan><tspan
-         sodipodi:role="line"
-         x="11.879715"
-         y="989.07135"
-         id="tspan2989">((  ))</tspan><tspan
-         sodipodi:role="line"
-         x="11.879715"
-         y="1024.512"
-         id="tspan2991">  ||</tspan><tspan
-         sodipodi:role="line"
-         x="11.879715"
-         y="1059.9524"
-         id="tspan2993">-&quot;--&quot;-</tspan></text>
-    <text
-       sodipodi:linespacing="125%"
-       id="text2991"
-       y="1085.8295"
-       x="13.849699"
-       style="font-size:27.38527298px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#aad400;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         style="font-size:27.38527298px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#aad400;fill-opacity:1;font-family:Fira Mono;-inkscape-font-specification:Fira Mono"
-         y="1085.8295"
-         x="13.849699"
-         id="tspan2994"
-         sodipodi:role="line">Mejiro</tspan></text>
+         id="tspan3759"
+         x="181.00656"
+         y="602.31049"
+         style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;font-family:Umpush;-inkscape-font-specification:Umpush Bold">M</tspan></text>
   </g>
 </svg>
