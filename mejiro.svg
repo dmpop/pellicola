@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="drawing.svg">
+   sodipodi:docname="mejiro.svg"
+   inkscape:export-filename="/home/dmpop/mejiro.png"
+   inkscape:export-xdpi="34.909092"
+   inkscape:export-ydpi="34.909092">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -28,7 +31,7 @@
      inkscape:cx="311.68007"
      inkscape:cy="117.14288"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="text3757"
      showgrid="false"
      inkscape:window-width="1440"
      inkscape:window-height="845"
@@ -73,17 +76,14 @@
          id="rect3755"
          style="fill:#7676e6;fill-opacity:1" />
     </g>
-    <text
-       xml:space="preserve"
-       style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
-       x="181.00656"
-       y="602.31049"
-       id="text3757"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3759"
-         x="181.00656"
-         y="602.31049"
-         style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;font-family:Umpush;-inkscape-font-specification:Umpush Bold">M</tspan></text>
+    <g
+       style="font-size:332.77993773999997984px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
+       id="text3757">
+      <path
+         d="m 205.70507,602.31049 0,-235.6108 38.02271,0 75.55794,202.78777 75.55795,-202.78777 38.02271,0 0,235.6108 -38.99765,0 0,-123.81754 -46.14722,123.81754 -56.87157,0 -46.14722,-123.81754 0,123.81754 -38.99765,0"
+         style="line-height:125%;fill:#ffffff;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
+         id="path3863"
+         inkscape:connector-curvature="0" />
+    </g>
   </g>
 </svg>
