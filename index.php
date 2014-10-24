@@ -48,12 +48,12 @@
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
-	/**
-* Returns an array of latitude and longitude from the Image file
-* @param image $file
-* @return multitype:number |boolean
-* http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
-*/
+	/*
+	* Returns an array of latitude and longitude from the Image file
+	* @param image $file
+	* @return multitype:number |boolean
+	* http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
+	*/
 	function read_gps_location($file){
 		if (is_file($file)) {
 			$info = exif_read_data($file);
@@ -82,7 +82,7 @@
 				$lon = (float) $lon_degrees+((($lon_minutes*60)+($lon_seconds))/3600);
 
 				// If the latitude is South, make it negative
-			// If the longitude is west, make it negative
+				// If the longitude is west, make it negative
 				$GPSLatitudeRef  == 's' ? $lat *= -1 : '';
 				$GPSLongitudeRef == 'w' ? $lon *= -1 : '';
 
@@ -124,7 +124,7 @@
 		// Create a new temporary image
 		$tmp_img = imagecreatetruecolor($new_width, $new_height);
 
-		// copy and resize old image into new image
+		// Copy and resize old image into new image
 		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
 		// Save thumbnail into a file
@@ -212,22 +212,29 @@
 		echo "</p>";
 		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
 		$gps = read_gps_location($file);
+		
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0] / $fstop[1];
 		if (empty($fstop)) {
-			$fstop = "n/a";
+			$fstop = "";
+		} else {
+			$fstop = "&fnof;/".$fstop." &bull; ";
 		}
 		$exposuretime=$exif['EXIF']['ExposureTime'];
 		if (empty($exposuretime)) {
-			$exposuretime="n/a";
+			$exposuretime="";
+		} else {
+			$exposuretime=$exposuretime." &bull; ";
 		}
 		$iso=$exif['EXIF']['ISOSpeedRatings'];
 		if (empty($iso)) {
-			$iso="n/a";
+			$iso="";
+		} else {
+			$iso=$iso." &bull; ";
 		}
 		$datetime=$exif['EXIF']['DateTimeOriginal'];
 		if (empty($datetime)) {
-			$datetime="n/a";
+			$datetime="";
 		}
 		// Parse IPTC metadata and extract keywords
 		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
@@ -241,16 +248,16 @@
 				}
 		}
 		$keyword = implode(", ", $keywords);
-
+		
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			echo "<p class='box'>&fnof;/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | Map<br />".$keyword."</p>";
+			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." &bull; Map<br />".$keyword."</p>";
 		}
 		else {
-		echo "<p class='box'>&fnof;/".$fstop." | " .$exposuretime. " | ".$iso. " | ".$datetime." | <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
+		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." &bull; <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
 		}
-
-		// Disable the Next link if this is the last photo
+		
+		// Disable the Next link if this is the last photo 
 		if (empty($files[$key+1])) {
 			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
 		}
