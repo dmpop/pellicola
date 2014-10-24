@@ -235,6 +235,8 @@
 		$datetime=$exif['EXIF']['DateTimeOriginal'];
 		if (empty($datetime)) {
 			$datetime="";
+		} else {
+			$datetime=$datetime." &bull; ";
 		}
 		// Parse IPTC metadata and extract keywords
 		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
@@ -251,10 +253,10 @@
 		
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." &bull; Map<br />".$keyword."</p>";
+			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." Map<br />".$keyword."</p>";
 		}
 		else {
-		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." &bull; <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
+		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
 		}
 		
 		// Disable the Next link if this is the last photo 
