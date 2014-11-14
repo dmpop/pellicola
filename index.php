@@ -200,7 +200,14 @@
 		$thumb = "photos/thumbs/".basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
-		echo "<h1>".$filepath['filename']."</h1>";
+		//Check if the related RAW file exists and link to it.
+		$rawfile=glob('photos/'.$filepath['filename'].'.{ARW,NEF}', GLOB_BRACE);
+		if (!empty($rawfile)) {
+			echo "<h1>".$filepath['filename']." <a href=".$rawfile[0].">*</a></h1>";
+		}
+		else {
+			echo "<h1>".$filepath['filename']."</h1>";
+		}
 		echo "<p>";
 		// Check whether the localized description file matching the browser language exists
 		if (file_exists('photos/'.$language.'-'.$filepath['filename'].'.txt')) {
