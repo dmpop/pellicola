@@ -32,6 +32,7 @@
 		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #777777; }
 		a { color: #e3e3e3; }
 		a.title { text-decoration: none; color: #ffffff; }
+		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
 		h1 { color: #e3e3e3; font: 29px/50% 'Fira Sans', sans-serif; font-weight: 400; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; text-shadow: 1px 1px 1px #585858; letter-spacing: 5px; }
 		p { width: 800px; text-align: justify; }
 		p.box { border-style: dotted; border-radius: 9px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
@@ -206,9 +207,9 @@
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		//Check if the related RAW file exists and link to it.
-		$rawfile=glob('photos/'.$filepath['filename'].'.{ARW,NEF,CR2,DNG}', GLOB_BRACE);
+		$rawfile=glob('photos/'.$filepath['filename'].'.{ARW,NEF}', GLOB_BRACE);
 		if (!empty($rawfile)) {
-			echo "<h1>".$filepath['filename']." <a href=".$rawfile[0].">*</a></h1>";
+			echo "<h1>".$filepath['filename']." <a class='superscript' href=".$rawfile[0].">RAW</a></h1>";
 		}
 		else {
 			echo "<h1>".$filepath['filename']."</h1>";
