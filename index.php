@@ -275,14 +275,15 @@
 		
 		// Disable the Next link if this is the last photo 
 		if (empty($files[$key+1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
+		//	echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'>Previous</a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
 		// Disable the Previous link if this is the first photo
 		elseif (empty($files[$key-1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | Previous</p>";
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key+1]."&t=1'>Next</a> | <a href='".basename($_SERVER['PHP_SELF'])."?p=".$files[$key-1]."&t=1'>Previous</a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
 	}
 
