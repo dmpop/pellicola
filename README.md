@@ -14,6 +14,7 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 * **IPTC keywords** Mejiro parses IPTC metadata and displays keywords assigned to photos.
 * **Display geographical coordinates on OpenStreetMap** For geotagged photos, you can view their exact locations on OpenStreetMap.
 * **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
+* **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it.
 * **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 
 ## Requirements
