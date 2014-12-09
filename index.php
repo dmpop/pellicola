@@ -207,7 +207,7 @@
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		//Check if the related RAW file exists and link to it.
-		$rawfile=glob('photos/'.$filepath['filename'].'.{ARW,NEF}', GLOB_BRACE);
+		$rawfile=glob('photos/'.$filepath['filename'].'.{ARW,NEF,CR2}', GLOB_BRACE);
 		if (!empty($rawfile)) {
 			echo "<h1>".$filepath['filename']." <a class='superscript' href=".$rawfile[0].">RAW</a></h1>";
 		}
