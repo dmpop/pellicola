@@ -40,7 +40,7 @@
 		img { vertical-align: text-bottom; padding-right: 1px; }
 		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; vertical-align: text-bottom; padding-right: 1px; }
 		#content { margin: 0px auto; width: 800px; color: #e3e3e3; }
-		.text { text-align: center; padding: 0px; margin-right: 20px; color: inherit; float: left; }
+		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
 		.footer { text-align: center; font-family: monospace; font-size: 11px; }
 	</style>
