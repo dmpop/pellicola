@@ -166,7 +166,7 @@
 	// Update count (we might have removed some files)
 	$fileCount = count($files);
 
-	echo "<title>$title</title>";
+	echo "<title>$title ($fileCount)</title>";
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
