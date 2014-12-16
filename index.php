@@ -23,7 +23,8 @@
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
 	$log = false; // Set to true to enable IP logging
-	$r_sort = false; // Set to true to show thumbnails in the reversed order (oldest ot newest)
+	$reverse_order = false; // Set to true to show thumbnails in the reverse order (oldest ot newest)
+	$google_maps=false; //Set to true to use Google Maps instead of OpenStreetMap
 	$password='m0nk3y'; //Upload password
 	// ---------------------
 	?>
@@ -187,7 +188,7 @@
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly
-		if($r_sort) {
+		if($reverse_order) {
 			rsort($files);
 		}
 		for ($i=($fileCount-1); $i>=0; $i--) {
@@ -265,12 +266,19 @@
 		}
 		$keyword = implode(", ", $keywords);
 		
+		//Generate map URL. Choose between Google Maps and OpenStreetmap
+		if ($google_maps){
+			$map_url = " <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'>Map</a>";
+		} else {
+			$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a>";
+		}
+		
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
 			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." Map<br />".$keyword."</p>";
 		}
 		else {
-		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a><br />".$keyword."</p>";
+		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br />".$keyword."</p>";
 		}
 		
 		// Disable the Next link if this is the last photo 
