@@ -22,7 +22,7 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
-	$log = false; // Set to true to enable IP logging
+	$stats = false; // Enable web statistics (requires CrazyStat)
 	$reverse_order = false; // Set to true to show thumbnails in the reverse order (oldest ot newest)
 	$google_maps=false; //Set to true to use Google Maps instead of OpenStreetMap
 	$password='m0nk3y'; //Upload password
@@ -326,13 +326,11 @@ EOD;
 }
 
 	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?h">Options</a></div>';
-
-	if ($log) {
-		$ip=$_SERVER['REMOTE_ADDR'];
-		$date = $date = date('Y-m-d H:i:s');
-		$file = fopen("ip.log", "a+");
-		fputs($file, " $ip  $page $date \n");
-		fclose($file);
+	
+	if ($stats) {
+	echo '<center>';
+	@include_once("../crazystat/src/include.php");
+	echo '</center>';
 	}
 
 	?>

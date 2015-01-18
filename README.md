@@ -16,6 +16,7 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 * **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
 * **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it.
 * **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
+* **CrazyStat integration** Mejiro supports integration with the [CrazyStat](http://en.christosoft.de/CrazyStat) web analytics software.
 
 ## Requirements
 
