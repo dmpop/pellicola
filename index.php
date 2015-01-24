@@ -199,7 +199,7 @@
 		}
 		echo "</p>";
 	}
-	
+
 	// The $p parameter is used to show an individual photo
 	$file = $_GET['p'];
 	if (isset($file)) {
@@ -217,17 +217,18 @@
 		}
 		echo "<p>";
 		// Check whether the localized description file matching the browser language exists
+		// added @ to file_get_contents as docs say this is optional.
 		if (file_exists('photos/'.$language.'-'.$filepath['filename'].'.txt')) {
-			echo file_get_contents('photos/'.$language.'-'.$filepath['filename'].'.txt');
+			echo @file_get_contents('photos/'.$language.'-'.$filepath['filename'].'.txt');
 			// If the localized description file doesn't exist, use the default one
 			} else {
-			echo file_get_contents('photos/'.$filepath['filename'].'.txt');
+			echo @file_get_contents('photos/'.$filepath['filename'].'.txt');
 		}
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
 		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
 		$gps = read_gps_location($file);
-		
+
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0] / $fstop[1];
 		if (empty($fstop)) {
@@ -264,24 +265,24 @@
 					$keywords = array();
 				}
 		}
-		$keyword = implode(", ", $keywords);
-		
+		$keyword = implode(", ", $keywords) || "";
+
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
 		if ($google_maps){
 			$map_url = " <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'>Map</a>";
 		} else {
 			$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a>";
 		}
-		
+
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." Map<br />".$keyword."</p>";
+			      echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime."<br />".$keyword."</p>";
 		}
 		else {
-		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br />".$keyword."</p>";
+		        echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br />".$keyword."</p>";
 		}
-		
-		// Disable the Next link if this is the last photo 
+
+		// Disable the Next link if this is the last photo
 		if (empty($files[$key+1])) {
 		//	echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'>Previous</a></p>";
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
@@ -326,7 +327,7 @@ EOD;
 }
 
 	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?h">Options</a></div>';
-	
+
 	if ($stats) {
 	echo '<center>';
 	@include_once("../crazystat/src/include.php");
