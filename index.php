@@ -275,12 +275,23 @@
 		
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." Map<br />".$keyword."</p>";
+			echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime." Map<br />".$keyword."<a href='#' onClick='togglecolor()'>toggle background</a></p>";
 		}
 		else {
-		echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br />".$keyword."</p>";
+		        echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br />".$keyword."<a href='#' onClick='togglecolor()'>toggle background</a></p>";
 		}
-		
+		print <<<TOGGLE
+		<script>
+			i = 0;
+			bg = new Array("dimgray", "black", "white");
+			fg = new Array("white", "white", "black");
+			function togglecolor(){
+				document.bgColor = bg[i];
+				document.fgColor = fg[i++];
+				if (i>2) i=0;
+			}
+		</script>
+TOGGLE;		
 		// Disable the Next link if this is the last photo 
 		if (empty($files[$key+1])) {
 		//	echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'>Previous</a></p>";
