@@ -26,11 +26,11 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 ## Installation and Usage
 
 1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt-get install apache2 php5 php5-gd git`
-2. In the terminal, switch to the root directory of the server (e.g., */var/www*) and use the `git clone git clone https://github.com/dmpop/mejiro.git` command to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
+2. In the terminal, switch to the root directory of the server (e.g., */var/www*) and use the `git clone git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 3. Open the *index.php* file in a text editor and edit settings. This step is optional.
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* files only).
-5. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
-6. chmod the following directories so that the app can write/delete files: the app directory (.), photos, photos/thumbs
+5. Make the *mejiro* directory writable by the server using the `chown www-data -R mejiro` command as root.
+6. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
 
 You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: *de-F994362-R1-14-15.txt* (for German), *ja-F994362-R1-14-15.txt* (for Japanese), etc.
 
