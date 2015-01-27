@@ -265,7 +265,7 @@
 					$keywords = array();
 				}
 		}
-		$keyword = implode(", ", $keywords) || "";
+		$keyword = implode(", ", $keywords);
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
 		if ($google_maps){
