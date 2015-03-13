@@ -231,9 +231,10 @@
 
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0] / $fstop[1];
-		if (empty($fstop)) {
+		if (empty($fstop[0]) || empty($fstop[1]) ) {
 			$fstop = "";
 		} else {
+			$fstop = $fstop[0] / $fstop[1];
 			$fstop = "&fnof;/".$fstop." &bull; ";
 		}
 		$exposuretime=$exif['EXIF']['ExposureTime'];
@@ -264,7 +265,6 @@
 				} else {
 					$keywords = array();
 				}
-		}
 		$keyword = implode(", ", $keywords);
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
