@@ -22,7 +22,7 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false; // Set to true to enable the expiration feature
 	$days = 15; // Expiration period
-	$stats = false; // Enable web statistics (requires CrazyStat)
+	$stats = true; // Enable web statistics (requires CrazyStat)
 	$reverse_order = false; // Set to true to show thumbnails in the reverse order (oldest ot newest)
 	$google_maps=false; //Set to true to use Google Maps instead of OpenStreetMap
 	$password='m0nk3y'; //Upload password
@@ -265,6 +265,7 @@
 				} else {
 					$keywords = array();
 				}
+		}
 		$keyword = implode(", ", $keywords);
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
@@ -284,15 +285,14 @@
 
 		// Disable the Next link if this is the last photo
 		if (empty($files[$key+1])) {
-		//	echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'>Home</a> | Next | <a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'>Previous</a></p>";
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
 		// Disable the Previous link if this is the first photo
 		elseif (empty($files[$key-1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a></p>";
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
 	}
 
