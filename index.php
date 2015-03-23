@@ -47,6 +47,9 @@
 	</style>
 
 	<?php
+	
+	//Supress all error messages
+	//error_reporting (E_ALL ^ E_NOTICE);
 
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -172,7 +175,7 @@
 	echo "<div id='content'>";
 
 	// The $r parameter is used to empty the /photos/thumbs directory.
-	$rebuild = $_GET['r'];
+	$rebuild = (isset($_GET['r']) ? $_GET['r'] : null);
 	if (isset($rebuild)) {
 		$files = glob('photos/thumbs/*');
 			foreach($files as $file){
@@ -182,7 +185,7 @@
 		}
 
 	// The $t parameter is used to show the thumbnails
-	$view = $_GET['t'];
+	$view = (isset($_GET['t']) ? $_GET['t'] : null);
 	if (!isset($view)) {
 		echo "<h1>".$title."</h1>";
 		echo "<p class ='center'>".$tagline."</p>";
@@ -201,7 +204,7 @@
 	}
 
 	// The $p parameter is used to show an individual photo
-	$file = $_GET['p'];
+	$file = (isset($_GET['p']) ? $_GET['p'] : null);
 	if (isset($file)) {
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$thumb = "photos/thumbs/".basename($file);
@@ -297,14 +300,14 @@
 	}
 
 	// The $h parameter is used to show options
-	$help = $_GET['h'];
+	$help = (isset($_GET['h']) ? $_GET['h'] : null);
 	if (isset($help)) {
 		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
 	// The $u parameter is used to show the upload form
-	$upload = $_GET['u'];
+	$upload = (isset($_GET['u']) ? $_GET['u'] : null);
 	if (isset($upload)) {
 	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?u';
 	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
