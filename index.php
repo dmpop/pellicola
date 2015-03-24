@@ -20,12 +20,12 @@
 	$title = "Mejiro";
 	$tagline = "No-frills open source photo grid";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
-	$expire = false;		// Set to true to enable the expiration feature
-	$days = 15;				// Expiration period
-	$stats = false;			// Enable web statistics (requires CrazyStat)
-	$reverse_order = false; // Set to true to show thumbnails in the reverse order (oldest ot newest)
-	$google_maps=false;		//Set to true to use Google Maps instead of OpenStreetMap
-	$password='m0nk3y';		//Upload password
+	$expire = false;	// Set to true to enable the expiration feature
+	$days = 15;	// Expiration period
+	$stats = false;	// Enable web statistics (requires CrazyStat)
+	$reverse_order = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
+	$google_maps=false;	//Set to true to use Google Maps instead of OpenStreetMap
+	$password='m0nk3y';	//Upload password
 	// -----------------------
 	?>
 
