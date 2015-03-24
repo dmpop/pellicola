@@ -23,7 +23,7 @@
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
 	$stats = false;	// Enable web statistics (requires CrazyStat)
-	$reverse_order = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
+	$r_sort = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
 	$google_maps=false;	//Set to true to use Google Maps instead of OpenStreetMap
 	$password='m0nk3y';	//Upload password
 	// -----------------------
@@ -47,9 +47,6 @@
 	</style>
 
 	<?php
-	
-	//Supress all error messages
-	//error_reporting (E_ALL ^ E_NOTICE);
 
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -117,7 +114,7 @@
 	{
 		// Load image
 		$img = @imagecreatefromjpeg($original);
-		if(!$img) return false; // we couldn't read the image, abort
+		if(!$img) return false; // Abort if the image couldn't be read
 
 		// Get image size
 		$width = imagesx($img);
@@ -175,8 +172,8 @@
 	echo "<div id='content'>";
 
 	// The $r parameter is used to empty the /photos/thumbs directory.
-	$rebuild = (isset($_GET['r']) ? $_GET['r'] : null);
-	if (isset($rebuild)) {
+	$rm_thumb = (isset($_GET['r']) ? $_GET['r'] : null);
+	if (isset($rm_thumb)) {
 		$files = glob('photos/thumbs/*');
 			foreach($files as $file){
 				unlink($file);
@@ -185,13 +182,13 @@
 		}
 
 	// The $t parameter is used to show the thumbnails
-	$view = (isset($_GET['t']) ? $_GET['t'] : null);
-	if (!isset($view)) {
+	$thumb_view = (isset($_GET['t']) ? $_GET['t'] : null);
+	if (!isset($thumb_view)) {
 		echo "<h1>".$title."</h1>";
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly
-		if($reverse_order) {
+		if($r_sort) {
 			rsort($files);
 		}
 		for ($i=($fileCount-1); $i>=0; $i--) {
