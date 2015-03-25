@@ -16,8 +16,8 @@
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="mejiro.svg"
    inkscape:export-filename="/home/dmpop/mejiro.png"
-   inkscape:export-xdpi="4.3636365"
-   inkscape:export-ydpi="4.3636365">
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="72.394356"
-     inkscape:cy="117.14288"
+     inkscape:zoom="1"
+     inkscape:cx="155.81025"
+     inkscape:cy="157.54898"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -77,8 +77,9 @@
          style="fill:#7676e6;fill-opacity:1" />
     </g>
     <g
-       style="font-size:332.77993773999997984px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
-       id="text3757">
+       style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
+       id="text3757"
+       transform="translate(-0.98984743,0)">
       <path
          d="m 205.70507,602.31049 0,-235.6108 38.02271,0 75.55794,202.78777 75.55795,-202.78777 38.02271,0 0,235.6108 -38.99765,0 0,-123.81754 -46.14722,123.81754 -56.87157,0 -46.14722,-123.81754 0,123.81754 -38.99765,0"
          style="line-height:125%;fill:#ffffff;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
