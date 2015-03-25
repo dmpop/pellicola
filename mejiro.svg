@@ -16,8 +16,8 @@
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="mejiro.svg"
    inkscape:export-filename="/home/dmpop/mejiro.png"
-   inkscape:export-xdpi="34.909092"
-   inkscape:export-ydpi="34.909092">
+   inkscape:export-xdpi="4.3636365"
+   inkscape:export-ydpi="4.3636365">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -28,13 +28,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="311.68007"
+     inkscape:cx="72.394356"
      inkscape:cy="117.14288"
      inkscape:document-units="px"
-     inkscape:current-layer="text3757"
+     inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1440"
-     inkscape:window-height="845"
+     inkscape:window-width="1280"
+     inkscape:window-height="969"
      inkscape:window-x="-2"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
