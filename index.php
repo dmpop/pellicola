@@ -47,6 +47,9 @@
 	</style>
 
 	<?php
+	
+	//Suppress all error messages
++	//error_reporting (E_ALL ^ E_NOTICE);
 
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
