@@ -9,15 +9,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="330"
-   height="330"
+   width="300"
+   height="300"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="mejiro.svg"
    inkscape:export-filename="/home/dmpop/mejiro.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   inkscape:export-xdpi="4.8000002"
+   inkscape:export-ydpi="4.8000002">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -29,7 +29,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1"
      inkscape:cx="155.81025"
-     inkscape:cy="157.54898"
+     inkscape:cy="140.58087"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,28 +58,29 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-154.28572,-319.50507)">
+     transform="translate(-154.28572,-332.53696)">
     <g
-       id="g3786">
+       id="g2995"
+       transform="matrix(0.97674415,0,0,1.0131853,3.5880454,-8.340191)">
       <rect
-         y="319.50507"
+         y="336.44107"
          x="154.28572"
-         height="330"
-         width="330"
+         height="296.064"
+         width="307"
          id="rect2985"
          style="fill:#2323a4;fill-opacity:1" />
       <rect
          y="336.47314"
-         x="318.57144"
+         x="308.57144"
          height="296.06381"
-         width="142.85715"
+         width="152.85715"
          id="rect3755"
          style="fill:#7676e6;fill-opacity:1" />
     </g>
     <g
        style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
        id="text3757"
-       transform="translate(-0.98984743,0)">
+       transform="translate(-15.000005,-1.9681343)">
       <path
          d="m 205.70507,602.31049 0,-235.6108 38.02271,0 75.55794,202.78777 75.55795,-202.78777 38.02271,0 0,235.6108 -38.99765,0 0,-123.81754 -46.14722,123.81754 -56.87157,0 -46.14722,-123.81754 0,123.81754 -38.99765,0"
          style="line-height:125%;fill:#ffffff;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
