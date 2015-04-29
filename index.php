@@ -47,9 +47,9 @@
 	</style>
 
 	<?php
-	
+
 	//Suppress all error messages
-+	//error_reporting (E_ALL ^ E_NOTICE);
+	//error_reporting (E_ALL ^ E_NOTICE);
 
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -299,8 +299,8 @@
 		}
 	}
 
-	// The $h parameter is used to show options
-	$help = (isset($_GET['h']) ? $_GET['h'] : null);
+	// The $o parameter is used to show options
+	$help = (isset($_GET['o']) ? $_GET['o'] : null);
 	if (isset($help)) {
 		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
 	}
@@ -329,7 +329,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?h">Options</a></div>';
+	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?o">Options</a></div>';
 
 	if ($stats) {
 	echo '<center>';
