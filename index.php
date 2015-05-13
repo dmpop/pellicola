@@ -39,7 +39,7 @@
 		p.box { border-style: dotted; border-radius: 9px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: text-bottom; padding-right: 1px; }
-		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; vertical-align: text-bottom; padding-right: 1px; }
+		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; vertical-align: text-bottom; }
 		#content { margin: 0px auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
