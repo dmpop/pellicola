@@ -18,7 +18,7 @@
 	<?php
 
 	// User-defined settings
-	$title = "MEJIRO";
+	$title = "Mejiro";
 	$tagline = "No-frills open source photo grid";
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature
@@ -35,7 +35,7 @@
 		a { color: #e3e3e3; }
 		a.title { text-decoration: none; color: #ffffff; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
-		h1 { color: #e3e3e3; font: 29px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 13px; }
+		h1 { color: #e3e3e3; font: 39px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		p { width: 800px; text-align: justify; }
 		p.box { border-style: dotted; border-radius: 9px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
