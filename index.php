@@ -175,8 +175,8 @@
 	echo "<body>";
 	echo "<div id='content'>";
 
-	// The $r parameter is used to empty the /photos/thumbs directory.
-	$rm_thumb = (isset($_GET['r']) ? $_GET['r'] : null);
+	// The $rebuild parameter is used to empty the /photos/thumbs directory.
+	$rm_thumb = (isset($_GET['rebuild']) ? $_GET['rebuild'] : null);
 	if (isset($rm_thumb)) {
 		$files = glob('photos/thumbs/*');
 			foreach($files as $file){
@@ -185,8 +185,8 @@
 		exit("Thumbnails have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild thumbnails.");
 		}
 
-	// The $t parameter is used to show the thumbnails
-	$thumb_view = (isset($_GET['t']) ? $_GET['t'] : null);
+	// The $grid parameter is used to show the main grid
+	$thumb_view = (isset($_GET['grid']) ? $_GET['grid'] : null);
 	if (!isset($thumb_view)) {
 		echo "<h1>".$title."</h1>";
 		echo "<p class ='center'>".$tagline."</p>";
@@ -199,13 +199,13 @@
 			$file = $files[$i];
 			$thumb = "photos/thumbs/".basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?t&p='.$file.'"><img class="thumbnail" src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
+			echo '<a href="index.php?grid&photo='.$file.'"><img class="thumbnail" src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
 		}
 		echo "</p>";
 	}
 
-	// The $p parameter is used to show an individual photo
-	$file = (isset($_GET['p']) ? $_GET['p'] : null);
+	// The $photo parameter is used to show an individual photo
+	$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (isset($file)) {
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$thumb = "photos/thumbs/".basename($file);
@@ -289,28 +289,28 @@
 
 		// Disable the Next link if this is the last photo
 		if (empty($files[$key+1])) {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
 		// Disable the Previous link if this is the first photo
 		elseif (empty($files[$key-1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a></p>";
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?t&p=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
 	}
 
-	// The $o parameter is used to show options
-	$help = (isset($_GET['o']) ? $_GET['o'] : null);
+	// The $menu parameter is used to show the menu
+	$help = (isset($_GET['menu']) ? $_GET['menu'] : null);
 	if (isset($help)) {
-		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?r">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?u">Show upload form</a></p>';
+		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?upload">Show upload form</a></p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
-	// The $u parameter is used to show the upload form
-	$upload = (isset($_GET['u']) ? $_GET['u'] : null);
+	// The $upload parameter is used to show the upload form
+	$upload = (isset($_GET['upload']) ? $_GET['upload'] : null);
 	if (isset($upload)) {
-	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?u';
+	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?upload';
 	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
 			sleep(3); // Reduce brute-force attack effectiveness
 		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
@@ -330,7 +330,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?o">Options</a></div>';
+	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?menu">Menu</a></div>';
 
 	if ($stats) {
 	echo '<center>';
