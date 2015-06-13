@@ -13,6 +13,7 @@
 	<meta name="viewport" content="width=device-width" />
 	<link href='http://fonts.googleapis.com/css?family=Fira+Sans&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<?php
@@ -23,10 +24,17 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
-	$stats = false;	// Enable web statistics (requires CrazyStat)
+	$stats = true;	// Enable web statistics (requires CrazyStat)
 	$r_sort = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
-	$google_maps=false;	//Set to true to use Google Maps instead of OpenStreetMap
-	$password='m0nk3y';	//Upload password
+	$google_maps = false;	//Set to true to use Google Maps instead of OpenStreetMap
+	$password = 'm0nk3y';	//Upload password
+	$social = true;	//Enable the social box
+	//If the social box is enabled, specify the following links
+	$flickr = 'https://www.flickr.com/photos/dmpop/'; //Flickr
+	$wordpress = 'http://scribblesandsnaps.com/'; //WordPress
+	$github = 'https://github.com/dmpop'; //GitHub
+	$googleplus = 'https://plus.google.com/+DmitriPopov/'; //Google+
+	$facebook = 'https://www.facebook.com/dmpop'; //Facebook
 	// -----------------------
 	?>
 
@@ -298,6 +306,11 @@
 		else {
 		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
 		}
+	}
+	
+	// Show social box
+	if ($social) {
+		echo '<div class="center"><a href="'.$flickr.'"><i class="fa fa-flickr"></i></a> <a href="'.$wordpress.'"><i class="fa fa-wordpress"></i></a> <a href="'.$github.'"><i class="fa fa-github"></i></a> <a href="'.$googleplus.'"><i class="fa fa-google-plus"></i></a> <a href="'.$facebook.'"><i class="fa fa-facebook-square"></i></a></div>';
 	}
 
 	// The $menu parameter is used to show the menu
