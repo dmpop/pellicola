@@ -24,17 +24,17 @@
 	$footer="Powered by <a href='https://github.com/dmpop/mejiro'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
-	$stats = true;	// Enable web statistics (requires CrazyStat)
+	$stats = false;	// Enable web statistics (requires CrazyStat)
 	$r_sort = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
 	$google_maps = false;	//Set to true to use Google Maps instead of OpenStreetMap
 	$password = 'm0nk3y';	//Upload password
-	$social = true;	//Enable the social box
-	//If the social box is enabled, specify the following links
-	$flickr = 'https://www.flickr.com/photos/dmpop/'; //Flickr
-	$wordpress = 'http://scribblesandsnaps.com/'; //WordPress
-	$github = 'https://github.com/dmpop'; //GitHub
+	$link_box = true;	//Enable the link box
+	//If the link box is enabled, specify the following links
+	$flickr = 'https://www.flickr.com/photos/dmpop/';  //Flickr
+	$wordpress = 'http://scribblesandsnaps.com/';  //WordPress
+	$github = 'https://github.com/dmpop';  //GitHub
 	$googleplus = 'https://plus.google.com/+DmitriPopov/'; //Google+
-	$facebook = 'https://www.facebook.com/dmpop'; //Facebook
+	$facebook = 'https://www.facebook.com/dmpop';  //Facebook
 	// -----------------------
 	?>
 
@@ -308,8 +308,8 @@
 		}
 	}
 	
-	// Show social box
-	if ($social) {
+	// Show link box
+	if ($link_box) {
 		echo '<div class="center"><a href="'.$flickr.'"><i class="fa fa-flickr"></i></a> <a href="'.$wordpress.'"><i class="fa fa-wordpress"></i></a> <a href="'.$github.'"><i class="fa fa-github"></i></a> <a href="'.$googleplus.'"><i class="fa fa-google-plus"></i></a> <a href="'.$facebook.'"><i class="fa fa-facebook-square"></i></a></div>';
 	}
 
