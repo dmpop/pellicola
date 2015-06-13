@@ -310,13 +310,13 @@
 	
 	// Show link box
 	if ($link_box) {
-		echo '<div class="center"><a href="'.$flickr.'"><i class="fa fa-flickr"></i></a> <a href="'.$wordpress.'"><i class="fa fa-wordpress"></i></a> <a href="'.$github.'"><i class="fa fa-github"></i></a> <a href="'.$googleplus.'"><i class="fa fa-google-plus"></i></a> <a href="'.$facebook.'"><i class="fa fa-facebook-square"></i></a></div>';
+		echo '<div class="center"><a href="'.$flickr.'"><i class="fa fa-flickr fa-lg"></i></a> <a href="'.$wordpress.'"><i class="fa fa-wordpress fa-lg"></i></a> <a href="'.$github.'"><i class="fa fa-github fa-lg"></i></a> <a href="'.$googleplus.'"><i class="fa fa-google-plus fa-lg"></i></a> <a href="'.$facebook.'"><i class="fa fa-facebook-square fa-lg"></i></a></div>';
 	}
 
 	// The $menu parameter is used to show the menu
 	$help = (isset($_GET['menu']) ? $_GET['menu'] : null);
 	if (isset($help)) {
-		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild">Rebuild thumbnails</a><br /><a href="'.$_SERVER['PHP_SELF'].'?upload">Show upload form</a></p>';
+		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild"><i class="fa fa-wrench fa-lg"></i></a> Rebuild thumbnails --- <a href="'.$_SERVER['PHP_SELF'].'?upload"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
