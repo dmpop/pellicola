@@ -29,12 +29,14 @@
 	$google_maps = false;	//Set to true to use Google Maps instead of OpenStreetMap
 	$password = 'm0nk3y';	//Upload password
 	$link_box = true;	//Enable the link box
-	//If the link box is enabled, specify the following links
-	$flickr = 'https://www.flickr.com/photos/dmpop/';  //Flickr
-	$wordpress = 'http://scribblesandsnaps.com/';  //WordPress
-	$github = 'https://github.com/dmpop';  //GitHub
-	$googleplus = 'https://plus.google.com/+DmitriPopov/'; //Google+
-	$facebook = 'https://www.facebook.com/dmpop';  //Facebook
+	//If the link box is enabled, specify the desired links and their icons in the array below
+	$links = array (
+	array('https://www.flickr.com/photos/dmpop/','fa fa-flickr fa-lg'),
+	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
+	array('https://github.com/dmpop','fa fa-github fa-lg'),
+	array('https://plus.google.com/+DmitriPopov/','fa fa-google-plus fa-lg'),
+	array('https://plus.google.com/+DmitriPopov/','fa fa-facebook-square fa-lg')
+	);
 	// -----------------------
 	?>
 
@@ -310,7 +312,12 @@
 	
 	// Show link box
 	if ($link_box) {
-		echo '<div class="center"><a href="'.$flickr.'"><i class="fa fa-flickr fa-lg"></i></a> <a href="'.$wordpress.'"><i class="fa fa-wordpress fa-lg"></i></a> <a href="'.$github.'"><i class="fa fa-github fa-lg"></i></a> <a href="'.$googleplus.'"><i class="fa fa-google-plus fa-lg"></i></a> <a href="'.$facebook.'"><i class="fa fa-facebook-square fa-lg"></i></a></div>';
+            $array_length = count($links);
+            echo '<div class="center">';
+            for($i = 0; $i < $array_length; $i++) {
+            echo '<a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> ';
+            }
+            echo "</div>";
 	}
 
 	// The $menu parameter is used to show the menu
