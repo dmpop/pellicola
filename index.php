@@ -245,10 +245,10 @@
 
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
 		$fstop = $fstop[0];
-		if (empty($fstop[0]) || empty($fstop[1]) ) {
+		if (empty($fstop[0]) ) {
 			$fstop = "";
 		} else {
-			$fstop = $fstop[0] / $fstop[1];
+			$fstop = $fstop[0];
 			$fstop = "&fnof;/".$fstop." &bull; ";
 		}
 		$exposuretime=$exif['EXIF']['ExposureTime'];
