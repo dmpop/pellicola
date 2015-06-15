@@ -35,7 +35,7 @@
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg'),
 	array('https://plus.google.com/+DmitriPopov/','fa fa-google-plus fa-lg'),
-	array('https://plus.google.com/+DmitriPopov/','fa fa-facebook-square fa-lg')
+	array('https://twitter.com/dmpop','fa fa-twitter fa-lg')
 	);
 	// -----------------------
 	?>
