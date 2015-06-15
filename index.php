@@ -244,7 +244,7 @@
 		$gps = read_gps_location($file);
 
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
-		$fstop = $fstop[0] / $fstop[1];
+		$fstop = $fstop[0];
 		if (empty($fstop[0]) || empty($fstop[1]) ) {
 			$fstop = "";
 		} else {
@@ -284,17 +284,17 @@
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
 		if ($google_maps){
-			$map_url = " <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'>Map</a>";
+			$map_url = " <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		} else {
-			$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'>Map</a>";
+			$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		}
 
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			      echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime."<br />".$keyword."</p>";
+			      echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
 		}
 		else {
-		        echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br />".$keyword."</p>";
+		        echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
 		}
 
 		// Disable the Next link if this is the last photo
@@ -350,7 +350,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?menu">Menu</a></div>';
+	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
 	echo '<center>';
