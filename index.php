@@ -51,7 +51,7 @@
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: middle; padding-right: 1px; }
 		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; }
-		#content { margin: 0px auto; width: 800px; color: #e3e3e3; }
+		#content { margin: auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
 		.footer { text-align: center; font-family: monospace; font-size: 11px; }
