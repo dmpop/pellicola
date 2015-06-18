@@ -196,8 +196,8 @@
 		}
 
 	// The $grid parameter is used to show the main grid
-	$thumb_view = (isset($_GET['grid']) ? $_GET['grid'] : null);
-	if (!isset($thumb_view)) {
+	$grid = (isset($_GET['grid']) ? $_GET['grid'] : null);
+	if (!isset($grid)) {
 		echo "<h1>".$title."</h1>";
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
