@@ -42,10 +42,11 @@
 
 	<style>
 		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #777777; }
-		a { color: #e3e3e3; }
+		a { color: #e3e3e3; text-decoration: none; }
 		a.title { text-decoration: none; color: #ffffff; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
 		h1 { color: #e3e3e3; font: 39px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
+		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		p { width: 800px; text-align: justify; }
 		p.box { border-style: dotted; border-radius: 9px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
@@ -195,10 +196,28 @@
 		exit("Thumbnails have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild thumbnails.");
 		}
 
+	// The $stream parameter is used to show photos as a stream
+	if (isset($_GET['stream'])) {
+		echo "<a href='".$_SERVER['PHP_SELF']."'><h1>".$title."</h1></a>";
+		echo "<p class ='center'>".$tagline."</p>";
+		echo "<p class='center'>";
+		// Check whether the reversed order option is enabled and sort the array accordingly
+		if($r_sort) {
+			rsort($files);
+		}
+		for ($i=($fileCount-1); $i>=0; $i--) {
+			$file = $files[$i];
+			$thumb = "photos/thumbs/".basename($file);
+			$filepath = pathinfo($file);
+			echo '<h2>'.$filepath['filename'].'</h2><p class="center"><a href="index.php?grid&photo='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width="500"></a><br /><br />';
+		}
+		echo "</p>";
+	}
+
 	// The $grid parameter is used to show the main grid
 	$grid = (isset($_GET['grid']) ? $_GET['grid'] : null);
 	if (!isset($grid)) {
-		echo "<h1>".$title."</h1>";
+		echo "<a href='".$_SERVER['PHP_SELF']."'><h1>".$title."</h1></a>";
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly
@@ -350,7 +369,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
+	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?stream"><i class="fa fa-bars fa-lg"></i></a> | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
 	echo '<center>';
