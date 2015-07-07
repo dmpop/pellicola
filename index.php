@@ -41,7 +41,7 @@
 	?>
 
 	<style>
-		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #777777; }
+		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #303030; }
 		a { color: #e3e3e3; text-decoration: none; }
 		a.title { text-decoration: none; color: #ffffff; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
@@ -259,7 +259,7 @@
 		}
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
-		echo '<a href="'.$file.'"><img class="dropshadow" src="'.$thumb.'" alt=""></a>';
+		echo '<a href="'.$file.'"><img src="'.$thumb.'" alt=""></a>';
 		$gps = read_gps_location($file);
 
 		$fstop = explode("/", $exif['EXIF']['FNumber']);
