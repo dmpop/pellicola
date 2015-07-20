@@ -25,6 +25,7 @@
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
 	$stats = false;	// Enable web statistics (requires CrazyStat)
+	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation
 	$r_sort = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
 	$google_maps = false;	//Set to true to use Google Maps instead of OpenStreetMap
 	$password = 'm0nk3y';	//Upload password
@@ -49,7 +50,7 @@
 		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		p { width: 800px; text-align: justify; }
 		p.box { border-style: dotted; border-radius: 5px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
-		p.msg { margin-left: auto; margin-right: auto; border-radius: 5px; width: 375px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; background: #cc0000; margin-bottom: 0px; text-align: center; }
+		p.msg { margin-left: auto; margin-right: auto; border-radius: 5px; width: auto; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; background: #009900; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: middle; padding-right: 1px; }
 		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; }
@@ -129,7 +130,7 @@
 	{
 		//Display message while the function generates thumbnails.
 		ob_implicit_flush(true);
-		echo "<p class='msg'>Generating thumbnails. This may take a while.</p>";
+		echo '<p class="msg">Generating thumbnails. This may take a while.</p>';
 		ob_end_flush();
 		// Load image
 		$img = @imagecreatefromjpeg($original);
@@ -377,7 +378,11 @@ EOD;
 
 	if ($stats) {
 	echo '<center>';
-	@include_once("../crazystat/src/include.php");
+	if (file_exists($crazystat) && is_readable($crazystat)) {
+		include_once($crazystat);
+			} else {
+			echo '<p class="msg">Include file does not exists or is not readable.</p>';
+		}
 	echo '</center>';
 	}
 
