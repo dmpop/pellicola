@@ -122,7 +122,7 @@
 	}
 
 	// Get file info
-	$files = glob("photos/*.{jpg,jeg,JPG,JPEG}", GLOB_BRACE);
+	$files = glob("photos/*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE);
 	$fileCount = count($files);
 
 	function createThumb($original, $thumb, $thumbWidth)
