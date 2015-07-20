@@ -381,7 +381,7 @@ EOD;
 	if (file_exists($crazystat) && is_readable($crazystat)) {
 		include_once($crazystat);
 			} else {
-			echo '<p class="msg">Include file does not exists or is not readable.</p>';
+			echo '<p class="msg">CrazyStat installation does not exists or is not accessible.</p>';
 		}
 	echo '</p>';
 	}
