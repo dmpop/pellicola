@@ -377,13 +377,13 @@ EOD;
 	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?stream&grid=0"><i class="fa fa-bars fa-lg"></i></a> | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
-	echo '<center>';
+	echo '<p class="center">';
 	if (file_exists($crazystat) && is_readable($crazystat)) {
 		include_once($crazystat);
 			} else {
 			echo '<p class="msg">Include file does not exists or is not readable.</p>';
 		}
-	echo '</center>';
+	echo '</p>';
 	}
 
 	?>
