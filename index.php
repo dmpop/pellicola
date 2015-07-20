@@ -48,7 +48,8 @@
 		h1 { color: #e3e3e3; font: 39px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		p { width: 800px; text-align: justify; }
-		p.box { border-style: dotted; border-radius: 9px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
+		p.box { border-style: dotted; border-radius: 5px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
+		p.msg { margin-left: auto; margin-right: auto; border-radius: 5px; width: 375px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; background: #cc0000; margin-bottom: 0px; text-align: center; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: middle; padding-right: 1px; }
 		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; }
@@ -59,7 +60,6 @@
 	</style>
 
 	<?php
-
 	//Suppress all error messages
 	//error_reporting (E_ALL ^ E_NOTICE);
 
@@ -127,6 +127,10 @@
 
 	function createThumb($original, $thumb, $thumbWidth)
 	{
+		//Display message while the function generates thumbnails.
+		ob_implicit_flush(true);
+		echo "<p class='msg'>Generating thumbnails. This may take a while.</p>";
+		ob_end_flush();
 		// Load image
 		$img = @imagecreatefromjpeg($original);
 		if(!$img) return false; // Abort if the image couldn't be read
