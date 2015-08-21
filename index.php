@@ -128,10 +128,6 @@
 
 	function createThumb($original, $thumb, $thumbWidth)
 	{
-		//Display message while the function generates thumbnails.
-		ob_implicit_flush(true);
-		echo '<p class="msg">Generating thumbnails. This may take a while.</p>';
-		ob_end_flush();
 		// Load image
 		$img = @imagecreatefromjpeg($original);
 		if(!$img) return false; // Abort if the image couldn't be read
@@ -167,6 +163,10 @@
 		$thumb = "photos/thumbs/".basename($file);
 
 		if(!file_exists($thumb)) {
+			//Display a message while the function generates a thumbnail.
+			ob_implicit_flush(true);
+			echo '<p class="msg">Generating a thumbnail for '.basename($file).'</p>';
+			ob_end_flush();
 			if(createThumb($file, $thumb, 800)) {
 				// This is a new file, update last modification date for expiration feature
 				touch($file);
@@ -174,6 +174,8 @@
 				// We couldn't create a thumbnail, remove the image from our list
 				unset($files[$i]);
 			}
+		//A JavaScript hack to reload the page in order to clear the messages.
+		echo '<script>parent.window.location.reload(true);</script>';
 		}
 
 		if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
