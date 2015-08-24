@@ -269,13 +269,13 @@
 		echo '<a href="'.$file.'"><img src="'.$thumb.'" alt=""></a>';
 		$gps = read_gps_location($file);
 
-		$fstop = explode("/", $exif['EXIF']['FNumber']);
-		$fstop = $fstop[0];
-		if (empty($fstop[0]) ) {
-			$fstop = "";
+		$fnumber_array = explode("/", $exif['EXIF']['FNumber']);
+		$fnumber = $fnumber_array[0]/$fnumber_array[1];
+		if (empty($fnumber_array[0]) ) {
+			$fnumber = "";
 		} else {
-			$fstop = $fstop[0];
-			$fstop = "&fnof;/".$fstop." &bull; ";
+			$fnumber = $fnumber_array[0]/$fnumber_array[1];
+			$fnumber = "&fnof;/".$fnumber." &bull; ";
 		}
 		$exposuretime=$exif['EXIF']['ExposureTime'];
 		if (empty($exposuretime)) {
@@ -317,10 +317,10 @@
 
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			      echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
+			      echo "<p class='box'>".$fnumber.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
 		}
 		else {
-		        echo "<p class='box'>".$fstop.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
+		        echo "<p class='box'>".$fnumber.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
 		}
 
 		// Disable the Next link if this is the last photo
