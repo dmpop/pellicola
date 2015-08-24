@@ -376,7 +376,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?stream&grid=0"><i class="fa fa-bars fa-lg"></i></a> | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
+	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?stream&grid=0"><i class="fa fa-list fa-lg"></i></a> | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
 	echo '<p class="center">';
