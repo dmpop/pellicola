@@ -57,7 +57,6 @@
 		#content { margin: auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto;}
-		.spaced { text-align: center; word-spacing: 9px;}
 		.footer { text-align: center; font-family: monospace; font-size: 11px; }
 	</style>
 
@@ -318,10 +317,10 @@
 
 		// Disable the Map link if the photo has no geographical coordinates
 		if (empty($gps[lat])) {
-			      echo "<p class='box'>".$fnumber.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
+			      echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
 		}
 		else {
-		        echo "<p class='box'>".$fnumber.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> ".$keyword."</p>";
+		        echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
 		}
 
 		// Disable the Next link if this is the last photo
@@ -340,9 +339,9 @@
 	// Show link box
 	if ($link_box) {
             $array_length = count($links);
-            echo '<div class="spaced">';
+            echo '<div class="center">';
             for($i = 0; $i < $array_length; $i++) {
-            echo '<a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> ';
+            echo '<span style="word-spacing:9px"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
             }
             echo "</div>";
 	}
