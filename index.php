@@ -56,7 +56,8 @@
 		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; }
 		#content { margin: auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
-		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
+		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto;}
+		.spaced { text-align: center; word-spacing: 9px;}
 		.footer { text-align: center; font-family: monospace; font-size: 11px; }
 	</style>
 
@@ -339,7 +340,7 @@
 	// Show link box
 	if ($link_box) {
             $array_length = count($links);
-            echo '<div class="center">';
+            echo '<div class="spaced">';
             for($i = 0; $i < $array_length; $i++) {
             echo '<a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> ';
             }
@@ -376,7 +377,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' | <a href="'.$_SERVER['PHP_SELF'].'?stream&grid=0"><i class="fa fa-list fa-lg"></i></a> | <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
+	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?stream&grid=0"><i class="fa fa-list fa-lg"></i></a> <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
 	echo '<p class="center">';
