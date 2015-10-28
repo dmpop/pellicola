@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="300"
-   height="300"
+   width="280.99823"
+   height="280.99823"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -28,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="-14.18975"
-     inkscape:cy="140.58087"
+     inkscape:cx="17.789895"
+     inkscape:cy="96.183423"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,30 +58,24 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-154.28572,-332.53696)">
-    <rect
-       style="fill:#5fe075;fill-opacity:1"
-       id="rect2985"
-       width="299.86044"
-       height="299.96768"
-       x="154.28572"
-       y="332.53696" />
-    <rect
-       style="fill:#ffe682;fill-opacity:1"
-       id="rect3755"
-       width="149.30232"
-       height="299.9675"
-       x="304.9834"
-       y="332.56946" />
-    <g
-       style="font-size:332.77993774px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
-       id="text3757"
-       transform="translate(-15.000005,-1.9681343)">
-      <path
-         d="m 205.70507,602.31049 0,-235.6108 38.02271,0 75.55794,202.78777 75.55795,-202.78777 38.02271,0 0,235.6108 -38.99765,0 0,-123.81754 -46.14722,123.81754 -56.87157,0 -46.14722,-123.81754 0,123.81754 -38.99765,0"
-         style="line-height:125%;fill:#ffffff;font-family:Umpush;-inkscape-font-specification:Umpush Bold"
-         id="path3863"
-         inkscape:connector-curvature="0" />
-    </g>
+     transform="translate(-165.78659,-343.03784)">
+    <circle
+       style="fill:#5fe075;fill-opacity:1;stroke:#ffffff;stroke-width:8.8718853;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4137"
+       cx="306.28571"
+       cy="483.53696"
+       r="134.06317" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:244.35145569px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#fff9b4;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="194.37274"
+       y="544.62482"
+       id="text4140"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4142"
+         x="194.37274"
+         y="544.62482"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Quicksand;-inkscape-font-specification:'Quicksand Bold';fill:#fff9b4;fill-opacity:1">m</tspan></text>
   </g>
 </svg>
