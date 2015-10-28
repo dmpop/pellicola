@@ -25,6 +25,7 @@
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
 	$stats = false;	// Enable web statistics (requires CrazyStat)
+	$photo_dir = "photos/"; //Dirctory for storing photos. Note the trailing slash
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation
 	$r_sort = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
 	$google_maps = false;	//Set to true to use Google Maps instead of OpenStreetMap
@@ -118,12 +119,12 @@
 		if (!file_exists('photos')) {
 		mkdir('photos', 0744, true);
 	}
-	if (!file_exists('photos/thumbs')) {
-		mkdir('photos/thumbs', 0744, true);
+	if (!file_exists($photo_dir.'thumbs')) {
+		mkdir($photo_dir.'thumbs', 0744, true);
 	}
 
 	// Get file info
-	$files = glob("photos/*.{jpg,jpeg,JPG,JPEG}", GLOB_BRACE);
+	$files = glob($photo_dir.'*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 	$fileCount = count($files);
 
 	function createThumb($original, $thumb, $thumbWidth)
@@ -160,7 +161,7 @@
 	// Generate any missing thumbnails and check expiration
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
-		$thumb = "photos/thumbs/".basename($file);
+		$thumb = $photo_dir.'thumbs/'.basename($file);
 
 		if(!file_exists($thumb)) {
 			//Display a message while the function generates a thumbnail.
@@ -193,10 +194,10 @@
 	echo "<body>";
 	echo "<div id='content'>";
 
-	// The $rebuild parameter is used to empty the /photos/thumbs directory.
+	// The $rebuild parameter is used to empty the $photo_dir.thumbs directory.
 	$rm_thumb = (isset($_GET['rebuild']) ? $_GET['rebuild'] : null);
 	if (isset($rm_thumb)) {
-		$files = glob('photos/thumbs/*');
+		$files = glob($photo_dir.'thumbs/*');
 			foreach($files as $file){
 				unlink($file);
 			}
@@ -214,15 +215,15 @@
 		}
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
-			$thumb = "photos/thumbs/".basename($file);
+			$thumb = $photo_dir.'thumbs/'.basename($file);
 			$filepath = pathinfo($file);
-			echo '<h2>'.$filepath['filename'].'</h2><p class="center"><a href="index.php?grid&photo='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width="500"></a><br /><br />';
+			echo '<h2>'.$filepath['filename'].'</h2><p class="center"><a href="index.php?photo='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width="500"></a><br /><br />';
 		}
 		echo "</p>";
 	}
 
 	// The $grid parameter is used to show the main grid
-	$grid = (isset($_GET['grid']) ? $_GET['grid'] : null);
+	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (!isset($grid)) {
 		echo "<a href='".$_SERVER['PHP_SELF']."'><h1>".$title."</h1></a>";
 		echo "<p class ='center'>".$tagline."</p>";
@@ -233,9 +234,9 @@
 		}
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
-			$thumb = "photos/thumbs/".basename($file);
+			$thumb = $photo_dir.'thumbs/'.basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?grid&photo='.$file.'"><img class="thumbnail" src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
+			echo '<a href="index.php?photo='.$file.'"><img class="thumbnail" src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
 		}
 		echo "</p>";
 	}
@@ -244,11 +245,11 @@
 	$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (isset($file)) {
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
-		$thumb = "photos/thumbs/".basename($file);
+		$thumb = $photo_dir.'thumbs/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		//Check if the related RAW file exists and link to it.
-		$rawfile=glob('photos/'.$filepath['filename'].'.{ARW,arw,NEF.nef,CR2,cr2,PNG,png}', GLOB_BRACE);
+		$rawfile=glob($photo_dir.$filepath['filename'].'.{ARW,arw,NEF.nef,CR2,cr2,PNG,png}', GLOB_BRACE);
 		if (!empty($rawfile)) {
 			echo "<h1>".$filepath['filename']." <a class='superscript' href=".$rawfile[0].">RAW</a></h1>";
 		}
@@ -258,11 +259,11 @@
 		echo "<p>";
 		// Check whether the localized description file matching the browser language exists
 		// added @ to file_get_contents as docs say this is optional.
-		if (file_exists('photos/'.$language.'-'.$filepath['filename'].'.txt')) {
-			echo @file_get_contents('photos/'.$language.'-'.$filepath['filename'].'.txt');
+		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
+			echo @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
 			// If the localized description file doesn't exist, use the default one
 			} else {
-			echo @file_get_contents('photos/'.$filepath['filename'].'.txt');
+			echo @file_get_contents($photo_dir.$filepath['filename'].'.txt');
 		}
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
@@ -325,14 +326,14 @@
 
 		// Disable the Next link if this is the last photo
 		if (empty($files[$key+1])) {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=".$photo_dir."thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key-1])."></a></p>";
 		}
 		// Disable the Previous link if this is the first photo
 		elseif (empty($files[$key-1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a></p>";
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=".$photo_dir."thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=photos/thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=photos/thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?grid&photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=photos/thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=".$photo_dir."thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key-1])."></a></p>";
 		}
 	}
 	
@@ -360,10 +361,10 @@
 	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
 			sleep(3); // Reduce brute-force attack effectiveness
 		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
-			$filename = 'photos/'.basename( $_FILES['filetoupload']['name']);
+			$filename = $photo_dir.basename( $_FILES['filetoupload']['name']);
 			if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
 			if(move_uploaded_file($_FILES['filetoupload']['tmp_name'], $filename)){ $serverport=''; if ($_SERVER["SERVER_PORT"]!='80') { $serverport=':'.$_SERVER["SERVER_PORT"]; }
-	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).'/photos/'.basename($_FILES['filetoupload']['name']);
+	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).$photo_dir.basename($_FILES['filetoupload']['name']);
 	print '<br /><p class="box">Upload successful. <a href="'.basename($_SERVER['PHP_SELF']).'">Reload</a> the page to finish.</p>';
 	}
 	else { echo '<br /><p class="box">There was an error uploading the file, please try again!</p>'; }
@@ -376,7 +377,7 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?stream&grid=0"><i class="fa fa-list fa-lg"></i></a> <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
+	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?stream"><i class="fa fa-list fa-lg"></i></a> <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
 	echo '<p class="center">';
