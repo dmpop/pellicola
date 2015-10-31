@@ -37,7 +37,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="99.092899"
+     inkscape:cx="-61.071411"
      inkscape:cy="111.71431"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -76,5 +76,11 @@
        cy="294.43597"
        r="105.09773"
        transform="matrix(0.98455357,-0.17508361,0.17508361,0.98455357,0,0)" />
+    <circle
+       style="fill:#0ce90c;fill-opacity:1;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4135"
+       cx="-1245.2858"
+       cy="520.50507"
+       r="59.285717" />
   </g>
 </svg>
