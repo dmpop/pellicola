@@ -25,19 +25,18 @@
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
 	$stats = false;	// Enable web statistics (requires CrazyStat)
-	$photo_dir = "photos/"; //Dirctory for storing photos. Note the trailing slash
+	$photo_dir = "photos/"; // Directory for storing photos. Note the trailing slash
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation
-	$r_sort = false;	// Set to true to show thumbnails in the reverse order (oldest ot newest)
-	$google_maps = false;	//Set to true to use Google Maps instead of OpenStreetMap
-	$password = 'm0nk3y';	//Upload password
-	$link_box = true;	//Enable the link box
-	//If the link box is enabled, specify the desired links and their icons in the array below
+	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
+	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
+	$password = 'm0nk3y';	// Upload password
+	$link_box = true;	// Enable the link box
+	// If the link box is enabled, specify the desired links and their icons in the array below
 	$links = array (
 	array('https://www.flickr.com/photos/dmpop/','fa fa-flickr fa-lg'),
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
-	// -----------------------
 	?>
 
 	<style>
@@ -51,7 +50,7 @@
 		p.msg { margin-left: auto; margin-right: auto; border-radius: 5px; width: auto; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; background: #009900; margin-bottom: 0px; text-align: center; width:500px; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: middle; padding-right: 1px; }
-		img.thumbnail { max-width: 132px; max-height: 88px; width: auto; height: auto; }
+		img.tim { max-width: 132px; max-height: 88px; width: auto; height: auto; }
 		#content { margin: auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto;}
@@ -116,15 +115,15 @@
 		if (!file_exists('photos')) {
 		mkdir('photos', 0744, true);
 	}
-	if (!file_exists($photo_dir.'thumbs')) {
-		mkdir($photo_dir.'thumbs', 0744, true);
+	if (!file_exists($photo_dir.'tims')) {
+		mkdir($photo_dir.'tims', 0744, true);
 	}
 
 	// Get file info
 	$files = glob($photo_dir.'*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 	$fileCount = count($files);
 
-	function createThumb($original, $thumb, $thumbWidth)
+	function createTim($original, $tim, $timWidth)
 	{
 		// Load image
 		$img = @imagecreatefromjpeg($original);
@@ -134,9 +133,9 @@
 		$width = imagesx($img);
 		$height = imagesy($img);
 
-		// Calculate thumbnail size
-		$new_width  = $thumbWidth;
-		$new_height = floor($height * ($thumbWidth / $width));
+		// Calculate tim size
+		$new_width  = $timWidth;
+		$new_height = floor($height * ($timWidth / $width));
 
 		// Create a new temporary image
 		$tmp_img = imagecreatetruecolor($new_width, $new_height);
@@ -144,32 +143,32 @@
 		// Copy and resize old image into new image
 		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-		// Save thumbnail into a file
-		$ok = @imagejpeg($tmp_img, $thumb);
+		// Save tim into a file
+		$ok = @imagejpeg($tmp_img, $tim);
 
 		// Cleanup
 		imagedestroy($img);
 		imagedestroy($tmp_img);
 
-		// Return bool true if thumbnail creation worked
+		// Return bool true if tim creation worked
 		return $ok;
 	}
 
-	// Generate any missing thumbnails and check expiration
+	// Generate any missing tim and check expiration
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
-		$thumb = $photo_dir.'thumbs/'.basename($file);
+		$tim = $photo_dir.'tims/'.basename($file);
 
-		if(!file_exists($thumb)) {
-			//Display a message while the function generates a thumbnail.
+		if(!file_exists($tim)) {
+			//Display a message while the function generates a tim.
 			ob_implicit_flush(true);
-			echo '<p class="msg">Generating a thumbnail for '.basename($file).'</p>';
+			echo '<p class="msg">Generating a tim for '.basename($file).'</p>';
 			ob_end_flush();
-			if(createThumb($file, $thumb, 800)) {
+			if(createTim($file, $tim, 800)) {
 				// This is a new file, update last modification date for expiration feature
 				touch($file);
 			} else {
-				// We couldn't create a thumbnail, remove the image from our list
+				// We couldn't create a tim, remove the image from our list
 				unset($files[$i]);
 			}
 		//A JavaScript hack to reload the page in order to clear the messages.
@@ -178,7 +177,7 @@
 
 		if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
 			unlink($file);
-			unlink($thumb);
+			unlink($tim);
 			unset($files[$i]);
 		}
 	}
@@ -191,14 +190,14 @@
 	echo "<body>";
 	echo "<div id='content'>";
 
-	// The $rebuild parameter is used to empty the $photo_dir.thumbs directory.
-	$rm_thumb = (isset($_GET['rebuild']) ? $_GET['rebuild'] : null);
-	if (isset($rm_thumb)) {
-		$files = glob($photo_dir.'thumbs/*');
+	// The $rebuild parameter is used to empty the $photo_dir.tims directory.
+	$rm_tim = (isset($_GET['rebuild']) ? $_GET['rebuild'] : null);
+	if (isset($rm_tim)) {
+		$files = glob($photo_dir.'tims/*');
 			foreach($files as $file){
 				unlink($file);
 			}
-		exit("Thumbnails have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild thumbnails.");
+		exit("Tims have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild tims.");
 		}
 
 	// The $grid parameter is used to show the main grid
@@ -213,9 +212,9 @@
 		}
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
-			$thumb = $photo_dir.'thumbs/'.basename($file);
+			$tim = $photo_dir.'tims/'.basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?photo='.$file.'"><img class="thumbnail" src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
+			echo '<a href="index.php?photo='.$file.'"><img class="tim" src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
 		}
 		echo "</p>";
 	}
@@ -224,7 +223,7 @@
 	$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (isset($file)) {
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
-		$thumb = $photo_dir.'thumbs/'.basename($file);
+		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		//Check if the related RAW file exists and link to it.
@@ -246,7 +245,7 @@
 		}
 		echo $exif['COMPUTED']['UserComment'];
 		echo "</p>";
-		echo '<a href="'.$file.'"><img src="'.$thumb.'" alt=""></a>';
+		echo '<a href="'.$file.'"><img src="'.$tim.'" alt=""></a>';
 		$gps = read_gps_location($file);
 
 		$fnumber_array = explode("/", $exif['EXIF']['FNumber']);
@@ -305,14 +304,14 @@
 
 		// Disable the Next link if this is the last photo
 		if (empty($files[$key+1])) {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=".$photo_dir."thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
 		}
 		// Disable the Previous link if this is the first photo
 		elseif (empty($files[$key-1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=".$photo_dir."thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key+1])."></a></p>";
+			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='thumbnail' src=".$photo_dir."thumbs/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='thumbnail' src=".$photo_dir."thumbs/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
 		}
 	}
 	
@@ -329,7 +328,7 @@
 	// The $menu parameter is used to show the menu
 	$help = (isset($_GET['menu']) ? $_GET['menu'] : null);
 	if (isset($help)) {
-		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild"><i class="fa fa-wrench fa-lg"></i></a> Rebuild thumbnails --- <a href="'.$_SERVER['PHP_SELF'].'?upload"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
+		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild"><i class="fa fa-wrench fa-lg"></i></a> Rebuild tims --- <a href="'.$_SERVER['PHP_SELF'].'?upload"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
