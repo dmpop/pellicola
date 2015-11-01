@@ -35,17 +35,14 @@
 	$links = array (
 	array('https://www.flickr.com/photos/dmpop/','fa fa-flickr fa-lg'),
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
-	array('https://github.com/dmpop','fa fa-github fa-lg'),
-	array('https://plus.google.com/+DmitriPopov/','fa fa-google-plus fa-lg'),
-	array('https://twitter.com/dmpop','fa fa-twitter fa-lg')
+	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
 	// -----------------------
 	?>
 
 	<style>
 		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #303030; }
-		a { color: #e3e3e3; text-decoration: none; }
-		a.title { text-decoration: none; color: #ffffff; }
+		a { color: #e3e3e3; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
 		h1 { color: #e3e3e3; font: 39px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
@@ -204,28 +201,10 @@
 		exit("Thumbnails have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild thumbnails.");
 		}
 
-	// The $stream parameter is used to show photos as a stream
-	if (isset($_GET['stream'])) {
-		echo "<a href='".$_SERVER['PHP_SELF']."'><h1>".$title."</h1></a>";
-		echo "<p class ='center'>".$tagline."</p>";
-		echo "<p class='center'>";
-		// Check whether the reversed order option is enabled and sort the array accordingly
-		if($r_sort) {
-			rsort($files);
-		}
-		for ($i=($fileCount-1); $i>=0; $i--) {
-			$file = $files[$i];
-			$thumb = $photo_dir.'thumbs/'.basename($file);
-			$filepath = pathinfo($file);
-			echo '<h2>'.$filepath['filename'].'</h2><p class="center"><a href="index.php?photo='.$file.'"><img src="'.$thumb.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'" width="500"></a><br /><br />';
-		}
-		echo "</p>";
-	}
-
 	// The $grid parameter is used to show the main grid
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (!isset($grid)) {
-		echo "<a href='".$_SERVER['PHP_SELF']."'><h1>".$title."</h1></a>";
+		echo "<h1>".$title."</h1>";
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly
@@ -342,7 +321,7 @@
             $array_length = count($links);
             echo '<div class="center">';
             for($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:9px"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
+            echo '<span style="word-spacing:9px;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
             }
             echo "</div>";
 	}
@@ -377,14 +356,14 @@
 EOD;
 }
 
-	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?stream"><i class="fa fa-list fa-lg"></i></a> <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
+	echo '<div class="footer">'.$footer.' <a href="'.$_SERVER['PHP_SELF'].'?menu"><i class="fa fa-cogs fa-lg"></i></a></div>';
 
 	if ($stats) {
 	echo '<p class="center">';
 	if (file_exists($crazystat) && is_readable($crazystat)) {
 		include_once($crazystat);
 			} else {
-			echo '<p class="msg">CrazyStat installation does not exists or is not accessible.</p>';
+			echo '<p class="msg">CrazyStat is not installed.</p>';
 		}
 	echo '</p>';
 	}
