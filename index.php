@@ -47,7 +47,7 @@
 		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		p { width: 800px; text-align: justify; }
 		p.box { border-style: dotted; border-radius: 5px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
-		p.msg { margin-left: auto; margin-right: auto; border-radius: 5px; width: auto; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; background: #009900; margin-bottom: 0px; text-align: center; width:500px; }
+		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 19px; border-radius: 5px; width: auto; border-width: 1px; font-size: 15px; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #ff9900; text-align: center; width:500px; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: middle; padding-right: 1px; }
 		img.tim { max-width: 132px; max-height: 88px; width: auto; height: auto; }
@@ -165,13 +165,13 @@
 			echo '<p class="msg">Generating a tim for '.basename($file).'</p>';
 			ob_end_flush();
 			if(createTim($file, $tim, 800)) {
-				// This is a new file, update last modification date for expiration feature
+				// This is a new file, update last modification date for the expiration feature
 				touch($file);
 			} else {
 				// We couldn't create a tim, remove the image from our list
 				unset($files[$i]);
 			}
-		//A JavaScript hack to reload the page in order to clear the messages.
+		// A JavaScript hack to reload the page in order to clear the messages.
 		echo '<script>parent.window.location.reload(true);</script>';
 		}
 
