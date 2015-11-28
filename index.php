@@ -37,6 +37,7 @@
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
+	$raw_formats = '.{ARW,arw,NEF,nef,CR2,cr2,PNG,png}'; // Supported RAW formats. Specify other formats, if needed.
 	?>
 
 	<style>
@@ -230,7 +231,7 @@
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 		//Check if the related RAW file exists and link to it.
-		$rawfile=glob($photo_dir.$filepath['filename'].'.{ARW,arw,NEF.nef,CR2,cr2,PNG,png}', GLOB_BRACE);
+		$rawfile=glob($photo_dir.$filepath['filename'].$raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
 			echo "<h1>".$filepath['filename']." <a class='superscript' href=".$rawfile[0].">RAW</a></h1>";
 		}
