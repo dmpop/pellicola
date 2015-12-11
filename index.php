@@ -22,16 +22,16 @@
 	$title = "Mejiro";
 	$tagline = "No-frills open source photo grid";
 	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
-	$expire = false;	// Set to true to enable the expiration feature
-	$days = 15;	// Expiration period
-	$stats = false;	// Enable web statistics (requires CrazyStat)
-	$photo_dir = "photos/"; // Directory for storing photos. Note the trailing slash
-	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation
-	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
-	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
-	$password = 'm0nk3y';	// Upload password
-	$link_box = true;	// Enable the link box
-	// If the link box is enabled, specify the desired links and their icons in the array below
+	$expire = false;	// Set to true to enable the expiration feature.
+	$days = 15;	// Expiration period.
+	$stats = false;	// Enable web statistics (requires CrazyStat).
+	$photo_dir = "photos/"; // Directory for storing photos. Note the trailing slash.
+	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
+	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
+	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
+	$password = 'm0nk3y';	// Upload password.
+	$link_box = true;	// Enable the link box.
+	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
 	array('https://www.flickr.com/photos/dmpop/','fa fa-flickr fa-lg'),
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
@@ -62,14 +62,20 @@
 	<a href="https://github.com/dmpop/mejiro" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
 	<?php
-	//Suppress all error messages
+	//Suppress all error messages.
 	//error_reporting (E_ALL ^ E_NOTICE);
 
-	// Detect browser language
+	// Detect browser language.
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+	
+	// The $d parameter is used to detect a sub-directory.
+	$sub_photo_dir = (isset($_GET['d']) ? $_GET['d'] : null);
+	if (isset($sub_photo_dir)) {
+		$photo_dir = $photo_dir.$sub_photo_dir.'/';
+                }
 
 	/*
-	* Returns an array of latitude and longitude from the image file
+	* Returns an array of latitude and longitude from the image file.
 	* @param image $file
 	* @return multitype:number |boolean
 	* http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
@@ -115,7 +121,7 @@
 		return false;
 	}
 
-	// Create the required directories if they don't exist
+	// Create the required directories if they don't exist.
 		if (!file_exists('photos')) {
 		mkdir('photos', 0744, true);
 	}
@@ -123,34 +129,34 @@
 		mkdir($photo_dir.'tims', 0744, true);
 	}
 
-	// Get file info
+	// Get file info.
 	$files = glob($photo_dir.'*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 	$fileCount = count($files);
 
 	function createTim($original, $tim, $timWidth)
 	{
-		// Load image
+		// Load image.
 		$img = @imagecreatefromjpeg($original);
 		if(!$img) return false; // Abort if the image couldn't be read
 
-		// Get image size
+		// Get image size.
 		$width = imagesx($img);
 		$height = imagesy($img);
 
-		// Calculate tim size
+		// Calculate tim size.
 		$new_width  = $timWidth;
 		$new_height = floor($height * ($timWidth / $width));
 
-		// Create a new temporary image
+		// Create a new temporary image.
 		$tmp_img = imagecreatetruecolor($new_width, $new_height);
 
 		// Copy and resize old image into new image
 		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-		// Save tim into a file
+		// Save tim into a file.
 		$ok = @imagejpeg($tmp_img, $tim);
 
-		// Cleanup
+		// Cleanup.
 		imagedestroy($img);
 		imagedestroy($tmp_img);
 
@@ -158,7 +164,7 @@
 		return $ok;
 	}
 
-	// Generate any missing tim and check expiration
+	// Generate any missing tim and check expiration.
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir.'tims/'.basename($file);
@@ -169,10 +175,10 @@
 			echo '<p class="msg">Generating a tim for '.basename($file).'</p>';
 			ob_end_flush();
 			if(createTim($file, $tim, 800)) {
-				// This is a new file, update last modification date for the expiration feature
+				// This is a new file, update last modification date for the expiration feature.
 				touch($file);
 			} else {
-				// We couldn't create a tim, remove the image from our list
+				// We couldn't create a tim, remove the image from our list.
 				unset($files[$i]);
 			}
 		// A JavaScript hack to reload the page in order to clear the messages.
@@ -186,7 +192,7 @@
 		}
 	}
 
-	// Update count (we might have removed some files)
+	// Update count (we might have removed some files).
 	$fileCount = count($files);
 
 	echo "<title>$title ($fileCount)</title>";
@@ -204,13 +210,13 @@
 		exit("Tims have been deleted. <a href='".basename($_SERVER['PHP_SELF'])."'>Reload the page</a> to rebuild tims.");
 		}
 
-	// The $grid parameter is used to show the main grid
+	// The $grid parameter is used to show the main grid.
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (!isset($grid)) {
 		echo "<h1>".$title."</h1>";
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
-		// Check whether the reversed order option is enabled and sort the array accordingly
+		// Check whether the reversed order option is enabled and sort the array accordingly.
 		if($r_sort) {
 			rsort($files);
 		}
@@ -218,15 +224,15 @@
 			$file = $files[$i];
 			$tim = $photo_dir.'tims/'.basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?photo='.$file.'"><img class="tim" src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
+			echo '<a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img class="tim" src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
 		}
 		echo "</p>";
 	}
 
-	// The $photo parameter is used to show an individual photo
+	// The $photo parameter is used to show an individual photo.
 	$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (isset($file)) {
-		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
+		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links).
 		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
@@ -239,8 +245,7 @@
 			echo "<h1>".$filepath['filename']."</h1>";
 		}
 		echo "<p>";
-		// Check whether the localized description file matching the browser language exists
-		// added @ to file_get_contents as docs say this is optional.
+		// Check whether the localized description file matching the browser language exists.
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
 			echo @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
 			// If the localized description file doesn't exist, use the default one
@@ -278,7 +283,7 @@
 		} else {
 			$datetime=$datetime." &bull; ";
 		}
-		// Parse IPTC metadata and extract keywords
+		// Parse IPTC metadata and extract keywords.
 		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
 		$size = getimagesize($file, $info);
 		if(isset($info['APP13'])) {
@@ -291,14 +296,14 @@
 		}
 		$keyword = implode(", ", $keywords);
 
-		//Generate map URL. Choose between Google Maps and OpenStreetmap
+		//Generate map URL. Choose between Google Maps and OpenStreetmap.
 		if ($google_maps){
 			$map_url = " <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		} else {
 			$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		}
 
-		// Disable the Map link if the photo has no geographical coordinates
+		// Disable the Map link if the photo has no geographical coordinates.
 		if (empty($gps[lat])) {
 			      echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
 		}
@@ -306,20 +311,20 @@
 		        echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
 		}
 
-		// Disable the Next link if this is the last photo
+		// Disable the Next link if this is the last photo.
 		if (empty($files[$key+1])) {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
 		}
-		// Disable the Previous link if this is the first photo
+		// Disable the Previous link if this is the first photo.
 		elseif (empty($files[$key-1])) {
-			echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1]).'?d='.$sub_photo_dir."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
 		}
 	}
 	
-	// Show link box
+	// Show link box.
 	if ($link_box) {
             $array_length = count($links);
             echo '<div class="center">';
@@ -329,14 +334,14 @@
             echo "</div>";
 	}
 
-	// The $menu parameter is used to show the menu
+	// The $menu parameter is used to show the menu.
 	$help = (isset($_GET['menu']) ? $_GET['menu'] : null);
 	if (isset($help)) {
 		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild"><i class="fa fa-wrench fa-lg"></i></a> Rebuild tims --- <a href="'.$_SERVER['PHP_SELF'].'?upload"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
-	// The $upload parameter is used to show the upload form
+	// The $upload parameter is used to show the upload form.
 	$upload = (isset($_GET['upload']) ? $_GET['upload'] : null);
 	if (isset($upload)) {
 	$scriptname = basename($_SERVER["SCRIPT_NAME"]).'?upload';
