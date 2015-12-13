@@ -213,7 +213,7 @@
 	// The $grid parameter is used to show the main grid.
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (!isset($grid)) {
-		echo "<h1>".$title."</h1>";
+		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
 		echo "<p class ='center'>".$tagline."</p>";
 		echo "<p class='center'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly.
