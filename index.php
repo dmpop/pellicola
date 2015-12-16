@@ -25,7 +25,7 @@
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
 	$stats = false;	// Enable web statistics (requires CrazyStat).
-	$photo_dir = "photos/"; // Directory for storing photos. Note the trailing slash.
+	$photo_dir = "photos"; // Directory for storing photos.
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
@@ -313,14 +313,14 @@
 
 		// Disable the Next link if this is the last photo.
 		if (empty($files[$key+1])) {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-left:9px;' src=".$photo_dir."tims/".basename(min($files))."></p>";
 		}
 		// Disable the Previous link if this is the first photo.
 		elseif (empty($files[$key-1])) {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1]).'?d='.$sub_photo_dir."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-left:9px;' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1]).'?d='.$sub_photo_dir."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' style='padding-left:9px;' src=".$photo_dir."tims/".basename($files[$key-1])."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-left:9px;' src=".$photo_dir."tims/".basename(min($files))."></a></p>";
 		}
 	}
 	
