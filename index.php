@@ -25,7 +25,7 @@
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
 	$stats = false;	// Enable web statistics (requires CrazyStat).
-	$photo_dir = "photos"; // Directory for storing photos.
+	$photo_dir = "photos/"; // Directory for storing photos. Note the trailing slash.
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
@@ -69,10 +69,8 @@
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 	
 	// The $d parameter is used to detect a subdirectory.
-	$sub_photo_dir = (isset($_GET['d']) ? $_GET['d'] : null);
-	if (isset($sub_photo_dir)) {
-		$photo_dir = $photo_dir.$sub_photo_dir.'/';
-                }
+	$sub_photo_dir = $_GET['d'];
+	$photo_dir = $photo_dir.$sub_photo_dir;
 
 	/*
 	* Returns an array of latitude and longitude from the image file.
@@ -125,8 +123,8 @@
 		if (!file_exists('photos')) {
 		mkdir('photos', 0744, true);
 	}
-	if (!file_exists($photo_dir.'tims')) {
-		mkdir($photo_dir.'tims', 0744, true);
+	if (!file_exists($photo_dir.'/tims')) {
+		mkdir($photo_dir.'/tims', 0744, true);
 	}
 
 	// Get file info.
