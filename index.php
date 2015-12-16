@@ -313,14 +313,14 @@
 
 		// Disable the Next link if this is the last photo.
 		if (empty($files[$key+1])) {
-		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
+		echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
 		}
 		// Disable the Previous link if this is the first photo.
 		elseif (empty($files[$key-1])) {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1])."></a></p>";
 		}
 		else {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1]).'?d='.$sub_photo_dir."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-right:9px;' src=".$photo_dir."tims/".basename(max($files))."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='n'><img class='tim' src=".$photo_dir."tims/".basename($files[$key+1]).'?d='.$sub_photo_dir."></a><a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='p'><img class='tim' style='-webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; padding-left:9px;' src=".$photo_dir."tims/".basename($files[$key-1])."></a></p>";
 		}
 	}
 	
