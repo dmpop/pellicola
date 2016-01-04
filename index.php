@@ -69,8 +69,9 @@
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 	
 	// The $d parameter is used to detect a subdirectory.
-	$sub_photo_dir = $_GET['d'];
-	$photo_dir = $photo_dir.$sub_photo_dir;
+	// basename and str_replace are used to prevent path traversal attacks. Not very elegant, but it should do the trick.
+        $sub_photo_dir = basename($_GET['d']).'/';
+	$photo_dir = str_replace("//", "/", $photo_dir.$sub_photo_dir);
 
 	/*
 	* Returns an array of latitude and longitude from the image file.
