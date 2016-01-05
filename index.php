@@ -69,7 +69,7 @@
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 	
 	// The $d parameter is used to detect a subdirectory.
-	// basename and str_replace are used to prevent path traversal attacks. Not very elegant, but it should do the trick.
+	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
         $sub_photo_dir = basename($_GET['d']).'/';
 	$photo_dir = str_replace("//", "/", $photo_dir.$sub_photo_dir);
 
@@ -198,16 +198,6 @@
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
-
-	// The $rebuild parameter is used to empty the tims directory.
-	$rm_tim = (isset($_GET['rebuild']) ? $_GET['rebuild'] : null);
-	if (isset($rm_tim)) {
-		$files = glob($photo_dir.'tims/*');
-			foreach($files as $file){
-				unlink($file);
-			}
-		header('Location: '.$_SERVER['PHP_SELF']."?d=".$sub_photo_dir);
-		}
 
 	// The $grid parameter is used to show the main grid.
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
@@ -341,7 +331,7 @@
 	// The $menu parameter is used to show the menu.
 	$menu = (isset($_GET['menu']) ? $_GET['menu'] : null);
 	if (isset($menu)) {
-		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?rebuild&d='.$sub_photo_dir.'"><i class="fa fa-wrench fa-lg"></i></a> Rebuild tims --- <a href="'.$_SERVER['PHP_SELF'].'?upload&d='.$sub_photo_dir.'"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'?d='.$sub_photo_dir.'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
+		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?upload&d='.$sub_photo_dir.'"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'?d='.$sub_photo_dir.'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
 	}
 
 	// Upload form adapted from http://sebsauvage.net/wiki/doku.php?id=php:filehosting
