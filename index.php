@@ -25,7 +25,7 @@
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
 	$stats = false;	// Enable web statistics (requires CrazyStat).
-	$photo_dir = "photos/"; // Directory for storing photos. Note the trailing slash.
+	$photo_dir = "photos"; // Directory for storing photos.
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
@@ -70,8 +70,8 @@
 	
 	// The $d parameter is used to detect a subdirectory.
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
-        $sub_photo_dir = basename($_GET['d']).'/';
-	$photo_dir = str_replace("//", "/", $photo_dir.$sub_photo_dir);
+        $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
+	$photo_dir = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir.DIRECTORY_SEPARATOR.$sub_photo_dir);
 
 	/*
 	* Returns an array of latitude and longitude from the image file.
@@ -342,7 +342,7 @@
 	if (isset($_FILES['filetoupload']) && isset($_POST['password'])){
 			sleep(3); // Reduce brute-force attack effectiveness
 		if ($_POST['password']!=$password) { print '<br /><p class="box">Wrong password! <a href="'.basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir.'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
-			$filename = $photo_dir.basename( $_FILES['filetoupload']['name']);
+			$filename = realpath($photo_dir.basename( $_FILES['filetoupload']['name']));
 			if (file_exists($filename)) { print '<br /><p class="box">This file already exists. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>'; header($_SERVER['PHP_SELF']); exit(); }
 			if(move_uploaded_file($_FILES['filetoupload']['tmp_name'], $filename)){ $serverport=''; if ($_SERVER["SERVER_PORT"]!='80') { $serverport=':'.$_SERVER["SERVER_PORT"]; }
 	$fileurl='http://'.$_SERVER["SERVER_NAME"].$serverport.dirname($_SERVER["SCRIPT_NAME"]).$photo_dir.basename($_FILES['filetoupload']['name']);
