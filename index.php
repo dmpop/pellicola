@@ -244,7 +244,7 @@
 		echo "</p>";
 		echo '<a href="'.$file.'"><img src="'.$tim.'" alt=""></a>';
 		$gps = read_gps_location($file);
-		$shortened_link = "<a href='".$short_link."'><i class='fa fa-link'></i></a> &bull; ";
+		$shortened_link = "<a href='".$short_link."'><i class='fa fa-link'></i></a> ";
 
 		$fnumber_array = explode("/", $exif['EXIF']['FNumber']);
 		$fnumber = $fnumber_array[0]/$fnumber_array[1];
@@ -287,9 +287,9 @@
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap.
 		if ($google_maps){
-			$map_url = " <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
+			$map_url = " &bull; <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		} else {
-			$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
+			$map_url = " &bull; <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		}
 
 		// Disable the Map link if the photo has no geographical coordinates.
