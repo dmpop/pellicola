@@ -222,6 +222,8 @@
 		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
+		// Generate a short link using is.dg 
+		$short_link = exec("curl 'https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]'");
 		//Check if the related RAW file exists and link to it.
 		$rawfile=glob($photo_dir.$filepath['filename'].$raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
@@ -242,6 +244,7 @@
 		echo "</p>";
 		echo '<a href="'.$file.'"><img src="'.$tim.'" alt=""></a>';
 		$gps = read_gps_location($file);
+		$shortened_link = "<a href='".$short_link."'><i class='fa fa-link'></i></a> &bull; ";
 
 		$fnumber_array = explode("/", $exif['EXIF']['FNumber']);
 		$fnumber = $fnumber_array[0]/$fnumber_array[1];
@@ -291,10 +294,10 @@
 
 		// Disable the Map link if the photo has no geographical coordinates.
 		if (empty($gps[lat])) {
-			      echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
+			      echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
 		}
 		else {
-		        echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
+		        echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
 		}
 
 		// If there is only one photo in the album, show the home navigation tim.
