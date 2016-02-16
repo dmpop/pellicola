@@ -46,14 +46,14 @@
 		h1 { color: #e3e3e3; font: 39px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
 		p { width: 800px; text-align: justify; }
-		p.box { border-style: dotted; border-radius: 5px; width: 790px; border-width: 1px; font-size: 13px; padding: 5px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
+		p.box { border-style: dotted; border-radius: 5px; width: 790px; border-width: 1px; font-size: 13px; padding: 4px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
 		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 19px; border-radius: 5px; width: auto; border-width: 1px; font-size: 15px; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
 		p.center { font-size: 15px; padding: 1px; text-align: center; }
 		img { vertical-align: middle; padding-right: 1px; }
 		img.tim { max-width: 132px; max-height: 88px; width: auto; height: auto; }
 		#content { margin: auto; width: 800px; color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
-		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto;}
+		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
 		.footer { text-align: center; font-family: monospace; font-size: 11px; }
 	</style>
 	
