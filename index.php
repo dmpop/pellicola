@@ -310,11 +310,11 @@
 		}
 		// Disable the Next link if this is the first photo.
 		elseif (empty($files[$key-1])) {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></p>";
 		}
 		// Show all navigation tims.
 		else {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></p>";
+                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></p>";
 		}
 	}
 	
