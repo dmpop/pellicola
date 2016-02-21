@@ -43,16 +43,15 @@
 		body { font-family: 'Fira Sans', sans-serif; font-size: 2.0vh; text-align: justify; background-color: #303030; }
 		a { color: #e3e3e3; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
-		h1 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 5.7vh; font-weight: 700; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 9px; }
-		h2 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 3.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 9px; }
-		h3 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 2.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 2px; }
+		h1 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 5.7vh; font-weight: 700; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; }
+		h2 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 3.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
+		h3 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 2.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
 		p { font-size: 2.0vh; text-align: justify; }
 		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 0.5em; border-radius: 5px; width: auto; border-width: 1px; font-size: 2.0vh; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
-		p.center { font-size: 2.0vh; margin-bottom: 2em; padding: 1px; text-align: center; }
                 p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
 		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
-		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; margin-bottom: 2em; }
+		.center { font-size: 2.0vh; margin-bottom: 2em; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
 		.footer { line-height: 5em; text-align: center; font-family: monospace; font-size: 1.5vh; }
 		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
                 ul.rig { list-style: none; font-size: 0px; margin-left: -5.7%; /* should match li left margin */ }
@@ -216,7 +215,7 @@
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
-		echo "<p class ='center'>".$tagline."</p>";
+		echo "<div class ='center'>".$tagline."</div>";
 		echo "<ul class='rig columns-4'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly.
 		if($r_sort) {
