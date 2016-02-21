@@ -7,6 +7,7 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 ## Features
 
 - **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP5 and the GD library.
+- **Responsive design** Mejiro works well on mobile devices.
 - **Instant and easy photo publishing** Upload photos, and Mejiro does the rest.
 - **Automatic thumbnail generation** Mejiro automatically generates thumbnails for faster preview.
 - **Expiration functionality** The app can automatically delete photos older than a specific number of days.
@@ -43,3 +44,11 @@ To enable the expiration feature, change the *$expire = false;* line in the *ind
 ## Demo
 
 A [Mejiro demo](http://dmpop.dhcp.io/mejiro/) is available for your viewing pleasure.
+
+## Author
+
+Dmitri Popov (dmpop@linux.com)
+
+## License
+
+Mejiro is released under the [GNU General Public License version 3](http://www.gnu.org/licenses/gpl-3.0.en.html) license.

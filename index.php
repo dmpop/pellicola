@@ -40,25 +40,41 @@
 	?>
 
 	<style>
-		body { font: 15px/25px 'Fira Sans', sans-serif; text-align: justify; background-color: #303030; }
+		body { font-family: 'Fira Sans', sans-serif; font-size: 2.0vh; text-align: justify; background-color: #303030; }
 		a { color: #e3e3e3; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
-		h1 { color: #e3e3e3; font: 39px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
-		h2 { color: #e3e3e3; font: 19px/50% 'Quicksand', sans-serif; font-weight: 700; text-align: center; margin-top: 13px; margin-bottom: 7px; line-height: 100%; letter-spacing: 9px; }
-		p { width: 800px; text-align: justify; }
-		p.box { border-style: dotted; border-radius: 5px; width: 790px; border-width: 1px; font-size: 13px; padding: 4px; color: #e3e3e3; margin-bottom: 0px; text-align: center; }
-		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 19px; border-radius: 5px; width: auto; border-width: 1px; font-size: 15px; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
-		p.center { font-size: 15px; padding: 1px; text-align: center; }
-		img { vertical-align: middle; padding-right: 1px; }
-		img.tim { max-width: 132px; max-height: 88px; width: auto; height: auto; }
-		#content { margin: auto; width: 800px; color: #e3e3e3; }
+		h1 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 5.7vh; font-weight: 700; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 9px; }
+		h2 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 3.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 9px; }
+		h3 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 2.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 2px; }
+		p { font-size: 2.0vh; text-align: justify; }
+		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 0.5em; border-radius: 5px; width: auto; border-width: 1px; font-size: 2.0vh; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
+		p.center { font-size: 2.0vh; margin-bottom: 2em; padding: 1px; text-align: center; }
+                p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
-		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; }
-		.footer { text-align: center; font-family: monospace; font-size: 11px; }
+		.center { height: auto; text-align: center; padding: 0px; margin-left: auto; margin-right: auto; margin-bottom: 2em; }
+		.footer { line-height: 5em; text-align: center; font-family: monospace; font-size: 1.5vh; }
+		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
+                ul.rig { list-style: none; font-size: 0px; margin-left: -5.7%; /* should match li left margin */ }
+                ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+                ul.rig li img { max-width: 100%; height: auto; }
+                ul.rig li h3 { margin: 0 0 1px; }
+                ul.rig li p { font-size: .9em; line-height: 2.0em; color: #999; }
+                /* class for 1 column */
+                ul.rig.column-1 li { width: 52.5%; /* this value + 2.5 should = 50% */ }
+                /* class for 2 columns */
+                ul.rig.columns-2 li { width: 47.5%; /* this value + 2.5 should = 50% */ }
+                /* class for 3 columns */
+                ul.rig.columns-3 li { width: 30.83%; /* this value + 2.5 should = 33% */ }
+                /* class for 4 columns */
+                ul.rig.columns-4 li { width: 22.5%; /* this value + 2.5 should = 25% */ }
+                @media (max-width: 480px) {
+                    ul.grid-nav li { display: block; margin: 0 0 5px; }
+                    ul.grid-nav li a { display: block; }
+                    ul.rig { margin-left: 0; }
+                    ul.rig li { width: 100% !important; /* over-ride all li styles */ margin: 0 0 20px; }
+                }
 	</style>
-	
-	<!--GitHub corner -->
-	<a href="https://github.com/dmpop/mejiro" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
 	<?php
 
@@ -201,7 +217,7 @@
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
 		echo "<p class ='center'>".$tagline."</p>";
-		echo "<p class='center'>";
+		echo "<ul class='rig columns-4'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly.
 		if($r_sort) {
 			rsort($files);
@@ -210,9 +226,9 @@
 			$file = $files[$i];
 			$tim = $photo_dir.'tims/'.basename($file);
 			$filepath = pathinfo($file);
-			echo '<a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img class="tim" src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a>';
+			echo '<li><a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
 		}
-		echo "</p>";
+		echo "</ul>";
 	}
 
 	// The $photo parameter is used to show an individual photo.
@@ -232,17 +248,13 @@
 		else {
 			echo "<h1>".$filepath['filename']."</h1>";
 		}
-		echo "<p>";
 		// Check whether the localized description file matching the browser language exists.
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
-			echo @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
+			$description = @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
 			// If the localized description file doesn't exist, use the default one
 			} else {
-			echo @file_get_contents($photo_dir.$filepath['filename'].'.txt');
+			$description = @file_get_contents($photo_dir.$filepath['filename'].'.txt');
 		}
-		echo $exif['COMPUTED']['UserComment'];
-		echo "</p>";
-		echo '<a href="'.$file.'"><img src="'.$tim.'" alt=""></a>';
 		$gps = read_gps_location($file);
 		$shortened_link = "<a href='".$short_link."'><i class='fa fa-link'></i></a> ";
 
@@ -294,27 +306,29 @@
 
 		// Disable the Map link if the photo has no geographical coordinates.
 		if (empty($gps[lat])) {
-			      echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
+			      $info = "<span style='word-spacing:1em'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link."<br /><i class='fa fa-tags'></i> </span>".$keyword;
 		}
 		else {
-		        echo "<p class='box'><span style='word-spacing:9px'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword."</p>";
+		        $info = "<span style='word-spacing:1em'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword;
 		}
+		
+		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p>'.$description.' '.$exif['COMPUTED']['UserComment'].'</p><p class="box">'.$info.'</p></li></ul></div>';
 
-		// If there is only one photo in the album, show the home navigation tim.
+		// If there is only one photo in the album, show the home navigation link.
 		if ($fileCount == 1) {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; </p>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; </div>";
 		}
 		// Disable the Previous link if this is the last photo.
 		elseif (empty($files[$key+1])) {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></p>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
 		// Disable the Next link if this is the first photo.
 		elseif (empty($files[$key-1])) {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></p>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
 		}
-		// Show all navigation tims.
+		// Show all navigation links.
 		else {
-                    echo "<p class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></p>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
 	}
 	
@@ -323,30 +337,23 @@
             $array_length = count($links);
             echo '<div class="center">';
             for($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:9px;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
+            echo '<span style="word-spacing:1.5em;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
             }
             echo "</div>";
-	}
-
-	// The $menu parameter is used to show the menu.
-	$menu = (isset($_GET['menu']) ? $_GET['menu'] : null);
-	if (isset($menu)) {
-		echo '<p class="box"><a href="'.$_SERVER['PHP_SELF'].'?upload&d='.$sub_photo_dir.'"><i class="fa fa-upload fa-lg"></i></a> Show upload form --- <a href="'.$_SERVER['PHP_SELF'].'?d='.$sub_photo_dir.'"><i class="fa fa-times fa-lg"></i></a> Close menu</p>';
 	}
 
 	echo '<div class="footer">'.$footer.'</div>';
 
 	if ($stats) {
-	echo '<p class="center">';
+	echo '<div class="center">';
 	if (file_exists($crazystat) && is_readable($crazystat)) {
 		include_once($crazystat);
 			} else {
 			echo '<p class="msg">CrazyStat is not installed.</p>';
 		}
-	echo '</p>';
+	echo '</div>';
 	}
-
 	?>
-	</div>
-	</body>
+	<div>
+    </body>
 </html>
