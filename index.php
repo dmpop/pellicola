@@ -54,7 +54,7 @@
 		.center { font-size: 2.0vh; margin-bottom: 2em; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
 		.footer { line-height: 5em; text-align: center; font-family: monospace; font-size: 1.5vh; }
 		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
-                ul.rig { list-style: none; font-size: 0px; margin-left: -5.7%; /* should match li left margin */ }
+                ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
                 ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
                 ul.rig li img { max-width: 100%; height: auto; }
                 ul.rig li h3 { margin: 0 0 1px; }
@@ -73,6 +73,7 @@
                     ul.rig { margin-left: 0; }
                     ul.rig li { width: 100% !important; /* over-ride all li styles */ margin: 0 0 20px; }
                 }
+                * { margin: 0; padding: 0; }
 	</style>
 
 	<?php
