@@ -311,7 +311,7 @@
 		        $info = "<span style='word-spacing:0.3em'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword;
 		}
 		
-		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p>'.$description.' '.$exif['COMPUTED']['UserComment'].'</p><p class="box">'.$info.'</p></li></ul></div>';
+		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p>'.$exif['COMPUTED']['UserComment'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 
 		// If there is only one photo in the album, show the home navigation link.
 		if ($fileCount == 1) {
