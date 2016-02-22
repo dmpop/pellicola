@@ -21,6 +21,7 @@
 	// User-defined settings
 	$title = "Mejiro";
 	$tagline = "No-frills open source photo grid";
+	$columns = 3; // Specify the number of columns in the grid layout (2, 3, or 4).
 	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
@@ -46,7 +47,7 @@
 		h1 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 5.7vh; font-weight: 700; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; }
 		h2 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 3.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
 		h3 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 2.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
-		p { font-size: 2.0vh; text-align: justify; }
+		p { font-size: 2.0vh; text-align: left; }
 		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 0.5em; border-radius: 5px; width: auto; border-width: 1px; font-size: 2.0vh; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
                 p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
 		#content { color: #e3e3e3; }
@@ -217,7 +218,7 @@
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
 		echo "<div class ='center'>".$tagline."</div>";
-		echo "<ul class='rig columns-4'>";
+		echo "<ul class='rig columns-".$columns."'>";
 		// Check whether the reversed order option is enabled and sort the array accordingly.
 		if($r_sort) {
 			rsort($files);
