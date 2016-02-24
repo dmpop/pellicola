@@ -53,7 +53,7 @@
 		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { font-size: 2.0vh; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
-		.footer { line-height: 3.0em; text-align: center; font-family: monospace; font-size: 1.5vh; position:fixed; left:0px; bottom:0px; height:3em; width:100%; background:#666666; }
+		.footer { line-height: 3.0em; text-align: center; font-family: monospace; font-size: 1.5vh; position:fixed; left:0px; bottom:0px; height:3em; width:100%; background:#3973ac; }
 		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
                 ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
                 ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
