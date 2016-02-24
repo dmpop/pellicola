@@ -21,7 +21,7 @@
 	// User-defined settings
 	$title = "Mejiro";
 	$tagline = "No-frills open source photo grid";
-	$columns = 3; // Specify the number of columns in the grid layout (2, 3, or 4).
+	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4).
 	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
@@ -30,7 +30,7 @@
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
-	$link_box = true;	// Enable the link box.
+	$links = true;	// Enable the link box.
 	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
 	array('https://www.flickr.com/photos/dmpop/','fa fa-flickr fa-lg'),
@@ -52,8 +52,8 @@
                 p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
 		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
-		.center { font-size: 2.0vh; margin-bottom: 2em; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
-		.footer { line-height: 5em; text-align: center; font-family: monospace; font-size: 1.5vh; }
+		.center { font-size: 2.0vh; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
+		.footer { line-height: 3.0em; text-align: center; font-family: monospace; font-size: 1.5vh; position:fixed; left:0px; bottom:0px; height:3em; width:100%; background:#666666; }
 		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
                 ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
                 ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
@@ -249,6 +249,24 @@
 		else {
 			echo "<h1>".$filepath['filename']."</h1>";
 		}
+		
+		//NAVIGATION LINKS
+		// If there is only one photo in the album, show the home navigation link.
+		if ($fileCount == 1) {
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; </div>";
+		}
+		// Disable the Previous link if this is the last photo.
+		elseif (empty($files[$key+1])) {
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+		}
+		// Disable the Next link if this is the first photo.
+		elseif (empty($files[$key-1])) {
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
+		}
+		// Show all navigation links.
+		else {
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+		}
 		// Check whether the localized description file matching the browser language exists.
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
 			$description = @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
@@ -314,36 +332,19 @@
 		}
 		
 		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p>'.$exif['COMPUTED']['UserComment'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
-
-		// If there is only one photo in the album, show the home navigation link.
-		if ($fileCount == 1) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; </div>";
-		}
-		// Disable the Previous link if this is the last photo.
-		elseif (empty($files[$key+1])) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
-		}
-		// Disable the Next link if this is the first photo.
-		elseif (empty($files[$key-1])) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
-		}
-		// Show all navigation links.
-		else {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
-		}
 	}
 	
-	// Show link box.
-	if ($link_box) {
+	// Show links.
+	if ($links) {
             $array_length = count($links);
-            echo '<div class="center">';
+            echo '<div class="footer">';
             for($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:1.5em;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
+            echo '<span style="word-spacing:1.0em;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
             }
-            echo "</div>";
-	}
-
-	echo '<div class="footer">'.$footer.'</div>';
+            echo $footer.'</div>';
+	} else {
+	        echo '<div class="footer">'.$footer.'</div>';
+	        }
 
 	if ($stats) {
 	echo '<div class="center">';
