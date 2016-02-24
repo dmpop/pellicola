@@ -20,7 +20,7 @@
 
 	// User-defined settings
 	$title = "Mejiro";
-	$tagline = "No-frills open source photo grid";
+	$tagline = "Responsive single-file open source photo grid";
 	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4).
 	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature.
@@ -339,7 +339,7 @@
             $array_length = count($links);
             echo '<div class="footer">';
             for($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:1.0em;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
+            echo '<span style="word-spacing:0.5em;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
             }
             echo $footer.'</div>';
 	} else {
