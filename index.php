@@ -207,6 +207,11 @@
 
 	// Update count (we might have removed some files).
 	$fileCount = count($files);
+	
+	// Check whether the reversed order option is enabled and sort the array accordingly.
+	if($r_sort) {
+		rsort($files);
+	}
 
 	echo "<title>$title ($fileCount)</title>";
 	echo "</head>";
@@ -219,10 +224,7 @@
 		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
 		echo "<div class ='center'>".$tagline."</div>";
 		echo "<ul class='rig columns-".$columns."'>";
-		// Check whether the reversed order option is enabled and sort the array accordingly.
-		if($r_sort) {
-			rsort($files);
-		}
+
 		for ($i=($fileCount-1); $i>=0; $i--) {
 			$file = $files[$i];
 			$tim = $photo_dir.'tims/'.basename($file);
@@ -251,21 +253,25 @@
 		}
 		
 		//NAVIGATION LINKS
+		// Set first and last photo navigation links according to prevailing sort order.
+		$firstphoto = $files[count($files)-1];
+		$lastphoto = $files[0];
+
 		// If there is only one photo in the album, show the home navigation link.
 		if ($fileCount == 1) {
                     echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; </div>";
 		}
 		// Disable the Previous link if this is the last photo.
 		elseif (empty($files[$key+1])) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
 		// Disable the Next link if this is the first photo.
 		elseif (empty($files[$key-1])) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='h'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
 		}
 		// Show all navigation links.
 		else {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".max($files).'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".min($files).'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='h'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
 		// Check whether the localized description file matching the browser language exists.
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
