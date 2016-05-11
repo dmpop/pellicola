@@ -19,7 +19,7 @@
 	<?php
 
 	// User-defined settings
-	$title = "Mejiro";
+	$title = "目白 Mejiro";
 	$tagline = "Responsive single-file open source photo grid";
 	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4).
 	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
