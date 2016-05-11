@@ -134,12 +134,10 @@
 		return false;
 	}
 
-	// Create the required directories if they don't exist.
-		if (!file_exists('photos')) {
-		mkdir('photos', 0744, true);
-	}
-	if (!file_exists($photo_dir.'/tims')) {
-		mkdir($photo_dir.'/tims', 0744, true);
+	// Check whether the required directories exist.
+		if (!file_exists($photo_dir)) {
+		exit ('<p class="msg"><u>'.$photo_dir. '</u> and <u>'. $photo_dir.'tims</u> directories don\'t exist. You must create them manually. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>');
+
 	}
 
 	// Get file info.
