@@ -135,7 +135,7 @@
 	}
 
 	// Check whether the required directories exist.
-		if (!file_exists($photo_dir)) {
+		if (!file_exists($photo_dir) || !file_exists($photo_dir.'tims')) {
 		exit ('<p class="msg"><u>'.$photo_dir. '</u> and <u>'. $photo_dir.'tims</u> directories don\'t exist. You must create them manually. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>');
 
 	}
