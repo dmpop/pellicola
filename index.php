@@ -30,7 +30,7 @@
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
-	$use_shortLink = false; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location.
+	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location.
 	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
 	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
 	$links = true;	// Enable the link box.
