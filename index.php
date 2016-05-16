@@ -30,6 +30,9 @@
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
+	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location.
+	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
+	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
 	$links = true;	// Enable the link box.
 	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
@@ -84,7 +87,7 @@
 	
 	// The $d parameter is used to detect a subdirectory.
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
-        $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
+  $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
 	$photo_dir = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir.DIRECTORY_SEPARATOR.$sub_photo_dir);
 
 	/*
@@ -239,8 +242,15 @@
 		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
-		// Generate a short link using is.dg 
-		$short_link = exec("curl 'https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]'");
+		
+		// Generate an optional short link.
+		if($use_shortLink) {
+        $short_link = exec("curl '".$shortLink_API."'"); 
+        }else{
+        $short_link = null;
+    }
+		  
+		
 		//Check if the related RAW file exists and link to it.
 		$rawfile=glob($photo_dir.$filepath['filename'].$raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
