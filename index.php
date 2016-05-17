@@ -30,6 +30,9 @@
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
+	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location.
+	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
+	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
 	$links = true;	// Enable the link box.
 	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
@@ -42,14 +45,15 @@
 
 	<style>
 		body { font-family: 'Fira Sans', sans-serif; font-size: 2.0vh; text-align: justify; background-color: #303030; }
-		a { color: #e3e3e3; }
+		a { color: #999; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
 		h1 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 5.7vh; font-weight: 700; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; }
 		h2 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 3.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
 		h3 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 2.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
 		p { font-size: 2.0vh; text-align: left; }
 		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 0.5em; border-radius: 5px; width: auto; border-width: 1px; font-size: 2.0vh; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
-                p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+    p.caption { border-style: none; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #303030 !important; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+    p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
 		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { font-size: 2.0vh; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
@@ -239,8 +243,14 @@
 		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
-		// Generate a short link using is.dg 
-		$short_link = exec("curl 'https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]'");
+		
+		// Generate an optional short link.
+		if($use_shortLink) {
+        $short_link = exec("curl '".$shortLink_API."'"); 
+        }else{
+        $short_link = "#";
+    }
+		
 		//Check if the related RAW file exists and link to it.
 		$rawfile=glob($photo_dir.$filepath['filename'].$raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
@@ -279,7 +289,7 @@
 			$description = @file_get_contents($photo_dir.$filepath['filename'].'.txt');
 		}
 		$gps = read_gps_location($file);
-		$shortened_link = "<a href='".$short_link."'><i class='fa fa-link'></i></a> ";
+		$shortened_link = " &bull; <a href='".$short_link."'><i class='fa fa-link'></i></a> ";
 
 		$fnumber_array = explode("/", $exif['EXIF']['FNumber']);
 		$fnumber = $fnumber_array[0]/$fnumber_array[1];
@@ -304,8 +314,6 @@
 		$datetime=$exif['EXIF']['DateTimeOriginal'];
 		if (empty($datetime)) {
 			$datetime="";
-		} else {
-			$datetime=$datetime." &bull; ";
 		}
 		// Parse IPTC metadata and extract keywords.
 		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
@@ -327,15 +335,19 @@
 			$map_url = " &bull; <a href='http://www.openstreetmap.org/index.html?mlat=".$gps[lat]."&mlon=".$gps[lon]."&zoom=18' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		}
 
-		// Disable the Map link if the photo has no geographical coordinates.
-		if (empty($gps[lat])) {
-			      $info = "<span style='word-spacing:1em'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link."<br /><i class='fa fa-tags'></i> </span>".$keyword;
-		}
-		else {
-		        $info = "<span style='word-spacing:0.3em'>".$fnumber.$exposuretime.$iso.$datetime.$shortened_link.$map_url."<br /><i class='fa fa-tags'></i> </span>".$keyword;
-		}
+		$photo_info = $fnumber.$exposuretime.$iso.$datetime;
+		// Enable the short link anchor if short link is being used.
+		if($use_shortLink){
+      $photo_info = $photo_info.$shortened_link;
+    }
+    // Enable the Map anchor if the photo contains geographical coordinate.
+    if (!empty($gps[lat])) {
+      $photo_info = $photo_info.$map_url;
+    }
+    
+    $info = "<span style='word-spacing:1em'>".$photo_info."<br /><i class='fa fa-tags'></i> </span>".$keyword;
 		
-		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p>'.$exif['COMPUTED']['UserComment'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
+		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMPUTED']['UserComment'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 	}
 	
 	// Show links.
