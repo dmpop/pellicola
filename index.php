@@ -40,7 +40,7 @@
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
-	$raw_formats = '.{ARW,arw,NEF,nef,CR2,cr2,PNG,png}'; // Supported RAW formats. Specify other formats, if needed.
+	$raw_formats = '.{ARW,arw,ORF,orf,NEF,nef,CR2,cr2,PNG,png}'; // Supported RAW formats. Specify other formats, if needed.
 	?>
 
 	<style>
