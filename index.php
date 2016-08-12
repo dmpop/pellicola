@@ -22,10 +22,10 @@
 	$title = "目白 Mejiro";
 	$tagline = "Responsive single-file open source photo grid";
 	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4).
-	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
+	$footer="<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
-	$stats = true;	// Enable web statistics (requires CrazyStat).
+	$stats = false;	// Enable web statistics (requires CrazyStat).
 	$photo_dir = "photos"; // Directory for storing photos.
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
@@ -36,7 +36,7 @@
 	$links = true;	// Enable the link box.
 	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
-	array('https://www.flickr.com/photos/dmpop/','fa fa-flickr fa-lg'),
+	array('https://www.eyeem.com/u/dmpop','fa fa-instagram fa-lg'),
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
@@ -353,7 +353,7 @@
             $array_length = count($links);
             echo '<div class="footer">';
             for($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:0.5em;"><a href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
+            echo '<span style="word-spacing:0.5em;"><a style="color: white" href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
             }
             echo $footer.'</div>';
 	} else {
