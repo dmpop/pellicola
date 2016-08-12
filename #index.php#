@@ -21,26 +21,26 @@
 	// User-defined settings
 	$title = "目白 Mejiro";
 	$tagline = "Responsive single-file open source photo grid";
-	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
+	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4).
 	$footer="<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
-	$expire = false;	// Set to true to enable the expiration feature
-	$days = 15;	// Expiration period
-	$stats = false;	// Enable web statistics (requires CrazyStat)
-	$photo_dir = "photos"; // Directory for storing photos
-	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation
-	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
-	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
-	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location
+	$expire = false;	// Set to true to enable the expiration feature.
+	$days = 15;	// Expiration period.
+	$stats = false;	// Enable web statistics (requires CrazyStat).
+	$photo_dir = "photos"; // Directory for storing photos.
+	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
+	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
+	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
+	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location.
 	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
 	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	$links = true;	// Enable the link box
-	// If the link box is enabled, specify the desired links and their icons in the array below
+	$links = true;	// Enable the link box.
+	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
 	array('https://www.eyeem.com/u/dmpop','fa fa-instagram fa-lg'),
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
-	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Add other formats, if needed.
+	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Specify other formats, if needed.
 	?>
 
 	<style>
@@ -83,10 +83,10 @@
 
 	<?php
 
-	// Detect browser language
+	// Detect browser language.
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
-	// The $d parameter is used to detect a subdirectory
+	// The $d parameter is used to detect a subdirectory.
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
         $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
 	$photo_dir = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir.DIRECTORY_SEPARATOR.$sub_photo_dir);
@@ -138,40 +138,40 @@
 		return false;
 	}
 
-	// Check whether the required directories exist
+	// Check whether the required directories exist.
 		if (!file_exists($photo_dir) || !file_exists($photo_dir.'tims')) {
 		exit ('<p class="msg"><u>'.$photo_dir. '</u> and <u>'. $photo_dir.'tims</u> directories don\'t exist. You must create them manually. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>');
 
 	}
 
-	// Get file info
+	// Get file info.
 	$files = glob($photo_dir.'*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 	$fileCount = count($files);
 
 	function createTim($original, $tim, $timWidth)
 	{
-		// Load image
+		// Load image.
 		$img = @imagecreatefromjpeg($original);
 		if(!$img) return false; // Abort if the image couldn't be read
 
-		// Get image size
+		// Get image size.
 		$width = imagesx($img);
 		$height = imagesy($img);
 
-		// Calculate tim size
+		// Calculate tim size.
 		$new_width  = $timWidth;
 		$new_height = floor($height * ($timWidth / $width));
 
-		// Create a new temporary image
+		// Create a new temporary image.
 		$tmp_img = imagecreatetruecolor($new_width, $new_height);
 
 		// Copy and resize old image into new image
 		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-		// Save tim into a file
+		// Save tim into a file.
 		$ok = @imagejpeg($tmp_img, $tim);
 
-		// Cleanup
+		// Cleanup.
 		imagedestroy($img);
 		imagedestroy($tmp_img);
 
@@ -179,24 +179,24 @@
 		return $ok;
 	}
 
-	// Generate any missing tim and check expiration
+	// Generate any missing tim and check expiration.
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir.'tims/'.basename($file);
 
 		if(!file_exists($tim)) {
-			//Display a message while the function generates a tim
+			//Display a message while the function generates a tim.
 			ob_implicit_flush(true);
 			echo '<p class="msg">Generating missing tims...';
 			ob_end_flush();
 			if(createTim($file, $tim, 800)) {
-				// This is a new file, update last modification date for the expiration feature
+				// This is a new file, update last modification date for the expiration feature.
 				touch($file);
 			} else {
-				// We couldn't create a tim, remove the image from our list
+				// We couldn't create a tim, remove the image from our list.
 				unset($files[$i]);
 			}
-		// A JavaScript hack to reload the page in order to clear the messages
+		// A JavaScript hack to reload the page in order to clear the messages.
 		echo '<script>parent.window.location.reload(true);</script>';
 		}
 
@@ -207,10 +207,10 @@
 		}
 	}
 
-	// Update count (we might have removed some files)
+	// Update count (we might have removed some files).
 	$fileCount = count($files);
 
-	// Check whether the reversed order option is enabled and sort the array accordingly
+	// Check whether the reversed order option is enabled and sort the array accordingly.
 	if($r_sort) {
 		rsort($files);
 	}
@@ -220,7 +220,7 @@
 	echo "<body>";
 	echo "<div id='content'>";
 
-	// The $grid parameter is used to show the main grid
+	// The $grid parameter is used to show the main grid.
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
@@ -236,22 +236,22 @@
 		echo "</ul>";
 	}
 
-	// The $photo parameter is used to show an individual photo
+	// The $photo parameter is used to show an individual photo.
 	$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
 	if (isset($file)) {
-		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
+		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links).
 		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 
-		// Generate an optional short link
+		// Generate an optional short link.
 		if($use_shortLink) {
         $short_link = exec("curl '".$shortLink_API."'");
         }else{
         $short_link = "#";
     }
 
-		//Check if the related RAW file exists and link to it
+		//Check if the related RAW file exists and link to it.
 		$rawfile=glob($photo_dir.$filepath['filename'].$raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
 			echo "<h1>".$filepath['filename']." <a class='superscript' href=".$rawfile[0].">RAW</a></h1>";
@@ -261,27 +261,27 @@
 		}
 
 		//NAVIGATION LINKS
-		// Set first and last photo navigation links according to prevailing sort order
+		// Set first and last photo navigation links according to prevailing sort order.
 		$firstphoto = $files[count($files)-1];
 		$lastphoto = $files[0];
 
-		// If there is only one photo in the album, show the home navigation link
+		// If there is only one photo in the album, show the home navigation link.
 		if ($fileCount == 1) {
                     echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; </div>";
 		}
-		// Disable the Previous link if this is the last photo
+		// Disable the Previous link if this is the last photo.
 		elseif (empty($files[$key+1])) {
                     echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
-		// Disable the Next link if this is the first photo
+		// Disable the Next link if this is the first photo.
 		elseif (empty($files[$key-1])) {
                     echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
 		}
-		// Show all navigation links
+		// Show all navigation links.
 		else {
                     echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
-		// Check whether the localized description file matching the browser language exists
+		// Check whether the localized description file matching the browser language exists.
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
 			$description = @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
 			// If the localized description file doesn't exist, use the default one
@@ -313,7 +313,7 @@
 		if (empty($datetime)) {
 			$datetime="";
 		}
-		// Parse IPTC metadata and extract keywords
+		// Parse IPTC metadata and extract keywords.
 		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
 		$size = getimagesize($file, $info);
 		if(isset($info['APP13'])) {
@@ -326,7 +326,7 @@
 		}
 		$keyword = implode(", ", $keywords);
 
-		//Generate map URL. Choose between Google Maps and OpenStreetmap
+		//Generate map URL. Choose between Google Maps and OpenStreetmap.
 		if ($google_maps){
 			$map_url = " &bull; <a href='http://maps.google.com/maps?q=".$gps[lat].",".$gps[lon]."' target='_blank'><i class='fa fa-map-marker fa-lg'></i></a>";
 		} else {
@@ -334,11 +334,11 @@
 		}
 
 		$photo_info = $fnumber.$exposuretime.$iso.$datetime;
-		// Enable the short link anchor if short link is being used
+		// Enable the short link anchor if short link is being used.
 		if($use_shortLink){
       $photo_info = $photo_info.$shortened_link;
     }
-    // Enable the Map anchor if the photo contains geographical coordinate
+    // Enable the Map anchor if the photo contains geographical coordinate.
     if (!empty($gps[lat])) {
       $photo_info = $photo_info.$map_url;
     }
@@ -348,7 +348,7 @@
 		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMMENT']['0'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 	}
 
-	// Show links
+	// Show links.
 	if ($links) {
             $array_length = count($links);
             echo '<div class="footer">';
