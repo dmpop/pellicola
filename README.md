@@ -45,13 +45,9 @@ To enable the expiration feature, change the *$expire = false;* line in the *ind
 
 A [Mejiro demo](http://dmpop.dhcp.io/mejiro/) is available for your viewing pleasure.
 
-## Little Mejiro Book
-
-Want to get the most out of Mejiro? Read the [Little Mejiro Book](http://scribblesandsnaps.com/little-mejiro-book/).
-
 ## Author
 
-Dmitri Popov (dmpop@linux.com)
+Dmitri Popov ([dmpop@linux.com](mailto:dmpop@linux.com))
 
 ## License
 

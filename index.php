@@ -25,14 +25,14 @@
 	$footer="<a href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature.
 	$days = 15;	// Expiration period.
-	$stats = false;	// Enable web statistics (requires CrazyStat).
+	$stats = true;	// Enable web statistics (requires CrazyStat).
 	$photo_dir = "photos"; // Directory for storing photos.
 	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation.
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest).
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap.
 	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location.
 	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
-	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$links = true;	// Enable the link box.
 	// If the link box is enabled, specify the desired links and their icons in the array below.
 	$links = array (
@@ -40,7 +40,7 @@
 	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
-	$raw_formats = '.{ARW,arw,ORF,orf,NEF,nef,CR2,cr2,PNG,png}'; // Supported RAW formats. Specify other formats, if needed.
+	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Specify other formats, if needed.
 	?>
 
 	<style>
@@ -85,7 +85,7 @@
 
 	// Detect browser language.
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-	
+
 	// The $d parameter is used to detect a subdirectory.
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
         $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
@@ -187,7 +187,7 @@
 		if(!file_exists($tim)) {
 			//Display a message while the function generates a tim.
 			ob_implicit_flush(true);
-			echo '<p class="msg">Generating a tim for '.basename($file).'</p>';
+			echo '<p class="msg">Generating missing tims...';
 			ob_end_flush();
 			if(createTim($file, $tim, 800)) {
 				// This is a new file, update last modification date for the expiration feature.
@@ -209,7 +209,7 @@
 
 	// Update count (we might have removed some files).
 	$fileCount = count($files);
-	
+
 	// Check whether the reversed order option is enabled and sort the array accordingly.
 	if($r_sort) {
 		rsort($files);
@@ -243,14 +243,14 @@
 		$tim = $photo_dir.'tims/'.basename($file);
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
-		
+
 		// Generate an optional short link.
 		if($use_shortLink) {
-        $short_link = exec("curl '".$shortLink_API."'"); 
+        $short_link = exec("curl '".$shortLink_API."'");
         }else{
         $short_link = "#";
     }
-		
+
 		//Check if the related RAW file exists and link to it.
 		$rawfile=glob($photo_dir.$filepath['filename'].$raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
@@ -259,7 +259,7 @@
 		else {
 			echo "<h1>".$filepath['filename']."</h1>";
 		}
-		
+
 		//NAVIGATION LINKS
 		// Set first and last photo navigation links according to prevailing sort order.
 		$firstphoto = $files[count($files)-1];
@@ -291,13 +291,11 @@
 		$gps = read_gps_location($file);
 		$shortened_link = " &bull; <a href='".$short_link."'><i class='fa fa-link'></i></a> ";
 
-		$fnumber_array = explode("/", $exif['EXIF']['FNumber']);
-		$fnumber = $fnumber_array[0]/$fnumber_array[1];
-		if (empty($fnumber_array[0]) ) {
+		$fnumber = $exif['COMPUTED']['ApertureFNumber'];
+		if (empty($fnumber) ) {
 			$fnumber = "";
 		} else {
-			$fnumber = $fnumber_array[0]/$fnumber_array[1];
-			$fnumber = "&fnof;/".$fnumber." &bull; ";
+			$fnumber = $fnumber." &bull; ";
 		}
 		$exposuretime=$exif['EXIF']['ExposureTime'];
 		if (empty($exposuretime)) {
@@ -344,12 +342,12 @@
     if (!empty($gps[lat])) {
       $photo_info = $photo_info.$map_url;
     }
-    
+
     $info = "<span style='word-spacing:1em'>".$photo_info."<br /><i class='fa fa-tags'></i> </span>".$keyword;
-		
-		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMPUTED']['UserComment'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
+
+		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMMENT']['0'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 	}
-	
+
 	// Show links.
 	if ($links) {
             $array_length = count($links);
