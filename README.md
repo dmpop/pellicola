@@ -20,7 +20,6 @@ Mejiro is a forgetful single-file PHP web app for instant photo publishing. The 
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Keyboard shortcuts** The application supports keyboard shortcuts for common actions.
-- **CrazyStat integration** Mejiro supports integration with the [CrazyStat](http://en.christosoft.de/CrazyStat) web analytics software.
 
 ## Requirements
 

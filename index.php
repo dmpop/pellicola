@@ -11,9 +11,9 @@
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width">
-	<link href='http://fonts.googleapis.com/css?family=Fira+Sans&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Harmattan' rel='stylesheet' type='text/css'>
+	<script src="https://use.fontawesome.com/b4c062efea.js"></script>
 	<link rel="shortcut icon" href="favicon.ico" />
 
 	<?php
@@ -25,9 +25,7 @@
 	$footer="<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$expire = false;	// Set to true to enable the expiration feature
 	$days = 15;	// Expiration period
-	$stats = false;	// Enable web statistics (requires CrazyStat)
 	$photo_dir = "photos"; // Directory for storing photos
-	$crazystat = "../crazystat/src/include.php"; //Path to the CrazyStat installation
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
 	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location
@@ -37,7 +35,7 @@
 	// If the link box is enabled, specify the desired links and their icons in the array below
 	$links = array (
 	array('https://www.eyeem.com/u/dmpop','fa fa-instagram fa-lg'),
-	array('http://scribblesandsnaps.com/','fa fa-wordpress fa-lg'),
+	array('http://https://medium.com/@dmpop/','fa fa-medium fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
 	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Add other formats, if needed.
@@ -47,38 +45,37 @@
 		body { font-family: 'Fira Sans', sans-serif; font-size: 2.0vh; text-align: justify; background-color: #303030; }
 		a { color: #999; }
 		a.superscript { position: relative; top: -0.7em; font-size: 51%; text-decoration: none; }
-		h1 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 5.7vh; font-weight: 700; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; }
-		h2 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 3.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
-		h3 { color: #e3e3e3; font-family: 'Quicksand', sans-serif; font-size: 2.0vh; font-weight: 700; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; }
+		h1 { color: #e3e3e3; font-family: 'Harmattan', sans-serif; font-size: 7.0vh; font-weight: 400; text-align: center; margin-top: 0.3em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 1px; }
+		h2 { color: #e3e3e3; font-family: 'Harmattan', sans-serif; font-size: 3.0vh; font-weight: 400; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 1 }
+		h3 { color: #e3e3e3; font-family: 'Harmattan', sans-serif; font-size: 2.0vh; font-weight: 400; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 1 }
 		p { font-size: 2.0vh; text-align: left; }
 		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 0.5em; border-radius: 5px; width: auto; border-width: 1px; font-size: 2.0vh; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
-    p.caption { border-style: none; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #303030 !important; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
-    p.box { border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+        p.caption { border-style: none; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #303030 !important; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+        p.box { width: auto; border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
 		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { font-size: 2.0vh; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
 		.footer { line-height: 3.0em; text-align: center; font-family: monospace; font-size: 1.5vh; position:fixed; left:0px; bottom:0px; height:3em; width:100%; background:#3973ac; }
 		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
-                ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
-                ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
-                ul.rig li img { max-width: 100%; height: auto; }
-                ul.rig li h3 { margin: 0 0 1px; }
-                ul.rig li p { font-size: .9em; line-height: 2.0em; color: #999; }
-                /* class for 1 column */
-                ul.rig.column-1 li { width: 52.5%; /* this value + 2.5 should = 50% */ }
-                /* class for 2 columns */
-                ul.rig.columns-2 li { width: 47.5%; /* this value + 2.5 should = 50% */ }
-                /* class for 3 columns */
-                ul.rig.columns-3 li { width: 30.83%; /* this value + 2.5 should = 33% */ }
-                /* class for 4 columns */
-                ul.rig.columns-4 li { width: 22.5%; /* this value + 2.5 should = 25% */ }
-                @media (max-width: 480px) {
-                    ul.grid-nav li { display: block; margin: 0 0 5px; }
-                    ul.grid-nav li a { display: block; }
-                    ul.rig { margin-left: 0; }
-                    ul.rig li { width: 100% !important; /* over-ride all li styles */ margin: 0 0 20px; }
-                }
-                * { margin: 0; padding: 0; }
+        ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
+        ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+        ul.rig li img { max-width: 100%; height: auto; }
+        ul.rig li h3 { margin: 0 0 1px; }
+        ul.rig li p { font-size: .9em; line-height: 2.0em; color: #999; }
+        /* class for 1 column */
+        ul.rig.column-1 li { width: 52.5%; /* this value + 2.5 should = 50% */ }
+        /* class for 2 columns */
+        ul.rig.columns-2 li { width: 47.5%; /* this value + 2.5 should = 50% */ }
+        /* class for 3 columns */
+        ul.rig.columns-3 li { width: 30.83%; /* this value + 2.5 should = 33% */ }
+        /* class for 4 columns */
+        ul.rig.columns-4 li { width: 22.5%; /* this value + 2.5 should = 25% */ }
+        @media (max-width: 480px) {
+        ul.grid-nav li { display: block; margin: 0 0 5px; }
+        ul.grid-nav li a { display: block; }
+        ul.rig { margin-left: 0; }
+        ul.rig li { width: 100% !important; /* over-ride all li styles */ margin: 0 0 20px; }
+        * { margin: 0; padding: 0; }
 	</style>
 
 	<?php
@@ -359,16 +356,6 @@
 	} else {
 	        echo '<div class="footer">'.$footer.'</div>';
 	        }
-
-	if ($stats) {
-	echo '<div class="center">';
-	if (file_exists($crazystat) && is_readable($crazystat)) {
-		include_once($crazystat);
-			} else {
-			echo '<p class="msg">CrazyStat is not installed.</p>';
-		}
-	echo '</div>';
-	}
 	?>
 	<div>
     </body>
