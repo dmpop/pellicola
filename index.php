@@ -50,32 +50,32 @@
 		h3 { color: #e3e3e3; font-family: 'Harmattan', sans-serif; font-size: 2.0vh; font-weight: 400; text-align: center; margin-top: 1em; margin-bottom: 0.5em; line-height: 100%; letter-spacing: 1 }
 		p { font-size: 2.0vh; text-align: left; }
 		p.msg { margin-left: auto; margin-right: auto; margin-bottom: 0px; margin-top: 0.5em; border-radius: 5px; width: auto; border-width: 1px; font-size: 2.0vh; letter-spacing: 3px; padding: 5px; color: #ffffff; background: #3399ff; text-align: center; width:500px; }
-        p.caption { border-style: none; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #303030 !important; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
-        p.box { width: auto; border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+		p.caption { border-style: none; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #303030 !important; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
+		p.box { width: auto; border-style: dotted; border-width: 1px; font-size: 2.0vh; padding: 5px; color: #e3e3e3; margin-bottom: 0px; margin-left: auto; margin-right: auto; line-height: 2.0em; text-align: center; }
 		#content { color: #e3e3e3; }
 		.text { text-align: center; padding: 0px; color: inherit; float: left; }
 		.center { font-size: 2.0vh; padding: 1px; height: auto; text-align: center; padding: 0px; margin-bottom: 2em; }
 		.footer { line-height: 3.0em; text-align: center; font-family: monospace; font-size: 1.5vh; position:fixed; left:0px; bottom:0px; height:3em; width:100%; background:#3973ac; }
 		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
-        ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
-        ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
-        ul.rig li img { max-width: 100%; height: auto; }
-        ul.rig li h3 { margin: 0 0 1px; }
-        ul.rig li p { font-size: .9em; line-height: 2.0em; color: #999; }
-        /* class for 1 column */
-        ul.rig.column-1 li { width: 52.5%; /* this value + 2.5 should = 50% */ }
-        /* class for 2 columns */
-        ul.rig.columns-2 li { width: 47.5%; /* this value + 2.5 should = 50% */ }
-        /* class for 3 columns */
-        ul.rig.columns-3 li { width: 30.83%; /* this value + 2.5 should = 33% */ }
-        /* class for 4 columns */
-        ul.rig.columns-4 li { width: 22.5%; /* this value + 2.5 should = 25% */ }
-        @media (max-width: 480px) {
-        ul.grid-nav li { display: block; margin: 0 0 5px; }
-        ul.grid-nav li a { display: block; }
-        ul.rig { margin-left: 0; }
-        ul.rig li { width: 100% !important; /* over-ride all li styles */ margin: 0 0 20px; }
-        * { margin: 0; padding: 0; }
+		ul.rig { list-style: none; font-size: 0px; margin-left: -2.5%; /* should match li left margin */ }
+		ul.rig li { display: inline-block; padding: 10px; margin: 0 0 2.5% 2.5%; background: #fff; font-size: 16px; font-size: 1rem; vertical-align: top; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+		ul.rig li img { max-width: 100%; height: auto; }
+		ul.rig li h3 { margin: 0 0 1px; }
+		ul.rig li p { font-size: .9em; line-height: 2.0em; color: #999; }
+		/* class for 1 column */
+	ul.rig.column-1 li { width: 43.3%; /* this value + 2.5 should = 50% */ }
+			/* class for 2 columns */
+		ul.rig.columns-2 li { width: 47.5%; /* this value + 2.5 should = 50% */ }
+		/* class for 3 columns */
+		ul.rig.columns-3 li { width: 30.83%; /* this value + 2.5 should = 33% */ }
+		/* class for 4 columns */
+		ul.rig.columns-4 li { width: 22.5%; /* this value + 2.5 should = 25% */ }
+		@media (max-width: 480px) {
+			ul.grid-nav li { display: block; margin: 0 0 5px; }
+			ul.grid-nav li a { display: block; }
+			ul.rig { margin-left: 0; }
+			ul.rig li { width: 100% !important; /* over-ride all li styles */ margin: 0 0 20px; }
+			* { margin: 0; padding: 0; }
 	</style>
 
 	<?php
@@ -137,7 +137,7 @@
 
 	// Check whether the required directories exist
 		if (!file_exists($photo_dir) || !file_exists($photo_dir.'tims')) {
-		exit ('<p class="msg"><u>'.$photo_dir. '</u> and <u>'. $photo_dir.'tims</u> directories don\'t exist. You must create them manually. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>');
+		exit ('<p class="msg"><u>'.$photo_dir. '</u> or <u>'. $photo_dir.'tims</u> directory doesn\'t exist. You must create it manually. <a href="'.basename($_SERVER['PHP_SELF']).'">Back</a></p>');
 
 	}
 
@@ -264,19 +264,19 @@
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($fileCount == 1) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; </div>";
+			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; </div>";
 		}
 		// Disable the Previous link if this is the last photo
 		elseif (empty($files[$key+1])) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
 		// Disable the Next link if this is the first photo
 		elseif (empty($files[$key-1])) {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
+			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
 		}
 		// Show all navigation links
 		else {
-                    echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
 		}
 		// Check whether the localized description file matching the browser language exists
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
@@ -333,30 +333,30 @@
 		$photo_info = $fnumber.$exposuretime.$iso.$datetime;
 		// Enable the short link anchor if short link is being used
 		if($use_shortLink){
-      $photo_info = $photo_info.$shortened_link;
-    }
-    // Enable the Map anchor if the photo contains geographical coordinate
-    if (!empty($gps[lat])) {
-      $photo_info = $photo_info.$map_url;
-    }
+			$photo_info = $photo_info.$shortened_link;
+		}
+		// Enable the Map anchor if the photo contains geographical coordinate
+		if (!empty($gps[lat])) {
+			$photo_info = $photo_info.$map_url;
+		}
 
-    $info = "<span style='word-spacing:1em'>".$photo_info."<br /><i class='fa fa-tags'></i> </span>".$keyword;
-
+		$info = "<span style='word-spacing:1em'>".$photo_info."<br /><i class='fa fa-tags'></i> </span>".$keyword;
+		// Show photo, EXIF data, description, and info
 		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMMENT']['0'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 	}
 
 	// Show links
 	if ($links) {
-            $array_length = count($links);
-            echo '<div class="footer">';
-            for($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:0.5em;"><a style="color: white" href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
-            }
-            echo $footer.'</div>';
+		$array_length = count($links);
+		echo '<div class="footer">';
+		for($i = 0; $i < $array_length; $i++) {
+			echo '<span style="word-spacing:0.5em;"><a style="color: white" href="'.$links[$i][0].'"><i class="'.$links[$i][1].'"></i></a> </span>';
+		}
+		echo $footer.'</div>';
 	} else {
-	        echo '<div class="footer">'.$footer.'</div>';
-	        }
+		echo '<div class="footer">'.$footer.'</div>';
+	}
 	?>
 	<div>
-    </body>
+	</body>
 </html>
