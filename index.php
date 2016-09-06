@@ -33,7 +33,7 @@
 	// If the link box is enabled, specify the desired links and their icons in the array below
 	$links = array (
 	array('https://www.eyeem.com/u/dmpop','fa fa-instagram fa-lg'),
-	array('http://https://medium.com/@dmpop/','fa fa-medium fa-lg'),
+	array('https://medium.com/@dmpop/','fa fa-medium fa-lg'),
 	array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
 	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Add other formats, if needed.
