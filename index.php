@@ -23,8 +23,6 @@
 	$tagline = "Responsive single-file open source photo grid";
 	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
 	$footer="<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
-	$expire = false;	// Set to true to enable the expiration feature
-	$days = 15;	// Expiration period
 	$photo_dir = "photos"; // Directory for storing photos
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
@@ -176,31 +174,19 @@
 		return $ok;
 	}
 
-	// Generate any missing tim and check expiration
+	// Generate missing tims
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir.'tims/'.basename($file);
 
 		if(!file_exists($tim)) {
-			//Display a message while the function generates a tim
+			//Display a message while the function generates tims
 			ob_implicit_flush(true);
 			echo '<p class="msg">Generating missing tims...';
 			ob_end_flush();
-			if(createTim($file, $tim, 800)) {
-				// This is a new file, update last modification date for the expiration feature
-				touch($file);
-			} else {
-				// We couldn't create a tim, remove the image from our list
-				unset($files[$i]);
-			}
+			createTim($file, $tim, 800);
 		// A JavaScript hack to reload the page in order to clear the messages
 		echo '<script>parent.window.location.reload(true);</script>';
-		}
-
-		if($expire && (time() - filemtime($file) >= $days * 24 * 60 * 60) ) {
-			unlink($file);
-			unlink($tim);
-			unset($files[$i]);
 		}
 	}
 
