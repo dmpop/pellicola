@@ -296,18 +296,6 @@
 		if (empty($datetime)) {
 			$datetime="";
 		}
-		// Parse IPTC metadata and extract keywords
-		// http://stackoverflow.com/questions/9050856/finding-keywords-in-image-data
-		$size = getimagesize($file, $info);
-		if(isset($info['APP13'])) {
-			$iptc = iptcparse($info['APP13']);
-				if(isset($iptc['2#025'])) {
-					$keywords = $iptc['2#025'];
-				} else {
-					$keywords = array();
-				}
-		}
-		$keyword = implode(", ", $keywords);
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
 		if ($google_maps){
@@ -326,7 +314,7 @@
 			$photo_info = $photo_info.$map_url;
 		}
 
-		$info = "<span style='word-spacing:1em'>".$photo_info."<br /><i class='fa fa-tags'></i> </span>".$keyword;
+		$info = "<span style='word-spacing:1em'>".$photo_info."</span>";
 		// Show photo, EXIF data, description, and info
 		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMMENT']['0'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 	}
