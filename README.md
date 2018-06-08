@@ -39,7 +39,7 @@ To enable the expiration feature, change the *$expire = false;* line in the *ind
 
 ## Demo
 
-A [Mejiro demo](http://dmpop.dhcp.io/mejiro/) is available for your viewing pleasure.
+A [Mejiro demo](https://ikebukuro.myqnapcloud.com:8081/mejiro/) is available for your viewing pleasure.
 
 ## Author
 
