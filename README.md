@@ -37,10 +37,6 @@ You can add descriptions to photos by creating accompanying *.txt* files. For ex
 
 To enable the expiration feature, change the *$expire = false;* line in the *index.php* script to *$expire = true;* and specify the desired expiration period by modifying the *$days* variable.
 
-## Demo
-
-A [Mejiro demo](https://ikebukuro.myqnapcloud.com:8081/mejiro/) is available for your viewing pleasure.
-
 ## Author
 
 Dmitri Popov ([dmpop@linux.com](mailto:dmpop@linux.com))
