@@ -6,6 +6,9 @@
 	Author: Dmitri Popov
 	License: GPLv3 https://www.gnu.org/licenses/gpl-3.0.txt
 	Source code: https://github.com/dmpop/mejiro
+
+	19/03/02 - This code has been adapted in order to incorporaste PAGINATION
+	See // NEW for changes
 -->
 
 	<head>
@@ -14,7 +17,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Harmattan' rel='stylesheet' type='text/css'>
 	<script src="https://use.fontawesome.com/b4c062efea.js"></script>
-	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="shortcut icon" href="favicon-inliner.png" />
 
 	<?php
 
@@ -22,9 +25,10 @@
 	$title = "目白 Mejiro";
 	$tagline = "Responsive single-file open source photo grid";
 	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
+	$per_page = 100; //NEW - Number of images per page for pagination
 	$footer="<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$photo_dir = "photos"; // Directory for storing photos
-	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
+	$r_sort = true;	// Set to true to show tims in the reverse order (oldest ot newest)
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
 	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location
 	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
@@ -83,7 +87,7 @@
 
 	// The $d parameter is used to detect a subdirectory
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
-        $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
+    $sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
 	$photo_dir = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir.DIRECTORY_SEPARATOR.$sub_photo_dir);
 
 	/*
@@ -202,6 +206,43 @@
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
+		
+		
+//NEW - Preparing pagination - Calculate total items per page * START
+	$filetype = '*.*';
+	$files = glob($photo_dir.$filetype);
+	$total = count($files);
+	$last_page = ceil($total / $per_page);
+	if (isset($_GET["photo"]) == '')
+	{
+	if(isset($_GET["page"]) && ($_GET["page"] <=$last_page) && ($_GET["page"] > 0) && ($_GET["allimages"] != 1) )
+	{
+		$page = $_GET["page"];
+		$offset = ($per_page + 1)*($page - 1); 
+		echo "Page ".$_GET["page"]." of ".$last_page." (max. ".$per_page." images per page)"." - ".$fileCount." images";
+		echo '&nbsp&nbsp&nbsp<a style="color: yellow;" href="/index.php?allimages=1">Show all images</a>';
+	}
+	else
+	{
+		if(isset($_GET["allimages"]) != 1)
+		{
+		echo "Page 1 of ".$last_page." (max. ".$per_page." images per page)"." - ".$fileCount." images";
+		echo '&nbsp&nbsp&nbsp<a style="color: yellow;" href="/index.php?allimages=1">Show all images</a>';
+		}
+		$page=1;
+		$offset=0;
+	}
+	if (isset($_GET['allimages']) == 1)
+			{$allimages = 1;}
+	}
+	$max = $offset + $per_page;
+	if($max>$total)
+	{
+		$max = $total; 
+	}
+//NEW - Preparing pagination - Calculate total items per page * END
+		
+		
 
 	// The $grid parameter is used to show the main grid
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
@@ -210,14 +251,68 @@
 		echo "<div class ='center'>".$tagline."</div>";
 		echo "<ul class='rig columns-".$columns."'>";
 
-		for ($i=($fileCount-1); $i>=0; $i--) {
+			if ($allimages == 1)
+			{
+			for ($i=($fileCount-1); $i>=0; $i--) { //OLD LINE
+			//for($i = $offset; $i< $max; $i++){ //NEW - Pagination
 			$file = $files[$i];
 			$tim = $photo_dir.'tims/'.basename($file);
 			$filepath = pathinfo($file);
 			echo '<li><a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
-		}
+			}
+			}
+			else
+				{
+			//for ($i=($fileCount-1); $i>=0; $i--) { //OLD LINE
+			for($i = $offset; $i< $max; $i++){ //NEW - Pagination
+			if($r_sort) {
+			rsort($files);
+			}
+			$file = $files[$i];
+			$tim = $photo_dir.'tims/'.basename($file);
+			$filepath = pathinfo($file);
+			echo '<li><a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
+			}
+			}
+			
 		echo "</ul>";
 	}
+		
+		if(isset($_GET["allimages"]) != 1)
+		
+		{
+		show_pagination($page, $last_page); //NEW - Pagination - Show navigation on bottom of page
+		}
+	
+	
+//NEW - Using the following function you can create the navigation links * START
+
+	function show_pagination($current_page, $last_page)
+		{
+			echo '<div class="center">';
+			if( $current_page != 1 && isset($_GET["photo"]) == ''  )
+				{
+					echo '<a style="color: #e3e3e3;" href="?page='."1".'"&nbsp> First page</a>&nbsp&nbsp&nbsp';
+				}
+			if( $current_page > 1 && isset($_GET["photo"]) == '' )
+				{
+					echo '<a style="color: #e3e3e3;" href="?page='.($current_page-1).'"> &lt;&lt;Back&nbsp</a>&nbsp';
+				} 
+			if( $current_page < $last_page && isset($_GET["photo"]) == '' )
+				{
+					echo '&nbsp<a style="color: #e3e3e3;" href="?page='.($current_page+1).'">Next&gt;&gt;</a> '; 
+				}
+			if( $current_page != $last_page && isset($_GET["photo"]) == '' )
+				{
+					echo '&nbsp&nbsp&nbsp<a style="color: #e3e3e3;" href="?page='.($last_page).'">Last page</a>';
+				}
+				
+				
+				echo '</div>';
+		}
+//NEW - Using the following function you can create the navigation links * END
+		
+		
 
 	// The $photo parameter is used to show an individual photo
 	$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
@@ -249,21 +344,28 @@
 		$lastphoto = $files[0];
 
 		// If there is only one photo in the album, show the home navigation link
+
+// NEW - Several changes of code to fit with sort order * START
 		if ($fileCount == 1) {
 			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; </div>";
 		}
 		// Disable the Previous link if this is the last photo
 		elseif (empty($files[$key+1])) {
-			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last page</a></div>";
 		}
 		// Disable the Next link if this is the first photo
 		elseif (empty($files[$key-1])) {
-			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a></div>";
+			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First page</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Back</a></div>";
 		}
 		// Show all navigation links
 		else {
-			echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last</a></div>";
+			
+			echo "<div class='center'>
+			<a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'>First page</a>&bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'>Back</a> &bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'>Next</a> &bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'>Last page</a></div>";
+			
 		}
+// NEW - Several changes of code to fit with sort order * END
+		
 		// Check whether the localized description file matching the browser language exists
 		if (file_exists($photo_dir.$language.'-'.$filepath['filename'].'.txt')) {
 			$description = @file_get_contents($photo_dir.$language.'-'.$filepath['filename'].'.txt');
@@ -332,5 +434,8 @@
 	}
 	?>
 	<div>
+		<br> <!--NEW Added 3 br's for navigation of pagination -->
+		<br>
+		<br>
 	</body>
 </html>
