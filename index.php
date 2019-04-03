@@ -82,10 +82,8 @@
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
-	// The $d parameter is used to detect a subdirectory
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
-	$sub_photo_dir = basename($_GET['d']).DIRECTORY_SEPARATOR;
-	$photo_dir = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir.DIRECTORY_SEPARATOR.$sub_photo_dir);
+	$photo_dir = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir.DIRECTORY_SEPARATOR);
 
 	/*
 	 * Returns an array of latitude and longitude from the image file.
@@ -211,25 +209,25 @@
 	$last_page = ceil($total / $per_page);
 	if (isset($_GET["photo"]) == '')
 	{
-	    if(isset($_GET["page"]) && ($_GET["page"] <=$last_page) && ($_GET["page"] > 0) && ($_GET["allimages"] != 1) )
+	    if(isset($_GET["page"]) && ($_GET["page"] <=$last_page) && ($_GET["page"] > 0) && ($_GET["all"] != 1) )
 	    {
 		$page = $_GET["page"];
 		$offset = ($per_page + 1)*($page - 1); 
-		echo "Page ".$_GET["page"]." of ".$last_page." (".$per_page." photos per page)."." Total of ".$fileCount." photos.";
-		echo '<a style="color: yellow;" href=//'.$_SERVER[HTTP_HOST].DIRECTORY_SEPARATOR.basename(__DIR__).'/index.php?allimages=1>Show all</a>';
+		echo "Page ".$_GET["page"]." of ".$last_page." (".$per_page." photos per page)."." Total of ".$fileCount." photos. ";
+		echo '<a style="color: yellow;" href=//'.$_SERVER[HTTP_HOST].DIRECTORY_SEPARATOR.basename(__DIR__).'/index.php?all=1>Show all</a>';
 	    }
 	    else
 	    {
-		if(isset($_GET["allimages"]) != 1)
+		if(isset($_GET["all"]) != 1)
 		{
-		    echo "Page 1 of ".$last_page." (".$per_page." photos per page)."."  Total of ".$fileCount." photos.";
-		    echo '&nbsp&nbsp&nbsp<a style="color: yellow;" href="/index.php?allimages=1">Show all</a>';
+		    echo "Page 1 of ".$last_page." (".$per_page." photos per page)."."  Total of ".$fileCount." photos. ";
+		    echo '<a style="color: yellow;" href=//'.$_SERVER[HTTP_HOST].DIRECTORY_SEPARATOR.basename(__DIR__).'/index.php?all=1>Show all</a>';
 		}
 		$page=1;
 		$offset=0;
 	    }
-	    if (isset($_GET['allimages']) == 1)
-	    {$allimages = 1;}
+	    if (isset($_GET['all']) == 1)
+	    {$all = 1;}
 	}
 	$max = $offset + $per_page;
 	if($max>$total)
@@ -245,13 +243,13 @@
 	    echo "<div class ='center'>".$tagline."</div>";
 	    echo "<ul class='rig columns-".$columns."'>";
 
-	    if ($allimages == 1)
+	    if ($all == 1)
 	    {
 		for ($i=($fileCount-1); $i>=0; $i--) {
 		    $file = $files[$i];
 		    $tim = $photo_dir.'tims/'.basename($file);
 		    $filepath = pathinfo($file);
-		    echo '<li><a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
+		    echo '<li><a href="index.php?photo='.$file.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
 		}
 	    }
 	    else
@@ -263,14 +261,14 @@
 		    $file = $files[$i];
 		    $tim = $photo_dir.'tims/'.basename($file);
 		    $filepath = pathinfo($file);
-		    echo '<li><a href="index.php?photo='.$file.'&d='.$sub_photo_dir.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
+		    echo '<li><a href="index.php?photo='.$file.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
 		}
 	    }
 	    
 	    echo "</ul>";
 	}
 	
-	if(isset($_GET["allimages"]) != 1)
+	if(isset($_GET["all"]) != 1)
 	    
 	{
 	    show_pagination($page, $last_page); // Pagination. Show navigation on bottom of page
@@ -283,19 +281,19 @@
 	    echo '<div class="center">';
 	    if( $current_page != 1 && isset($_GET["photo"]) == ''  )
 	    {
-		echo '<a style="color: #e3e3e3;" href="?page='."1".'"&nbsp> First</a>&nbsp&nbsp&nbsp';
+		echo '<a style="color: #e3e3e3;" href="?page='."1".'">First</a> &bull; ';
 	    }
 	    if( $current_page > 1 && isset($_GET["photo"]) == '' )
 	    {
-		echo '<a style="color: #e3e3e3;" href="?page='.($current_page-1).'">Previous </a>&nbsp';
+		echo '<a style="color: #e3e3e3;" href="?page='.($current_page-1).'">Previous</a> &bull; ';
 	    } 
 	    if( $current_page < $last_page && isset($_GET["photo"]) == '' )
 	    {
-		echo '&nbsp<a style="color: #e3e3e3;" href="?page='.($current_page+1).'">Next</a> '; 
+		echo '<a style="color: #e3e3e3;" href="?page='.($current_page+1).'">Next</a>'; 
 	    }
 	    if( $current_page != $last_page && isset($_GET["photo"]) == '' )
 	    {
-		echo '&nbsp&nbsp&nbsp<a style="color: #e3e3e3;" href="?page='.($last_page).'">Last</a>';
+		echo ' &bull; <a style="color: #e3e3e3;" href="?page='.($last_page).'">Last</a>';
 	    } 
 	    echo '</div>';
 	}
@@ -332,21 +330,21 @@
 
 	    // If there is only one photo in the album, show the home navigation link
 	    if ($fileCount == 1) {
-		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; </div>";
+		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; </div>";
 	    }
 	    // Disable the Previous link if this is the last photo
 	    elseif (empty($files[$key+1])) {
-		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'> Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'> Last</a></div>";
+		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='n'> Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto."' accesskey='l'> Last</a></div>";
 	    }
 	    // Disable the Next link if this is the first photo
 	    elseif (empty($files[$key-1])) {
-		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'> First </a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'> Previous </a></div>";
+		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto."' accesskey='f'> First </a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='p'>Previous</a></div>";
 	    }
 	    // Show all navigation links
 	    else {
 		
 		echo "<div class='center'>
-			<a href='".basename($_SERVER['PHP_SELF']).'?d='.$sub_photo_dir."' accesskey='g'>Grid</a> &bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto.'&d='.$sub_photo_dir."' accesskey='f'> First </a>&bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1].'&d='.$sub_photo_dir."' accesskey='p'> Previous </a> &bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1].'&d='.$sub_photo_dir."' accesskey='n'> Next </a> &bull;<a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto.'&d='.$sub_photo_dir."' accesskey='l'> Last</a></div>";
+			<a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto."' accesskey='l'>Last</a></div>";
 		
 	    }
 	    
