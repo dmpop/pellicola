@@ -29,7 +29,7 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php5 php5-gd curl git`
 2. In the terminal, switch to the root directory of the server (e.g., */var/www/html*) and use the `git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 3. Open the *index.php* file in a text editor and edit settings. This step is optional.
-4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as raw files).
+4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
 5. Make the *mejiro* directory writable by the server using the `chown www-data -R mejiro` command as root.
 6. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
 
