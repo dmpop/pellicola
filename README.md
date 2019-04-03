@@ -7,8 +7,9 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 ## Features
 
 - **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP5 and the GD library.
-- **Responsive design** Mejiro works well on mobile devices.
 - **Instant and easy photo publishing** Upload photos, and Mejiro does the rest.
+- **Responsive design** Mejiro works well on mobile devices.
+- **Pagination** Mejiro automatically splits photo collection into pages. You can specify the number of photo per page.
 - **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
 - **Display geographical coordinates on OpenStreetMap or Google Maps** For geotagged photos, you can view their exact locations on OpenStreetMap.
 - **Short URLs** Mejiro can use a URL shortening service of your choice (default is [is.gd](http://is.gd/)) to generate short URLs for easy sharing.
