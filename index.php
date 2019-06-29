@@ -39,6 +39,9 @@
 		array('https://github.com/dmpop','fa fa-github fa-lg')
 	);
 	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Add other formats, if needed.
+
+	// Override settings, if running in docker - Silenced in case config/vars.php does not exist
+	@include 'config/vars.php';
 	?>
 
 	<style>
@@ -292,7 +295,7 @@
 		}
 		if(isset($_GET["all"]) != 1)
 		{
-		echo ' <a style="color: yellow;" href=//'.$_SERVER[HTTP_HOST].DIRECTORY_SEPARATOR.basename(__DIR__).'/index.php?all=1>Show all</a>';
+		echo ' <a style="color: yellow;" href=?all=1>Show all</a>';
 		}
 		echo '</div>';
 	}

@@ -34,6 +34,21 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 
 You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: *de-F994362-R1-14-15.txt* (for German), *ja-F994362-R1-14-15.txt* (for Japanese), etc.
 
+## Docker installation and configuration
+
+1. Create a directory for your photos
+2. Create a directory for vars.php to set user-defined settings, [as seen here](https://github.com/dmpop/mejiro/blob/master/index.php#L22)
+3. Run the image (it exposes port 80): `docker run -d -p 80:80 -v /path/to/photos:/var/www/html/photos -v /path/to/config:/var/www/html/config --name mejiro niduroki/mejiro`
+
+`vars.php` example:
+```php5
+<?php
+// Copy your configuration from index.php in here
+$columns = 5;
+$per_page = 30;
+// ...
+```
+
 ## Author
 
 Dmitri Popov ([dmpop@linux.com](mailto:dmpop@linux.com))
