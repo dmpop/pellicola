@@ -23,10 +23,10 @@
 	$title = "目白 Mejiro";
 	$tagline = "Responsive single-file open source photo grid";
 	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
-	$per_page = 25; // Number of images per page for pagination
+	$per_page = 12; // Number of images per page for pagination
 	$footer="<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
 	$photo_dir = "photos"; // Directory for storing photos
-	$r_sort = true;	// Set to true to show tims in the reverse order (oldest ot newest)
+	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
 	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location
 	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
@@ -177,7 +177,7 @@
 		return $ok;
 	}
 
-	// Generate missing tims
+	// Generate missing tims 
 	for($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir.'tims/'.basename($file);
@@ -196,7 +196,7 @@
 	// Update count (we might have removed some files)
 	$fileCount = count($files);
 
-	// Check whether the reversed order option is enabled and sort the array accordingly
+	// Check whether the reversed order option is enabled and sort the array accordingly 
 	if($r_sort) {
 		rsort($files);
 	}
@@ -207,72 +207,63 @@
 	echo "<div id='content'>";
 	
 	// Prepare pagination. Calculate total items per page * START
-	$filetype = '*.*';
-	$files = glob($photo_dir.$filetype);
 	$total = count($files);
 	$last_page = ceil($total / $per_page);
-	if (isset($_GET["photo"]) == '')
-	{
-		if(isset($_GET["page"]) && ($_GET["page"] <=$last_page) && ($_GET["page"] > 0) && ($_GET["all"] != 1) )
-		{
-		$page = $_GET["page"];
-		$offset = ($per_page + 1)*($page - 1); 
+	
+	if (isset($_GET["photo"]) == ''){
+		
+		if(isset($_GET["page"]) && ($_GET["page"] <=$last_page) && ($_GET["page"] > 0) && ($_GET["all"] != 1) ){
+			$page = $_GET["page"];
+			$offset = ($per_page)*($page - 1); 
+		}else{
+			$page=1;
+			$offset=0;
 		}
-		else
-		{
-		$page=1;
-		$offset=0;
-		}
-		if (isset($_GET['all']) == 1)
-		{$all = 1;}
+
+		if (isset($_GET['all']) == 1){$all = 1;}
 	}
+
 	$max = $offset + $per_page;
-	if($max>$total)
-	{
-		$max = $total; 
+	
+	if($max > $total){
+		$max = $total;
 	}
+
 	// Pagination. Calculate total items per page * END
 
 	// The $grid parameter is used to show the main grid
 	$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
+	
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='".basename($_SERVER['PHP_SELF'])."'><h1>".$title."</h1></a>";
 		echo "<div class ='center'>".$tagline."</div>";
 		echo "<ul class='rig columns-".$columns."'>";
 
-		if ($all == 1)
-		{
-		for ($i=($fileCount-1); $i>=0; $i--) {
-			$file = $files[$i];
-			$tim = $photo_dir.'tims/'.basename($file);
-			$filepath = pathinfo($file);
-			echo '<li><a href="index.php?all=1&photo='.$file.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
-		}
-		}
-		else
-		{
-		for($i = $offset; $i< $max; $i++){
-			if($r_sort) {
-			rsort($files);
+		if ($all == 1){
+			for ($i=0; $i<$fileCount; $i++) {
+				$file = $files[$i];
+				$tim = $photo_dir.'tims/'.basename($file);
+				$filepath = pathinfo($file);
+				echo '<li><a href="index.php?all=1&photo='.$file.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
 			}
-			$file = $files[$i];
-			$tim = $photo_dir.'tims/'.basename($file);
-			$filepath = pathinfo($file);
-			echo '<li><a href="index.php?all=1&photo='.$file.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
-		}
+		}else{
+			for($i=$offset; $i<$max; $i++){
+				$file = $files[$i];
+				$tim = $photo_dir.'tims/'.basename($file);
+				$filepath = pathinfo($file);
+				echo '<li><a href="index.php?all=1&photo='.$file.'"><img src="'.$tim.'" alt="'.$filepath['filename'].'" title="'.$filepath['filename'].'"></a><h3>'.$filepath['filename'].'</h3></li>';
+			}
 		}
 		
 		echo "</ul>";
 	}
 	
-	if(isset($_GET["all"]) != 1)
-		
-	{
+	if(isset($_GET["all"]) != 1){
 		show_pagination($page, $last_page); // Pagination. Show navigation on bottom of page
 	}
 	
 	
-	//Pagination. Create the navigation links * START
+	//Pagination. Create the navigation links * START 
 	function show_pagination($current_page, $last_page)
 	{
 		echo '<div class="center">';
@@ -327,26 +318,26 @@
 
 		// NAVIGATION LINKS
 		// Set first and last photo navigation links according to specified	 sort order
-		$firstphoto = $files[count($files)-1];
-		$lastphoto = $files[0];
+		$lastphoto = $files[count($files)-1];
+		$firstphoto = $files[0];
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($fileCount == 1) {
 		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; </div>";
 		}
-		// Disable the Previous link if this is the last photo
-		elseif (empty($files[$key+1])) {
-		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='n'> Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto."' accesskey='l'> Last</a></div>";
-		}
-		// Disable the Next link if this is the first photo
+		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key-1])) {
-		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto."' accesskey='f'> First </a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='p'>Previous</a></div>";
+		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'> Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto."' accesskey='l'> Last</a></div>";
+		}
+		// Disable the Next link if this is the LAST photo
+		elseif (empty($files[$key+1])) {
+		echo "<div class='center'><a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto."' accesskey='f'> First </a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'>Previous</a></div>";
 		}
 		// Show all navigation links
 		else {
 		
 		echo "<div class='center'>
-			<a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto."' accesskey='l'>Last</a></div>";
+			<a href='".basename($_SERVER['PHP_SELF'])."' accesskey='g'>Grid</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$firstphoto."' accesskey='f'>First</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key-1]."' accesskey='p'>Previous</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$files[$key+1]."' accesskey='n'>Next</a> &bull; <a href='".basename($_SERVER['PHP_SELF'])."?photo=".$lastphoto."' accesskey='l'>Last</a></div>";
 		
 		}
 		
@@ -405,7 +396,7 @@
 		echo '<div class="center"><ul class="rig column-1"><li><a href="'.$file.'"><img src="'.$tim.'" alt=""></a><p class="caption">'.$exif['COMMENT']['0'].' '.$description.'</p><p class="box">'.$info.'</p></li></ul></div>';
 	}
 
-	// Show links
+	// Show links 
 	if ($links) {
 		$array_length = count($links);
 		echo '<div class="footer">';
