@@ -6,7 +6,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 apt-get update
-apt-get -y install apache2 php5 php5-gd git
+apt-get -y install apache2 php php-gd php-exif git
 
 cd /var/www/
 git clone https://github.com/dmpop/mejiro.git

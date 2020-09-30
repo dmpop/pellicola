@@ -36,17 +36,18 @@ You can add descriptions to photos by creating accompanying *.txt* files. For ex
 
 ## Docker installation and configuration
 
-1. Create a directory for your photos
-2. Create a directory for vars.php to set user-defined settings, [as seen here](https://github.com/dmpop/mejiro/blob/master/index.php#L22)
+1. Create a directory for your photos.
+2. Create a directory for _vars.php_ to set user-defined settings, [as seen here](https://github.com/dmpop/mejiro/blob/master/index.php#L22).
 3. Run the image (it exposes port 80): `docker run -d -p 80:80 -v /path/to/photos:/var/www/html/photos -v /path/to/config:/var/www/html/config --name mejiro niduroki/mejiro`
 
 `vars.php` example:
-```php5
+```php
 <?php
 // Copy your configuration from index.php in here
-$columns = 5;
+$columns = 4;
 $per_page = 30;
 // ...
+?>
 ```
 
 ## Author
