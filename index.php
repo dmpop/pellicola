@@ -424,7 +424,7 @@
 		echo "<a style='text-decoration:none;' href='" . basename($_SERVER['PHP_SELF']) . "'><h1>" . $title . "</h1></a>";
 		echo "<div class ='center'>" . $tagline . "</div>";
 		echo "<div class ='center'>";
-		if (isset($_GET["all"]) != 1) {
+		if (isset($_GET["all"]) != 1 && $fileCount > $per_page) {
 			echo ' <a style="color: yellow;" href=?all=1>Show all</a>';
 		}
 		echo "</div>";
