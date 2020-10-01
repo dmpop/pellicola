@@ -16,6 +16,8 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 - **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it.
+- **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
+- **Access keys** The application supports access keys for common actions.
 
 ## Requirements
 

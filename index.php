@@ -270,7 +270,9 @@
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
-	$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir . DIRECTORY_SEPARATOR);
+	//  The $d parameter is used to detect a subdirectory
+	$sub_photo_dir = basename($_GET['d']) . DIRECTORY_SEPARATOR;
+	$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir);
 
 	/*
 	 * Returns an array of latitude and longitude from the image file.
@@ -436,14 +438,14 @@
 				$file = $files[$i];
 				$tim = $photo_dir . 'tims/' . basename($file);
 				$filepath = pathinfo($file);
-				echo '<li><a href="index.php?all=1&photo=' . $file . '"><img src="' . $tim . '" alt="' . $filepath['filename'] . '" title="' . $filepath['filename'] . '"></a></li>';
+				echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $filepath['filename'] . '" title="' . $filepath['filename'] . '"></a></li>';
 			}
 		} else {
 			for ($i = $offset; $i < $max; $i++) {
 				$file = $files[$i];
 				$tim = $photo_dir . 'tims/' . basename($file);
 				$filepath = pathinfo($file);
-				echo '<li><a href="index.php?all=1&photo=' . $file . '"><img src="' . $tim . '" alt="' . $filepath['filename'] . '" title="' . $filepath['filename'] . '"></a></li>';
+				echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $filepath['filename'] . '" title="' . $filepath['filename'] . '"></a></li>';
 			}
 		}
 
@@ -505,21 +507,21 @@
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($fileCount == 1) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . "' accesskey='g'>Grid</a> &bull; </div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; </div>";
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . "' accesskey='n'> Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $lastphoto . "' accesskey='l'> Last</a></div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'> Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $lastphoto . '&d=' . $sub_photo_dir .  "' accesskey='l'> Last</a></div>";
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $firstphoto . "' accesskey='f'> First </a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a></div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $firstphoto . "' accesskey='f'> First </a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a></div>";
 		}
 		// Show all navigation links
 		else {
 
 			echo "<div class='center'>
-			<a href='" . basename($_SERVER['PHP_SELF']) . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $firstphoto . "' accesskey='f'>First</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . "' accesskey='n'>Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $lastphoto . "' accesskey='l'>Last</a></div>";
+			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $firstphoto . '&d=' . $sub_photo_dir . "' accesskey='f'>First</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'>Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $lastphoto . '&d=' . $sub_photo_dir . "' accesskey='l'>Last</a></div>";
 		}
 
 		// Check whether the localized description file matching the browser language exists
