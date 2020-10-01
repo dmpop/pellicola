@@ -559,9 +559,9 @@
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
 		if ($google_maps) {
-			$map_url = " &bull; <a href='http://maps.google.com/maps?q=" . $gps[lat] . "," . $gps[lon] . "' target='_blank'>Map</a>";
+			$map_url = " &bull; <a href='http://maps.google.com/maps?q=" . $gps['lat'] . "," . $gps['lon'] . "' target='_blank'>Map</a>";
 		} else {
-			$map_url = " &bull; <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps[lat] . "&mlon=" . $gps[lon] . "&zoom=18' target='_blank'>Map</a>";
+			$map_url = " &bull; <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'>Map</a>";
 		}
 
 		$photo_info = $fnumber . $exposuretime . $iso . $datetime;
@@ -570,7 +570,7 @@
 			$photo_info = $photo_info . $shortened_link;
 		}
 		// Enable the Map anchor if the photo contains geographical coordinate
-		if (!empty($gps[lat])) {
+		if (!empty($gps['lat'])) {
 			$photo_info = $photo_info . $map_url;
 		}
 
