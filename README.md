@@ -23,9 +23,9 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 * cURL
 * Git (optional)
 
-## Installation and Usage
+## Installation and usage
 
-1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php5 php5-gd curl git`
+1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php php-gd curl git`
 2. In the terminal, switch to the root directory of the server (e.g., */var/www/html*) and use the `git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 3. Open the *index.php* file in a text editor and edit settings. This step is optional.
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
@@ -34,21 +34,13 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 
 You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: *de-F994362-R1-14-15.txt* (for German), *ja-F994362-R1-14-15.txt* (for Japanese), etc.
 
-## Docker installation and configuration
+## Run Mejiro in a container
 
-1. Create a directory for your photos.
-2. Create a directory for _vars.php_ to set user-defined settings, [as seen here](https://github.com/dmpop/mejiro/blob/master/index.php#L22).
-3. Run the image (it exposes port 80): `docker run -d -p 80:80 -v /path/to/photos:/var/www/html/photos -v /path/to/config:/var/www/html/config --name mejiro niduroki/mejiro`
-
-`vars.php` example:
-```php
-<?php
-// Copy your configuration from index.php in here
-$columns = 4;
-$per_page = 30;
-// ...
-?>
-```
+1. Install [Podman](https://podman.io) and [Buildah](https://buildah.io).
+2. Create a directory for your photos on the host machine.
+3. Switch to the _mejiro_ directory and build an image using the `./buildah.sh` command.
+4. Run a container on port 8000: `podman run -d --rm -p 8000:8000 -v /path/to/photos:/usr/src/mejiro/photos:rw mejiro` (replace _/path/to/photos_ with the actual path to the directory on the host containing photos).
+5. Point the browser to http://127.0.0.1:8000 (replace _127.0.0.1_ with the actual IP address or domain name of the machine running the container).
 
 ## Author
 

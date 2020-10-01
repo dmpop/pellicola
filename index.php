@@ -34,9 +34,6 @@
 		array('https://github.com/dmpop', 'GitHub')
 	);
 	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Add other formats, if needed.
-
-	// Override settings, if running in docker - Silenced in case config/vars.php does not exist
-	@include 'config/vars.php';
 	?>
 
 	<style>
@@ -265,6 +262,10 @@
 
 	<?php
 
+	// Time allowed the script to run. Generating tims can take time,
+	// and increasing the time limit prevents the script from ending prematurely
+	set_time_limit(600);
+
 	// Detect browser language
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
@@ -370,7 +371,7 @@
 			//Display a message while the function generates tims
 			ob_implicit_flush(true);
 			echo '<p class="msg">Generating missing tims...';
-			ob_end_flush();
+			@ob_end_flush();
 			createTim($file, $tim, 800);
 			// A JavaScript hack to reload the page in order to clear the messages
 			echo '<script>parent.window.location.reload(true);</script>';
