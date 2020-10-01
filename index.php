@@ -158,14 +158,14 @@
 		}
 
 		.footer {
-			line-height: 3.0em;
+			line-height: 2.0em;
 			text-align: center;
 			font-family: 'Barlow', sans-serif;
-			font-size: 1em;
+			font-size: 0.9em;
 			position: fixed;
 			left: 0px;
 			bottom: 0px;
-			height: 3em;
+			height: 2em;
 			width: 100%;
 			background: #3973ac;
 		}
@@ -577,9 +577,6 @@
 	}
 	?>
 	<div>
-		<br>
-		<br>
-		<br>
 		</body>
 
 </html>
