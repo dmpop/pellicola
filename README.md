@@ -12,7 +12,6 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 - **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photo per page.
 - **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
 - **Display geographical coordinates on OpenStreetMap or Google Maps** For geotagged photos, you can view their exact locations on OpenStreetMap.
-- **Short URLs** Mejiro can use a URL shortening service of your choice (default is [is.gd](http://is.gd/)) to generate short URLs for easy sharing.
 - **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it.
@@ -27,7 +26,7 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 
 ## Installation and usage
 
-1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php php-gd curl git`
+1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php php-gd git`
 2. In the terminal, switch to the root directory of the server (e.g., */var/www/html*) and use the `git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 3. Open the *index.php* file in a text editor and edit settings. This step is optional.
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).

@@ -23,9 +23,6 @@
 	$photo_dir = "photos"; // Directory for storing photos
 	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
 	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
-	$use_shortLink = true; // Set to false if you do not want to use short URLs or is.gd is inaccessible at your location
-	// Change this next line if you wish to use a different short URL provider (bit.ly, goo.gl, mcaf.ee)
-	$shortLink_API = "https://is.gd/create.php?format=simple&url=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$links = true;	// Enable the link box
 	// If the link box is enabled, specify the desired links and their icons in the array below
 	$links = array(
@@ -485,13 +482,6 @@
 		$exif = exif_read_data($file, 0, true);
 		$filepath = pathinfo($file);
 
-		// Generate an optional short link
-		if ($use_shortLink) {
-			$short_link = exec("curl '" . $shortLink_API . "'");
-		} else {
-			$short_link = "#";
-		}
-
 		//Check if the related RAW file exists and link to it
 		$rawfile = glob($photo_dir . $filepath['filename'] . $raw_formats, GLOB_BRACE);
 		if (!empty($rawfile)) {
@@ -532,7 +522,6 @@
 			$description = @file_get_contents($photo_dir . $filepath['filename'] . '.txt');
 		}
 		$gps = read_gps_location($file);
-		$shortened_link = " &bull; <a href='" . $short_link . "'>Permalink</a> ";
 
 		$fnumber = $exif['COMPUTED']['ApertureFNumber'];
 		if (empty($fnumber)) {
@@ -565,10 +554,6 @@
 		}
 
 		$photo_info = $fnumber . $exposuretime . $iso . $datetime;
-		// Enable the short link anchor if short link is being used
-		if ($use_shortLink) {
-			$photo_info = $photo_info . $shortened_link;
-		}
 		// Enable the Map anchor if the photo contains geographical coordinate
 		if (!empty($gps['lat'])) {
 			$photo_info = $photo_info . $map_url;
