@@ -330,37 +330,6 @@
 	$files = glob($photo_dir . '*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 	$fileCount = count($files);
 
-	function createTim($original, $tim, $timWidth)
-	{
-		// Load image
-		$img = @imagecreatefromjpeg($original);
-		if (!$img) return false; // Abort if the image couldn't be read
-
-		// Get image size
-		$width = imagesx($img);
-		$height = imagesy($img);
-
-		// Calculate tim size
-		$new_width	= $timWidth;
-		$new_height = floor($height * ($timWidth / $width));
-
-		// Create a new temporary image
-		$tmp_img = imagecreatetruecolor($new_width, $new_height);
-
-		// Copy and resize old image into new image
-		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-
-		// Save tim into a file
-		$ok = @imagejpeg($tmp_img, $tim);
-
-		// Cleanup
-		imagedestroy($img);
-		imagedestroy($tmp_img);
-
-		// Return bool true if tim creation worked
-		return $ok;
-	}
-
 	// Generate missing tims 
 	for ($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
@@ -371,7 +340,11 @@
 			ob_implicit_flush(true);
 			echo '<p class="msg">Generating missing tims...';
 			@ob_end_flush();
-			createTim($file, $tim, 800);
+			// Generate tims using php-imagick
+			$t = new Imagick($file);
+			$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
+			$t->writeImage($tim);
+			$t->destroy();
 			// A JavaScript hack to reload the page in order to clear the messages
 			echo '<script>parent.window.location.reload(true);</script>';
 		}
