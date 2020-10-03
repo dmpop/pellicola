@@ -323,7 +323,9 @@
 
 	// Check whether the required directories exist
 	if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
-		exit('<p class="msg"><u>' . $photo_dir . '</u> or <u>' . $photo_dir . 'tims</u> directory doesn\'t exist. You must create it manually. <a href="' . basename($_SERVER['PHP_SELF']) . '">Back</a></p>');
+		mkdir($photo_dir, 0777, true);
+		mkdir($photo_dir . 'tims', 0777, true);
+		exit('<p class="msg">Add photos to the <u>photos</u> directory, then refresh this page.</p>');
 	}
 
 	// Get file info
