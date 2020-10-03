@@ -4,12 +4,16 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 
 <img src="mejiro.png" alt="Mejiro">
 
+The [Linux Photography](https://gumroad.com/l/linux-photography) book provides detailed information on using Mejiro. Get your copy at [Google Play Store](https://play.google.com/store/books/details/Dmitri_Popov_Linux_Photography?id=cO70CwAAQBAJ) or [Gumroad](https://gumroad.com/l/linux-photography).
+
+<img src="https://i.imgur.com/wBgcfSk.jpg" title="Linux Photography book" width="200"/>
+
 ## Features
 
 - **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP5 and the GD library.
 - **Instant and easy photo publishing** Upload photos, and Mejiro does the rest.
 - **Responsive design** Mejiro works well on mobile devices.
-- **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photo per page.
+- **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photos per page.
 - **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
 - **Display geographical coordinates on OpenStreetMap or Google Maps** For geotagged photos, you can view their exact locations on OpenStreetMap.
 - **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
