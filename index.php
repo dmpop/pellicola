@@ -1,3 +1,8 @@
+<?php
+// Uncomment the line below to enable password protection
+// include('protect.php');
+?>
+
 <html lang="en">
 
 <!--
