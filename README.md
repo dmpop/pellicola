@@ -25,8 +25,8 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 
 ## Requirements
 
-* A web server with PHP5 and the GD library. (Tested with Apache and lighttpd)
-* cURL
+* A web server with PHP5 or higher (Tested with Apache and lighttpd)
+* PHP libraries: GD, EXIF, IMAGICK
 * Git (optional)
 
 ## Installation and usage
