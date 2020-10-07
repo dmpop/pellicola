@@ -37,7 +37,7 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
             text-align: center;
         }
 
-        form.msg {
+        form {
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 0px;
@@ -79,7 +79,7 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
 <body>
     <div id='content'>
         <div class='center'>
-            <form class="msg" method="POST">
+            <form method="POST">
                 <input style="margin-top: 1em;" type="password" name="password">
                 <p>Type password and press ENTER</p>
             </form>
