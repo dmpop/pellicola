@@ -112,7 +112,6 @@
 			color: #ffffff;
 			background: #3399ff;
 			text-align: center;
-			width: 500px;
 		}
 
 		p.caption {

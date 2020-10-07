@@ -43,7 +43,7 @@ $upload_dir = "photos";
 			margin-bottom: 0px;
 			margin-top: 0.5em;
 			border-radius: 5px;
-			width: auto;
+			width: 25em;
 			border-width: 1px;
 			font-size: 1em;
 			letter-spacing: 3px;
@@ -51,7 +51,6 @@ $upload_dir = "photos";
 			color: #ffffff;
 			background: #3399ff;
 			text-align: center;
-			width: 500px;
 		}
 
 		#content {
@@ -71,6 +70,7 @@ $upload_dir = "photos";
 			height: auto;
 			text-align: center;
 			padding: 0px;
+			margin-top: 20%;
 			margin-bottom: 2em;
 		}
 	</style>

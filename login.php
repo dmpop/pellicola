@@ -32,6 +32,18 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
             background-color: #303030;
         }
 
+        h1 {
+            color: #e3e3e3;
+            font-family: 'Barlow', sans-serif;
+            font-size: 2.5em;
+            font-weight: 400;
+            text-align: center;
+            margin-top: 0.3em;
+            margin-bottom: 0.5em;
+            line-height: 100%;
+            letter-spacing: 1px;
+        }
+
         p {
             font-size: 1em;
             text-align: center;
@@ -43,7 +55,7 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
             margin-bottom: 0px;
             margin-top: 0.5em;
             border-radius: 5px;
-            width: auto;
+            width: 15em;
             border-width: 1px;
             font-size: 1em;
             letter-spacing: 3px;
@@ -51,7 +63,6 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
             color: #ffffff;
             background: #3399ff;
             text-align: center;
-            width: 500px;
         }
 
         #content {
@@ -71,6 +82,7 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
             height: auto;
             text-align: center;
             padding: 0px;
+            margin-top: 20%;
             margin-bottom: 2em;
         }
     </style>
@@ -79,6 +91,7 @@ if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
 <body>
     <div id='content'>
         <div class='center'>
+            <h1>Log in</h1>
             <form method="POST">
                 <input style="margin-top: 1em;" type="password" name="password">
                 <p>Type password and press ENTER</p>
