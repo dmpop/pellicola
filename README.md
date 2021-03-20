@@ -6,11 +6,11 @@ Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
 
 The [Linux Photography](https://gumroad.com/l/linux-photography) book provides detailed information on using Mejiro. Get your copy at [Google Play Store](https://play.google.com/store/books/details/Dmitri_Popov_Linux_Photography?id=cO70CwAAQBAJ) or [Gumroad](https://gumroad.com/l/linux-photography).
 
-<img src="https://i.imgur.com/wBgcfSk.jpg" title="Linux Photography book" width="200"/>
+<img src="https://i.imgur.com/qP9Z9mQ.jpg" title="Linux Photography book" width="200"/>
 
 ## Features
 
-- **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP5 and the GD library.
+- **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP.
 - **Instant and easy photo publishing** Upload photos, and Mejiro does the rest.
 - **Responsive design** Mejiro works well on mobile devices.
 - **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photos per page.
@@ -26,7 +26,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 ## Requirements
 
 * A web server with PHP5 or higher (Tested with Apache and lighttpd)
-* PHP libraries: GD, EXIF, IMAGICK
+* PHP libraries: gd, exif, imagick
 * Git (optional)
 
 ## Installation and usage
@@ -46,7 +46,7 @@ You can add descriptions to photos by creating accompanying *.txt* files. For ex
 2. Create a directory for your photos on the host machine.
 3. Switch to the _mejiro_ directory and build an image using the `./buildah.sh` command.
 4. Run a container on port 8000: `podman run -d --rm -p 8000:8000 -v /path/to/photos:/usr/src/mejiro/photos:rw mejiro` (replace _/path/to/photos_ with the actual path to the directory on the host containing photos).
-5. Point the browser to http://127.0.0.1:8000 (replace _127.0.0.1_ with the actual IP address or domain name of the machine running the container).
+5. Point the browser to _http://127.0.0.1:8000_ (replace _127.0.0.1_ with the actual IP address or domain name of the machine running the container).
 
 ## Author
 
