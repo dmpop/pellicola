@@ -1,4 +1,6 @@
 <?php
+include('config.php');
+include('protect.php');
 // Upload directory
 $upload_dir = "photos";
 ?>

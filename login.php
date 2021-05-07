@@ -1,6 +1,5 @@
 <?php
-// Password
-$PASSWORD = "monkey";
+include('config.php');
 /* Redirects here after login */
 $redirect_after_login = 'index.php';
 
@@ -11,14 +10,14 @@ date_default_timezone_set('UTC');
 /* Will not ask password again for */
 $remember_password = strtotime('+30 days'); // 30 days
 
-if (isset($_POST['password']) && $_POST['password'] == $PASSWORD) {
-    setcookie("password", $PASSWORD, $remember_password);
+if (isset($_POST['password']) && $_POST['password'] == $password) {
+    setcookie("password", $password, $remember_password);
     header('Location: ' . $redirect_after_login);
     exit;
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Log in</title>

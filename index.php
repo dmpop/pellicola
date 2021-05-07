@@ -94,23 +94,23 @@ include('protect.php');
 
 	// Get file info
 	$files = glob($photo_dir . '*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
-	$fileCount = count($files);
+	$file_count = count($files);
 
 	// Update count (we might have removed some files)
-	$fileCount = count($files);
+	$file_count = count($files);
 
 	// Check whether the reversed order option is enabled and sort the array accordingly 
 	if ($r_sort) {
 		rsort($files);
 	}
 
-	echo "<title>$title ($fileCount)</title>";
+	echo "<title>$title ($file_count)</title>";
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
 
 	// Generate missing tims
-	for ($i = 0; $i < $fileCount; $i++) {
+	for ($i = 0; $i < $file_count; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir . 'tims/' . basename($file);
 		if (!file_exists($tim)) {
@@ -160,25 +160,25 @@ include('protect.php');
 		if (!isset($_GET["all"])) {
 			$all = null;
 		}
-		if (isset($_GET["all"]) != 1 && $fileCount > $per_page) {
+		if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
 			echo ' <a style="color: yellow;" href=?all=1>Show all</a>';
 		}
 		echo "</div>";
 		echo "<ul class='rig columns-" . $columns . "'>";
 
 		if ($all == 1) {
-			for ($i = 0; $i < $fileCount; $i++) {
+			for ($i = 0; $i < $file_count; $i++) {
 				$file = $files[$i];
 				$tim = $photo_dir . 'tims/' . basename($file);
-				$filepath = pathinfo($file);
-				echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $filepath['filename'] . '" title="' . $filepath['filename'] . '"></a></li>';
+				$file_path = pathinfo($file);
+				echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a></li>';
 			}
 		} else {
 			for ($i = $offset; $i < $max; $i++) {
 				$file = $files[$i];
 				$tim = $photo_dir . 'tims/' . basename($file);
-				$filepath = pathinfo($file);
-				echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $filepath['filename'] . '" title="' . $filepath['filename'] . '"></a></li>';
+				$file_path = pathinfo($file);
+				echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a></li>';
 			}
 		}
 
@@ -216,60 +216,60 @@ include('protect.php');
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$tim = $photo_dir . 'tims/' . basename($file);
 		$exif = exif_read_data($file, 0, true);
-		$filepath = pathinfo($file);
+		$file_path = pathinfo($file);
 
 		//Check if the related RAW file exists and link to it
-		$rawfile = glob($photo_dir . $filepath['filename'] . $raw_formats, GLOB_BRACE);
-		if (!empty($rawfile)) {
-			echo "<h1>" . $filepath['filename'] . " <a class='superscript' href=" . $rawfile[0] . ">RAW</a></h1>";
+		$raw_file = glob($photo_dir . $file_path['filename'] . $raw_formats, GLOB_BRACE);
+		if (!empty($raw_file)) {
+			echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . ">RAW</a></h1>";
 		} else {
-			echo "<h1>" . $filepath['filename'] . "</h1>";
+			echo "<h1>" . $file_path['filename'] . "</h1>";
 		}
 
 		// NAVIGATION LINKS
 		// Set first and last photo navigation links according to specified	 sort order
-		$lastphoto = $files[count($files) - 1];
-		$firstphoto = $files[0];
+		$last_photo = $files[count($files) - 1];
+		$first_photo = $files[0];
 
 		// If there is only one photo in the album, show the home navigation link
-		if ($fileCount == 1) {
+		if ($file_count == 1) {
 			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; </div>";
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'> Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $lastphoto . '&d=' . $sub_photo_dir .  "' accesskey='l'> Last</a></div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'> Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir .  "' accesskey='l'> Last</a></div>";
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $firstphoto . "' accesskey='f'> First </a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a></div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . "' accesskey='f'> First </a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a></div>";
 		}
 		// Show all navigation links
 		else {
 
 			echo "<div class='center'>
-			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $firstphoto . '&d=' . $sub_photo_dir . "' accesskey='f'>First</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'>Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $lastphoto . '&d=' . $sub_photo_dir . "' accesskey='l'>Last</a></div>";
+			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'>First</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'>Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir . "' accesskey='l'>Last</a></div>";
 		}
 
 		// Check whether the localized description file matching the browser language exists
-		if (file_exists($photo_dir . $language . '-' . $filepath['filename'] . '.txt')) {
-			$description = @file_get_contents($photo_dir . $language . '-' . $filepath['filename'] . '.txt');
+		if (file_exists($photo_dir . $language . '-' . $file_path['filename'] . '.txt')) {
+			$description = @file_get_contents($photo_dir . $language . '-' . $file_path['filename'] . '.txt');
 			// If the localized description file doesn't exist, use the default one
 		} else {
-			$description = @file_get_contents($photo_dir . $filepath['filename'] . '.txt');
+			$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');
 		}
 		$gps = read_gps_location($file);
 
-		$fnumber = $exif['COMPUTED']['ApertureFNumber'];
-		if (empty($fnumber)) {
-			$fnumber = "";
+		$aperture = $exif['COMPUTED']['Apertureaperture'];
+		if (empty($aperture)) {
+			$aperture = "";
 		} else {
-			$fnumber = $fnumber . " &bull; ";
+			$aperture = $aperture . " &bull; ";
 		}
-		$exposuretime = $exif['EXIF']['ExposureTime'];
-		if (empty($exposuretime)) {
-			$exposuretime = "";
+		$exposure = $exif['EXIF']['exposure'];
+		if (empty($exposure)) {
+			$exposure = "";
 		} else {
-			$exposuretime = $exposuretime . " &bull; ";
+			$exposure = $exposure . " &bull; ";
 		}
 		$iso = $exif['EXIF']['ISOSpeedRatings'];
 		if (empty($iso)) {
@@ -294,7 +294,7 @@ include('protect.php');
 			$map_url = " &bull; <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'>Map</a>";
 		}
 
-		$photo_info = $fnumber . $exposuretime . $iso . $datetime;
+		$photo_info = $aperture . $exposure . $iso . $datetime;
 		// Enable the Map anchor if the photo contains geographical coordinate
 		if (!empty($gps['lat'])) {
 			$photo_info = $photo_info . $map_url;
