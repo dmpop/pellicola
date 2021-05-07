@@ -307,10 +307,10 @@ include('protect.php');
 
 	// Show links 
 	if ($links) {
-		$array_length = count($links);
+		$array_length = count($urls);
 		echo '<div class="footer">';
 		for ($i = 0; $i < $array_length; $i++) {
-			echo '<span style="word-spacing:0.5em;"><a style="color: white" href="' . $links[$i][0] . '">' . $links[$i][1] . '</a> // </span>';
+			echo '<span style="word-spacing:0.5em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> // </span>';
 		}
 		echo  $footer . '</div>';
 	} else {
