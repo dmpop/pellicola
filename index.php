@@ -1,7 +1,6 @@
 <?php
 include('config.php');
-// Uncomment the line below to enable password protection
-// include('protect.php');
+include('protect.php');
 ?>
 
 <html lang="en">
@@ -109,7 +108,8 @@ include('config.php');
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
-	// Generate missing tims 
+
+	// Generate missing tims
 	for ($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir . 'tims/' . basename($file);
@@ -195,13 +195,13 @@ include('config.php');
 	{
 		echo '<div class="center">';
 		if ($current_page != 1 && isset($_GET["photo"]) == '') {
-			echo '<a style="color: #e3e3e3;" href="?page=' . "1" . '">First</a> ';
+			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . "1" . '">First</a> ';
 		}
 		if ($current_page > 1 && isset($_GET["photo"]) == '') {
-			echo '<a style="color: #e3e3e3;" href="?page=' . ($current_page - 1) . '">Previous</a> ';
+			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page - 1) . '">Previous</a> ';
 		}
 		if ($current_page < $last_page && isset($_GET["photo"]) == '') {
-			echo '<a style="color: #e3e3e3;" href="?page=' . ($current_page + 1) . '">Next</a>';
+			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page + 1) . '">Next</a>';
 		}
 		if ($current_page != $last_page && isset($_GET["photo"]) == '') {
 			echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '">Last</a>';
