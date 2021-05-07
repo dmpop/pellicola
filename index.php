@@ -1,4 +1,5 @@
 <?php
+include('config.php');
 // Uncomment the line below to enable password protection
 // include('protect.php');
 ?>
@@ -15,251 +16,7 @@
 	<meta charset="utf-8">
 	<link rel="shortcut icon" href="favicon.png" />
 	<meta name="viewport" content="width=device-width">
-	<link href='http://fonts.googleapis.com/css?family=Barlow' rel='stylesheet' type='text/css'>
-
-	<?php
-
-	// User-defined settings
-	$title = "目白 Mejiro";
-	$tagline = "Responsive single-file open source photo grid";
-	$columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
-	$per_page = 12; // Number of images per page for pagination
-	$footer = "<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
-	$photo_dir = "photos"; // Directory for storing photos
-	$r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
-	$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
-	$links = true;	// Enable the link box
-	// If the link box is enabled, specify the desired links and their icons in the array below
-	$links = array(
-		array('https://www.eyeem.com/u/dmpop', 'Photos'),
-		array('https://tokyoma.de/', 'Website'),
-		array('https://github.com/dmpop', 'GitHub')
-	);
-	$raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,PNG,png}'; // Supported RAW formats. Add other formats, if needed.
-	?>
-
-	<style>
-		body {
-			font-family: 'Barlow', sans-serif;
-			font-size: 1em;
-			text-align: justify;
-			background-color: #303030;
-		}
-
-		a {
-			color: #999;
-		}
-
-		a.superscript {
-			position: relative;
-			top: -0.7em;
-			font-size: 51%;
-			text-decoration: none;
-		}
-
-		h1 {
-			color: #e3e3e3;
-			font-family: 'Barlow', sans-serif;
-			font-size: 2.5em;
-			font-weight: 400;
-			text-align: center;
-			margin-top: 0.3em;
-			margin-bottom: 0.5em;
-			line-height: 100%;
-			letter-spacing: 1px;
-		}
-
-		h2 {
-			color: #e3e3e3;
-			font-family: 'Barlow', sans-serif;
-			font-size: 2em;
-			font-weight: 400;
-			text-align: center;
-			margin-top: 1em;
-			margin-bottom: 0.5em;
-			line-height: 100%;
-			letter-spacing: 1
-		}
-
-		h3 {
-			color: #e3e3e3;
-			font-family: 'Barlow', sans-serif;
-			font-size: 1em;
-			font-weight: 400;
-			text-align: center;
-			margin-top: 1em;
-			margin-bottom: 0.5em;
-			line-height: 100%;
-			letter-spacing: 1
-		}
-
-		p {
-			font-size: 0.5em;
-			text-align: left;
-		}
-
-		p.msg {
-			margin-left: auto;
-			margin-right: auto;
-			margin-bottom: 0px;
-			margin-top: 0.5em;
-			border-radius: 5px;
-			width: auto;
-			border-width: 1px;
-			font-size: 1em;
-			letter-spacing: 3px;
-			padding: 5px;
-			color: #ffffff;
-			background: #3399ff;
-			text-align: center;
-		}
-
-		p.caption {
-			border-style: none;
-			border-width: 1px;
-			font-size: 1em;
-			padding: 5px;
-			color: #303030 !important;
-			margin-bottom: 0px;
-			margin-left: auto;
-			margin-right: auto;
-			line-height: 2.0em;
-			text-align: center;
-		}
-
-		p.box {
-			width: auto;
-			border-style: dotted;
-			border-width: 1px;
-			font-size: 1em;
-			padding: 5px;
-			color: #e3e3e3;
-			margin-bottom: 0px;
-			margin-left: auto;
-			margin-right: auto;
-			line-height: 2.0em;
-			text-align: center;
-		}
-
-		#content {
-			color: #e3e3e3;
-		}
-
-		.text {
-			text-align: center;
-			padding: 0px;
-			color: inherit;
-			float: left;
-		}
-
-		.center {
-			font-size: 1em;
-			padding: 1px;
-			height: auto;
-			text-align: center;
-			padding: 0px;
-			margin-bottom: 2em;
-		}
-
-		.footer {
-			line-height: 2.0em;
-			text-align: center;
-			font-family: 'Barlow', sans-serif;
-			font-size: 0.9em;
-			position: fixed;
-			left: 0px;
-			bottom: 0px;
-			height: 2em;
-			width: 100%;
-			background: #3973ac;
-		}
-
-		/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
-		ul.rig {
-			list-style: none;
-			font-size: 0px;
-			margin-left: -5.6%;
-			/* should match li left margin */
-		}
-
-		ul.rig li {
-			display: inline-block;
-			padding: 10px;
-			margin: 0 0 2.5% 2.5%;
-			background: #fff;
-			font-size: 16px;
-			font-size: 1rem;
-			vertical-align: top;
-			box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			-webkit-box-sizing: border-box;
-		}
-
-		ul.rig li img {
-			max-width: 100%;
-			height: auto;
-		}
-
-		ul.rig li h3 {
-			margin: 0 0 1px;
-		}
-
-		ul.rig li p {
-			font-size: .9em;
-			line-height: 2.0em;
-			color: #999;
-		}
-
-		/* class for 1 column */
-		ul.rig.column-1 li {
-			width: 43.3%;
-			/* this value + 2.5 should = 50% */
-		}
-
-		/* class for 2 columns */
-		ul.rig.columns-2 li {
-			width: 47.5%;
-			/* this value + 2.5 should = 50% */
-		}
-
-		/* class for 3 columns */
-		ul.rig.columns-3 li {
-			width: 30.83%;
-			/* this value + 2.5 should = 33% */
-		}
-
-		/* class for 4 columns */
-		ul.rig.columns-4 li {
-			width: 22.5%;
-			/* this value + 2.5 should = 25% */
-		}
-
-		@media (max-width: 480px) {
-			ul.grid-nav li {
-				display: block;
-				margin: 0 0 5px;
-			}
-
-			ul.grid-nav li a {
-				display: block;
-			}
-
-			ul.rig {
-				margin-left: 0;
-			}
-
-			ul.rig li {
-				width: 100% !important;
-				/* over-ride all li styles */
-				margin: 0 0 20px;
-			}
-
-			* {
-				margin: 0;
-				padding: 0;
-			}
-		}
-	</style>
+	<link rel="stylesheet" href="styles.css" />
 
 	<?php
 
@@ -272,7 +29,11 @@
 
 	// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
 	//  The $d parameter is used to detect a subdirectory
-	$sub_photo_dir = basename($_GET['d']) . DIRECTORY_SEPARATOR;
+	if (isset($_GET['d'])) {
+		$sub_photo_dir = basename($_GET['d']) . DIRECTORY_SEPARATOR;
+	} else {
+		$sub_photo_dir = null;
+	}
 	$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir);
 
 	/*
@@ -336,26 +97,6 @@
 	$files = glob($photo_dir . '*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 	$fileCount = count($files);
 
-	// Generate missing tims 
-	for ($i = 0; $i < $fileCount; $i++) {
-		$file  = $files[$i];
-		$tim = $photo_dir . 'tims/' . basename($file);
-
-		if (!file_exists($tim)) {
-			//Display a message while the function generates tims
-			ob_implicit_flush(true);
-			echo '<p class="msg">Generating missing tims...';
-			@ob_end_flush();
-			// Generate tims using php-imagick
-			$t = new Imagick($file);
-			$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
-			$t->writeImage($tim);
-			$t->destroy();
-			// A JavaScript hack to reload the page in order to clear the messages
-			echo '<script>parent.window.location.reload(true);</script>';
-		}
-	}
-
 	// Update count (we might have removed some files)
 	$fileCount = count($files);
 
@@ -368,6 +109,25 @@
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
+
+	// Generate missing tims 
+	for ($i = 0; $i < $fileCount; $i++) {
+		$file  = $files[$i];
+		$tim = $photo_dir . 'tims/' . basename($file);
+		if (!file_exists($tim)) {
+			//Display a message while tims are generated
+			echo '<p class="msg">Generating missing tims...</p>';
+			ob_flush();
+			flush();
+			// Generate tims using php-imagick
+			$t = new Imagick($file);
+			$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
+			$t->writeImage($tim);
+			$t->destroy();
+			// A JavaScript hack to reload the page in order to clear the messages
+			echo '<script>parent.window.location.reload(true);</script>';
+		}
+	}
 
 	// Prepare pagination. Calculate total items per page * START
 	$total = count($files);
@@ -386,10 +146,11 @@
 		if (isset($_GET['all']) == 1) {
 			$all = 1;
 		}
+		$max = $offset + $per_page;
 	}
-
-	$max = $offset + $per_page;
-
+	if (!isset($max)) {
+		$max = null;
+	}
 	if ($max > $total) {
 		$max = $total;
 	}
@@ -403,6 +164,9 @@
 		echo "<a style='text-decoration:none;' href='" . basename($_SERVER['PHP_SELF']) . "'><h1>" . $title . "</h1></a>";
 		echo "<div class ='center'>" . $tagline . "</div>";
 		echo "<div class ='center'>";
+		if (!isset($_GET["all"])) {
+			$all = null;
+		}
 		if (isset($_GET["all"]) != 1 && $fileCount > $per_page) {
 			echo ' <a style="color: yellow;" href=?all=1>Show all</a>';
 		}
@@ -524,6 +288,11 @@
 		if (empty($datetime)) {
 			$datetime = "";
 		}
+		if (!isset($exif['COMMENT']['0'])) {
+			$comment = "";
+		} else {
+			$comment = $exif['COMMENT']['0'];
+		}
 
 		//Generate map URL. Choose between Google Maps and OpenStreetmap
 		if ($google_maps) {
@@ -540,7 +309,7 @@
 
 		$info = "<span style='word-spacing:1em'>" . $photo_info . "</span>";
 		// Show photo, EXIF data, description, and info
-		echo '<div class="center"><ul class="rig column-1"><li><a href="' . $file . '"><img src="' . $tim . '" alt=""></a><p class="caption">' . $exif['COMMENT']['0'] . ' ' . $description . '</p><p class="box">' . $info . '</p></li></ul></div>';
+		echo '<div class="center"><ul class="rig column-1"><li><a href="' . $file . '"><img src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</p><p class="box">' . $info . '</p></li></ul></div>';
 	}
 
 	// Show links 

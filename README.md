@@ -1,6 +1,6 @@
 ## About Mejiro
 
-Mejiro is an easy-to-use single-file PHP web app for instant photo publishing.
+Mejiro is an easy-to-use PHP web app for instant photo publishing.
 
 <img src="mejiro.png" alt="Mejiro">
 
@@ -10,7 +10,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 
 ## Features
 
-- **Simplicity** The entire app consists of a single PHP file (plus a fav icon). Mejiro requires no installation, and it can be deployed on any web server with PHP.
+- **Simplicity** Mejiro requires no installation, and it can be deployed on any web server with PHP.
 - **Instant and easy photo publishing** Upload photos, and Mejiro does the rest.
 - **Responsive design** Mejiro works well on mobile devices.
 - **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photos per page.
@@ -33,7 +33,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 
 1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php php-gd php-imagick git`
 2. In the terminal, switch to the root directory of the server (e.g., */var/www/html*) and use the `git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
-3. Open the *index.php* file in a text editor and edit settings. This step is optional.
+3. Open the *config.php* file in a text editor and edit settings.
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
 5. Make the *mejiro* directory writable by the server using the `chown www-data -R mejiro` command as root.
 6. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
