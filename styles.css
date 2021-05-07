@@ -57,20 +57,6 @@ p {
     text-align: left;
 }
 
-p.msg {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0em;
-    margin-top: 0em;
-    width: 100%;
-    font-size: 1em;
-    letter-spacing: 3px;
-    padding: 5px;
-    color: #ffffff;
-    background: #3399ff;
-    text-align: center;
-}
-
 p.caption {
     border-style: none;
     border-width: 1px;

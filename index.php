@@ -90,7 +90,7 @@ include('config.php');
 	if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
 		mkdir($photo_dir, 0777, true);
 		mkdir($photo_dir . 'tims', 0777, true);
-		exit('<p class="msg">Add photos to the <u>photos</u> directory, then refresh this page.</p>');
+		exit('<script>alert("Add photos to the "photos" directory, then refresh this page.")</script>');
 	}
 
 	// Get file info
@@ -109,23 +109,16 @@ include('config.php');
 	echo "</head>";
 	echo "<body>";
 	echo "<div id='content'>";
-
 	// Generate missing tims 
 	for ($i = 0; $i < $fileCount; $i++) {
 		$file  = $files[$i];
 		$tim = $photo_dir . 'tims/' . basename($file);
 		if (!file_exists($tim)) {
-			//Display a message while tims are generated
-			echo '<p class="msg">Generating missing tims...</p>';
-			ob_flush();
-			flush();
 			// Generate tims using php-imagick
 			$t = new Imagick($file);
 			$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
 			$t->writeImage($tim);
 			$t->destroy();
-			// A JavaScript hack to reload the page in order to clear the messages
-			echo '<script>parent.window.location.reload(true);</script>';
 		}
 	}
 
