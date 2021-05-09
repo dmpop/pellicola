@@ -89,7 +89,7 @@ include('protect.php');
 	if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
 		mkdir($photo_dir, 0777, true);
 		mkdir($photo_dir . 'tims', 0777, true);
-		exit('<script>alert("Add photos to the "photos" directory, then refresh this page.")</script>');
+		exit('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
 	}
 
 	// Get file info
@@ -156,12 +156,28 @@ include('protect.php');
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='" . basename($_SERVER['PHP_SELF']) . "'><h1>" . $title . "</h1></a>";
 		echo "<div class ='center'>" . $tagline . "</div>";
-		echo "<div class ='center'>";
+		echo '<hr style="margin-bottom: 2em;">';
+		// Create an array with all subdirectories
+		$sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
+	?>
+		<!-- Populate a drop-down list with subdirectories -->
+		<noscript>
+			<h3>Make sure that JavaScript is enabled.</h3>
+		</noscript>
+		<div class="center">
+		<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">
+			<option value='Label'>Choose album</option>";
+		<?php
+		foreach ($sub_dirs as $dir) {
+			$dir_name = basename($dir);
+			echo "<option value='?d=" . str_replace('\'', '&apos;', $dir_name) . "'>" . $dir_name . "</option>";
+		}
+		echo "</select>";
 		if (!isset($_GET["all"])) {
 			$all = null;
 		}
 		if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-			echo ' <a style="color: yellow;" href=?all=1>Show all</a>';
+			echo '<span style="margin-left: 1em;"><a style="color: yellow;" href=?all=1>Show all photos</a></span>';
 		}
 		echo "</div>";
 		echo "<ul class='rig columns-" . $columns . "'>";
@@ -316,8 +332,8 @@ include('protect.php');
 	} else {
 		echo '<div class="footer">' . $footer . '</div>';
 	}
-	?>
-	<div>
-		</body>
+		?>
+		<div>
+			</body>
 
 </html>
