@@ -158,7 +158,8 @@ include('protect.php');
 		echo "<div class ='center'>" . $tagline . "</div>";
 		echo '<hr style="margin-bottom: 2em;">';
 		// Create an array with all subdirectories
-		$sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
+		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
+		$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
 	?>
 		<!-- Populate a drop-down list with subdirectories -->
 		<noscript>
