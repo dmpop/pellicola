@@ -160,20 +160,21 @@ include('protect.php');
 		// Create an array with all subdirectories
 		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 		$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
-	?>
-		<!-- Populate a drop-down list with subdirectories -->
-		<noscript>
-			<h3>Make sure that JavaScript is enabled.</h3>
-		</noscript>
-		<div class="center">
-		<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">
-			<option value='Label'>Choose album</option>";
-		<?php
-		foreach ($sub_dirs as $dir) {
-			$dir_name = basename($dir);
-			echo "<option value='?d=" . str_replace('\'', '&apos;', $dir_name) . "'>" . $dir_name . "</option>";
+		// Populate a drop-down list with subdirectories
+		if (count($sub_dirs) > 0) {
+			echo "<noscript>";
+			echo "<h3>Make sure that JavaScript is enabled.</h3>";
+			echo "</noscript>";
+			echo '<div class="center">';
+			echo '<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">';
+			echo '<option value="Label">Choose album</option>';
+			foreach ($sub_dirs as $dir) {
+				$dir_name = basename($dir);
+				echo "<option value='?d=" . str_replace('\'', '&apos;', $dir_name) . "'>" . $dir_name . "</option>";
+			}
+			echo "</select>";
 		}
-		echo "</select>";
+
 		if (!isset($_GET["all"])) {
 			$all = null;
 		}
@@ -333,8 +334,8 @@ include('protect.php');
 	} else {
 		echo '<div class="footer">' . $footer . '</div>';
 	}
-		?>
-		<div>
-			</body>
+	?>
+	<div>
+		</body>
 
 </html>
