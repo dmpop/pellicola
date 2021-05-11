@@ -110,17 +110,15 @@ include('protect.php');
 	echo "<div id='content'>";
 
 	// Generate missing tims
-	if (isset($_POST["refresh"])) {
-		for ($i = 0; $i < $file_count; $i++) {
-			$file  = $files[$i];
-			$tim = $photo_dir . 'tims/' . basename($file);
-			if (!file_exists($tim)) {
-				// Generate tims using php-imagick
-				$t = new Imagick($file);
-				$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
-				$t->writeImage($tim);
-				$t->destroy();
-			}
+	for ($i = 0; $i < $file_count; $i++) {
+		$file  = $files[$i];
+		$tim = $photo_dir . 'tims/' . basename($file);
+		if (!file_exists($tim)) {
+			// Generate tims using php-imagick
+			$t = new Imagick($file);
+			$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
+			$t->writeImage($tim);
+			$t->destroy();
 		}
 	}
 
@@ -159,12 +157,6 @@ include('protect.php');
 		echo "<a style='text-decoration:none;' href='" . basename($_SERVER['PHP_SELF']) . "'><h1>" . $title . "</h1></a>";
 		echo "<div class ='center'>" . $tagline . "</div>";
 		echo '<hr style="margin-bottom: 2em;">';
-	?>
-		<div class="center">
-			<form style="display:inline-block; margin-bottom: 1em; margin-right: 0.5em;" method='POST' action=''>
-				<input role="button" type="submit" name="refresh" value="Generate tims">
-			</form>
-		<?php
 		// Create an array with all subdirectories
 		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 		$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
@@ -173,8 +165,8 @@ include('protect.php');
 			echo "<noscript>";
 			echo "<h3>Make sure that JavaScript is enabled.</h3>";
 			echo "</noscript>";
-			// echo '<div class="center">';
-			echo '<select style="display:inline-block; width: 15em;" name="" onchange="javascript:location.href = this.value;">';
+			echo '<div class="center">';
+			echo '<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">';
 			echo '<option value="Label">Choose album</option>';
 			foreach ($sub_dirs as $dir) {
 				$dir_name = basename($dir);
@@ -342,7 +334,8 @@ include('protect.php');
 	} else {
 		echo '<div class="footer">' . $footer . '</div>';
 	}
-		?>
+	?>
+	<div>
 		</body>
 
 </html>
