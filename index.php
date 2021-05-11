@@ -210,22 +210,21 @@ include('protect.php');
 		show_pagination($page, $last_page); // Pagination. Show navigation on bottom of page
 	}
 
-
 	//Pagination. Create the navigation links * START 
 	function show_pagination($current_page, $last_page)
 	{
 		echo '<div class="center">';
 		if ($current_page != 1 && isset($_GET["photo"]) == '') {
-			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . "1" . '">First</a> ';
+			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . "1" . '"><img style="margin-right:1em;" src="icons/arrow-top-left-o.svg"/></a> ';
 		}
 		if ($current_page > 1 && isset($_GET["photo"]) == '') {
-			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page - 1) . '">Previous</a> ';
+			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="icons/arrow-left-o.svg"/></a> ';
 		}
 		if ($current_page < $last_page && isset($_GET["photo"]) == '') {
-			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page + 1) . '">Next</a>';
+			echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="icons/arrow-right-o.svg"/></a>';
 		}
 		if ($current_page != $last_page && isset($_GET["photo"]) == '') {
-			echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '">Last</a>';
+			echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="icons/arrow-top-right-o.svg"/></a>';
 		}
 		echo '</div>';
 	}
