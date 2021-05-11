@@ -277,13 +277,13 @@ include('protect.php');
 		}
 		$gps = read_gps_location($file);
 
-		$aperture = $exif['COMPUTED']['Apertureaperture'];
+		$aperture = $exif['COMPUTED']['ApertureFNumber'];
 		if (empty($aperture)) {
 			$aperture = "";
 		} else {
 			$aperture = $aperture . " &bull; ";
 		}
-		$exposure = $exif['EXIF']['exposure'];
+		$exposure = $exif['EXIF']['ExposureTime'];
 		if (empty($exposure)) {
 			$exposure = "";
 		} else {
