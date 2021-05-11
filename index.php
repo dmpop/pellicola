@@ -251,21 +251,21 @@ include('protect.php');
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($file_count == 1) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; </div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img src='icons/home.svg'/></a></div>";
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'> Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir .  "' accesskey='l'> Last</a></div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir .  "' accesskey='g'><img style='margin-right:1em;' src='icons/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'><img style='margin-right:1em;' src='icons/arrow-right-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir .  "' accesskey='l'><img src='icons/arrow-top-right-o.svg'/></a></div>";
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . "' accesskey='f'> First </a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a></div>";
+			echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img style='margin-right:1em;' src='icons/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'><img style='margin-right:1em;' src='icons/arrow-top-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir .  "&photo=" . $files[$key - 1] . "' accesskey='p'><img style='margin-right:1em;' src='icons/arrow-left-o.svg'/></a></div>";
 		}
 		// Show all navigation links
 		else {
 
 			echo "<div class='center'>
-			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'>Grid</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'>First</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . "' accesskey='p'>Previous</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'>Next</a> &bull; <a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir . "' accesskey='l'>Last</a></div>";
+			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img style='margin-right:1em;' src='icons/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'><img style='margin-right:1em;' src='icons/arrow-top-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . '&d=' . $sub_photo_dir . "' accesskey='p'><img style='margin-right:1em;' src='icons/arrow-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'><img style='margin-right:1em;' src='icons/arrow-right-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir . "' accesskey='l'><img src='icons/arrow-top-right-o.svg'/></a></div>";
 		}
 
 		// Check whether the localized description file matching the browser language exists
