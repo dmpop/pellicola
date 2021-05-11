@@ -161,8 +161,8 @@ include('protect.php');
 		echo "<div class ='center'>" . $tagline . "</div>";
 		echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
 		// Create an array with all subdirectories
-		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
-		$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
+		$all_sub_dirs = array_filter(glob($base_photo_dir . '/*'), 'is_dir');
+		$sub_dirs = array_diff($all_sub_dirs, array($base_photo_dir . "/tims"));
 		// Populate a drop-down list with subdirectories
 		if (count($sub_dirs) > 0) {
 			echo "<noscript>";
