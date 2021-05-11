@@ -1,5 +1,5 @@
 <?php
-$title = "目白 Mejiro";
+$title = "Mejiro";
 $tagline = "Responsive open-source photo grid";
 // Enable password protection
 $protect = true;
