@@ -33,7 +33,7 @@ include('protect.php');
 	} else {
 		$sub_photo_dir = null;
 	}
-	$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir);
+	$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir);
 
 	/*
 	 * Returns an array of latitude and longitude from the image file.
@@ -156,7 +156,7 @@ include('protect.php');
 	if (!isset($grid)) {
 		echo "<a style='text-decoration:none;' href='" . basename($_SERVER['PHP_SELF']) . "'><h1>" . $title . "</h1></a>";
 		echo "<div class ='center'>" . $tagline . "</div>";
-		echo '<hr style="margin-bottom: 2em;">';
+		echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
 		// Create an array with all subdirectories
 		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 		$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
@@ -167,21 +167,21 @@ include('protect.php');
 			echo "</noscript>";
 			echo '<div class="center">';
 			echo '<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">';
-			echo '<option value="Label">Choose album</option>';
+			echo '<option value="Default">Choose album</option>';
 			foreach ($sub_dirs as $dir) {
 				$dir_name = basename($dir);
 				echo "<option value='?d=" . str_replace('\'', '&apos;', $dir_name) . "'>" . $dir_name . "</option>";
 			}
 			echo "</select>";
+			echo "</div>";
 		}
 
 		if (!isset($_GET["all"])) {
 			$all = null;
 		}
 		if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-			echo '<span style="margin-left: 1em;"><a style="color: yellow;" href=?all=1>Show all photos</a></span>';
+			echo '<div class="center"><a href=?all=1><img src="icons/display-grid.svg"/></a></div>';
 		}
-		echo "</div>";
 		echo "<ul class='rig columns-" . $columns . "'>";
 
 		if ($all == 1) {
