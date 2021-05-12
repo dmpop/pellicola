@@ -100,10 +100,12 @@ include('protect.php');
 
 		// Get file info
 		$files = glob($photo_dir . '*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
-		$file_count = count($files);
 
 		// Update count (we might have removed some files)
 		$file_count = count($files);
+		if ($file_count < 1) {
+			exit('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
+		}
 
 		// Check whether the reversed order option is enabled and sort the array accordingly 
 		if ($r_sort) {
@@ -184,7 +186,7 @@ include('protect.php');
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div class="center"><a href=?all=1><img src="icons/display-grid.svg"/></a></div>';
+				echo '<div class="center"><a href=?all=1><img src="svg/display-grid.svg"/></a></div>';
 			}
 			echo "<ul class='rig columns-" . $columns . "'>";
 
@@ -216,16 +218,16 @@ include('protect.php');
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && isset($_GET["photo"]) == '') {
-				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . "1" . '"><img style="margin-right:1em;" src="icons/arrow-top-left-o.svg"/></a> ';
+				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . "1" . '"><img style="margin-right:1em;" src="svg/arrow-top-left-o.svg"/></a> ';
 			}
 			if ($current_page > 1 && isset($_GET["photo"]) == '') {
-				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="icons/arrow-left-o.svg"/></a> ';
+				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left-o.svg"/></a> ';
 			}
 			if ($current_page < $last_page && isset($_GET["photo"]) == '') {
-				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="icons/arrow-right-o.svg"/></a>';
+				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right-o.svg"/></a>';
 			}
 			if ($current_page != $last_page && isset($_GET["photo"]) == '') {
-				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="icons/arrow-top-right-o.svg"/></a>';
+				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="svg/arrow-top-right-o.svg"/></a>';
 			}
 			echo '</div>';
 		}
@@ -254,21 +256,21 @@ include('protect.php');
 
 			// If there is only one photo in the album, show the home navigation link
 			if ($file_count == 1) {
-				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img src='icons/home.svg'/></a></div>";
+				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img src='svg/home.svg'/></a></div>";
 			}
 			// Disable the Previous link if this is the FIRST photo
 			elseif (empty($files[$key - 1])) {
-				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir .  "' accesskey='g'><img style='margin-right:1em;' src='icons/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'><img style='margin-right:1em;' src='icons/arrow-right-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir .  "' accesskey='l'><img src='icons/arrow-top-right-o.svg'/></a></div>";
+				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir .  "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir .  "' accesskey='l'><img src='svg/arrow-top-right-o.svg'/></a></div>";
 			}
 			// Disable the Next link if this is the LAST photo
 			elseif (empty($files[$key + 1])) {
-				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img style='margin-right:1em;' src='icons/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'><img style='margin-right:1em;' src='icons/arrow-top-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir .  "&photo=" . $files[$key - 1] . "' accesskey='p'><img style='margin-right:1em;' src='icons/arrow-left-o.svg'/></a></div>";
+				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-top-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir .  "&photo=" . $files[$key - 1] . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left-o.svg'/></a></div>";
 			}
 			// Show all navigation links
 			else {
 
 				echo "<div class='center'>
-			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img style='margin-right:1em;' src='icons/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'><img style='margin-right:1em;' src='icons/arrow-top-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . '&d=' . $sub_photo_dir . "' accesskey='p'><img style='margin-right:1em;' src='icons/arrow-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'><img style='margin-right:1em;' src='icons/arrow-right-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir . "' accesskey='l'><img src='icons/arrow-top-right-o.svg'/></a></div>";
+			<a href='" . basename($_SERVER['PHP_SELF']) . '?d=' . $sub_photo_dir . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . '&d=' . $sub_photo_dir . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-top-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . '&d=' . $sub_photo_dir . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key + 1] . '&d=' . $sub_photo_dir . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right-o.svg'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $last_photo . '&d=' . $sub_photo_dir . "' accesskey='l'><img src='svg/arrow-top-right-o.svg'/></a></div>";
 			}
 
 			// Check whether the localized description file matching the browser language exists
