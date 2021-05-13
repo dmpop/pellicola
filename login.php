@@ -20,29 +20,12 @@ if (isset($_POST['password']) && $_POST['password'] == $password) {
 <html lang="en">
 
 <head>
-    <title>Log in</title>
+    <title><?php echo $title; ?></title>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="favicon.png" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles.css" />
     <style>
-        body {
-            font-family: 'Barlow', sans-serif;
-            font-size: 1em;
-            text-align: justify;
-            background-color: #303030;
-        }
-
-        h1 {
-            color: #e3e3e3;
-            font-family: 'Barlow', sans-serif;
-            font-size: 2.5em;
-            font-weight: 400;
-            text-align: center;
-            margin-top: 0.3em;
-            margin-bottom: 0.5em;
-            line-height: 100%;
-            letter-spacing: 1px;
-        }
-
         p {
             font-size: 1em;
             text-align: center;
@@ -59,41 +42,24 @@ if (isset($_POST['password']) && $_POST['password'] == $password) {
             font-size: 1em;
             letter-spacing: 3px;
             padding: 5px;
-            color: #ffffff;
-            background: #3399ff;
+            background: #3973ac;
             text-align: center;
-        }
-
-        #content {
-            color: #e3e3e3;
-        }
-
-        .text {
-            text-align: center;
-            padding: 0px;
-            color: inherit;
-            float: left;
-        }
-
-        .center {
-            font-size: 1em;
-            padding: 1px;
-            height: auto;
-            text-align: center;
-            padding: 0px;
-            margin-top: 20%;
-            margin-bottom: 2em;
         }
     </style>
 </head>
 
 <body>
-    <div id='content'>
+    <div id="content">
         <div class='center'>
-            <h1>Log in</h1>
+            <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
+                <img style="display: inline; height: 3em; vertical-align: middle;" src="favicon.svg" alt="logo" />
+                <h1 style="display: inline; font-size: 3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #ffc03fff;"><?php echo $title; ?></h1>
+            </div>
+            <div class="center"><?php echo $tagline; ?></div>
+            <hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">
             <form method="POST">
                 <input style="margin-top: 1em;" type="password" name="password">
-                <p>Type password and press ENTER</p>
+                <input style="margin-top: 1em; margin-bottom: 1em;" type="submit" name="submit" value="Log in">
             </form>
         </div>
     </div>
