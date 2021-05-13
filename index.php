@@ -218,13 +218,13 @@ include('protect.php');
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && isset($_GET["photo"]) == '') {
-				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . "1" . '"><img style="margin-right:1em;" src="svg/arrow-top-left-o.svg"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . "1" . '"><img style="margin-right:1em;" src="svg/arrow-top-left-o.svg"/></a> ';
 			}
 			if ($current_page > 1 && isset($_GET["photo"]) == '') {
-				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left-o.svg"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left-o.svg"/></a> ';
 			}
 			if ($current_page < $last_page && isset($_GET["photo"]) == '') {
-				echo '<a style="margin-right:0.5em; color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right-o.svg"/></a>';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right-o.svg"/></a>';
 			}
 			if ($current_page != $last_page && isset($_GET["photo"]) == '') {
 				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="svg/arrow-top-right-o.svg"/></a>';
