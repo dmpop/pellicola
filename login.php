@@ -10,8 +10,8 @@ date_default_timezone_set('UTC');
 /* Will not ask password again for */
 $remember_password = strtotime('+30 days'); // 30 days
 
-if (isset($_POST['password']) && $_POST['password'] == $password) {
-    setcookie("password", $password, $remember_password);
+if (isset($_POST['passwd']) && in_array($_POST['passwd'], $password, true)) {
+    setcookie("password", $_POST['passwd'], $remember_password);
     header('Location: ' . $redirect_after_login);
     exit;
 }
@@ -58,7 +58,7 @@ if (isset($_POST['password']) && $_POST['password'] == $password) {
             <div class="center"><?php echo $tagline; ?></div>
             <hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">
             <form method="POST">
-                <input style="margin-top: 1em;" type="password" name="password">
+                <input style="margin-top: 1em;" type="password" name="passwd">
                 <input style="margin-top: 1em; margin-bottom: 1em;" type="submit" name="submit" value="Log in">
             </form>
         </div>

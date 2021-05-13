@@ -4,7 +4,7 @@ $tagline = "Responsive open-source photo grid";
 // Enable password protection
 $protect = true;
 // Password
-$password = "monkey";
+$password = array("monkey", "banana");
 $columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
 $per_page = 12; // Number of images per page for pagination
 $footer = "<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
@@ -19,4 +19,3 @@ $urls = array(
     array('https://github.com/dmpop', 'GitHub')
 );
 $raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,DNG,dng}'; // Supported RAW formats. Add other formats, if needed.
-?>
