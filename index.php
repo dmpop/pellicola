@@ -327,7 +327,7 @@ include('protect.php');
 
 			$info = "<span style='word-spacing:1em'>" . $photo_info . "</span>";
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><ul class="rig column-1"><li><a href="' . $file . '"><img src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</p><p class="box">' . $info . '</p></li></ul></div>';
+			echo '<div class="center"><ul class="rig column-1"><li><a href="' . $file . '" download><img src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</p><p class="box">' . $info . '</p></li></ul></div>';
 		}
 
 		// Show links 
