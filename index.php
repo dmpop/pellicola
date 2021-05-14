@@ -288,19 +288,19 @@ include('protect.php');
 			if (empty($aperture)) {
 				$aperture = "";
 			} else {
-				$aperture = $aperture . " &bull; ";
+				$aperture = $aperture . " // ";
 			}
 			$exposure = $exif['EXIF']['ExposureTime'];
 			if (empty($exposure)) {
 				$exposure = "";
 			} else {
-				$exposure = $exposure . " &bull; ";
+				$exposure = $exposure . " // ";
 			}
 			$iso = $exif['EXIF']['ISOSpeedRatings'];
 			if (empty($iso)) {
 				$iso = "";
 			} else {
-				$iso = $iso . " &bull; ";
+				$iso = $iso . " // ";
 			}
 			$datetime = $exif['EXIF']['DateTimeOriginal'];
 			if (empty($datetime)) {
@@ -314,9 +314,9 @@ include('protect.php');
 
 			//Generate map URL. Choose between Google Maps and OpenStreetmap
 			if ($google_maps) {
-				$map_url = " &bull; <a href='http://maps.google.com/maps?q=" . $gps['lat'] . "," . $gps['lon'] . "' target='_blank'>Map</a>";
+				$map_url = " <a href='http://maps.google.com/maps?q=" . $gps['lat'] . "," . $gps['lon'] . "' target='_blank'><img style='vertical-align: middle;' src='svg/track.svg'/></a>";
 			} else {
-				$map_url = " &bull; <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'>Map</a>";
+				$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'><img style='vertical-align: text-bottom;' src='svg/track.svg'/></a>";
 			}
 
 			$photo_info = $aperture . $exposure . $iso . $datetime;
