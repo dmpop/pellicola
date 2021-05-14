@@ -186,7 +186,7 @@ include('protect.php');
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div class="center"><a href=?all=1><img src="svg/display-grid.svg"/></a></div>';
+				echo '<div class="center"><a href=?all=1' . '&d=' . $sub_photo_dir . '><img src="svg/display-grid.svg"/></a></div>';
 			}
 			echo "<ul class='rig columns-" . $columns . "'>";
 
@@ -210,24 +210,24 @@ include('protect.php');
 		}
 
 		if (isset($_GET["all"]) != 1) {
-			show_pagination($page, $last_page); // Pagination. Show navigation on bottom of page
+			show_pagination($page, $last_page, $sub_photo_dir); // Pagination. Show navigation on bottom of page
 		}
 
 		//Pagination. Create the navigation links * START 
-		function show_pagination($current_page, $last_page)
+		function show_pagination($current_page, $last_page, $sub_photo_dir)
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && isset($_GET["photo"]) == '') {
-				echo '<a color: #e3e3e3;" href="?page=' . "1" . '"><img style="margin-right:1em;" src="svg/arrow-top-left-o.svg"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . "1" . '&d=' . $sub_photo_dir . '"><img style="margin-right:1em;" src="svg/arrow-top-left-o.svg"/></a> ';
 			}
 			if ($current_page > 1 && isset($_GET["photo"]) == '') {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left-o.svg"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . '&d=' . $sub_photo_dir . '"><img style="margin-right:1em;" src="svg/arrow-left-o.svg"/></a> ';
 			}
 			if ($current_page < $last_page && isset($_GET["photo"]) == '') {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right-o.svg"/></a>';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . '&d=' . $sub_photo_dir . '"><img style="margin-right:1em;" src="svg/arrow-right-o.svg"/></a>';
 			}
 			if ($current_page != $last_page && isset($_GET["photo"]) == '') {
-				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="svg/arrow-top-right-o.svg"/></a>';
+				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '&d=' . $sub_photo_dir . '"><img src="svg/arrow-top-right-o.svg"/></a>';
 			}
 			echo '</div>';
 		}
