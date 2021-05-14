@@ -7,7 +7,7 @@ $protect = true;
 $password = array("monkey", "banana");
 $columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
 $per_page = 12; // Number of images per page for pagination
-$footer = "<a style='color: white' href='http://dmpop.github.io/mejiro/'>Mejiro</a> &mdash; pastebin for your photos";
+$footer = "Read the <a style='color: white' href='https://gumroad.com/l/linux-photography'>Linux Photography</a> book";
 $base_photo_dir = "photos"; // Directory for storing photos
 $r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
 $google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
@@ -19,3 +19,4 @@ $urls = array(
     array('https://github.com/dmpop', 'GitHub')
 );
 $raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,DNG,dng}'; // Supported RAW formats. Add other formats, if needed.
+$show_raw = true; // Display links to RAW files.
