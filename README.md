@@ -19,7 +19,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 - **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it. This feature can be disabled.
-- **Password protection** Mejiro allows you to protect the published contents with a password. The application supports multiple passwords, so you can grant and revoke temporary access.
+- **Password protection** Mejiro allows you to protect the published contents with a password. The application supports multiple passwords, so you can grant and revoke temporary access. Mejiro also makes it possible to exclude specific albums from being password-protected.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
 - **Access keys** The application supports access keys for common actions.
 

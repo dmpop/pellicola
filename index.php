@@ -1,6 +1,8 @@
 <?php
 include('config.php');
-include('protect.php');
+if ($protect && !in_array($_GET['d'], $public_albums)) {
+	include('protect.php');
+}
 ?>
 
 <html lang="en">
