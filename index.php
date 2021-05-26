@@ -189,7 +189,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div class="center"><a href=?all=1' . '&d=' . $sub_photo_dir . '><img src="svg/display-grid.svg"/></a></div>';
+				echo '<div class="center"><a href=?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
 			}
 			echo "<ul class='rig columns-" . $columns . "'>";
 
