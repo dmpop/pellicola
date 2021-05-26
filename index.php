@@ -38,11 +38,11 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 		// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
 		//  The $d parameter is used to detect a subdirectory
 		if (isset($_GET['d'])) {
-			$sub_photo_dir = basename($_GET['d']) . DIRECTORY_SEPARATOR;
+			$sub_photo_dir = basename($_GET['d']);
 		} else {
 			$sub_photo_dir = null;
 		}
-		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir);
+		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
 
 		/*
 	 * Returns an array of latitude and longitude from the image file.

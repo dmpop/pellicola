@@ -6,7 +6,7 @@ $password = array("monkey", "banana"); // If $protect is set to true, specify on
 $public_albums = array("Album 1", "Album 2"); // Albums to exclude from being password-protected.
 $columns = 4; // Specify the number of columns in the grid layout (2, 3, or 4)
 $per_page = 12; // Number of images per page for pagination
-$footer = "Read the <a style='color: white' href='https://gumroad.com/l/linux-photography'>Linux Photography</a> book";
+$footer = "<a style='color: white' href='https://gumroad.com/l/linux-photography'>Linux Photography</a>";
 $base_photo_dir = "photos"; // Directory for storing photos
 $r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
 $google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
