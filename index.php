@@ -182,6 +182,9 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 					echo "<option value='?d=" . str_replace('\'', '&apos;', $dir_name) . "'>" . $dir_name . "</option>";
 				}
 				echo "</select>";
+				if ($protect && isset($_COOKIE['password'])) {
+					echo '<a style="margin-left: 1em;" href="logout.php">Log out</a>';
+				}
 				echo "</div>";
 			}
 
