@@ -38,13 +38,13 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 		// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
 		//  The $d parameter is used to detect a subdirectory
 		if (isset($_GET['d'])) {
-			$sub_photo_dir = basename($_GET['d']);
+			$sub_photo_dir = $_GET['d'];
 		} else {
 			$sub_photo_dir = null;
 		}
 		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
 
-		/*
+    /*
 	 * Returns an array of latitude and longitude from the image file.
 	 * @param image $file
 	 * @return multitype:number |boolean
@@ -96,29 +96,27 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 		// Check whether the required directories exist
 		if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
-			mkdir($photo_dir, 0777, true);
+            mkdir($photo_dir, 0777, true);
 			mkdir($photo_dir . 'tims', 0777, true);
-			exit('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
+			echo ('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
 		}
 
 		// Get file info
 		$files = glob($photo_dir . '*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
 
-		// Update count (we might have removed some files)
-		$file_count = count($files);
-		if ($file_count < 1) {
-			exit('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
-		}
-
-		// Check whether the reversed order option is enabled and sort the array accordingly 
+		// Check whether the reversed order option is enabled and sort the array accordingly
 		if ($r_sort) {
 			rsort($files);
 		}
 
-		// Generate missing tims
+        // Update count (we might have removed some files)
+        $file_count = count($files);
+
+        // Generate missing tims
 		for ($i = 0; $i < $file_count; $i++) {
 			$file  = $files[$i];
 			$tim = $photo_dir . 'tims/' . basename($file);
+
 			if (!file_exists($tim)) {
 				// Generate tims using php-imagick
 				$t = new Imagick($file);
@@ -167,19 +165,36 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			echo "<div class ='center'>" . $tagline . "</div>";
 			echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
 			// Create an array with all subdirectories
-			$all_sub_dirs = array_filter(glob($base_photo_dir . '/*'), 'is_dir');
-			$sub_dirs = array_diff($all_sub_dirs, array($base_photo_dir . "/tims"));
+			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
+			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
 			// Populate a drop-down list with subdirectories
-			if (count($sub_dirs) > 0) {
+			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
+
 				echo "<noscript>";
 				echo "<h3>Make sure that JavaScript is enabled.</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
+
+				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'>rootdir</a> /&nbsp;";
+
+				$higher_dirs = explode("/", $sub_photo_dir);
+				$higher_dir_cascade = "";
+				foreach ($higher_dirs as $higher_dir) {
+                    if (!empty($higher_dir)) {
+                        if (!empty($higher_dir_cascade)) {
+                            $higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
+                        }
+                        $higher_dir_cascade = $higher_dir_cascade . $higher_dir;
+                        echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "?d=" . $higher_dir_cascade . "'>" . $higher_dir . "</a> /&nbsp;";
+                    }
+				}
+
 				echo '<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">';
 				echo '<option value="Default">Choose album</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
-					echo "<option value='?d=" . str_replace('\'', '&apos;', $dir_name) . "'>" . $dir_name . "</option>";
+					$dir_option=str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);
+					echo "<option value='?d=" . $dir_option . "'>" . $dir_name . "</option>";
 				}
 				echo "</select>";
 				if ($protect && isset($_COOKIE['password'])) {
@@ -187,6 +202,10 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				}
 				echo "</div>";
 			}
+
+            if ($file_count < 1) {
+                echo ('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
+            }
 
 			if (!isset($_GET["all"])) {
 				$all = null;
@@ -219,7 +238,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			show_pagination($page, $last_page, $sub_photo_dir); // Pagination. Show navigation on bottom of page
 		}
 
-		//Pagination. Create the navigation links * START 
+		//Pagination. Create the navigation links * START
 		function show_pagination($current_page, $last_page, $sub_photo_dir)
 		{
 			echo '<div class="center">';
@@ -337,7 +356,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			echo '<div class="center"><ul class="rig column-1"><li><a href="' . $file . '" download><img src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><p class="box">' . $info . '</p></li></ul></div>';
 		}
 
-		// Show links 
+		// Show links
 		if ($links) {
 			$array_length = count($urls);
 			echo '<div class="footer">';
