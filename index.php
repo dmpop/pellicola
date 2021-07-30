@@ -175,7 +175,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				echo "</noscript>";
 				echo '<div class="center">';
 
-				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'>rootdir</a> /&nbsp;";
+				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'>Root</a> /&nbsp;";
 
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
