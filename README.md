@@ -25,18 +25,17 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 
 ## Requirements
 
-* A web server with PHP5 or higher (Tested with Apache and lighttpd)
+* A web server with PHP7 or higher (tested with Apache and lighttpd)
 * PHP libraries: gd, exif, imagick
 * Git (optional)
 
 ## Installation and usage
 
-1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install -y php-cli php-gd php-common php-imagick`
-2. In the terminal, switch to the root directory of the server (e.g., */var/www/html*) and use the `git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
-3. Open the *config.php* file in a text editor and edit settings.
-4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
-5. Make the *mejiro* directory writable by the server using the `chown www-data -R mejiro` command as root.
-6. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
+1. On Debian, Ubuntu, and Raspberry Pi, install Mejiro by running the following command as root: `curl -sSL https://raw.githubusercontent.com/dmpop/mejiro/main/install.sh | bash`. On other distributions, install the required packages and clone the project's Git repository using the command `git clone https://github.com/dmpop/mejiro.git` as root. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
+2. Open the *config.php* file in a text editor and edit settings.
+3. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
+4. Make the *mejiro* directory writable by the server by running `chown www-data -R mejiro` as root.
+5. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
 
 You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: *de-F994362-R1-14-15.txt* (for German), *ja-F994362-R1-14-15.txt* (for Japanese), etc.
 
