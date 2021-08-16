@@ -31,7 +31,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 
 ## Installation and usage
 
-1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install apache2 php php-gd php-imagick php-exif git`
+1. Install the required packages. On Debian and Ubuntu, this can be done by running the following command as root: `apt install -y php-cli php-gd php-common php-imagick`
 2. In the terminal, switch to the root directory of the server (e.g., */var/www/html*) and use the `git clone https://github.com/dmpop/mejiro.git` command as root to fetch the latest source code. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 3. Open the *config.php* file in a text editor and edit settings.
 4. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
