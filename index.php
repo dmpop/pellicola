@@ -194,7 +194,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
 					$dir_option = str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);
-					echo "<option value='?d=" . $dir_option . "'>" . $dir_name . "</option>";
+					echo "<option value='?d=" . ltrim($dir_option, '/') . "'>" . $dir_name . "</option>";
 				}
 				echo "</select>";
 				if ($protect && isset($_COOKIE['password'])) {
@@ -214,20 +214,20 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				echo '<div class="center"><a href=?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
 			}
 
-			echo '<div class="gallery-grid" style="margin-bottom: .5em;">';
+			echo '<div class="square-container">';
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . 'tims/' . basename($file);
 					$file_path = pathinfo($file);
-					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				}
 			} else {
 				for ($i = $offset; $i < $max; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . 'tims/' . basename($file);
 					$file_path = pathinfo($file);
-					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				}
 			}
 			echo "</div>";
@@ -312,19 +312,19 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			if (empty($aperture)) {
 				$aperture = "";
 			} else {
-				$aperture = $aperture . " // ";
+				$aperture = $aperture . " &bull; ";
 			}
 			$exposure = $exif['EXIF']['ExposureTime'];
 			if (empty($exposure)) {
 				$exposure = "";
 			} else {
-				$exposure = $exposure . " // ";
+				$exposure = $exposure . " &bull; ";
 			}
 			$iso = $exif['EXIF']['ISOSpeedRatings'];
 			if (empty($iso)) {
 				$iso = "";
 			} else {
-				$iso = $iso . " // ";
+				$iso = $iso . " &bull; ";
 			}
 			$datetime = $exif['EXIF']['DateTimeOriginal'];
 			if (empty($datetime)) {
@@ -338,9 +338,9 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 			//Generate map URL. Choose between Google Maps and OpenStreetmap
 			if ($google_maps) {
-				$map_url = " <a href='http://maps.google.com/maps?q=" . $gps['lat'] . "," . $gps['lon'] . "' target='_blank'><img style='vertical-align: middle;' src='svg/track.svg'/></a>";
+				$map_url = " <a href='http://maps.google.com/maps?q=" . $gps['lat'] . "," . $gps['lon'] . "' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/track.svg'/></a>";
 			} else {
-				$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'><img style='vertical-align: text-bottom;' src='svg/track.svg'/></a>";
+				$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/track.svg'/></a>";
 			}
 
 			$photo_info = $aperture . $exposure . $iso . $datetime;
@@ -349,10 +349,10 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				$photo_info = $photo_info . $map_url;
 			}
 
-			$info = "<span style='word-spacing:1em'>" . $photo_info . "</span>";
+			$info = "<span style='word-spacing:.1em'>" . $photo_info . "</span>";
 			$Parsedown = new Parsedown();
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><a href="' . $file . '" download><img class="gallery-img" src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
+			echo '<div class="center"><a href="' . $file . '" download><img style="max-width: 100%; border-radius: 15px;" src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
 		}
 
 		// Show links
@@ -360,7 +360,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			$array_length = count($urls);
 			echo '<div class="footer">';
 			for ($i = 0; $i < $array_length; $i++) {
-				echo '<span style="word-spacing:0.5em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> // </span>';
+				echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
 			}
 			echo  $footer . '</div>';
 		} else {

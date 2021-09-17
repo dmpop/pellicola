@@ -92,36 +92,51 @@ p.caption {
     background: #3973ac;
 }
 
-/* Grid */
-/* https://www.imarketinx.de/artikel/responsive-image-gallery-with-css-grid.html */
-.gallery-grid {
+/* Grid: https://wiki.selfhtml.org/wiki/CSS/Tutorials/Grid/responsive_Raster_ohne_Media_Queries */
+
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+.square-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 0.5rem;
-    justify-items: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Picture frame */
-  .gallery-frame {
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-align: center;
-    color: #d9d9d9;
-  }
-  
-  /* Image */
-  .gallery-img {
-    max-width: 100%;
-    height: auto;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-auto-rows: 1fr;
+    grid-auto-flow: dense;
+    margin-bottom: .5rem;
+}
+
+.square-container::before {
+    content: '';
+    height: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+
+.square-container>*:first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+
+.square-container>* {
+    background: rgba(0, 0, 0, 0.1);
+    border: .3rem solid transparent;
+    position: relative;
+}
+
+.square-container>*:focus, .square-container>*:hover {
+    opacity: .55;
+}
+
+.square-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
     object-fit: cover;
-    transition: opacity 0.25s ease-in-out;
-  }
-  
-  .gallery-img:hover {
-    opacity: .7;
-  }
+    width: 100%;
+    height: 100%;
+}
 
 @font-face {
     font-family: 'Barlow-Regular';
