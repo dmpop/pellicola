@@ -58,41 +58,16 @@ p {
 }
 
 p.caption {
-    border-style: none;
-    border-width: 1px;
     font-size: 1em;
-    padding: 5px;
-    color: #303030 !important;
-    margin-bottom: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 2.0em;
-    text-align: center;
-}
-
-p.box {
-    width: auto;
-    border-style: dotted;
-    border-width: 1px;
-    font-size: 1em;
-    padding: 5px;
     color: #e3e3e3;
-    margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 2.0em;
+    line-height: 1.0em;
     text-align: center;
 }
 
 #content {
     color: #e3e3e3;
-}
-
-.text {
-    text-align: center;
-    padding: 0px;
-    color: inherit;
-    float: left;
 }
 
 .center {
@@ -117,92 +92,36 @@ p.box {
     background: #3973ac;
 }
 
-/* Responsive grid based on http://alijafarian.com/responsive-image-grids-using-css/ */
-
-ul.rig {
-    list-style: none;
-    font-size: 0px;
-    margin-left: -1.3%;
-    /* should match li left margin */
-}
-
-ul.rig li {
-    display: inline-block;
-    padding: 10px;
-    margin: 0 0 1.5% 1.5%;
-    background: #fff;
-    font-size: 16px;
-    font-size: 1rem;
-    vertical-align: top;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-
-ul.rig li img {
+/* Grid */
+/* https://www.imarketinx.de/artikel/responsive-image-gallery-with-css-grid.html */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 0.5rem;
+    justify-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Picture frame */
+  .gallery-frame {
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #d9d9d9;
+  }
+  
+  /* Image */
+  .gallery-img {
     max-width: 100%;
     height: auto;
-}
-
-ul.rig li h3 {
-    margin: 0 0 1px;
-}
-
-ul.rig li p {
-    font-size: .9em;
-    line-height: 2.0em;
-    color: #999;
-}
-
-/* class for 1 column */
-
-ul.rig.column-1 li {
-    width: 43.3%;
-    /* this value + 2.5 should = 50% */
-}
-
-/* class for 2 columns */
-
-ul.rig.columns-2 li {
-    width: 47.5%;
-    /* this value + 2.5 should = 50% */
-}
-
-/* class for 3 columns */
-
-ul.rig.columns-3 li {
-    width: 30.83%;
-    /* this value + 2.5 should = 33% */
-}
-
-/* class for 4 columns */
-
-ul.rig.columns-4 li {
-    width: 22.5%;
-    /* this value + 2.5 should = 25% */
-}
-
-@media (max-width: 480px) {
-    ul.grid-nav li {
-        display: block;
-        margin: 0 0 5px;
-    }
-    ul.grid-nav li a {
-        display: block;
-    }
-    ul.rig {
-        margin-left: 0;
-    }
-    ul.rig li {
-        width: 100% !important;
-        /* over-ride all li styles */
-        margin: 0 0 20px;
-    }
-    * {
-        margin: 0;
-        padding: 0;
-    }
-}
+    object-fit: cover;
+    transition: opacity 0.25s ease-in-out;
+  }
+  
+  .gallery-img:hover {
+    opacity: .7;
+  }
 
 @font-face {
     font-family: 'Barlow-Regular';

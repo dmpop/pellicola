@@ -44,7 +44,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 		}
 		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
 
-    /*
+		/*
 	 * Returns an array of latitude and longitude from the image file.
 	 * @param image $file
 	 * @return multitype:number |boolean
@@ -96,7 +96,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 		// Check whether the required directories exist
 		if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
-            mkdir($photo_dir, 0777, true);
+			mkdir($photo_dir, 0777, true);
 			mkdir($photo_dir . 'tims', 0777, true);
 			echo ('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
 		}
@@ -109,10 +109,10 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			rsort($files);
 		}
 
-        // Update count (we might have removed some files)
-        $file_count = count($files);
+		// Update count (we might have removed some files)
+		$file_count = count($files);
 
-        // Generate missing tims
+		// Generate missing tims
 		for ($i = 0; $i < $file_count; $i++) {
 			$file  = $files[$i];
 			$tim = $photo_dir . 'tims/' . basename($file);
@@ -180,20 +180,20 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
 				foreach ($higher_dirs as $higher_dir) {
-                    if (!empty($higher_dir)) {
-                        if (!empty($higher_dir_cascade)) {
-                            $higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
-                        }
-                        $higher_dir_cascade = $higher_dir_cascade . $higher_dir;
-                        echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "?d=" . $higher_dir_cascade . "'>" . $higher_dir . "</a> /&nbsp;";
-                    }
+					if (!empty($higher_dir)) {
+						if (!empty($higher_dir_cascade)) {
+							$higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
+						}
+						$higher_dir_cascade = $higher_dir_cascade . $higher_dir;
+						echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "?d=" . $higher_dir_cascade . "'>" . $higher_dir . "</a> /&nbsp;";
+					}
 				}
 
 				echo '<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">';
 				echo '<option value="Default">Choose album</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
-					$dir_option=str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);
+					$dir_option = str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);
 					echo "<option value='?d=" . $dir_option . "'>" . $dir_name . "</option>";
 				}
 				echo "</select>";
@@ -203,9 +203,9 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				echo "</div>";
 			}
 
-            if ($file_count < 1) {
-                echo ('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
-            }
+			if ($file_count < 1) {
+				echo ('<h3>Add photos to the <strong>photos</strong> directory, then refresh this page.</h3>');
+			}
 
 			if (!isset($_GET["all"])) {
 				$all = null;
@@ -213,25 +213,24 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
 				echo '<div class="center"><a href=?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
 			}
-			echo "<ul class='rig columns-" . $columns . "'>";
 
+			echo '<div class="gallery-grid" style="margin-bottom: .5em;">';
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . 'tims/' . basename($file);
 					$file_path = pathinfo($file);
-					echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a></li>';
+					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				}
 			} else {
 				for ($i = $offset; $i < $max; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . 'tims/' . basename($file);
 					$file_path = pathinfo($file);
-					echo '<li><a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a></li>';
+					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . $sub_photo_dir . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				}
 			}
-
-			echo "</ul>";
+			echo "</div>";
 		}
 
 		if (isset($_GET["all"]) != 1) {
@@ -353,7 +352,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			$info = "<span style='word-spacing:1em'>" . $photo_info . "</span>";
 			$Parsedown = new Parsedown();
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><ul class="rig column-1"><li><a href="' . $file . '" download><img src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><p class="box">' . $info . '</p></li></ul></div>';
+			echo '<div class="center"><a href="' . $file . '" download><img class="gallery-img" src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
 		}
 
 		// Show links
