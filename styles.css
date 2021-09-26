@@ -139,22 +139,8 @@ p.caption {
 }
 
 @font-face {
-    font-family: 'Barlow-Regular';
+    font-family: 'Barlow';
     font-weight: 400;
     font-style: normal;
-    src: url('woff/Barlow-Regular.woff2') format('woff');
-}
-
-@font-face {
-    font-family: 'Barlow-Medium';
-    font-weight: 500;
-    font-style: bold;
-    src: url('woff/Barlow-Medium.woff2') format('woff');
-}
-
-@font-face {
-    font-family: 'Barlow-Italic';
-    font-weight: 300;
-    font-style: italic;
-    src: url('woff/Barlow-Italic.woff2') format('woff');
+    src: url('fonts/Barlow-Regular.woff2') format('woff2');
 }
