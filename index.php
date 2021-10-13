@@ -99,8 +99,8 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			echo ("<h1 style='margin-top: 2em;'><mark>Directory doesn't exist</mark></h1>
 			<div style='display: flex; justify-content: center; line-height: 1.5;'>
 			<ul>
-			<li>Create <u>$photo_dir</u> and <u>" . $photo_dir . "tims</u> directories.</li>
-			<li>Add photos to the <u>$photo_dir</u> directory.</li>
+			<li>Create <u>" . htmlentities($photo_dir) . "</u> and <u>" . htmlentities($photo_dir) . "tims</u> directories.</li>
+			<li>Add photos to the <u>" . htmlentities($photo_dir) . "</u> directory.</li>
 			<li>Refresh this page.</li>
 			</ul></div>");
 			exit;
@@ -357,7 +357,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			$info = "<span style='word-spacing:.1em'>" . $photo_info . "</span>";
 			$Parsedown = new Parsedown();
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><a href="' . $file . '" download><img style="max-width: 100%; border-radius: 15px;" src="' . $tim . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
+			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 15px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
 		}
 
 		// Show links
