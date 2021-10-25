@@ -94,6 +94,11 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			return false;
 		}
 
+
+		// Ceate tims if missing
+		if (file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
+			 mkdir($photo_dir . 'tims');
+		}
 		// Check whether the required directories exist
 		if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
 			echo ("<h1 style='margin-top: 2em;'><mark>Directory doesn't exist</mark></h1>
