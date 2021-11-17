@@ -43,6 +43,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			$sub_photo_dir = null;
 		}
 		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
+		$photo_dir = str_replace("/..","",$photo_dir);
 
 		/*
 	 * Returns an array of latitude and longitude from the image file.
@@ -121,20 +122,6 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 		// Update count (we might have removed some files)
 		$file_count = count($files);
-
-		// Generate missing tims
-		for ($i = 0; $i < $file_count; $i++) {
-			$file  = $files[$i];
-			$tim = $photo_dir . 'tims/' . basename($file);
-
-			if (!file_exists($tim)) {
-				// Generate tims using php-imagick
-				$t = new Imagick($file);
-				$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
-				$t->writeImage($tim);
-				$t->destroy();
-			}
-		}
 
 		// Prepare pagination. Calculate total items per page * START
 		$total = count($files);
@@ -376,8 +363,28 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 		} else {
 			echo '<div class="footer">' . $footer . '</div>';
 		}
+
+		echo '<div class="footer">Generating thumbnails if missing ...</div>';
 		?>
 	</div>
+
 </body>
 
 </html>
+
+
+<?php
+// Generate missing tims
+for ($i = 0; $i < $file_count; $i++) {
+	$file  = $files[$i];
+	$tim = $photo_dir . 'tims/' . basename($file);
+
+	if (!file_exists($tim)) {
+		// Generate tims using php-imagick
+		$t = new Imagick($file);
+		$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
+		$t->writeImage($tim);
+		$t->destroy();
+	}
+}
+?>
