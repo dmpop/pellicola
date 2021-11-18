@@ -43,7 +43,8 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			$sub_photo_dir = null;
 		}
 		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
-		$photo_dir = str_replace("/..","",$photo_dir);
+		# catch path traversing vulnerability
+		$photo_dir = str_replace(DIRECTORY_SEPARATOR . "..","",$photo_dir);
 
 		/*
 	 * Returns an array of latitude and longitude from the image file.
