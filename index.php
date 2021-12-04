@@ -1,6 +1,5 @@
 <?php
 include('config.php');
-include('parsedown.php');
 if ($protect && !in_array($_GET['d'], $public_albums)) {
 	include('protect.php');
 }
@@ -305,11 +304,11 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			}
 
 			// Check whether the localized description file matching the browser language exists
-			if (file_exists($photo_dir . $language . '-' . $file_path['filename'] . '.md')) {
-				$description = @file_get_contents($photo_dir . $language . '-' . $file_path['filename'] . '.md');
+			if (file_exists($photo_dir . $language . '-' . $file_path['filename'] . '.txt')) {
+				$description = @file_get_contents($photo_dir . $language . '-' . $file_path['filename'] . '.txt');
 				// If the localized description file doesn't exist, use the default one
 			} else {
-				$description = @file_get_contents($photo_dir . $file_path['filename'] . '.md');
+				$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');
 			}
 			$gps = read_gps_location($file);
 
@@ -355,9 +354,8 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			}
 
 			$info = "<span style='word-spacing:.1em'>" . $photo_info . "</span>";
-			$Parsedown = new Parsedown();
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 15px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $Parsedown->text($description) . '</p><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
+			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 15px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
 		}
 
 		// Show links
