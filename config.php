@@ -12,9 +12,8 @@ $google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
 $links = true;	// Enable the link box
 // If the link box is enabled, specify the desired URLs
 $urls = array(
-    array('https://www.eyeem.com/u/dmpop', 'Photos'),
-    array('https://tokyoma.de/', 'Website'),
-    array('https://github.com/dmpop', 'GitHub')
+    array('https://github.com/dmpop', 'GitHub'),
+    array('https://www.paypal.com/paypalme/dmpop', 'I 🧡 coffee')
 );
 $raw_formats = '.{ARW,arw,NEF,nef,ORF,orf,CR2,cr2,DNG,dng}'; // Supported RAW formats. Add other formats, if needed.
 $show_raw = true; // Display links to RAW files.
