@@ -116,17 +116,45 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 		// Update count (we might have removed some files)
 		$file_count = count($files);
 
+		function createTim($original, $tim, $timWidth)
+		{
+			// Load image
+			$img = @imagecreatefromjpeg($original);
+			if (!$img) return false;
+
+			// Get image size
+			$width = imagesx($img);
+			$height = imagesy($img);
+
+			// Calculate tim size
+			$new_width	= $timWidth;
+			$new_height = floor($height * ($timWidth / $width));
+
+			// Create a new temporary image
+			$tmp_img = imagecreatetruecolor($new_width, $new_height);
+
+			// Copy and resize old image into new image
+			imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+			// Save tim into a file
+			$ok = @imagejpeg($tmp_img, $tim);
+
+			// Cleanup
+			imagedestroy($img);
+			imagedestroy($tmp_img);
+
+			// Return bool true if tim creation worked
+			return $ok;
+		}
+
 		// Generate missing tims
 		for ($i = 0; $i < $file_count; $i++) {
 			$file  = $files[$i];
 			$tim = $photo_dir . 'tims/' . basename($file);
 
 			if (!file_exists($tim)) {
-				// Generate tims using php-imagick
-				$t = new Imagick($file);
-				$t->resizeImage(800, 0, Imagick::FILTER_LANCZOS, 1);
-				$t->writeImage($tim);
-				$t->destroy();
+				// Generate tims
+				createTim($file, $tim, 800);
 			}
 		}
 

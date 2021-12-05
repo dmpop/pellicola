@@ -26,18 +26,18 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 ## Requirements
 
 * A web server with PHP7 or higher (tested with Apache and lighttpd)
-* PHP libraries: gd, exif, imagick
+* PHP libraries: GD, EXIF
 * Git (optional)
 
 ## Installation and usage
 
 1. On Debian, Ubuntu, and Raspberry Pi, install Mejiro by running the following command as root: `curl -sSL https://raw.githubusercontent.com/dmpop/mejiro/main/install.sh | bash`. On other distributions, install the required packages and clone the project's Git repository using the command `git clone https://github.com/dmpop/mejiro.git` as root. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 2. Open the *config.php* file in a text editor and edit settings.
-3. Put photos into the *photos* directory (*.jpg*, *jpeg*, *.JPG*, and *.JPEG* as well as RAW files).
-4. Make the *mejiro* directory writable by the server by running `chown www-data -R mejiro` as root.
-5. Point the browser to *http://127.0.0.1/mejiro/* (replace *127.0.0.1* with the actual IP address or domain name of your server).
+3. Put photos into the *photos* directory (_.jpg_, _jpeg_, _.JPG_, and _.JPEG_ as well as RAW files).
+4. Make the _mejiro_ directory writable by the server by running `chown www-data -R mejiro` as root.
+5. Point the browser to _http://127.0.0.1/mejiro/_ (replace _127.0.0.1_ with the actual IP address or domain name of your server).
 
-You can add descriptions to photos by creating accompanying *.txt* files. For example, to add a description to the *F994362-R1-14-15.jpg* photo, create the *F994362-R1-14-15.txt* file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: *de-F994362-R1-14-15.txt* (for German), *ja-F994362-R1-14-15.txt* (for Japanese), etc.
+You can add descriptions to photos by creating accompanying _.txt_ files. For example, to add a description to the _F994362-R1-14-15.jpg_ photo, create the _F994362-R1-14-15.txt_ file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: _de-F994362-R1-14-15.txt_ (for German), _ja-F994362-R1-14-15.txt_ (for Japanese), etc.
 
 ## Run Mejiro in a container
 
