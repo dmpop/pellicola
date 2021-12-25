@@ -237,6 +237,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 			if ($file_count < 1) {
 				echo ("<h2 style='margin-top: 2em;'>Add photos to the <u>photos</u> directory, then refresh this page.</h2>");
+				exit;
 			}
 
 			if (!isset($_GET["all"])) {
