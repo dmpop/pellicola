@@ -247,20 +247,24 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				echo '<div class="center"><a href=?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
 			}
 
-			echo '<div class="square-container">';
+			echo '<div class="gallery-grid">';
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . 'tims/' . basename($file);
 					$file_path = pathinfo($file);
-					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . htmlentities($sub_photo_dir) . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<figure class="gallery-frame">';
+					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . htmlentities($sub_photo_dir) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			} else {
 				for ($i = $offset; $i < $max; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . 'tims/' . basename($file);
 					$file_path = pathinfo($file);
-					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . htmlentities($sub_photo_dir) . '"><img src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<figure class="gallery-frame">';
+					echo '<a href="index.php?all=1&photo=' . $file . '&d=' . htmlentities($sub_photo_dir) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			}
 			echo "</div>";
@@ -384,7 +388,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 			$info = "<span style='word-spacing:.1em'>" . $photo_info . "</span>";
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 15px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
+			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
 		}
 
 		// Show links

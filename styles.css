@@ -1,146 +1,135 @@
 body {
-    font-family: 'Barlow', sans-serif;
-    font-size: 1em;
-    text-align: justify;
-    background-color: #303030;
+  font-family: "Barlow", sans-serif;
+  font-size: 1em;
+  text-align: justify;
+  background-color: #303030;
 }
 
 a {
-    color: #999;
+  color: #999;
 }
 
 a.superscript {
-    position: relative;
-    top: -0.7em;
-    font-size: 51%;
-    text-decoration: none;
+  position: relative;
+  top: -0.7em;
+  font-size: 51%;
+  text-decoration: none;
 }
 
 h1 {
-    color: #e3e3e3;
-    font-family: 'Barlow', sans-serif;
-    font-size: 2.5em;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 0.3em;
-    margin-bottom: 0.5em;
-    line-height: 100%;
-    letter-spacing: 1px;
+  color: #e3e3e3;
+  font-family: "Barlow", sans-serif;
+  font-size: 2.5em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
+  line-height: 100%;
+  letter-spacing: 1px;
 }
 
 h2 {
-    color: #e3e3e3;
-    font-family: 'Barlow', sans-serif;
-    font-size: 2em;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    line-height: 100%;
-    letter-spacing: 1
+  color: #e3e3e3;
+  font-family: "Barlow", sans-serif;
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 100%;
+  letter-spacing: 1;
 }
 
 h3 {
-    color: #e3e3e3;
-    font-family: 'Barlow', sans-serif;
-    font-size: 1em;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    line-height: 100%;
-    letter-spacing: 1
+  color: #e3e3e3;
+  font-family: "Barlow", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 100%;
+  letter-spacing: 1;
 }
 
 p {
-    font-size: 0.5em;
-    text-align: left;
+  font-size: 0.5em;
+  text-align: left;
 }
 
 p.caption {
-    font-size: 1em;
-    color: #e3e3e3;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.0em;
-    text-align: center;
+  font-size: 1em;
+  color: #e3e3e3;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1em;
+  text-align: center;
 }
 
 #content {
-    color: #e3e3e3;
+  color: #e3e3e3;
 }
 
 .center {
-    font-size: 1em;
-    padding: 1px;
-    height: auto;
-    text-align: center;
-    padding: 0px;
-    margin-bottom: 2em;
+  font-size: 1em;
+  padding: 1px;
+  height: auto;
+  text-align: center;
+  padding: 0px;
+  margin-bottom: 2em;
 }
 
 .footer {
-    line-height: 2.0em;
-    text-align: center;
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.9em;
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    height: 2em;
-    width: 100%;
-    background: #3973ac;
+  line-height: 2em;
+  text-align: center;
+  font-family: "Barlow", sans-serif;
+  font-size: 0.9em;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 2em;
+  width: 100%;
+  background: #3973ac;
 }
 
-/* Grid: https://wiki.selfhtml.org/wiki/CSS/Tutorials/Grid/responsive_Raster_ohne_Media_Queries */
+/* https://www.imarketinx.de/artikel/responsive-image-gallery-with-css-grid.html */
 
-*, ::before, ::after {
-    box-sizing: border-box;
+/* The grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.square-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    grid-auto-rows: 1fr;
-    grid-auto-flow: dense;
-    margin-bottom: .5rem;
+/* The image frame */
+.gallery-frame {
+  padding: 0.5em;
+  font-size: 1rem;
+  margin-top: 0.5em;
+  text-align: center;
+  color: #d9d9d9;
 }
 
-.square-container::before {
-    content: '';
-    height: 0;
-    padding-bottom: 100%;
-    grid-row: 1 / 1;
-    grid-column: 1 / 1;
+/* The images */
+.gallery-img {
+  top: 0;
+  left: 0;
+  width: 14em;
+  height: 14em;
+  border-radius: 5px;
+  object-fit: cover;
+  transition: opacity 0.25s ease-in-out;
 }
 
-.square-container>*:first-child {
-    grid-row: 1 / 1;
-    grid-column: 1 / 1;
-}
-
-.square-container>* {
-    background: rgba(0, 0, 0, 0.1);
-    border: .3rem solid transparent;
-    position: relative;
-}
-
-.square-container>*:focus, .square-container>*:hover {
-    opacity: .55;
-}
-
-.square-container img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+.gallery-img:hover {
+  opacity: 0.5;
 }
 
 @font-face {
-    font-family: 'Barlow';
-    font-weight: 400;
-    font-style: normal;
-    src: url('fonts/Barlow-Regular.woff2') format('woff2');
+  font-family: "Barlow";
+  font-weight: 400;
+  font-style: normal;
+  src: url("fonts/Barlow-Regular.woff2") format("woff2");
 }
