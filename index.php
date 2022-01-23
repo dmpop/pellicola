@@ -93,6 +93,11 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			return false;
 		}
 
+		// Ceeate tims if missing
+		if (file_exists($photo_dir) && !file_exists($photo_dir . 'tims')) {
+			mkdir($photo_dir . 'tims');
+		}
+
 		// Check whether the required directories exist
 		if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
 			echo ("<h1 style='margin-top: 2em;'><mark>Directory doesn't exist</mark></h1>
@@ -145,17 +150,6 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 
 			// Return bool true if tim creation worked
 			return $ok;
-		}
-
-		// Generate missing tims
-		for ($i = 0; $i < $file_count; $i++) {
-			$file  = $files[$i];
-			$tim = $photo_dir . 'tims/' . basename($file);
-
-			if (!file_exists($tim)) {
-				// Generate tims
-				createTim($file, $tim, 800);
-			}
 		}
 
 		// Prepare pagination. Calculate total items per page * START
@@ -398,6 +392,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 			for ($i = 0; $i < $array_length; $i++) {
 				echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
 			}
+			echo '<div>Generating thumbnails if missing ...</div>';
 			echo  $footer . '</div>';
 		} else {
 			echo '<div class="footer">' . $footer . '</div>';
@@ -407,3 +402,17 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 </body>
 
 </html>
+
+<?php
+
+// Generate missing tims
+for ($i = 0; $i < $file_count; $i++) {
+	$file  = $files[$i];
+	$tim = $photo_dir . 'tims/' . basename($file);
+
+	if (!file_exists($tim)) {
+		// Generate tims
+		createTim($file, $tim, 800);
+	}
+}
+?>
