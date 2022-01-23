@@ -29,7 +29,7 @@ sudo apt full-upgrade -y
 sudo apt update
 
 # Install the required packages
-sudo apt install -y php-cli php-gd php-common php-imagick
+sudo apt install -y apache2 php php-gd php-common git
 
 # Remove obsolete packages
 sudo apt autoremove -y
