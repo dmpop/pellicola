@@ -238,7 +238,7 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div class="center"><a href=?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
+				echo '<div class="center"><a href="?all=1' . '&d=' . urlencode($sub_photo_dir) . '" title="Show all images of this folder"><img src="svg/display-grid.svg"/></a></div>';
 			}
 
 			echo '<div class="gallery-grid">';
@@ -389,13 +389,16 @@ if ($protect && !in_array($_GET['d'], $public_albums)) {
 		if ($links) {
 			$array_length = count($urls);
 			echo '<div class="footer">';
-			for ($i = 0; $i < $array_length; $i++) {
-				echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
-			}
-			echo '<div>Generating thumbnails if missing ...</div>';
-			echo  $footer . '</div>';
+				for ($i = 0; $i < $array_length; $i++) {
+					echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
+				}
+				echo '<span style="word-spacing:0.1em;">' . $footer . '</span>';
+				echo '<span style="word-spacing:0.1em;"> &bull; Generating thumbnails if missing ...</span>';
+			echo '</div>';
 		} else {
-			echo '<div class="footer">' . $footer . '</div>';
+			echo '<div class="footer"><span style="word-spacing:0.1em;">' . $footer . '</span>';
+				echo '<span style="word-spacing:0.1em;"> &bull; Generating thumbnails if missing ...</span>';
+			echo '</div>';
 		}
 		?>
 	</div>
