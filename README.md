@@ -32,7 +32,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 
 1. On Debian, Ubuntu, and Raspberry Pi, install Mejiro by running the following command as root: `curl -sSL https://raw.githubusercontent.com/dmpop/mejiro/main/install.sh | bash`. On other distributions, install the required packages and clone the project's Git repository using the command `git clone https://github.com/dmpop/mejiro.git` as root. Alternatively, you can download the ZIP archive and extract it into the document root of the server.
 2. Open the *config.php* file in a text editor and edit settings.
-3. Put photos into the *photos* directory (_.jpg_, _jpeg_, _.JPG_, and _.JPEG_ as well as RAW files).
+3. Put photos into the *photos* directory (_.jpg_, _.jpeg_, _.JPG_, and _.JPEG_ as well as RAW files).
 4. Make the _mejiro_ directory writable by the server by running `chown www-data -R mejiro` as root.
 5. Point the browser to _http://127.0.0.1/mejiro/_ (replace _127.0.0.1_ with the actual IP address or domain name of your server).
 

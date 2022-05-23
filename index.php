@@ -90,16 +90,15 @@ include('config.php');
 			return false;
 		}
 
-		// Check whether the required directories exist
-		if (!file_exists($photo_dir) || !file_exists($photo_dir . 'tims')) {
-			echo ("<h1 style='margin-top: 2em;'><mark>Directory doesn't exist</mark></h1>
-			<div style='display: flex; justify-content: center; line-height: 1.5;'>
-			<ul>
-			<li>Create <u>" . htmlentities($photo_dir) . "</u> and <u>" . htmlentities($photo_dir) . "tims</u> directories.</li>
-			<li>Add photos to the <u>" . htmlentities($photo_dir) . "</u> directory.</li>
-			<li>Refresh this page.</li>
-			</ul></div>");
+		// Check whether the directory
+		if (!file_exists($photo_dir)) {
+			echo ("<h2 style='margin-top: 2em;'>⚠️ This directory doesn't exist</h2>");
 			exit;
+		}
+
+		// Create tims if missing
+		if (file_exists($photo_dir) && !file_exists($photo_dir . 'tims')) {
+			mkdir($photo_dir . 'tims');
 		}
 
 		// Get file info
@@ -200,7 +199,7 @@ include('config.php');
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 
 				echo "<noscript>";
-				echo "<h3>Make sure that JavaScript is enabled.</h3>";
+				echo "<h3>⚠️ Make sure that JavaScript is enabled.</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
 
@@ -233,7 +232,7 @@ include('config.php');
 			}
 
 			if ($file_count < 1) {
-				echo ("<h2 style='margin-top: 2em;'>Add photos to the <u>photos</u> directory, then refresh this page.</h2>");
+				echo ("<h2 style='margin-top: 2em;'>🪣 This directory is empty.</h2>");
 				exit;
 			}
 
@@ -241,7 +240,7 @@ include('config.php');
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div class="center"><a href=?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
+				echo '<div class="center"><a href="?all=1' . '&d=' . urlencode($sub_photo_dir) . '><img src="svg/display-grid.svg"/></a></div>';
 			}
 
 			echo '<div class="gallery-grid">';
