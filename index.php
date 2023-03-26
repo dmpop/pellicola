@@ -190,7 +190,7 @@ if (!extension_loaded('exif')) {
 		if (!isset($grid)) {
 			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.svg" alt="logo" /></a>';
-			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #ffc03fff;">' . $title . '</h1></a>';
+			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray;'>" . $subtitle . "</div>";
 			echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
@@ -203,7 +203,7 @@ if (!extension_loaded('exif')) {
 				echo "<h3><img style='vertical-align: bottom;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
-				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img src='svg/home.svg'/></a> &rarr;&nbsp;";
+				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' src='svg/home.svg'/></a> &rarr;&nbsp;";
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
 				foreach ($higher_dirs as $higher_dir) {
@@ -216,7 +216,7 @@ if (!extension_loaded('exif')) {
 					}
 				}
 
-				echo '<select style="width: 15em;" name="" onchange="javascript:location.href = this.value;">';
+				echo '<select style="width: 15em; vertical-align: middle;" name="" onchange="javascript:location.href = this.value;">';
 				echo '<option value="Default">Choose album</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
@@ -229,6 +229,15 @@ if (!extension_loaded('exif')) {
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> This directory doesn't exist</h3>");
+				echo "<form class='center' style='margin-top: 2em;' method='POST' action=''> 
+				<input class='btn primary' type='submit' name='create' value='Create'>
+				</form>";
+				if (isset($_POST["create"])) {
+					if (!file_exists($photo_dir)) {
+						mkdir(htmlentities($photo_dir), 0755, true);
+						echo "<meta http-equiv='refresh' content='0'>";
+					}
+				}
 				exit;
 			}
 			if ($file_count < 1) {
@@ -371,7 +380,7 @@ if (!extension_loaded('exif')) {
 
 			//Generate map URL
 			$map_url = " <a href='map.php?lat=" . $gps['lat'] . "&lon=" . $gps['lon'] . "' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/pin.svg'/></a>";
-			
+
 			// Concatenate $caption
 			$caption = $aperture . $exposure . $iso . $datetime;
 
@@ -382,7 +391,7 @@ if (!extension_loaded('exif')) {
 
 			$info = "<span style='word-spacing:.1em'>" . $caption . "</span>";
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
+			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $info . '</p>';
 		}
 
 		// Show links

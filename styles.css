@@ -3,7 +3,7 @@ body {
   font-size: 1em;
   text-align: justify;
   background-color: #303030;
-  margin-bottom: 1.7em;
+  margin-bottom: 2.5em;
 }
 
 a {
@@ -65,6 +65,26 @@ p.caption {
   margin-right: auto;
   line-height: 1em;
   text-align: center;
+}
+
+.btn {
+  padding: 1em;
+  text-transform: uppercase;
+  background: #fff;
+  border: solid;
+  font: .9em "Barlow"
+}
+
+.btn.primary {
+  color: #fff;
+  background: #619b8a;
+  border: solid #619b8a;
+  border-radius: 5px;
+}
+
+.btn:hover,
+a:hover {
+    opacity: .6
 }
 
 #content {

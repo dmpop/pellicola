@@ -8,7 +8,7 @@ $r_sort = false;	// Set to true to show tims in the reverse order (oldest ot new
 $links = true;	// Enable the link box
 // If the link box is enabled, specify the desired URLs
 $urls = array(
-    array('https://github.com/dmpop', 'GitHub'),
+    array('https://github.com/dmpop/mejiro', 'Mejiro'),
     array('https://www.paypal.com/paypalme/dmpop', 'I 🧡 coffee')
 );
 $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,CR2,cr2,DNG,dng'; // Supported RAW formats. Add other formats, if needed
