@@ -99,7 +99,7 @@ if (!extension_loaded('exif')) {
 
 		// Check whether $photo_dir directory exists
 		if (!file_exists($photo_dir)) {
-			echo ("<h3 style='margin-top: 2em;'>⚠️ This directory doesn't exist</h3>");
+			echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> This directory doesn't exist</h3>");
 			exit;
 		}
 
@@ -206,7 +206,7 @@ if (!extension_loaded('exif')) {
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 
 				echo "<noscript>";
-				echo "<h3>⚠️ Make sure that JavaScript is enabled</h3>";
+				echo "<h3><img style='vertical-align: bottom;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
 
@@ -232,14 +232,11 @@ if (!extension_loaded('exif')) {
 					echo "<option value='?d=" . ltrim($dir_option, '/') . "'>" . $dir_name . "</option>";
 				}
 				echo "</select>";
-				if ($protect && isset($_COOKIE['password'])) {
-					echo '<a style="margin-left: 1em;" href="logout.php">Log out</a>';
-				}
 				echo "</div>";
 			}
 
 			if ($file_count < 1) {
-				echo ("<h3 style='margin-top: 2em;'>🪣 This directory is empty</h3>");
+				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> This directory is empty</h3>");
 				exit;
 			}
 

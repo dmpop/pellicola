@@ -50,7 +50,7 @@ You can add descriptions to photos by creating accompanying _.txt_ files. For ex
 
 Dmitri Popov ([dmpop@cameracode.coffee](mailto:dmpop@cameracode.coffee))
 
-Icons: [Tiny icons](https://teenyicons.com/)
+Icons: [Teeny icons](https://teenyicons.com/)
 
 ## License
 
