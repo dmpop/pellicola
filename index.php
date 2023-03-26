@@ -9,6 +9,7 @@ if (!extension_loaded('exif')) {
 }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <!--
@@ -368,20 +369,18 @@ if (!extension_loaded('exif')) {
 				$comment = $exif['COMMENT']['0'] ?? null;
 			}
 
-			//Generate map URL. Choose between Google Maps and OpenStreetmap
-			if ($google_maps) {
-				$map_url = " <a href='http://maps.google.com/maps?q=" . $gps['lat'] . "," . $gps['lon'] . "' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/pin.svg'/></a>";
-			} else {
-				$map_url = " <a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/pin.svg'/></a>";
-			}
+			//Generate map URL
+			$map_url = " <a href='map.php?lat=" . $gps['lat'] . "&lon=" . $gps['lon'] . "' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/pin.svg'/></a>";
+			
+			// Concatenate $caption
+			$caption = $aperture . $exposure . $iso . $datetime;
 
-			$photo_info = $aperture . $exposure . $iso . $datetime;
-			// Enable the Map anchor if the photo contains geographical coordinate
+			// Add the pin icon if the photo contains geographical coordinate
 			if (!empty($gps['lat'])) {
-				$photo_info = $photo_info . $map_url;
+				$caption = $caption . $map_url;
 			}
 
-			$info = "<span style='word-spacing:.1em'>" . $photo_info . "</span>";
+			$info = "<span style='word-spacing:.1em'>" . $caption . "</span>";
 			// Show photo, EXIF data, description, and info
 			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><hr style="width: 3em;"><p class="caption">' . $info . '</p>';
 		}

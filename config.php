@@ -5,7 +5,6 @@ $per_page = 12; // Number of images per page for pagination
 $footer = "<a style='color: white' href='https://cameracode.coffee'>Camera, code, coffee</a>";
 $base_photo_dir = "photos"; // Directory for storing photos
 $r_sort = false;	// Set to true to show tims in the reverse order (oldest ot newest)
-$google_maps = false;	// Set to true to use Google Maps instead of OpenStreetMap
 $links = true;	// Enable the link box
 // If the link box is enabled, specify the desired URLs
 $urls = array(
