@@ -97,12 +97,6 @@ if (!extension_loaded('exif')) {
 			return false;
 		}
 
-		// Check whether $photo_dir directory exists
-		if (!file_exists($photo_dir)) {
-			echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> This directory doesn't exist</h3>");
-			exit;
-		}
-
 		// Create tims if missing
 		if (file_exists($photo_dir) && !file_exists($photo_dir . 'tims')) {
 			mkdir($photo_dir . 'tims');
@@ -234,7 +228,11 @@ if (!extension_loaded('exif')) {
 				echo "</select>";
 				echo "</div>";
 			}
-
+			// Check whether $photo_dir directory exists
+			if (!file_exists($photo_dir)) {
+				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> This directory doesn't exist</h3>");
+				exit;
+			}
 			if ($file_count < 1) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> This directory is empty</h3>");
 				exit;
