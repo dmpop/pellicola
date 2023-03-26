@@ -2,6 +2,9 @@
 include('config.php');
 // Check whether the php-exif library is installed
 if (!extension_loaded('gd')) {
+	exit("<center><code style='color: red;'>php-gd is not installed</code></center>");
+}
+if (!extension_loaded('exif')) {
 	exit("<center><code style='color: red;'>php-exif is not installed</code></center>");
 }
 ?>
