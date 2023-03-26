@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-// Check whether the php-exif library is installed
+// Check whether the php-exif and php-gd libraries are installed
 if (!extension_loaded('gd')) {
 	exit("<center><code style='color: red;'>php-gd is not installed</code></center>");
 }
@@ -97,9 +97,9 @@ if (!extension_loaded('exif')) {
 			return false;
 		}
 
-		// Check whether the directory
+		// Check whether $photo_dir directory exists
 		if (!file_exists($photo_dir)) {
-			echo ("<h2 style='margin-top: 2em;'>⚠️ This directory doesn't exist</h2>");
+			echo ("<h3 style='margin-top: 2em;'>⚠️ This directory doesn't exist</h3>");
 			exit;
 		}
 
@@ -206,11 +206,11 @@ if (!extension_loaded('exif')) {
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 
 				echo "<noscript>";
-				echo "<h3>⚠️ Make sure that JavaScript is enabled.</h3>";
+				echo "<h3>⚠️ Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
 
-				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'>Root</a> /&nbsp;";
+				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img src='svg/home.svg'/></a> &rarr;&nbsp;";
 
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
@@ -220,7 +220,7 @@ if (!extension_loaded('exif')) {
 							$higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
 						}
 						$higher_dir_cascade = $higher_dir_cascade . $higher_dir;
-						echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "?d=" . $higher_dir_cascade . "'>" . $higher_dir . "</a> /&nbsp;";
+						echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "?d=" . $higher_dir_cascade . "'>" . $higher_dir . "</a> &rarr;&nbsp;";
 					}
 				}
 
@@ -239,7 +239,7 @@ if (!extension_loaded('exif')) {
 			}
 
 			if ($file_count < 1) {
-				echo ("<h2 style='margin-top: 2em;'>🪣 This directory is empty.</h2>");
+				echo ("<h3 style='margin-top: 2em;'>🪣 This directory is empty</h3>");
 				exit;
 			}
 
