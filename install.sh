@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Author: Dmitri Popov, dmpop@linux.com
+# Author: Dmitri Popov, dmpop@cameracode.coffee
 
 #######################################################################
 # This program is free software: you can redistribute it and/or modify
