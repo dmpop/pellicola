@@ -216,8 +216,8 @@ if (!extension_loaded('exif')) {
 					}
 				}
 
-				echo '<select style="width: 15em; vertical-align: middle;" name="" onchange="javascript:location.href = this.value;">';
-				echo '<option value="Default">Choose album</option>';
+				echo '<select style="min-width: 10em; vertical-align: middle;" name="" onchange="javascript:location.href = this.value;">';
+				echo '<option value="Default">Album</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
 					$dir_option = str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);

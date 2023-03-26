@@ -72,7 +72,16 @@ p.caption {
   text-transform: uppercase;
   background: #fff;
   border: solid;
-  font: .9em "Barlow"
+  font: 0.9em "Barlow";
+}
+
+select {
+  padding: 0.3em;
+  color: #fff;
+  background: #619b8a;
+  border: solid #619b8a;
+  border-radius: 5px;
+  font: "Barlow";
 }
 
 .btn.primary {
@@ -84,7 +93,7 @@ p.caption {
 
 .btn:hover,
 a:hover {
-    opacity: .6
+  opacity: 0.6;
 }
 
 #content {
@@ -109,7 +118,7 @@ a:hover {
   bottom: 0px;
   height: 1.5em;
   width: 100%;
-  background: #3973ac;
+  background: #619b8a;
 }
 
 /* https://www.imarketinx.de/artikel/responsive-image-gallery-with-css-grid.html */
