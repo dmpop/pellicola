@@ -48,7 +48,9 @@ You can add descriptions to photos by creating accompanying _.txt_ files. For ex
 
 ## Author
 
-Dmitri Popov ([dmpop@linux.com](mailto:dmpop@linux.com))
+Dmitri Popov ([dmpop@cameracode.coffee](mailto:dmpop@cameracode.coffee))
+
+Icons: [Tiny icons](https://teenyicons.com/)
 
 ## License
 
