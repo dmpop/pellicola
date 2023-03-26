@@ -3,6 +3,7 @@ body {
   font-size: 1em;
   text-align: justify;
   background-color: #303030;
+  margin-bottom: 1.7em;
 }
 
 a {
@@ -19,7 +20,7 @@ a.superscript {
 h1 {
   color: #e3e3e3;
   font-family: "Barlow", sans-serif;
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: 400;
   text-align: center;
   margin-top: 0.3em;
@@ -80,14 +81,13 @@ p.caption {
 }
 
 .footer {
-  line-height: 2em;
   text-align: center;
   font-family: "Barlow", sans-serif;
   font-size: 0.9em;
   position: fixed;
   left: 0px;
   bottom: 0px;
-  height: 2em;
+  height: 1.5em;
   width: 100%;
   background: #3973ac;
 }

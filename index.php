@@ -348,32 +348,32 @@ if (!extension_loaded('exif')) {
 			}
 			$gps = read_gps_location($file);
 
-			$aperture = $exif['COMPUTED']['ApertureFNumber'];
+			$aperture = $exif['COMPUTED']['ApertureFNumber'] ?? null;
 			if (empty($aperture)) {
 				$aperture = "";
 			} else {
 				$aperture = $aperture . " &bull; ";
 			}
-			$exposure = $exif['EXIF']['ExposureTime'];
+			$exposure = $exif['EXIF']['ExposureTime'] ?? null;
 			if (empty($exposure)) {
 				$exposure = "";
 			} else {
 				$exposure = $exposure . " &bull; ";
 			}
-			$iso = $exif['EXIF']['ISOSpeedRatings'];
+			$iso = $exif['EXIF']['ISOSpeedRatings'] ?? null;
 			if (empty($iso)) {
 				$iso = "";
 			} else {
 				$iso = $iso . " &bull; ";
 			}
-			$datetime = $exif['EXIF']['DateTimeOriginal'];
+			$datetime = $exif['EXIF']['DateTimeOriginal'] ?? null;
 			if (empty($datetime)) {
 				$datetime = "";
 			}
 			if (!isset($exif['COMMENT']['0'])) {
 				$comment = "";
 			} else {
-				$comment = $exif['COMMENT']['0'];
+				$comment = $exif['COMMENT']['0'] ?? null;
 			}
 
 			//Generate map URL. Choose between Google Maps and OpenStreetmap
