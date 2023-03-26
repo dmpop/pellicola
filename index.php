@@ -109,7 +109,7 @@ if (!extension_loaded('exif')) {
 		}
 
 		// Get file info
-		$files = glob($photo_dir . '*.{jpg,jpeg,JPG,JPEG}', GLOB_BRACE);
+		$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
 
 		// Check whether the reversed order option is enabled and sort the array accordingly
 		if ($r_sort) {
@@ -307,7 +307,7 @@ if (!extension_loaded('exif')) {
 
 			//Check if the related RAW file exists and link to it
 			if ($show_raw) {
-				$raw_file = glob($photo_dir . $file_path['filename'] . $raw_formats, GLOB_BRACE);
+				$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 				if (!empty($raw_file)) {
 					echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . ">RAW</a></h1>";
 				} else {
