@@ -113,6 +113,7 @@ if (!extension_loaded('exif')) {
 		// Update count (we might have removed some files)
 		$file_count = count($files);
 
+		// Function that generates tims
 		function createTim($original, $tim, $timWidth)
 		{
 			// Load image
@@ -180,7 +181,6 @@ if (!extension_loaded('exif')) {
 		if ($max > $total) {
 			$max = $total;
 		}
-
 		// Pagination. Calculate total items per page * END
 
 		// The $grid parameter is used to show the main grid
@@ -191,21 +191,18 @@ if (!extension_loaded('exif')) {
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.svg" alt="logo" /></a>';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #ffc03fff;">' . $title . '</h1></a>';
 			echo '</div>';
-			echo "<div class ='center'>" . $tagline . "</div>";
+			echo "<div class ='center' style='color: gray;'>" . $subtitle . "</div>";
 			echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
-
 				echo "<noscript>";
 				echo "<h3><img style='vertical-align: bottom;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
-
 				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img src='svg/home.svg'/></a> &rarr;&nbsp;";
-
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
 				foreach ($higher_dirs as $higher_dir) {

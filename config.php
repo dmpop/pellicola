@@ -1,6 +1,6 @@
 <?php
 $title = "Mejiro";
-$tagline = "Responsive open-source photo grid";
+$subtitle = "Responsive open-source photo grid";
 $per_page = 12; // Number of images per page for pagination
 $footer = "<a style='color: white' href='https://cameracode.coffee'>Camera, code, coffee</a>";
 $base_photo_dir = "photos"; // Directory for storing photos
