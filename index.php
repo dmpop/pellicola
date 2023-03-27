@@ -224,7 +224,6 @@ if (!extension_loaded('exif')) {
 					echo "<option value='?d=" . ltrim($dir_option, '/') . "'>" . $dir_name . "</option>";
 				}
 				echo "</select>";
-				echo "</div>";
 			}
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
@@ -249,9 +248,9 @@ if (!extension_loaded('exif')) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div class="center"><a href="?all=1' . '&d=' . urlencode($sub_photo_dir) . '"><img src="svg/display-grid.svg"/></a></div>';
+				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . '&d=' . urlencode($sub_photo_dir) . '"><img src="svg/display-grid.svg"/></a></div>';
 			}
-
+			echo "</div>";
 			echo '<div class="gallery-grid">';
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {
