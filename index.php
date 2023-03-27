@@ -311,10 +311,12 @@ if (!extension_loaded('exif')) {
 			if ($show_raw) {
 				$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 				if (!empty($raw_file)) {
-					echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . ">RAW</a></h1>";
+					echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . "><img alt='Link to RAW' title='Link to RAW' src='svg/raw.svg'/></a></h1>";
 				} else {
 					echo "<h1>" . $file_path['filename'] . "</h1>";
 				}
+			} else {
+				echo "<h1>" . $file_path['filename'] . "</h1>";
 			}
 
 			// NAVIGATION LINKS
