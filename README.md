@@ -4,9 +4,9 @@ Mejiro is an easy-to-use PHP web app for instant photo publishing.
 
 <img src="mejiro.png" alt="Mejiro">
 
-The [Linux Photography](https://gumroad.com/l/linux-photography) book provides detailed information on using Mejiro. Get your copy at [Google Play Store](https://play.google.com/store/books/details/Dmitri_Popov_Linux_Photography?id=cO70CwAAQBAJ) or [Gumroad](https://gumroad.com/l/linux-photography).
+The [Mejiro for photographers](https://gumroad.com/l/linux-photography) book provides detailed information on installing and using Mejiro. Get your copy at [Gumroad](https://dmpop.gumroad.com/l/mejiro-for-photographers).
 
-<img src="https://tokyoma.de/bookcovers/linux-photography.jpg" title="Linux Photography book" width="200"/>
+<img src="https://cameracode.coffee/uploads/mejiro-for-photographers.png" title="Mejiro for photographers" width="300"/>
 
 ## Features
 
@@ -16,7 +16,7 @@ The [Linux Photography](https://gumroad.com/l/linux-photography) book provides d
 - **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photos per page.
 - **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
 - **Display geographical coordinates on OpenStreetMap** For geotagged photos, you can view their exact locations on OpenStreetMap.
-- **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's *UserComment* EXIF field.
+- **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's _UserComment_ EXIF field.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it. This feature can be disabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
