@@ -21,6 +21,7 @@ The [Mejiro for photographers](https://dmpop.gumroad.com/l/mejiro-for-photograph
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it. This feature can be disabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
 - **Access keys** The application supports access keys for common actions.
+- **GoatCounter integration** Mejiro can be used with [GoatCounter](https://www.goatcounter.com/) web analytics.
 
 ## Requirements
 

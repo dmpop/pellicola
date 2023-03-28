@@ -14,3 +14,5 @@ $urls = array(
 $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,CR2,cr2,DNG,dng'; // Supported RAW formats. Add other formats, if needed
 $img_formats = 'jpg,jpeg,JPG,JPEG';
 $show_raw = true; // Display links to RAW files
+$goatcounter = false; // Toggle integration with GoatCounter web analytics
+$goatcounter_code = "helloxyz"; // Unique GoatCounter code
