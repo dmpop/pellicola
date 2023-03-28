@@ -23,6 +23,11 @@ if [[ $EUID -eq 0 ]]; then
    exit 1
 fi
 
+if [ -z "$(command -v apt)" ]; then
+   echo "Looks like you can't use this script with your system."
+   exit 1
+fi
+
 # Update source and perform the full system upgrade
 sudo apt update
 sudo apt full-upgrade -y
