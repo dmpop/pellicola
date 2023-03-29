@@ -11,6 +11,7 @@ $urls = array(
     array('https://github.com/dmpop/mejiro', 'Mejiro'),
     array('https://www.paypal.com/paypalme/dmpop', 'I 🧡 coffee')
 );
+$download = false; // Toggle photo download
 $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,CR2,cr2,DNG,dng'; // Supported RAW formats. Add other formats, if needed
 $img_formats = 'jpg,jpeg,JPG,JPEG';
 $show_raw = true; // Display links to RAW files

@@ -390,9 +390,14 @@ if (!extension_loaded('exif')) {
 				$caption = $caption . $map_url;
 			}
 
-			$info = "<span style='word-spacing:.1em'>" . $caption . "</span>";
 			// Show photo, EXIF data, description, and info
-			echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $info . '</p>';
+			$info = "<span style='word-spacing:.1em'>" . $caption . "</span>";
+			// Enable the download link if $download = true
+			if ($download) {
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $info . '</p>';
+			} else {
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $info . '</p>';
+			}
 		}
 
 		// Show links
