@@ -203,7 +203,7 @@ if (!extension_loaded('exif')) {
 				echo "<h3><img style='vertical-align: bottom;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
-				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' src='svg/home.svg'/></a> &rarr;&nbsp;";
+				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='Root album' title='Root album' src='svg/home.svg'/></a> &rarr;&nbsp;";
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
 				foreach ($higher_dirs as $higher_dir) {
@@ -248,7 +248,7 @@ if (!extension_loaded('exif')) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . '&d=' . urlencode($sub_photo_dir) . '"><img src="svg/display-grid.svg"/></a></div>';
+				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . '&d=' . urlencode($sub_photo_dir) . '"><img alt="Show all photos" title="Show all photos" src="svg/display-grid.svg"/></a></div>';
 			}
 			echo "</div>";
 			echo '<div class="gallery-grid">';
