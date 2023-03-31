@@ -30,6 +30,14 @@ if (!extension_loaded('exif')) {
 
 <body>
     <div id="content">
+        <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
+            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="logo" /></a>
+            <a style="text-decoration:none;" href="index.php">
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;"><?php echo $title ?></h1>
+            </a>
+        </div>
+        <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
+        <hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">
         <?php
         function rsearch($dir, $excluded, $pattern_array)
         {
@@ -54,9 +62,34 @@ if (!extension_loaded('exif')) {
             //print_r($exif);
             array_push($stats, $exif['Model']);
         }
+        echo "
+        <div class='c'>
+        <h2 style='text-align: left;'>" . L::camera_models . "</h2>
+        <div class='card'>
+        <table>
+        ";
         $count = array_count_values($stats);
+        ksort($count);
         foreach ($count as $key => $value) {
-            echo "$key: $value <br>";
+            echo "<tr><td>$key</td><td>$value</td></tr>";
+        }
+        echo "
+        </table>
+        </div>
+        </div>
+        ";
+        if ($links) {
+            $array_length = count($urls);
+            echo '<div class="footer">';
+            for ($i = 0; $i < $array_length; $i++) {
+                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
+            }
+            echo  $footer . '</div>';
+        } else {
+            echo '<div class="footer">' . $footer . '</div>';
+        }
+        if ($goatcounter) {
+            echo "<script data-goatcounter='https://" . $goatcounter_code . ".goatcounter.com/count' async src='//gc.zgo.at/count.js'></script>";
         }
         ?>
     </div>

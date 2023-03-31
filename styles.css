@@ -6,6 +6,19 @@ body {
   margin-bottom: 2.5em;
 }
 
+.c {
+  max-width: 60em;
+  padding: 1em;
+  margin: auto;
+  font: 1em/1.6
+}
+
+.card,
+pre {
+    padding: 1em;
+    border: 1px solid #cacaca;
+}
+
 a {
   color: #999;
 }
@@ -51,6 +64,12 @@ h3 {
   margin-bottom: 0.5em;
   line-height: 100%;
   letter-spacing: 1;
+}
+
+td,
+th {
+    padding: .3em;
+    text-align: left;
 }
 
 p {
