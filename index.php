@@ -198,9 +198,11 @@ if (!extension_loaded('exif')) {
 			echo '</div>';
 			echo "<div class ='center' style='color: gray;'>" . $subtitle . "</div>";
 			echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
+
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
+			
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 				echo "<noscript>";
