@@ -61,22 +61,22 @@ if (!extension_loaded('exif')) {
 		function read_gps_location($file)
 		{
 			if (is_file($file)) {
-				$info = exif_read_data($file);
+				$exif = exif_read_data($file);
 				if (
-					isset($info['GPSLatitude']) && isset($info['GPSLongitude']) &&
-					isset($info['GPSLatitudeRef']) && isset($info['GPSLongitudeRef']) &&
-					in_array($info['GPSLatitudeRef'], array('E', 'W', 'N', 'S')) && in_array($info['GPSLongitudeRef'], array('E', 'W', 'N', 'S'))
+					isset($exif['GPSLatitude']) && isset($exif['GPSLongitude']) &&
+					isset($exif['GPSLatitudeRef']) && isset($exif['GPSLongitudeRef']) &&
+					in_array($exif['GPSLatitudeRef'], array('E', 'W', 'N', 'S')) && in_array($exif['GPSLongitudeRef'], array('E', 'W', 'N', 'S'))
 				) {
 
-					$GPSLatitudeRef	 = strtolower(trim($info['GPSLatitudeRef']));
-					$GPSLongitudeRef = strtolower(trim($info['GPSLongitudeRef']));
+					$GPSLatitudeRef	 = strtolower(trim($exif['GPSLatitudeRef']));
+					$GPSLongitudeRef = strtolower(trim($exif['GPSLongitudeRef']));
 
-					$lat_degrees_a = explode('/', $info['GPSLatitude'][0]);
-					$lat_minutes_a = explode('/', $info['GPSLatitude'][1]);
-					$lat_seconds_a = explode('/', $info['GPSLatitude'][2]);
-					$lon_degrees_a = explode('/', $info['GPSLongitude'][0]);
-					$lon_minutes_a = explode('/', $info['GPSLongitude'][1]);
-					$lon_seconds_a = explode('/', $info['GPSLongitude'][2]);
+					$lat_degrees_a = explode('/', $exif['GPSLatitude'][0]);
+					$lat_minutes_a = explode('/', $exif['GPSLatitude'][1]);
+					$lat_seconds_a = explode('/', $exif['GPSLatitude'][2]);
+					$lon_degrees_a = explode('/', $exif['GPSLongitude'][0]);
+					$lon_minutes_a = explode('/', $exif['GPSLongitude'][1]);
+					$lon_seconds_a = explode('/', $exif['GPSLongitude'][2]);
 
 					$lat_degrees = $lat_degrees_a[0] / $lat_degrees_a[1];
 					$lat_minutes = $lat_minutes_a[0] / $lat_minutes_a[1];
@@ -377,21 +377,20 @@ if (!extension_loaded('exif')) {
 			//Generate map URL
 			$map_url = " <a href='map.php?lat=" . $gps['lat'] . "&lon=" . $gps['lon'] . "' target='_blank'><img style='vertical-align: text-bottom; margin-left:.5rem;' src='svg/pin.svg'/></a>";
 
-			// Concatenate $caption
-			$caption = $aperture . $exposure . $iso . $datetime;
+			// Concatenate $exif_info
+			$exif_info = $aperture . $exposure . $iso . $datetime;
 
 			// Add the pin icon if the photo contains geographical coordinate
 			if (!empty($gps['lat'])) {
-				$caption = $caption . $map_url;
+				$exif_info = $exif_info . $map_url;
 			}
 
 			// Show photo, EXIF data, description, and info
-			$info = "<span style='word-spacing:.1em'>" . $caption . "</span>";
 			// Enable the download link if $download = true
 			if ($download) {
-				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $info . '</p>';
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</p>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $info . '</p>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt=""><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</p>';
 			}
 		}
 
