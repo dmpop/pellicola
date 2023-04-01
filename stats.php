@@ -37,7 +37,7 @@ if (!extension_loaded('exif')) {
             </a>
         </div>
         <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
-        <hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">
+        <hr>
         <?php
         function rsearch($dir, $excluded, $pattern_array)
         {

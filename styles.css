@@ -77,12 +77,13 @@ p {
   text-align: left;
 }
 
-p.caption {
-  font-size: 1em;
+.caption {
+  font-size: .9em;
   color: #e3e3e3;
   margin-left: auto;
   margin-right: auto;
-  line-height: 1em;
+  margin-top: .5em;
+  line-height: 1.5em;
   text-align: center;
 }
 

@@ -197,7 +197,7 @@ if (!extension_loaded('exif')) {
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray;'>" . $subtitle . "</div>";
-			echo '<hr style="margin-left:15%; margin-right:15%; margin-bottom: 2em;">';
+			echo '<hr style="margin-bottom: 2em;">';
 
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
@@ -357,22 +357,22 @@ if (!extension_loaded('exif')) {
 
 			// Concatenate $exif_info
 			if (!is_null($aperture) || !is_null($exposure) || !is_null($iso) || !is_null($datetime)) {
-				$exif_info = '<img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $exposure . $iso . '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
+				$exif_info = '<img style="margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $exposure . $iso . '<img style="margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
 			}
 
 			// Add the pin icon if the photo contains geographical coordinates
 			if (!empty($gps['lat']) && !empty($gps['lon'])) {
 				//Generate Geo URI
-				$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+				$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 				$exif_info = $exif_info . $map_url;
 			}
 
 			// Show photo, EXIF data, description, and info
 			// Enable the download link if $download = true
 			if ($download) {
-				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</p>';
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><div class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</div>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</p>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</div>';
 			}
 		}
 
