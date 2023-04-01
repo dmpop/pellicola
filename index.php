@@ -377,7 +377,7 @@ if (!extension_loaded('exif')) {
 			}
 
 			//Generate map URL
-			$map_url = " <a href='map.php?lat=" . $gps['lat'] . "&lon=" . $gps['lon'] . "' target='_blank'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+			$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 
 			// Concatenate $exif_info
 			$exif_info = $aperture . $exposure . $iso . $datetime;
