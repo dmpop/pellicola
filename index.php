@@ -202,7 +202,7 @@ if (!extension_loaded('exif')) {
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
-			
+
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 				echo "<noscript>";
@@ -348,33 +348,12 @@ if (!extension_loaded('exif')) {
 			}
 			$gps = read_gps_location($file);
 
-			$aperture = $exif['COMPUTED']['ApertureFNumber'] ?? null;
-			if (empty($aperture)) {
-				$aperture = "";
-			} else {
-				$aperture = $aperture . " &bull; ";
-			}
-			$exposure = $exif['EXIF']['ExposureTime'] ?? null;
-			if (empty($exposure)) {
-				$exposure = "";
-			} else {
-				$exposure = $exposure . " &bull; ";
-			}
-			$iso = $exif['EXIF']['ISOSpeedRatings'] ?? null;
-			if (empty($iso)) {
-				$iso = "";
-			}
-			$datetime = $exif['EXIF']['DateTimeOriginal'] ?? null;
-			if (empty($datetime)) {
-				$datetime = "";
-			} else {
-				$datetime = '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' . $datetime;
-			}
-			if (!isset($exif['COMMENT']['0'])) {
-				$comment = "";
-			} else {
-				$comment = $exif['COMMENT']['0'] ?? null;
-			}
+			// Get aperture, exposure, iso, and datetime from EXIF
+			$aperture = (is_null($exif['COMPUTED']['ApertureFNumber']) ? null : $exif['COMPUTED']['ApertureFNumber']);
+			$exposure = (is_null($exif['EXIF']['ExposureTime']) ? null : " &bull; " . $exif['EXIF']['ExposureTime']);
+			$iso = (is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " &bull; " . $exif['EXIF']['ISOSpeedRatings']);
+			$datetime = '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' . $exif['EXIF']['DateTimeOriginal'] ?? null;
+			$comment = $exif['COMMENT']['0'] ?? null;
 
 			//Generate map URL
 			$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
