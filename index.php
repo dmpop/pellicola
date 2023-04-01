@@ -370,9 +370,9 @@ if (!extension_loaded('exif')) {
 			// Show photo, EXIF data, description, and info
 			// Enable the download link if $download = true
 			if ($download) {
-				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><div class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</div>';
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . '<a href="delete.php?file=' . $file . '&raw=' . $raw_file[0] . '"><img style="margin-left: 1em;" src="svg/bin.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a></div>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</div>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . '<a href="delete.php?file=' . $file . '&raw=' . $raw_file[0] . '"><img style="margin-left: 1em;" src="svg/bin.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a></div>';
 			}
 		}
 

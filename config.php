@@ -1,6 +1,7 @@
 <?php
 $title = "Mejiro";
 $subtitle = "Responsive open-source photo grid";
+$password = "secret"; // Password to delete photos
 $base_photo_dir = "photos"; // Directory for storing photos
 $per_page = 12; // Number of images per page for pagination
 $r_sort = false; // Set to true to show photos in the reversed order (oldest ot newest)

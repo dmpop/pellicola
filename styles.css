@@ -15,7 +15,7 @@ body {
 
 .card,
 pre {
-    padding: 1em;
+    padding: .7em;
     border: 1px solid #cacaca;
 }
 
@@ -87,14 +87,6 @@ p {
   text-align: center;
 }
 
-.btn {
-  padding: 1em;
-  text-transform: uppercase;
-  background: #fff;
-  border: solid;
-  font: 0.9em "Barlow";
-}
-
 select {
   padding: 0.3em;
   color: #fff;
@@ -104,11 +96,25 @@ select {
   font: "Barlow";
 }
 
+.btn {
+  padding: .5em;
+  text-transform: uppercase;
+  background: #fff;
+  border: solid;
+  font: 0.9em "Barlow";
+  font-weight: 700;
+}
+
 .btn.primary {
   color: #fff;
   background: #619b8a;
   border: solid #619b8a;
-  border-radius: 5px;
+}
+
+.btn.warning {
+  color: #fff;
+  background: #ff0000;
+  border: solid #ff0000;
 }
 
 .btn:hover,
