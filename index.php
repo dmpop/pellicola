@@ -352,26 +352,28 @@ if (!extension_loaded('exif')) {
 			$aperture = (is_null($exif['COMPUTED']['ApertureFNumber']) ? null : $exif['COMPUTED']['ApertureFNumber']);
 			$exposure = (is_null($exif['EXIF']['ExposureTime']) ? null : " &bull; " . $exif['EXIF']['ExposureTime']);
 			$iso = (is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " &bull; " . $exif['EXIF']['ISOSpeedRatings']);
-			$datetime = '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' . $exif['EXIF']['DateTimeOriginal'] ?? null;
+			$datetime = $exif['EXIF']['DateTimeOriginal'] ?? null;
 			$comment = $exif['COMMENT']['0'] ?? null;
 
 			//Generate map URL
 			$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 
 			// Concatenate $exif_info
-			$exif_info = $aperture . $exposure . $iso . $datetime;
+			if (!is_null($aperture) || !is_null($exposure) || !is_null($iso) || !is_null($datetime)) {
+				$exif_info = '<img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $exposure . $iso . '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
+			}
 
 			// Add the pin icon if the photo contains geographical coordinate
-			if (!empty($gps['lat'])) {
+			if (!empty($gps['lat']) && !empty($gps['lon'])) {
 				$exif_info = $exif_info . $map_url;
 			}
 
 			// Show photo, EXIF data, description, and info
 			// Enable the download link if $download = true
 			if ($download) {
-				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption"><img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $exif_info . '</p>';
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</p>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption"><img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $exif_info . '</p>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption">' . $exif_info . '</p>';
 			}
 		}
 
