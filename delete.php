@@ -38,11 +38,12 @@ $raw = $_GET['raw'] ?? null;
         <hr>
         <div class='c'>
             <div class='card' style="text-align: center;">
-                <form style="margin-top: .7em;" action=" " method="POST">
+                <form style="margin-top: .7em; display: inline;" action=" " method="POST">
                     <label for="password"><?php echo L::password; ?></label>
                     <input style="vertical-align: middle;" class="card" type='password' name='password' value=''>
-                        <button style="vertical-align: middle;" class="btn warning" type="submit" name="delete"><?php echo L::img_delete; ?></button>
+                    <button style="display: inline; vertical-align: middle;" class="btn warning" type="submit" name="delete"><?php echo L::btn_delete; ?></button>
                 </form>
+                <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
             </div>
         </div>
     </div>
