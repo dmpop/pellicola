@@ -209,7 +209,7 @@ if (!extension_loaded('exif')) {
 				echo "<h3><img style='vertical-align: bottom;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
-				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='" . L::root_album . "' title='" . L::root_album . "' src='svg/home.svg'/></a> &rarr;&nbsp;";
+				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='" . L::img_root_album . "' title='" . L::img_root_album . "' src='svg/home.svg'/></a> &rarr;&nbsp;";
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
 				foreach ($higher_dirs as $higher_dir) {
@@ -245,7 +245,7 @@ if (!extension_loaded('exif')) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . "&d=" . urlencode($sub_photo_dir) . '"><img alt="' . L::show_all . '" title="' . L::show_all . '" src="svg/display-grid.svg"/></a></div>';
+				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . "&d=" . urlencode($sub_photo_dir) . '"><img alt="' . L::img_show_all . '" title="' . L::img_show_all . '" src="svg/display-grid.svg"/></a></div>';
 			}
 			echo "</div>";
 			echo '<div class="gallery-grid">';
@@ -307,7 +307,7 @@ if (!extension_loaded('exif')) {
 			if ($show_raw) {
 				$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 				if (!empty($raw_file)) {
-					echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . "><img alt='" . L::link_raw . "' title='" . L::link_raw . "' src='svg/raw.svg'/></a></h1>";
+					echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . "><img alt='" . L::img_link_raw . "' title='" . L::img_link_raw . "' src='svg/raw.svg'/></a></h1>";
 				} else {
 					echo "<h1>" . $file_path['filename'] . "</h1>";
 				}
@@ -368,7 +368,7 @@ if (!extension_loaded('exif')) {
 			if (empty($datetime)) {
 				$datetime = "";
 			} else {
-				$datetime = '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::alt_title_date . '" title="' . L::alt_title_date . '"/>' . $datetime;
+				$datetime = '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' . $datetime;
 			}
 			if (!isset($exif['COMMENT']['0'])) {
 				$comment = "";
@@ -377,7 +377,7 @@ if (!extension_loaded('exif')) {
 			}
 
 			//Generate map URL
-			$map_url = " <a href='map.php?lat=" . $gps['lat'] . "&lon=" . $gps['lon'] . "' target='_blank'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::alt_title_map . "' title='" . L::alt_title_map . "'/></a>";
+			$map_url = " <a href='map.php?lat=" . $gps['lat'] . "&lon=" . $gps['lon'] . "' target='_blank'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 
 			// Concatenate $exif_info
 			$exif_info = $aperture . $exposure . $iso . $datetime;
@@ -390,9 +390,9 @@ if (!extension_loaded('exif')) {
 			// Show photo, EXIF data, description, and info
 			// Enable the download link if $download = true
 			if ($download) {
-				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption"><img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::alt_title_exif . '" title="' . L::alt_title_exif . '"/>' . $exif_info . '</p>';
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption"><img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $exif_info . '</p>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption"><img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::alt_title_exif . '" title="' . L::alt_title_exif . '"/>' . $exif_info . '</p>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><p class="caption">' . $comment . ' ' . $description . '</div><p class="caption"><img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $exif_info . '</p>';
 			}
 		}
 
