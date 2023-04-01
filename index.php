@@ -280,16 +280,16 @@ if (!extension_loaded('exif')) {
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && isset($_GET["photo"]) == '') {
-				echo '<a color: #e3e3e3;" href="?page=' . "1" . "&d=" . htmlentities($sub_photo_dir) . '"><img style="margin-right:1em;" src="svg/arrow-up.svg"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . "1" . "&d=" . htmlentities($sub_photo_dir) . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
 			if ($current_page > 1 && isset($_GET["photo"]) == '') {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . "&d=" . htmlentities($sub_photo_dir) . '"><img style="margin-right:1em;" src="svg/arrow-left.svg"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . "&d=" . htmlentities($sub_photo_dir) . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
 			if ($current_page < $last_page && isset($_GET["photo"]) == '') {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . "&d=" . htmlentities($sub_photo_dir) . '"><img style="margin-right:1em;" src="svg/arrow-right.svg"/></a>';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . "&d=" . htmlentities($sub_photo_dir) . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
 			if ($current_page != $last_page && isset($_GET["photo"]) == '') {
-				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . "&d=" . htmlentities($sub_photo_dir) . '"><img src="svg/arrow-down.svg"/></a>';
+				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . "&d=" . htmlentities($sub_photo_dir) . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
 		}

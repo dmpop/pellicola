@@ -6,7 +6,6 @@ $i18n = new i18n('lang/{LANGUAGE}.ini', 'cache/', 'en');
 $i18n->init();
 $file = $_GET['file'];
 $raw = $_GET['raw'] ?? null;
-echo $file;
 ?>
 
 <!DOCTYPE html>
