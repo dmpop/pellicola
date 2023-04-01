@@ -355,16 +355,15 @@ if (!extension_loaded('exif')) {
 			$datetime = $exif['EXIF']['DateTimeOriginal'] ?? null;
 			$comment = $exif['COMMENT']['0'] ?? null;
 
-			//Generate map URL
-			$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
-
 			// Concatenate $exif_info
 			if (!is_null($aperture) || !is_null($exposure) || !is_null($iso) || !is_null($datetime)) {
 				$exif_info = '<img style="vertical-align: baseline; margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $exposure . $iso . '<img style="vertical-align: baseline; margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
 			}
 
-			// Add the pin icon if the photo contains geographical coordinate
+			// Add the pin icon if the photo contains geographical coordinates
 			if (!empty($gps['lat']) && !empty($gps['lon'])) {
+				//Generate Geo URI
+				$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='vertical-align: baseline; margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 				$exif_info = $exif_info . $map_url;
 			}
 
