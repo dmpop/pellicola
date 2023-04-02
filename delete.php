@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-// include i18n class and initialize it
+// Include i18n class and initialize it
 require_once 'i18n.class.php';
 $i18n = new i18n();
 $i18n->setCachePath('cache');
