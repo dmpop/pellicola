@@ -93,6 +93,9 @@ if (!extension_loaded('exif')) {
             echo "<script data-goatcounter='https://" . $goatcounter_code . ".goatcounter.com/count' async src='//gc.zgo.at/count.js'></script>";
         }
         ?>
+        <div class="center">
+            <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
+        </div>
     </div>
 </body>
 
