@@ -2,8 +2,11 @@
 include('config.php');
 // include i18n class and initialize it
 require_once 'i18n.class.php';
-$i18n = new i18n('lang/{LANGUAGE}.ini', 'cache/', $language);
+$i18n = new i18n();
+$i18n->setCachePath('cache');
+$i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
+$i18n->setForcedLang($language);
 $i18n->init();
 // Check whether the php-exif library is installed
 if (!extension_loaded('exif')) {

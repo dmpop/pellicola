@@ -52,7 +52,10 @@ You can add descriptions to photos by creating accompanying _.txt_ files. For ex
 
 Dmitri Popov ([dmpop@cameracode.coffee](mailto:dmpop@cameracode.coffee))
 
-Icons: [Teeny icons](https://teenyicons.com/)
+## Acknowledgments
+
+- Icons: [Teeny icons](https://teenyicons.com/)
+- Internationalization: [php-i18n](https://github.com/Philipp15b/php-i18n)
 
 ## License
 
