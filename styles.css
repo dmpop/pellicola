@@ -102,7 +102,7 @@ select {
   background: #fff;
   border: solid;
   font: 0.9em "Barlow";
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .btn.primary {
@@ -184,7 +184,22 @@ a:hover {
 
 @font-face {
   font-family: "Barlow";
-  font-weight: 400;
   font-style: normal;
   src: url("fonts/Barlow-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("fonts/Barlow-Bold.woff2");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("fonts/Barlow-Italic.woff2");
+  font-style: italic;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("fonts/Barlow-BoldItalic.woff2");
+  font-weight: bold;
+  font-style: italic;
 }
