@@ -14,15 +14,13 @@ if (!extension_loaded('gd')) {
 if (!extension_loaded('exif')) {
 	exit("<center><code style='color: red;'>" . L::warning_php_exif . "</code></center>");
 }
-// Detect browser language
-$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 // Time allowed the script to run. Generating tims can take time,
 // and increasing the time limit prevents the script from ending prematurely
 set_time_limit(600);
 ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo $language; ?>">
+<html lang="<?php echo $i18n->getAppliedLang(); ?>">
 
 <!--
 	 Author: Dmitri Popov
@@ -339,8 +337,8 @@ set_time_limit(600);
 			}
 
 			// Check whether the localized description file matching the browser language exists
-			if (file_exists($photo_dir . $language . '-' . $file_path['filename'] . '.txt')) {
-				$description = @file_get_contents($photo_dir . $language . '-' . $file_path['filename'] . '.txt');
+			if (file_exists($photo_dir . $i18n->getAppliedLang() . '-' . $file_path['filename'] . '.txt')) {
+				$description = @file_get_contents($photo_dir . $i18n->getAppliedLang() . '-' . $file_path['filename'] . '.txt');
 				// If the localized description file doesn't exist, use the default one
 			} else {
 				$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');

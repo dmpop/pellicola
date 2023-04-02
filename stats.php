@@ -11,12 +11,10 @@ $i18n->init();
 if (!extension_loaded('exif')) {
     exit("<center><code style='color: red;'>" . L::warning_php_exif . "</code></center>");
 }
-// Detect browser language
-$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo $language; ?>">
+<html lang="<?php echo $i18n->getAppliedLang(); ?>">
 
 <!--
 	 Author: Dmitri Popov
