@@ -2,14 +2,15 @@
 include('config.php');
 // include i18n class and initialize it
 require_once 'i18n.class.php';
-$i18n = new i18n('lang/{LANGUAGE}.ini', 'cache/', 'en');
+$i18n = new i18n('lang/{LANGUAGE}.ini', 'cache/', $language);
 $i18n->init();
+$i18n->setFallbackLang('en');
 $file = $_GET['file'];
 $raw = $_GET['raw'] ?? null;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $language; ?>">
 
 <!--
 	 Author: Dmitri Popov

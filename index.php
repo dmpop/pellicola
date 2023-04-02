@@ -2,7 +2,8 @@
 include('config.php');
 // include i18n class and initialize it
 require_once 'i18n.class.php';
-$i18n = new i18n('lang/{LANGUAGE}.ini', 'cache/', 'en');
+$i18n = new i18n('lang/{LANGUAGE}.ini', 'cache/', $language);
+//$i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif and php-gd libraries are installed
 if (!extension_loaded('gd')) {
@@ -14,7 +15,7 @@ if (!extension_loaded('exif')) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $language; ?>">
 
 <!--
 	 Author: Dmitri Popov
@@ -33,7 +34,6 @@ if (!extension_loaded('exif')) {
 
 <body>
 	<div id="content">
-
 		<?php
 
 		// Time allowed the script to run. Generating tims can take time,
