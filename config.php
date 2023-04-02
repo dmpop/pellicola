@@ -1,7 +1,6 @@
 <?php
 $title = "Mejiro";
 $subtitle = "Responsive open-source photo grid";
-$language = "en"; // Interface language
 $password = "secret"; // Password to delete photos
 $base_photo_dir = "photos"; // Directory for storing photos
 $per_page = 12; // Number of images per page for pagination

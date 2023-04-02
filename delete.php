@@ -6,8 +6,9 @@ $i18n = new i18n();
 $i18n->setCachePath('cache');
 $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
-$i18n->setForcedLang($language);
 $i18n->init();
+// Detect browser language
+$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 $file = $_GET['file'];
 $raw = $_GET['raw'] ?? null;
 ?>

@@ -6,7 +6,6 @@ $i18n = new i18n();
 $i18n->setCachePath('cache');
 $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
-$i18n->setForcedLang($language);
 $i18n->init();
 // Check whether the php-exif and php-gd libraries are installed
 if (!extension_loaded('gd')) {
@@ -15,6 +14,11 @@ if (!extension_loaded('gd')) {
 if (!extension_loaded('exif')) {
 	exit("<center><code style='color: red;'>" . L::warning_php_exif . "</code></center>");
 }
+// Detect browser language
+$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+// Time allowed the script to run. Generating tims can take time,
+// and increasing the time limit prevents the script from ending prematurely
+set_time_limit(600);
 ?>
 
 <!DOCTYPE html>
@@ -38,14 +42,6 @@ if (!extension_loaded('exif')) {
 <body>
 	<div id="content">
 		<?php
-
-		// Time allowed the script to run. Generating tims can take time,
-		// and increasing the time limit prevents the script from ending prematurely
-		set_time_limit(600);
-
-		// Detect browser language
-		$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-
 		// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
 		//  The $d parameter is used to detect a subdirectory
 		if (isset($_GET['d'])) {
@@ -248,7 +244,7 @@ if (!extension_loaded('exif')) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . "&d=" . urlencode($sub_photo_dir) . '"><img alt="' . L::img_show_all . '" title="' . L::img_show_all . '" src="svg/display-grid.svg"/></a></div>';
+				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . "&d=" . urlencode($sub_photo_dir) . '"><img src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a></div>';
 			}
 			echo "</div>";
 			echo '<div class="gallery-grid">';
