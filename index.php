@@ -49,6 +49,10 @@ set_time_limit(600);
 		} else {
 			$sub_photo_dir = null;
 		}
+		// Create $base_photo_dir if it doesn't exist
+		if (!file_exists($base_photo_dir)) {
+			mkdir($base_photo_dir, 0755, true);
+		}
 		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
 
 		/*
@@ -195,14 +199,16 @@ set_time_limit(600);
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="Mejiro" /></a>';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
-			echo "<div class ='center' style='color: gray;'>" . $subtitle . "</div>";
+			echo "<div class ='center' style='color: gray; margin-bottom: 1em;'>" . $subtitle . "</div>";
 			echo "<div class ='center'>";
-			// Display the grid icon if there are several pages
+			// Show stats icon
+			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
+			// Show the grid icon if there are several pages
 			if (!isset($_GET["all"])) {
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<a href="?all=1' . $and_d . '"><img src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
+				echo '<a href="?all=1' . $and_d . '"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
 			echo "</div>";
 			echo '<hr style="margin-bottom: 2em;">';

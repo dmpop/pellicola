@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 // include i18n class and initialize it
-require_once 'i18n.claIs.php';
+require_once 'i18n.class.php';
 $i18n = new i18n();
 $i18n->setCachePath('cache');
 $i18n->setFilePath('lang/{LANGUAGE}.ini');
@@ -57,7 +57,8 @@ if (!extension_loaded('exif')) {
             return $return;
         }
 
-        $files = rsearch($base_photo_dir, 'tims', array('jpg', 'jpeg', 'jpeg', 'JPEG'));
+        $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
+        $raw_files = rsearch($base_photo_dir, 'tims', explode(',', $raw_formats));
 
         $stats = array();
         foreach ($files as $file) {
@@ -67,7 +68,7 @@ if (!extension_loaded('exif')) {
         }
         echo "
         <div class='c'>
-        <h2 style='text-align: left;'>" . L::camera_models . "</h2>
+        <h2 style='text-align: left;'>" . L::cameras . "</h2>
         <div class='card'>
         <table>
         ";
@@ -76,6 +77,15 @@ if (!extension_loaded('exif')) {
         foreach ($count as $key => $value) {
             echo "<tr><td>$key</td><td>$value</td></tr>";
         }
+        echo "
+        </table>
+        </div>
+        <h2 style='text-align: left;'>" . L::stats . "</h2>
+        <div class='card'>
+        <table>
+        ";
+        echo "<tr><td>" . L::stats_photos . "</td><td>" . count($files) . "</td></tr>";
+        echo "<tr><td>" . L::stats_raw_files . "</td><td>" . count($raw_files) . "</td></tr>";
         echo "
         </table>
         </div>

@@ -20,6 +20,7 @@ The [Mejiro for photographers](https://dmpop.gumroad.com/l/mejiro-for-photograph
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it. This feature can be disabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
+- **Statistics** View basic statistics: camera models and the total number of photos and RAW files.
 - **Access keys** The application supports access keys for common actions.
 - **Internationalization** support. The application automatically detects and picks the right language. Localizing Mejiro is a matter of translating a handful of text strings in a dedicated _.ini_ file.
 - **GoatCounter integration** Mejiro can be used with [GoatCounter](https://www.goatcounter.com/) web analytics.
