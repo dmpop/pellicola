@@ -242,7 +242,7 @@ set_time_limit(600);
 				$all = null;
 			}
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . "&d=" . urlencode($sub_photo_dir) . '"><img src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a></div>';
+				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . "&d=" . htmlentities($sub_photo_dir) . '"><img src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a></div>';
 			}
 			echo "</div>";
 			echo '<div class="gallery-grid">';
@@ -301,8 +301,8 @@ set_time_limit(600);
 			$file_path = pathinfo($file);
 
 			//Check if the related RAW file exists and link to it
+			$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 			if ($show_raw) {
-				$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 				if (!empty($raw_file)) {
 					echo "<h1>" . $file_path['filename'] . " <a class='superscript' href=" . $raw_file[0] . "><img alt='" . L::img_link_raw . "' title='" . L::img_link_raw . "' src='svg/raw.svg'/></a></h1>";
 				} else {
@@ -366,10 +366,11 @@ set_time_limit(600);
 
 			// Show photo, EXIF data, description, and info
 			// Enable the download link if $download = true
+			$raw = (!empty($raw_file[0]) ? '&raw=' .  $raw_file[0] : null);
 			if ($download) {
-				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . '<a href="delete.php?file=' . $file . '&raw=' . $raw_file[0] . '"><img style="margin-left: 1em;" src="svg/bin.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a></div>';
+				echo '<div class="center"><a href="' . htmlentities($file) . '" download><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . '<a href="delete.php?file=' . $file . $raw . '"><img style="margin-left: 1em;" src="svg/bin.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a></div>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . '<a href="delete.php?file=' . $file . '&raw=' . $raw_file[0] . '"><img style="margin-left: 1em;" src="svg/bin.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a></div>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . '<a href="delete.php?file=' . $file . $raw . '"><img style="margin-left: 1em;" src="svg/bin.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a></div>';
 			}
 		}
 
