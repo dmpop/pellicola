@@ -196,6 +196,15 @@ set_time_limit(600);
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray;'>" . $subtitle . "</div>";
+			echo "<div class ='center'>";
+			// Display the grid icon if there are several pages
+			if (!isset($_GET["all"])) {
+				$all = null;
+			}
+			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
+				echo '<a href="?all=1' . $and_d . '"><img src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
+			}
+			echo "</div>";
 			echo '<hr style="margin-bottom: 2em;">';
 
 			// Create an array with all subdirectories
@@ -230,6 +239,7 @@ set_time_limit(600);
 				}
 				echo "</select>";
 			}
+			echo "</div>";
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> " . L::warning_no_album . "</h3>");
@@ -239,14 +249,6 @@ set_time_limit(600);
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> " . L::warning_empty_album . "</h3>");
 				exit;
 			}
-
-			if (!isset($_GET["all"])) {
-				$all = null;
-			}
-			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<div style="display: inline; margin-left: 1em; vertical-align: middle;"><a href="?all=1' . $and_d . '"><img src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a></div>';
-			}
-			echo "</div>";
 			echo '<div class="gallery-grid">';
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {
@@ -271,11 +273,11 @@ set_time_limit(600);
 		}
 
 		if (isset($_GET["all"]) != 1) {
-			show_pagination($page, $last_page, $sub_photo_dir); // Pagination. Show navigation on bottom of page
+			show_pagination($page, $last_page, $and_d, $sub_photo_dir); // Pagination. Show navigation on bottom of page
 		}
 
 		//Pagination. Create the navigation links * START
-		function show_pagination($current_page, $last_page, $sub_photo_dir)
+		function show_pagination($current_page, $last_page, $and_d, $sub_photo_dir)
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && isset($_GET["photo"]) == '') {
