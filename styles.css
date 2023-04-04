@@ -101,6 +101,8 @@ select {
   text-transform: uppercase;
   background: #fff;
   border: solid;
+  border-radius: 5px;
+  min-width: 5em;
   font: 0.9em "Barlow";
   font-weight: bold;
 }
