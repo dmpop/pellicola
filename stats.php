@@ -49,7 +49,7 @@ if (!extension_loaded('exif')) {
             foreach (new RecursiveIteratorIterator($iti) as $file => $details) {
                 if (!is_file($iti->getBasename()) && ($iti->getBasename() != $excluded)) {
                     $file_ext = pathinfo($file, PATHINFO_EXTENSION);
-                    if (in_array(strtolower($file_ext), $pattern_array)) {
+                    if (in_array($file_ext, $pattern_array)) {
                         $return[] = $file;
                     }
                 }
@@ -58,7 +58,6 @@ if (!extension_loaded('exif')) {
         }
 
         $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
-        $raw_files = rsearch($base_photo_dir, 'tims', explode(',', $raw_formats));
 
         $stats = array();
         foreach ($files as $file) {
@@ -77,15 +76,6 @@ if (!extension_loaded('exif')) {
         foreach ($count as $key => $value) {
             echo "<tr><td>$key</td><td>$value</td></tr>";
         }
-        echo "
-        </table>
-        </div>
-        <h2 style='text-align: left;'>" . L::stats . "</h2>
-        <div class='card'>
-        <table>
-        ";
-        echo "<tr><td>" . L::stats_photos . "</td><td>" . count($files) . "</td></tr>";
-        echo "<tr><td>" . L::stats_raw_files . "</td><td>" . count($raw_files) . "</td></tr>";
         echo "
         </table>
         </div>
