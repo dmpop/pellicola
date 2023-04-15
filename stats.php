@@ -11,6 +11,38 @@ $i18n->init();
 if (!extension_loaded('exif')) {
     exit("<center><code style='color: red;'>" . L::warning_php_exif . "</code></center>");
 }
+
+class DiskSpaceCheck
+{
+    public $total_space = false;
+    public $free_space = false;
+    public $used_space = false;
+    public $percent = false;
+
+    function __construct($directory = null)
+    {
+        if ($directory === null) {
+            $directory = dirname(__FILE__);
+        }
+        $this->total_space     = disk_total_space($directory);
+        $this->free_space     = disk_free_space($directory);
+        $this->used_space     = $this->total_space - $this->free_space;
+        $this->percent         = (($this->used_space / $this->total_space) * 100);
+    }
+
+    function formatBytes($bytes, $precision = 2)
+    {
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= pow(1024, $pow);
+
+        return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +111,6 @@ if (!extension_loaded('exif')) {
         echo "
         </table>
         </div>
-        </div>
         ";
         if ($links) {
             $array_length = count($urls);
@@ -95,6 +126,17 @@ if (!extension_loaded('exif')) {
             echo "<script data-goatcounter='https://" . $goatcounter_code . ".goatcounter.com/count' async src='//gc.zgo.at/count.js'></script>";
         }
         ?>
+        <h2 style='text-align: left;'><?php echo L::storage; ?></h2>
+        <div class="card">
+        <?php
+        $disk = new DiskSpaceCheck(dirname(__FILE__));
+        ?>
+        <table>
+        <tr><td><?php echo L::total_storage; ?> </td><td><?php echo $disk->formatBytes($disk->total_space); ?></td></tr>
+        <tr><td><?php echo L::used_storage; ?> </td><td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td></tr>
+        </table>
+        </div>
+    </div>
         <div class="center">
             <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
         </div>
