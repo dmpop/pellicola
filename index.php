@@ -220,7 +220,7 @@ set_time_limit(600);
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 				echo "<noscript>";
-				echo "<h3><img style='vertical-align: bottom;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
+				echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
 				echo '<div class="center">';
 				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='" . L::img_root_album . "' title='" . L::img_root_album . "' src='svg/home.svg'/></a> &rarr;&nbsp;";
@@ -248,11 +248,11 @@ set_time_limit(600);
 			echo "</div>";
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
-				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> " . L::warning_no_album . "</h3>");
+				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
 				exit;
 			}
 			if ($file_count < 1) {
-				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: bottom;' src='svg/denied.svg'/> " . L::warning_empty_album . "</h3>");
+				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty_album . "</h3>");
 				exit;
 			}
 			echo '<div class="gallery-grid">';
