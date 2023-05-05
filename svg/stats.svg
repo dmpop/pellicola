@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 15 15"
+   width="20"
+   height="20"
+   stroke-width="2"
+   viewBox="0 0 20 20"
    fill="none"
-   width="15"
-   height="15"
+   color="#000000"
    version="1.1"
    id="svg4"
-   sodipodi:docname="stats.svg"
+   sodipodi:docname="reports.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,9 +25,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="55.266667"
-     inkscape:cx="7.490953"
-     inkscape:cy="7.5"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="31.041667"
+     inkscape:cx="10.002685"
+     inkscape:cy="10.002685"
      inkscape:window-width="1920"
      inkscape:window-height="1012"
      inkscape:window-x="0"
@@ -33,8 +39,9 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4" />
   <path
-     d="M0 14.5h15M5.5 12V6m4 6V3m4 9V0m-12 9v3"
-     stroke="currentColor"
+     d="m 7,19 h 6 m -6,0 v -5 m 0,5 H 1.6 A 0.6,0.6 0 0 1 1,18.4 V 14.6 A 0.6,0.6 0 0 1 1.6,14 H 7 m 6,5 V 7 m 0,12 h 5.4 A 0.6,0.6 0 0 0 19,18.4 V 1.6 A 0.6,0.6 0 0 0 18.4,1 H 13.6 A 0.6,0.6 0 0 0 13,1.6 V 7 m 0,0 H 7.6 A 0.6,0.6 0 0 0 7,7.6 V 14"
+     stroke="#000000"
+     stroke-width="2"
      id="path2"
-     style="stroke:#0ce90c;stroke-opacity:1" />
+     style="stroke:#3eb100;stroke-opacity:1" />
 </svg>

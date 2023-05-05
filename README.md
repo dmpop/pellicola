@@ -55,7 +55,7 @@ Dmitri Popov ([dmpop@cameracode.coffee](mailto:dmpop@cameracode.coffee))
 
 ## Acknowledgments
 
-- Icons: [Teeny icons](https://teenyicons.com/)
+- Icons: [Iconoir](https://iconoir.com/)
 - Internationalization: [php-i18n](https://github.com/Philipp15b/php-i18n)
 
 ## License
