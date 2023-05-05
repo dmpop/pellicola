@@ -337,7 +337,7 @@ set_time_limit(600);
 			}
 			// Disable the Next link if this is the LAST photo
 			elseif (empty($files[$key + 1])) {
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $d . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . $and_d . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . $d .  "&photo=" . $files[$key - 1] . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $d . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $first_photo . $and_d . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?photo=" . $files[$key - 1] . $and_d . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
 			}
 			// Show all navigation links
 			else {
@@ -356,7 +356,21 @@ set_time_limit(600);
 
 			// Get aperture, exposure, iso, and datetime from EXIF
 			$aperture = (is_null($exif['COMPUTED']['ApertureFNumber']) ? null : $exif['COMPUTED']['ApertureFNumber']);
-			$exposure = (is_null($exif['EXIF']['ExposureTime']) ? null : " &bull; " . $exif['EXIF']['ExposureTime']);
+			$exposure = (is_null($exif['EXIF']['ExposureTime']) ? null : $exif['EXIF']['ExposureTime']);
+			// Normalize exposure
+			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
+			if (!is_null($exposure)) {
+				$parts = explode("/", $exposure);
+				if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
+					$exposure = ' &bull; 1/' . round($parts[1] / $parts[0], 0);
+				} else {
+					if ($parts[1] == 1) {
+						$exposure = ' &bull; ' . $parts[0];
+					} else {
+						$exposure = ' &bull; ' . $parts[0] . '/' . $parts[1];
+					}
+				}
+			}
 			$iso = (is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " &bull; " . $exif['EXIF']['ISOSpeedRatings']);
 			$datetime = $exif['EXIF']['DateTimeOriginal'] ?? null;
 			$comment = $exif['COMMENT']['0'] ?? null;
