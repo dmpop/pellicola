@@ -106,8 +106,8 @@ set_time_limit(600);
 		}
 
 		// Create tims if missing
-		if (file_exists($photo_dir) && !file_exists($photo_dir . 'tims')) {
-			mkdir($photo_dir . 'tims');
+		if (file_exists($photo_dir) && !file_exists($photo_dir . '.tims')) {
+			mkdir($photo_dir . '.tims');
 		}
 
 		// Get file info
@@ -156,7 +156,7 @@ set_time_limit(600);
 		// Generate missing tims
 		for ($i = 0; $i < $file_count; $i++) {
 			$file  = $files[$i];
-			$tim = $photo_dir . 'tims/' . basename($file);
+			$tim = $photo_dir . '.tims/' . basename($file);
 
 			if (!file_exists($tim)) {
 				// Generate tims
@@ -215,7 +215,7 @@ set_time_limit(600);
 
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
-			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . "tims"));
+			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . ".tims"));
 
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
@@ -259,7 +259,7 @@ set_time_limit(600);
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
-					$tim = $photo_dir . 'tims/' . basename($file);
+					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
 					echo '<a href="index.php?all=1&photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
@@ -268,7 +268,7 @@ set_time_limit(600);
 			} else {
 				for ($i = $offset; $i < $max; $i++) {
 					$file = $files[$i];
-					$tim = $photo_dir . 'tims/' . basename($file);
+					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
 					echo '<a href="index.php?all=1&photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
@@ -306,7 +306,7 @@ set_time_limit(600);
 		$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
-			$tim = $photo_dir . 'tims/' . basename($file);
+			$tim = $photo_dir . '.tims/' . basename($file);
 			$exif = exif_read_data($file, 0, true);
 			$file_path = pathinfo($file);
 
