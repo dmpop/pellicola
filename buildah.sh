@@ -2,7 +2,7 @@
 
 container=$(buildah from opensuse/leap)
 buildah run $container zypper update
-buildah run $container zypper -n install php7 php7-gd
+buildah run $container zypper -n install php7 php7-gd php-exif
 buildah copy $container . /usr/src/mejiro/
 buildah config --workingdir /usr/src/mejiro $container
 buildah config --port 8000 $container
