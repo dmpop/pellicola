@@ -245,7 +245,6 @@ set_time_limit(600);
 				}
 				echo "</select>";
 			}
-			echo "</div>";
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
@@ -255,6 +254,13 @@ set_time_limit(600);
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty_album . "</h3>");
 				exit;
 			}
+			// Show the content of the description.txt file if it exists in the album
+			if (file_exists($photo_dir . DIRECTORY_SEPARATOR . "description.txt")) {
+				echo '<div style="margin: auto; margin-top: 1.5em; margin-bottom: 1em; width: 50%;">';
+				echo file_get_contents($photo_dir . DIRECTORY_SEPARATOR . "description.txt");
+				echo "</div>";
+			}
+			echo "</div>";
 			echo '<div class="gallery-grid">';
 			if ($all == 1) {
 				for ($i = 0; $i < $file_count; $i++) {

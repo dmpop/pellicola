@@ -16,7 +16,8 @@ The [Mejiro for photographers](https://dmpop.gumroad.com/l/mejiro-for-photograph
 - **Pagination** Mejiro automatically splits photo collection into pages. You can specify the desired number of photos per page.
 - **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, shutter speed, and ISO.
 - **Geo URI links** For geotagged photos, Mejiro displays geo URI links you can use to see the exact locations where the photos were taken in the default map application.
-- **Optional description text** You can add a description to each photo by creating an accompanying *.txt* file. The app can also read and display descriptions from the photo's _UserComment_ EXIF field.
+- **Optional album description** If a _description.txt_ text file exists in the album's folder, Mejiro displays its contents as the album's description.
+- **Optional photo description** You can add a description to each photo by creating an accompanying _.txt_ file. The app can also read and display descriptions from the photo's _UserComment_ EXIF field.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
 - **Link to RAW** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a link to it. This feature can be disabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
