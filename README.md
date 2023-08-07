@@ -4,9 +4,9 @@ Mejiro is an easy-to-use PHP web app for instant photo publishing.
 
 <img src="mejiro.png" alt="Mejiro">
 
-The [Mejiro for photographers](https://dmpop.gumroad.com/l/mejiro-for-photographers) book provides detailed information on installing and using Mejiro. Get your copy at [Gumroad](https://dmpop.gumroad.com/l/mejiro-for-photographers).
+The [Linux Photography](https://dmpop.gumroad.com/l/linux-photography) book provides detailed information on installing and using Mejiro. Get your copy at [Gumroad](https://dmpop.gumroad.com/l/linux-photography).
 
-<img src="https://cameracode.coffee/uploads/mejiro-for-photographers.png" title="Mejiro for photographers" width="300"/>
+<img src="https://cameracode.coffee/uploads/linux-photography.png" title="Linux Photography" width="300"/>
 
 ## Features
 
