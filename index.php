@@ -216,6 +216,7 @@ set_time_limit(600);
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . ".tims"));
+			$count = count(glob($photo_dir . ".tims/*"));
 
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
@@ -236,7 +237,7 @@ set_time_limit(600);
 					}
 				}
 
-				echo '<select style="min-width: 10em; vertical-align: middle;" name="" onchange="javascript:location.href = this.value;">';
+				echo '<select style="min-width: 10em; vertical-align: middle; margin-right: 0.5em;" name="" onchange="javascript:location.href = this.value;">';
 				echo '<option value="Default">' . L::album . '</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
@@ -245,6 +246,7 @@ set_time_limit(600);
 				}
 				echo "</select>";
 			}
+			echo "<span style='color: gray'>". L::album_items_count . ": </span>" . $count;
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
