@@ -57,7 +57,7 @@ $raw = $_GET['raw'] ?? null;
         if ($raw) {
             unlink($raw);
         }
-        unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . 'tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
+        unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
         header('Location: index.php');
     }
     if ($links) {
