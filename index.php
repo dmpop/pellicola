@@ -160,7 +160,7 @@ set_time_limit(600);
 
 			if (!file_exists($tim)) {
 				// Generate tims
-				createTim($file, $tim, 800);
+				createTim($file, $tim, $tim_size);
 			}
 		}
 

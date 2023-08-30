@@ -16,5 +16,6 @@ $img_formats = 'jpg,jpeg,JPG,JPEG'; // File types Mejiro displays. Add other fil
 $show_raw = true; // Toggle links to RAW files
 $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add other file extensions, if needed
 $download = false; // Toggle photo download
+$tim_size = 1200; //Tim size
 $goatcounter = false; // Toggle integration with GoatCounter web analytics
 $goatcounter_code = "helloxyz"; // Unique GoatCounter code
