@@ -200,7 +200,7 @@ set_time_limit(600);
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray; margin-bottom: 1em;'>" . $subtitle . "</div>";
-			echo "<div class ='center'>";
+			echo "<div class ='center' style='margin-bottom: 1em;'>";
 			// Show stats icon
 			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show the grid icon if there are several pages
@@ -210,20 +210,21 @@ set_time_limit(600);
 			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
 				echo '<a href="?all=1' . $and_d . '"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
-			echo "</div>";
-			echo '<hr style="margin-bottom: 2em;">';
+			echo '<hr style="margin-bottom: 1em;">';
 
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . ".tims"));
 			$count = count(glob($photo_dir . ".tims/*"));
+			echo "<span style='color: gray'>" . L::album_items_count . ": </span>" . $count;
+			echo "</div>";
 
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 				echo "<noscript>";
 				echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
 				echo "</noscript>";
-				echo '<div class="center">';
+				echo '<div class="center" style="margin-bottom: 1em;">';
 				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='" . L::img_root_album . "' title='" . L::img_root_album . "' src='svg/home.svg'/></a> &rarr;&nbsp;";
 				$higher_dirs = explode("/", $sub_photo_dir);
 				$higher_dir_cascade = "";
@@ -246,7 +247,7 @@ set_time_limit(600);
 				}
 				echo "</select>";
 			}
-			echo "<span style='color: gray'>". L::album_items_count . ": </span>" . $count;
+
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
