@@ -97,8 +97,8 @@ set_time_limit(600);
 					$GPSLongitudeRef == 'w' ? $lon *= -1 : '';
 
 					return array(
-						'lat' => $lat,
-						'lon' => $lon
+						'lat' => htmlentities($lat),
+						'lon' => htmlentities($lon)
 					);
 				}
 			}
@@ -364,25 +364,25 @@ set_time_limit(600);
 			$gps = read_gps_location($file);
 
 			// Get aperture, exposure, iso, and datetime from EXIF
-			$aperture = (is_null($exif['COMPUTED']['ApertureFNumber']) ? null : $exif['COMPUTED']['ApertureFNumber']);
-			$exposure = (is_null($exif['EXIF']['ExposureTime']) ? null : $exif['EXIF']['ExposureTime']);
+			$aperture = htmlentities((is_null($exif['COMPUTED']['ApertureFNumber']) ? null : $exif['COMPUTED']['ApertureFNumber']));
+			$exposure = htmlentities((is_null($exif['EXIF']['ExposureTime']) ? null : $exif['EXIF']['ExposureTime']));
 			// Normalize exposure
 			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
 			if (!is_null($exposure)) {
 				$parts = explode("/", $exposure);
 				if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
-					$exposure = ' &bull; 1/' . round($parts[1] / $parts[0], 0);
+					$exposure = htmlentities(' &bull; 1/' . round($parts[1] / $parts[0], 0));
 				} else {
 					if ($parts[1] == 1) {
-						$exposure = ' &bull; ' . $parts[0];
+						$exposure = htmlentities(' &bull; ' . $parts[0]);
 					} else {
-						$exposure = ' &bull; ' . $parts[0] . '/' . $parts[1];
+						$exposure = htmlentities(' &bull; ' . $parts[0] . '/' . $parts[1]);
 					}
 				}
 			}
-			$iso = (is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " &bull; " . $exif['EXIF']['ISOSpeedRatings']);
-			$datetime = $exif['EXIF']['DateTimeOriginal'] ?? null;
-			$comment = $exif['COMMENT']['0'] ?? null;
+			$iso = htmlentities((is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " &bull; " . $exif['EXIF']['ISOSpeedRatings']));
+			$datetime = htmlentities($exif['EXIF']['DateTimeOriginal']) ?? null;
+			$comment = htmlentities($exif['COMMENT']['0']) ?? null;
 
 			// Concatenate $exif_info
 			if (!is_null($aperture) || !is_null($exposure) || !is_null($iso) || !is_null($datetime)) {
