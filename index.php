@@ -47,6 +47,8 @@ set_time_limit(600);
 			$d = "?d=" . htmlentities($sub_photo_dir);
 			$and_d = "&d=" . htmlentities($sub_photo_dir);
 		} else {
+			$d = null;
+			$and_d = null;
 			$sub_photo_dir = null;
 		}
 		// Create $base_photo_dir if it doesn't exist
