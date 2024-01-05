@@ -15,8 +15,8 @@ body {
 
 .card,
 pre {
-    padding: .7em;
-    border: 1px solid #cacaca;
+  padding: .7em;
+  border: 1px solid #cacaca;
 }
 
 a {
@@ -68,8 +68,8 @@ h3 {
 
 td,
 th {
-    padding: .3em;
-    text-align: left;
+  padding: .3em;
+  text-align: left;
 }
 
 p {
@@ -94,6 +94,13 @@ select {
   border: solid #619b8a;
   border-radius: 5px;
   font: "Barlow";
+}
+
+input[type=text] {
+  padding: 0.8em 0.5em;
+  margin: 0.7em 0.3em;
+  border: 0px;
+  border-radius: 5px;
 }
 
 .btn {
@@ -188,16 +195,19 @@ a:hover {
   font-style: normal;
   src: url("fonts/Barlow-Regular.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "Barlow";
   src: url("fonts/Barlow-Bold.woff2");
   font-weight: bold;
 }
+
 @font-face {
   font-family: "Barlow";
   src: url("fonts/Barlow-Italic.woff2");
   font-style: italic;
 }
+
 @font-face {
   font-family: "Barlow";
   src: url("fonts/Barlow-BoldItalic.woff2");

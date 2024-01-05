@@ -112,8 +112,12 @@ set_time_limit(600);
 			mkdir($photo_dir . '.tims');
 		}
 
-		// Get file info
-		$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+		// Find all files or a specific file if $_GET["search"] is set
+		if (isset($_GET["search"])) {
+			$files = glob($photo_dir . "*" . $_GET["query"] . "*.{" . $img_formats . "}", GLOB_BRACE);
+		} else {
+			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+		}
 
 		// Check whether the reversed order option is enabled and sort the array accordingly
 		if ($r_sort) {
@@ -249,7 +253,15 @@ set_time_limit(600);
 				}
 				echo "</select>";
 			}
+		?>
 
+			<form style='margin-top: 0.5em;' method='GET' action=' '>
+				<label for='weight'><?php echo L::find_by_name; ?>:</label>
+				<input type='text' name='query'>
+				<input class="btn primary" type="submit" name="search" value="<?php echo L::search_btn; ?>">
+			</form>
+
+		<?php
 			// Check whether $photo_dir directory exists
 			if (!file_exists($photo_dir)) {
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
