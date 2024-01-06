@@ -10,12 +10,12 @@ body {
   max-width: 60em;
   padding: 1em;
   margin: auto;
-  font: 1em/1.6
+  font: 1em/1.6;
 }
 
 .card,
 pre {
-  padding: .7em;
+  padding: 0.7em;
   border: 1px solid #cacaca;
 }
 
@@ -68,7 +68,7 @@ h3 {
 
 td,
 th {
-  padding: .3em;
+  padding: 0.3em;
   text-align: left;
 }
 
@@ -78,11 +78,11 @@ p {
 }
 
 .caption {
-  font-size: .9em;
+  font-size: 0.9em;
   color: #e3e3e3;
   margin-left: auto;
   margin-right: auto;
-  margin-top: .5em;
+  margin-top: 0.5em;
   line-height: 1.5em;
   text-align: center;
 }
@@ -96,15 +96,21 @@ select {
   font: "Barlow";
 }
 
-input[type=text] {
-  padding: 0.8em 0.5em;
+input[type="text"] {
+  padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
   border: 0px;
   border-radius: 5px;
 }
 
+.topcorner {
+  position: absolute;
+  top: 0;
+  right: 1em;
+}
+
 .btn {
-  padding: .5em;
+  padding: 0.5em;
   text-transform: uppercase;
   background: #fff;
   border: solid;

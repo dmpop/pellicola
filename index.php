@@ -112,8 +112,8 @@ set_time_limit(600);
 			mkdir($photo_dir . '.tims');
 		}
 
-		// Find all files or a specific file if $_GET["search"] is set
-		if (isset($_GET["search"])) {
+		// Find all files or a specific file if $_GET["query"] is set
+		if (isset($_GET["query"])) {
 			$files = glob($photo_dir . "*" . $_GET["query"] . "*.{" . $img_formats . "}", GLOB_BRACE);
 		} else {
 			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
@@ -201,7 +201,7 @@ set_time_limit(600);
 		$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
 
 		if (!isset($grid)) {
-			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">';
+			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="Mejiro" /></a>';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
@@ -228,7 +228,7 @@ set_time_limit(600);
 			// Populate a drop-down list with subdirectories
 			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
 				echo "<noscript>";
-				echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> Make sure that JavaScript is enabled</h3>";
+				echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_enable_js . "</h3>";
 				echo "</noscript>";
 				echo '<div class="center" style="margin-bottom: 1em;">';
 				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='" . L::img_root_album . "' title='" . L::img_root_album . "' src='svg/home.svg'/></a> &rarr;&nbsp;";
@@ -255,11 +255,15 @@ set_time_limit(600);
 			}
 		?>
 
-			<form style='margin-top: 0.5em;' method='GET' action=' '>
-				<label for='weight'><?php echo L::find_by_name; ?>:</label>
-				<input type='text' name='query'>
-				<input class="btn primary" type="submit" name="search" value="<?php echo L::search_btn; ?>">
-			</form>
+			<div class="topcorner">
+				<form autocomplete='off' style='margin-top: 0.5em;' method='GET' action=' '>
+					<label for='weight'><?php echo L::find_by_name; ?>:</label>
+					<input style="vertical-align: middle;" type='text' name='query'>
+					<!-- The hidden input field is used to pass the $d value (album) to the search -->
+					<input type='hidden' name='d' value='<?php echo $_GET["d"]; ?>'>
+					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>">
+				</form>
+			</div>
 
 		<?php
 			// Check whether $photo_dir directory exists
