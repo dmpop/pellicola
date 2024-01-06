@@ -116,7 +116,7 @@ class DiskSpaceCheck
             $array_length = count($urls);
             echo '<div class="footer">';
             for ($i = 0; $i < $array_length; $i++) {
-                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
+                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
             }
             echo  $footer . '</div>';
         } else {

@@ -389,16 +389,16 @@ set_time_limit(600);
 			if (!is_null($exposure)) {
 				$parts = explode("/", $exposure);
 				if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
-					$exposure = htmlentities(' &bull; 1/' . round($parts[1] / $parts[0], 0));
+					$exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0));
 				} else {
 					if ($parts[1] == 1) {
-						$exposure = htmlentities(' &bull; ' . $parts[0]);
+						$exposure = htmlentities(' • ' . $parts[0]);
 					} else {
-						$exposure = htmlentities(' &bull; ' . $parts[0] . '/' . $parts[1]);
+						$exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1]);
 					}
 				}
 			}
-			$iso = htmlentities((is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " &bull; " . $exif['EXIF']['ISOSpeedRatings']));
+			$iso = htmlentities((is_null($exif['EXIF']['ISOSpeedRatings']) ? null : " • " . $exif['EXIF']['ISOSpeedRatings']));
 			$datetime = htmlentities($exif['EXIF']['DateTimeOriginal']) ?? null;
 			$comment = htmlentities($exif['COMMENT']['0']) ?? null;
 
@@ -429,7 +429,7 @@ set_time_limit(600);
 			$array_length = count($urls);
 			echo '<div class="footer">';
 			for ($i = 0; $i < $array_length; $i++) {
-				echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> &bull; </span>';
+				echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
 			}
 			echo  $footer . '</div>';
 		} else {
