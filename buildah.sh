@@ -8,7 +8,7 @@ buildah config --workingdir /usr/src/mejiro $container
 buildah config --port 8000 $container
 buildah config --cmd "php -S 0.0.0.0:8000" $container
 buildah config --label description="Mejiro container image" $container
-buildah config --label maintainer="dmpop@linux.com" $container
+buildah config --label maintainer="dmpop@cameracode.coffee" $container
 buildah config --label version="0.1" $container
 buildah commit --squash $container mejiro
 buildah rm $container

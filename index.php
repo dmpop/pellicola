@@ -244,7 +244,7 @@ set_time_limit(600);
 					}
 				}
 
-				echo '<select style="min-width: 10em; vertical-align: middle; margin-right: 0.5em;" name="" onchange="javascript:location.href = this.value;">';
+				echo '<select class="select" name="" onchange="javascript:location.href = this.value;">';
 				echo '<option value="Default">' . L::album . '</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
@@ -272,7 +272,7 @@ set_time_limit(600);
 				exit;
 			}
 			if ($file_count < 1) {
-				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty_album . "</h3>");
+				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty . "</h3>");
 				exit;
 			}
 			// Show the content of the description.txt file if it exists in the album
