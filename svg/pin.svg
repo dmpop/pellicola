@@ -8,7 +8,7 @@
    color="#000000"
    version="1.1"
    id="svg6"
-   sodipodi:docname="pin-alt.svg"
+   sodipodi:docname="pin.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -26,10 +26,10 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="31.041667"
-     inkscape:cx="9.0040268"
+     inkscape:cx="9.0201341"
      inkscape:cy="11.001342"
-     inkscape:window-width="1920"
-     inkscape:window-height="1012"
+     inkscape:window-width="2560"
+     inkscape:window-height="1368"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -43,7 +43,7 @@
      stroke="#000000"
      stroke-width="2"
      id="path2"
-     style="stroke:#619b8a;stroke-opacity:1" />
+     style="stroke:#59a2d8;stroke-opacity:1" />
   <path
      d="m 9,9.9999965 a 1,1 0 1 0 0,-2 1,1 0 0 0 0,2 z"
      fill="#000000"
@@ -52,5 +52,5 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path4"
-     style="fill:#619b8a;fill-opacity:1;stroke:#619b8a;stroke-opacity:1" />
+     style="fill:#619b8a;fill-opacity:1;stroke:#59a2d8;stroke-opacity:1" />
 </svg>

@@ -156,13 +156,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.5371094"
-     inkscape:cx="256"
+     inkscape:cx="255.67471"
      inkscape:cy="256"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1012"
+     inkscape:window-width="2048"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -208,7 +208,7 @@
        id="g1320"
        transform="matrix(0.97513015,0,0,0.97513015,-603.86377,-1265.901)">
       <rect
-         style="fill:#619b8a;fill-opacity:1;stroke:none;stroke-width:1.02056;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#9b6172;fill-opacity:1;stroke:none;stroke-width:1.02056;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect815"
          width="1536"
          height="2304"
@@ -225,7 +225,7 @@
          transform="matrix(-0.88328914,0.46882865,0,1,0,0)"
          clip-path="url(#clipPath1143)" />
       <rect
-         style="fill:#a1c181;fill-opacity:1;stroke:none;stroke-width:3.9906"
+         style="fill:#59a2d8;fill-opacity:1;stroke:none;stroke-width:3.9906"
          id="rect15123"
          width="1738.9548"
          height="87.942902"
@@ -252,7 +252,7 @@
          transform="matrix(0.88328914,0.46882865,0,1,0,0)"
          clip-path="url(#clipPath1127)" />
       <rect
-         style="fill:#a1c181;fill-opacity:1;stroke:none;stroke-width:3.9906"
+         style="fill:#59a2d8;fill-opacity:1;stroke:none;stroke-width:3.9906"
          id="rect15123-9"
          width="1738.9548"
          height="87.942902"

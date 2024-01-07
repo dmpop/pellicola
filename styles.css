@@ -90,8 +90,8 @@ p {
 select {
   padding: 0.3em;
   color: #fff;
-  background: #619b8a;
-  border: solid #619b8a;
+  background: #59a2d8ff;
+  border: solid #59a2d8ff;
   border-radius: 5px;
   font: "Barlow";
 }
@@ -131,8 +131,8 @@ input[type="text"] {
 
 .btn.primary {
   color: #fff;
-  background: #619b8a;
-  border: solid #619b8a;
+  background: #59a2d8ff;
+  border: solid #59a2d8ff;
 }
 
 .btn.warning {
@@ -167,7 +167,7 @@ a:hover {
   bottom: 0px;
   height: 1.5em;
   width: 100%;
-  background: #619b8a;
+  background: #59a2d8ff;
 }
 
 /* https://www.imarketinx.de/artikel/responsive-image-gallery-with-css-grid.html */

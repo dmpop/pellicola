@@ -8,7 +8,7 @@
    color="#000000"
    version="1.1"
    id="svg4"
-   sodipodi:docname="reports.svg"
+   sodipodi:docname="stats.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -30,10 +30,10 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="31.041667"
-     inkscape:cx="10.002685"
-     inkscape:cy="10.002685"
-     inkscape:window-width="1920"
-     inkscape:window-height="1012"
+     inkscape:cx="10.018792"
+     inkscape:cy="10.002684"
+     inkscape:window-width="2560"
+     inkscape:window-height="1368"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -43,5 +43,5 @@
      stroke="#000000"
      stroke-width="2"
      id="path2"
-     style="stroke:#3eb100;stroke-opacity:1" />
+     style="stroke:#59a2d8;stroke-opacity:1" />
 </svg>

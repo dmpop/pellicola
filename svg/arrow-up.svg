@@ -30,10 +30,10 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="31.041667"
-     inkscape:cx="11.001342"
+     inkscape:cx="11.01745"
      inkscape:cy="11.001342"
-     inkscape:window-width="1920"
-     inkscape:window-height="1012"
+     inkscape:window-width="2560"
+     inkscape:window-height="1368"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -45,5 +45,5 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path2"
-     style="stroke:#ff8d00;stroke-opacity:1" />
+     style="stroke:#ffc03f;stroke-opacity:1" />
 </svg>
