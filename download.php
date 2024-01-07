@@ -3,7 +3,7 @@
 // https://stackoverflow.com/questions/8485886/force-file-download-with-php-using-header
 $file = $_GET['file'];
 $current = @file_get_contents('downloads.txt');
-$current .= "$file\n";
+$current .= basename($file) . PHP_EOL;
 @file_put_contents('downloads.txt', $current);
 header("Content-Disposition: attachment; filename=$file");
 header('Content-Type: application/octet-stream'); // Downloading on Android might fail without this

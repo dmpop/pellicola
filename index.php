@@ -202,7 +202,7 @@ set_time_limit(600);
 
 		if (!isset($grid)) {
 			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
-			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="Mejiro" /></a>';
+			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray; margin-bottom: 1em;'>" . $subtitle . "</div>";
@@ -341,7 +341,7 @@ set_time_limit(600);
 			$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 			if ($show_raw) {
 				if (!empty($raw_file)) {
-					echo "<h1>" . $file_path['filename'] . " <a href='download.php?file=" . $raw_file[0] . "'><img style='vertical-align: baseline;' alt='" . L::img_link_raw . "' title='" . L::img_link_raw . "' src='svg/raw.svg' height='24'/></a></h1>";
+					echo "<h1>" . $file_path['filename'] . " <a href='download.php?file=" . $raw_file[0] . "'><img style='vertical-align: top;' alt='" . L::img_link_raw . "' title='" . L::img_link_raw . "' src='svg/raw.svg' height='22'/></a></h1>";
 				} else {
 					echo "<h1>" . $file_path['filename'] . "</h1>";
 				}
