@@ -275,10 +275,10 @@ set_time_limit(600);
 				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty . "</h3>");
 				exit;
 			}
-			// Show the content of the description.txt file if it exists in the album
-			if (file_exists($photo_dir . DIRECTORY_SEPARATOR . "description.txt")) {
+			// Show the content of the preamble.html file if it exists in the album
+			if (file_exists($photo_dir . DIRECTORY_SEPARATOR . "preamble.html")) {
 				echo '<div style="margin: auto; margin-top: 1.5em; margin-bottom: 1em; width: 50%;">';
-				echo file_get_contents($photo_dir . DIRECTORY_SEPARATOR . "description.txt");
+				echo file_get_contents($photo_dir . DIRECTORY_SEPARATOR . "preamble.html");
 				echo "</div>";
 			}
 			echo "</div>";
