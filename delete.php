@@ -70,9 +70,6 @@ $raw = $_GET['raw'] ?? null;
     } else {
         echo '<div class="footer">' . $footer . '</div>';
     }
-    if ($goatcounter) {
-        echo "<script data-goatcounter='https://" . $goatcounter_code . ".goatcounter.com/count' async src='//gc.zgo.at/count.js'></script>";
-    }
     ?>
     </div>
 </body>

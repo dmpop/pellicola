@@ -25,7 +25,6 @@ The [Linux Photography](https://dmpop.gumroad.com/l/linux-photography) book prov
 - **Statistics** View basic statistics: camera models, the total number of photos and RAW files, disk usage.
 - **Access keys** The application supports access keys for common actions.
 - **Internationalization** support. The application automatically detects and picks the right language. Localizing Mejiro is a matter of translating a handful of text strings in a dedicated _.ini_ file.
-- **GoatCounter integration** Mejiro can be used with [GoatCounter](https://www.goatcounter.com/) web analytics.
 
 ## Requirements
 
