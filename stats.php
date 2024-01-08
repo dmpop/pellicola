@@ -68,7 +68,7 @@ class DiskSpaceCheck
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
             <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;"><?php echo $title ?></h1>
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #59a2d8ff;"><?php echo $title ?></h1>
             </a>
         </div>
         <div class='center' style='color: gray; margin-bottom: 1em;'><?php echo $subtitle ?></div>

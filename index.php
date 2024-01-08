@@ -256,7 +256,7 @@ set_time_limit(600);
 		?>
 
 			<div class="topcorner">
-				<form autocomplete='off' style='margin-top: 0.5em;' method='GET' action=' '>
+				<form autocomplete='off' style='margin-top: 0.5em; margin-right: 1em;' method='GET' action=' '>
 					<label for='weight'><?php echo L::find_by_name; ?>:</label>
 					<input style="vertical-align: middle;" type='text' name='query'>
 					<!-- The hidden input field is used to pass the $d value (album) to the search -->
@@ -312,7 +312,7 @@ set_time_limit(600);
 		}
 
 		//Pagination. Create the navigation links * START
-		function show_pagination($current_page, $last_page, $and_d, $sub_photo_dir)
+		function show_pagination($current_page, $last_page, $and_d)
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && isset($_GET["photo"]) == '') {
@@ -339,7 +339,7 @@ set_time_limit(600);
 			$exif = exif_read_data($file, 0, true);
 			$file_path = pathinfo($file);
 
-			echo "<h1>" . $file_path['filename'] . "</h1>";
+			echo "<h1 style='margin-bottom:1em;'>" . $file_path['filename'] . "</h1>";
 
 			// NAVIGATION LINKS
 			// Set first and last photo navigation links according to specified	 sort order
