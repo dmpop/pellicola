@@ -260,7 +260,9 @@ set_time_limit(600);
 					<label for='weight'><?php echo L::find_by_name; ?>:</label>
 					<input style="vertical-align: middle;" type='text' name='query'>
 					<!-- The hidden input field is used to pass the $d value (album) to the search -->
-					<input type='hidden' name='d' value='<?php echo $_GET["d"]; ?>'>
+					<input type='hidden' name='d' value='<?php if (isset($_GET["d"])) {
+																echo $_GET["d"];
+															} ?>'>
 					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>">
 				</form>
 			</div>

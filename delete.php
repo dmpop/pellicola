@@ -32,7 +32,7 @@ $raw = $_GET['raw'] ?? null;
 <body>
     <div id="content">
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="Mejiro" /></a>
+            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
                 <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;"><?php echo $title ?></h1>
             </a>

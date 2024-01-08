@@ -66,12 +66,12 @@ class DiskSpaceCheck
 <body>
     <div id="content">
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="Mejiro" /></a>
+            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
                 <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;"><?php echo $title ?></h1>
             </a>
         </div>
-        <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
+        <div class='center' style='color: gray; margin-bottom: 1em;'><?php echo $subtitle ?></div>
         <hr>
         <?php
         function rsearch($dir, $excluded, $pattern_array)
@@ -94,8 +94,9 @@ class DiskSpaceCheck
         $stats = array();
         foreach ($files as $file) {
             $exif = @exif_read_data($file);
-            //print_r($exif);
-            array_push($stats, $exif['Model']);
+            if (!empty($exif['Model'])) {
+                array_push($stats, $exif['Model']);
+            }
         }
         echo "
         <div class='c'>
@@ -103,7 +104,7 @@ class DiskSpaceCheck
         <div class='card'>
         <table>
         ";
-        $count = array_count_values($stats);
+        $count = array_count_values(array_filter($stats));
         ksort($count);
         foreach ($count as $key => $value) {
             echo "<tr><td>$key</td><td>$value</td></tr>";
@@ -128,18 +129,24 @@ class DiskSpaceCheck
         ?>
         <h2 style='text-align: left;'><?php echo L::storage; ?></h2>
         <div class="card">
-        <?php
-        $disk = new DiskSpaceCheck(dirname(__FILE__));
-        ?>
-        <table>
-        <tr><td><?php echo L::total_storage; ?> </td><td><?php echo $disk->formatBytes($disk->total_space); ?></td></tr>
-        <tr><td><?php echo L::used_storage; ?> </td><td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td></tr>
-        </table>
+            <?php
+            $disk = new DiskSpaceCheck(dirname(__FILE__));
+            ?>
+            <table>
+                <tr>
+                    <td><?php echo L::total_storage; ?> </td>
+                    <td><?php echo $disk->formatBytes($disk->total_space); ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo L::used_storage; ?> </td>
+                    <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
+                </tr>
+            </table>
         </div>
     </div>
-        <div class="center">
-            <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
-        </div>
+    <div class="center">
+        <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
+    </div>
     </div>
 </body>
 
