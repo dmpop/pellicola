@@ -1,7 +1,11 @@
+html * {
+  font-family: "Barlow", sans-serif !important;
+}
+
 body {
   font-family: "Barlow", sans-serif;
   font-size: 1em;
-  text-align: justify;
+  text-align: left;
   background-color: #303030;
   margin-bottom: 2.5em;
 }

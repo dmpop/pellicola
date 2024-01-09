@@ -407,18 +407,21 @@ set_time_limit(600);
 			}
 
 			// Enable the download link if $download = true
-			$image_download = '<a href="download.php?file=' . htmlentities($file) . '"><img style="margin-left: 2em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
-			$image_delete = '<a href="delete.php?file=' . $file . $raw . '"><img style="margin-left: 1em;" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+			$image_download = '<a href="download.php?file=' . htmlentities($file) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
+			$image_delete = '<a href="delete.php?file=' . $file . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 			//Check if the related RAW file exists and link to it
 			$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
 			if (!empty($raw_file)) {
-				$raw_download = "<a href='download.php?file=" . $raw_file[0] . "'><img style='margin-left: 1em;' alt='" . L::raw_download . "' title='" . L::raw_download . "' src='svg/raw.svg'/></a>";
+				$raw_download = "<a href='download.php?file=" . $raw_file[0] . "'><img style='margin-right: 1em;' alt='" . L::raw_download . "' title='" . L::raw_download . "' src='svg/raw.svg'/></a>";
 			}
 			$raw = (!empty($raw_file[0]) ? '&raw=' .  $raw_file[0] : null);
 			if ($download) {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . $image_download . $raw_download . $image_delete . '</div>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
+				echo '<div class="caption">' . $exif_info . '</div>';
+				echo '<div class="caption" style="margin-top: 1em;">' . $image_download . $raw_download . $image_delete . '</div></div>';
 			} else {
-				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div><div class="caption">' . $exif_info . $image_delete . '</div>';
+				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
+				echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div></div>';
 			}
 		}
 
