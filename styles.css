@@ -1,9 +1,9 @@
 html * {
-  font-family: "Barlow", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 body {
-  font-family: "Barlow", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1em;
   text-align: left;
   background-color: #303030;
@@ -36,9 +36,9 @@ a.superscript {
 
 h1 {
   color: #e3e3e3;
-  font-family: "Barlow", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 2em;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
   margin-top: 0.3em;
   margin-bottom: 0.5em;
@@ -48,9 +48,9 @@ h1 {
 
 h2 {
   color: #e3e3e3;
-  font-family: "Barlow", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 2em;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
   margin-top: 1em;
   margin-bottom: 0.5em;
@@ -60,9 +60,9 @@ h2 {
 
 h3 {
   color: #e3e3e3;
-  font-family: "Barlow", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1em;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
   margin-top: 1em;
   margin-bottom: 0.5em;
@@ -97,7 +97,7 @@ select {
   background: #59a2d8ff;
   border: solid #59a2d8ff;
   border-radius: 5px;
-  font: "Barlow";
+  font: "Inter";
 }
 
 input[type="text"] {
@@ -129,7 +129,7 @@ input[type="text"] {
   border: solid;
   border-radius: 5px;
   min-width: 5em;
-  font: 0.9em "Barlow";
+  font: 0.9em "Inter";
   font-weight: bold;
 }
 
@@ -164,7 +164,7 @@ a:hover {
 
 .footer {
   text-align: center;
-  font-family: "Barlow", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.9em;
   position: fixed;
   left: 0px;
@@ -210,26 +210,26 @@ a:hover {
 }
 
 @font-face {
-  font-family: "Barlow";
+  font-family: "Inter";
   font-style: normal;
-  src: url("fonts/Barlow-Regular.woff2") format("woff2");
+  src: url("fonts/InterDisplay-Regular.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("fonts/Barlow-Bold.woff2");
+  font-family: "Inter";
+  src: url("fonts/InterDisplay-SemiBold.woff2");
   font-weight: bold;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("fonts/Barlow-Italic.woff2");
+  font-family: "Inter";
+  src: url("fonts/InterDisplay-Italic.woff2");
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("fonts/Barlow-BoldItalic.woff2");
+  font-family: "Inter";
+  src: url("fonts/InterDisplay-SemiBoldItalic.woff2");
   font-weight: bold;
   font-style: italic;
 }
