@@ -140,6 +140,16 @@ class DiskSpaceCheck
                 </tr>
             </table>
         </div>
+        <?php if (file_exists("downloads.txt")) : ?>
+            <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
+            <div class="card">
+                <?php
+                $downloads = explode("\n", file_get_contents("downloads.txt"));
+                $download_count = count($downloads)-1;
+                ?>
+                <?php echo L::download_count . " " . $download_count; ?>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="center">
         <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
