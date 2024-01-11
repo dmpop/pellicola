@@ -125,11 +125,14 @@ input[type="text"] {
 .btn {
   padding: 0.5em;
   text-transform: uppercase;
+  text-align: center;
+  line-height: 0px;
   background: #fff;
   border: solid;
   border-radius: 5px;
   min-width: 5em;
   font: 0.9em "Inter";
+  letter-spacing: 3px;
   font-weight: bold;
 }
 

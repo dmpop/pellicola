@@ -152,7 +152,7 @@ class DiskSpaceCheck
         <?php endif; ?>
     </div>
     <div class="center">
-        <button onclick="history.back();" style="vertical-align: middle; " class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
+        <button onclick="history.back();" class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
     </div>
     </div>
 </body>
