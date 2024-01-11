@@ -24,10 +24,10 @@ class DiskSpaceCheck
         if ($directory === null) {
             $directory = dirname(__FILE__);
         }
-        $this->total_space     = disk_total_space($directory);
+        $this->total_space    = disk_total_space($directory);
         $this->free_space     = disk_free_space($directory);
         $this->used_space     = $this->total_space - $this->free_space;
-        $this->percent         = (($this->used_space / $this->total_space) * 100);
+        $this->percent        = (($this->used_space / $this->total_space) * 100);
     }
 
     function formatBytes($bytes, $precision = 2)
@@ -144,10 +144,21 @@ class DiskSpaceCheck
             <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
             <div class="card">
                 <?php
-                $downloads = explode("\n", file_get_contents("downloads.txt"));
-                $download_count = count($downloads)-1;
+                $downloads = array_filter(explode("\n", file_get_contents("downloads.txt")));
+                $download_count = count($downloads);
                 ?>
-                <?php echo L::download_count . " " . $download_count; ?>
+                <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . " " . $download_count; ?></div>
+                <details>
+                    <summary><?php echo L::download_details; ?></summary>
+                    <table>
+                        <?php
+                        $details = array_count_values($downloads);
+                        foreach ($details as $key => $value) {
+                            echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
+                        }
+                        ?>
+                    </table>
+                </details>
             </div>
         <?php endif; ?>
     </div>
