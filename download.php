@@ -7,7 +7,11 @@ $i18n->setCachePath('cache');
 $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
 $i18n->init();
+
 $file = $_GET['file'];
+
+session_start();
+$previous_page = $_SESSION['page'];
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +49,7 @@ $file = $_GET['file'];
                     <input style="vertical-align: middle;" class="card" type='password' name='password' value=''>
                     <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn green" type="submit" name="download"><?php echo L::download_btn; ?></button>
                 </form>
-                <button onclick="history.back();" style="vertical-align: middle; margin-left: 0.3em;" class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
+                <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="<?php echo $previous_page; ?>"><?php echo L::btn_back; ?></a>
             </div>
         </div>
     </div>

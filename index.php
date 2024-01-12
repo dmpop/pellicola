@@ -339,6 +339,11 @@ set_time_limit(600);
 			$exif = exif_read_data($file, 0, true);
 			$file_path = pathinfo($file);
 
+			// Obtain URL of the current page for use with the Back button
+			session_start();
+			$url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+			$_SESSION['page'] = $url;
+
 			echo "<h1 style='margin-bottom:1em; margin-top: 1em;'>" . $file_path['filename'] . "</h1>";
 
 			// NAVIGATION LINKS

@@ -7,8 +7,12 @@ $i18n->setCachePath('cache');
 $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
 $i18n->init();
+
 $file = $_GET['file'];
 $raw = $_GET['raw'] ?? null;
+
+session_start();
+$previous_page = $_SESSION['page'];
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +50,7 @@ $raw = $_GET['raw'] ?? null;
                     <input style="vertical-align: middle;" class="card" type='password' name='password' value=''>
                     <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn red" type="submit" name="delete"><?php echo L::btn_delete; ?></button>
                 </form>
-                <button onclick="history.back();" style="vertical-align: middle; margin-left: 0.5em;" class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
+                <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="<?php echo $previous_page; ?>"><?php echo L::btn_back; ?></a>
             </div>
         </div>
     </div>
