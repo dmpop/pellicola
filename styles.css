@@ -107,6 +107,14 @@ input[type="text"] {
   border-radius: 5px;
 }
 
+input[type="password"] {
+  width: 10em;
+  padding: 0.8em 0.8em;
+  margin: 1em 1em;
+  border: 0px;
+  border-radius: 5px;
+}
+
 .select {
   padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
@@ -142,7 +150,13 @@ input[type="text"] {
   border: solid #59a2d8ff;
 }
 
-.btn.warning {
+.btn.green {
+  color: #fff;
+  background: #00a529;
+  border: solid #00a529;
+}
+
+.btn.red {
   color: #fff;
   background: #ff0000;
   border: solid #ff0000;
