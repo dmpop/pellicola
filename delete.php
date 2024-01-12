@@ -34,7 +34,7 @@ $raw = $_GET['raw'] ?? null;
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
             <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #619b8a;"><?php echo $title ?></h1>
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $title ?></h1>
             </a>
         </div>
         <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
@@ -51,7 +51,7 @@ $raw = $_GET['raw'] ?? null;
         </div>
     </div>
     <?php
-    if (isset($_POST['delete']) && ($_POST['password'] == $password)) {
+    if (isset($_POST['delete']) && ($_POST['password'] == $delete_password)) {
         $file_path = pathinfo($file);
         unlink($file);
         if ($raw) {
@@ -59,6 +59,8 @@ $raw = $_GET['raw'] ?? null;
         }
         unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
         header('Location: index.php');
+    } elseif (isset($_POST['delete']) && ($_POST['password'] !== $delete_password)) {
+        echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_wrong_password . "</h3>";
     }
     if ($links) {
         $array_length = count($urls);

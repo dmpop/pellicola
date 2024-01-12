@@ -203,7 +203,7 @@ set_time_limit(600);
 		if (!isset($grid)) {
 			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
 			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
-			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #59a2d8ff;">' . $title . '</h1></a>';
+			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '"><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray; margin-bottom: 1em;'>" . $subtitle . "</div>";
 			echo "<div class ='center' style='margin-bottom: 1em;'>";
@@ -339,7 +339,7 @@ set_time_limit(600);
 			$exif = exif_read_data($file, 0, true);
 			$file_path = pathinfo($file);
 
-			echo "<h1 style='margin-bottom:1em;'>" . $file_path['filename'] . "</h1>";
+			echo "<h1 style='margin-bottom:1em; margin-top: 1em;'>" . $file_path['filename'] . "</h1>";
 
 			// NAVIGATION LINKS
 			// Set first and last photo navigation links according to specified	 sort order
