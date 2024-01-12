@@ -24,14 +24,7 @@ pre {
 }
 
 a {
-  color: #999;
-}
-
-a.superscript {
-  position: relative;
-  top: -0.7em;
-  font-size: 51%;
-  text-decoration: none;
+  color: #e3e3e3;
 }
 
 h1 {
@@ -180,6 +173,8 @@ a:hover {
 }
 
 .footer {
+  color: #e3e3e3;
+  text-decoration: none;
   text-align: center;
   font-family: "Inter", sans-serif;
   font-size: 0.9em;
