@@ -251,7 +251,7 @@ set_time_limit(600);
 					$dir_option = str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);
 					echo "<option value='?d=" . ltrim($dir_option, '/') . "'>" . $dir_name . "</option>";
 				}
-				echo "</select>";
+				echo "</select></div>";
 			}
 		?>
 
@@ -344,7 +344,7 @@ set_time_limit(600);
 			$url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			$_SESSION['page'] = $url;
 
-			echo "<h1 style='margin-bottom:1em; margin-top: 1em;'>" . $file_path['filename'] . "</h1>";
+			echo "<h1 style='margin-top: 1em;'>" . $file_path['filename'] . "</h1><hr>";
 
 			// NAVIGATION LINKS
 			// Set first and last photo navigation links according to specified	 sort order
@@ -423,7 +423,7 @@ set_time_limit(600);
 			if ($download) {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 				echo '<div class="caption">' . $exif_info . '</div>';
-				echo '<div class="caption" style="margin-top: 1em;">' . $image_download . $raw_download . $image_delete . '</div></div>';
+				echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div></div>';
 			} else {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 				echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div></div>';

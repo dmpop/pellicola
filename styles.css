@@ -27,6 +27,19 @@ a {
   color: #e3e3e3;
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  background-image: linear-gradient(
+    to right,
+    rgba(183, 183, 183, 0.1),
+    rgba(183, 183, 183, 183),
+    rgba(183, 183, 183, 0.1)
+  );
+}
+
 h1 {
   color: #59a2d8ff;
   font-family: "Inter", sans-serif;
@@ -79,7 +92,7 @@ p {
   color: #e3e3e3;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 0.5em;
+  margin-top: 1em;
   line-height: 1.5em;
   text-align: center;
 }
