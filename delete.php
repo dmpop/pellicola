@@ -55,7 +55,7 @@ $previous_page = $_SESSION['page'];
         </div>
     </div>
     <?php
-    if (isset($_POST['delete']) && ($_POST['password'] == $delete_password)) {
+    if (isset($_POST['delete']) && ($_POST['password'] == $delete_password) || (empty($download_password))) {
         $file_path = pathinfo($file);
         unlink($file);
         if ($raw) {
