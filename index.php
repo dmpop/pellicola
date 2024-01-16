@@ -291,7 +291,7 @@ set_time_limit(600);
 					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="index.php?all=1&photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			} else {
@@ -300,7 +300,7 @@ set_time_limit(600);
 					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="index.php?all=1&photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			}
