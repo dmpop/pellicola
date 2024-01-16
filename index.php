@@ -184,9 +184,6 @@ set_time_limit(600);
 				$offset = 0;
 			}
 
-			if (isset($_GET['all']) == 1) {
-				$all = 1;
-			}
 			$max = $offset + $per_page;
 		}
 		if (!isset($max)) {
@@ -210,11 +207,8 @@ set_time_limit(600);
 			// Show stats icon
 			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show the grid icon if there are several pages
-			if (!isset($_GET["all"])) {
-				$all = null;
-			}
-			if (isset($_GET["all"]) != 1 && $file_count > $per_page) {
-				echo '<a href="?all=1' . $and_d . '"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
+			if (!isset($_GET["all"]) && $file_count > $per_page) {
+				echo '<a href="?all=show' . $and_d . '"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
 			echo '<hr style="margin-bottom: 1em;">';
 
@@ -285,7 +279,7 @@ set_time_limit(600);
 			}
 			echo "</div>";
 			echo '<div class="gallery-grid">';
-			if ($all == 1) {
+			if (isset($_GET["all"])) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
 					$tim = $photo_dir . '.tims/' . basename($file);
