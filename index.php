@@ -174,7 +174,7 @@ set_time_limit(600);
 		$total = count($files);
 		$last_page = ceil($total / $per_page);
 
-		if (isset($_GET["photo"]) == '') {
+		if (!isset($_GET["photo"])) {
 
 			if (isset($_GET["page"]) && ($_GET["page"] <= $last_page) && ($_GET["page"] > 0) && ($_GET["all"] != 1)) {
 				$page = $_GET["page"];
@@ -315,16 +315,16 @@ set_time_limit(600);
 		function show_pagination($current_page, $last_page, $and_d)
 		{
 			echo '<div class="center">';
-			if ($current_page != 1 && isset($_GET["photo"]) == '') {
+			if ($current_page != 1 && !isset($_GET["photo"])) {
 				echo '<a color: #e3e3e3;" href="?page=' . "1" . $and_d . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
-			if ($current_page > 1 && isset($_GET["photo"]) == '') {
+			if ($current_page > 1 && !isset($_GET["photo"])) {
 				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . $and_d . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
-			if ($current_page < $last_page && isset($_GET["photo"]) == '') {
+			if ($current_page < $last_page && !isset($_GET["photo"])) {
 				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . $and_d . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
-			if ($current_page != $last_page && isset($_GET["photo"]) == '') {
+			if ($current_page != $last_page && !isset($_GET["photo"])) {
 				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . $and_d . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
