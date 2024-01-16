@@ -174,7 +174,7 @@ set_time_limit(600);
 		$total = count($files);
 		$last_page = ceil($total / $per_page);
 
-		if (!isset($_GET["photo"])) {
+		if (!isset($_GET["file"])) {
 
 			if (isset($_GET["page"]) && ($_GET["page"] <= $last_page) && ($_GET["page"] > 0) && ($_GET["all"] != 1)) {
 				$page = $_GET["page"];
@@ -195,7 +195,7 @@ set_time_limit(600);
 		// Pagination. Calculate total items per page * END
 
 		// The $grid parameter is used to show the main grid
-		$grid = (isset($_GET['photo']) ? $_GET['photo'] : null);
+		$grid = (isset($_GET["file"]) ? $_GET["file"] : null);
 
 		if (!isset($grid)) {
 			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
@@ -285,7 +285,7 @@ set_time_limit(600);
 					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="index.php?photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?file=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			} else {
@@ -294,7 +294,7 @@ set_time_limit(600);
 					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="index.php?photo=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?file=' . $file . $and_d . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			}
@@ -309,16 +309,16 @@ set_time_limit(600);
 		function show_pagination($current_page, $last_page, $and_d)
 		{
 			echo '<div class="center">';
-			if ($current_page != 1 && !isset($_GET["photo"])) {
+			if ($current_page != 1 && !isset($_GET["file"])) {
 				echo '<a color: #e3e3e3;" href="?page=' . "1" . $and_d . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
-			if ($current_page > 1 && !isset($_GET["photo"])) {
+			if ($current_page > 1 && !isset($_GET["file"])) {
 				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . $and_d . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
-			if ($current_page < $last_page && !isset($_GET["photo"])) {
+			if ($current_page < $last_page && !isset($_GET["file"])) {
 				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . $and_d . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
-			if ($current_page != $last_page && !isset($_GET["photo"])) {
+			if ($current_page != $last_page && !isset($_GET["file"])) {
 				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . $and_d . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
@@ -326,7 +326,7 @@ set_time_limit(600);
 		//Pagination. Create the navigation links * END
 
 		// The $photo parameter is used to show an individual photo
-		$file = (isset($_GET['photo']) ? $_GET['photo'] : null);
+		$file = (isset($_GET["file"]) ? $_GET["file"] : null);
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 			$tim = $photo_dir . '.tims/' . basename($file);
