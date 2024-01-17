@@ -176,7 +176,7 @@ set_time_limit(600);
 
 		if (!isset($_GET["file"])) {
 
-			if (isset($_GET["page"]) && ($_GET["page"] <= $last_page) && ($_GET["page"] > 0) && ($_GET["all"] != 1)) {
+			if (isset($_GET["page"]) && ($_GET["page"] <= $last_page) && ($_GET["page"] > 0) && (!isset($_GET["all"]))) {
 				$page = $_GET["page"];
 				$offset = ($per_page) * ($page - 1);
 			} else {
@@ -301,7 +301,9 @@ set_time_limit(600);
 			echo "</div>";
 		}
 
-		if (isset($_GET["all"]) != 1) {
+		// Set $page to null to avoid the undefined variable error in show_pagination()
+		(isset($_GET["page"])) ? $page = $_GET["page"] : $page = null;
+		if (!isset($_GET["all"])) {
 			show_pagination($page, $last_page, $and_d, $sub_photo_dir); // Pagination. Show navigation on bottom of page
 		}
 
