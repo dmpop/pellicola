@@ -8,10 +8,10 @@ $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
 $i18n->init();
 
-$file = $_GET['file'];
+$file = $_GET["file"] ?? NULL;
 
 session_start();
-$previous_page = $_SESSION['page'];
+(isset($_SESSION["page"])) ? $return = $_SESSION["page"] : $return = "index.php";
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ $previous_page = $_SESSION['page'];
                     <input style="vertical-align: middle;" class="card" type='password' name='password' value=''>
                     <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn green" type="submit" name="download"><?php echo L::download_btn; ?></button>
                 </form>
-                <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="<?php echo $previous_page; ?>"><?php echo L::btn_back; ?></a>
+                <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="<?php echo $return; ?>"><?php echo L::btn_back; ?></a>
             </div>
         </div>
     </div>
