@@ -15,5 +15,4 @@ $urls = array(
 $img_formats = 'jpg,jpeg,JPG,JPEG'; // File types Mejiro displays. Add other file extensions (for example, PNG, HEIC, etc.), if needed.
 $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add other file extensions, if needed
 $download = false; // Toggle photo download
-$download_password = "secret"; // Password to protect downloads
 $tim_size = 1200; //Tim size
