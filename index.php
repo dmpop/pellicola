@@ -46,16 +46,13 @@ set_time_limit(600);
 		}
 		//  The $album parameter is used to detect a subdirectory
 		if (isset($_GET["album"])) {
-			$sub_photo_dir = $_GET["album"];
-			$album = "&album=" . htmlentities($sub_photo_dir);
-			$album_nav = "?album=" . htmlentities($sub_photo_dir);
+			$album = htmlentities($_GET["album"]);
 		} else {
 			$album = NULL;
-			$album_nav = NULL;
-			$sub_photo_dir = NULL;
 		}
-		// htmlentities and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
-		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR));
+
+		// htmlentities and str_replace are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
+		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
 
 		/*
 	 * Returns an array of latitude and longitude from the image file.
@@ -107,7 +104,7 @@ set_time_limit(600);
 			return false;
 		}
 
-		// Create tims if missing
+		// Create missing tims
 		if (file_exists($photo_dir) && !file_exists($photo_dir . '.tims')) {
 			mkdir($photo_dir . '.tims');
 		}
@@ -165,7 +162,6 @@ set_time_limit(600);
 			$tim = $photo_dir . '.tims/' . basename($file);
 
 			if (!file_exists($tim)) {
-				// Generate tims
 				createTim($file, $tim, $tim_size);
 			}
 		}
@@ -208,7 +204,7 @@ set_time_limit(600);
 			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show the grid icon if there are several pages
 			if (!isset($_GET["all"]) && $file_count > $per_page) {
-				echo '<a href="?all=show' . $album . '"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
+				echo '<a href="?all=show&album=' . $album . '"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
 			echo '<hr style="margin-bottom: 1em;">';
 
@@ -220,13 +216,13 @@ set_time_limit(600);
 			echo "</div>";
 
 			// Populate a drop-down list with subdirectories
-			if ((count($sub_dirs)) > 0 or (!empty($sub_photo_dir))) {
+			if ((count($sub_dirs)) > 0 or (!empty($album))) {
 				echo "<noscript>";
 				echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_enable_js . "</h3>";
 				echo "</noscript>";
 				echo '<div class="center" style="margin-bottom: 1em;">';
 				echo "<a href='"  . basename($_SERVER['PHP_SELF']) . "'><img style='vertical-align: middle;' alt='" . L::img_root_album . "' title='" . L::img_root_album . "' src='svg/home.svg'/></a> &rarr;&nbsp;";
-				$higher_dirs = explode("/", $sub_photo_dir);
+				$higher_dirs = explode("/", $album);
 				$higher_dir_cascade = "";
 				foreach ($higher_dirs as $higher_dir) {
 					if (!empty($higher_dir)) {
@@ -242,7 +238,7 @@ set_time_limit(600);
 				echo '<option value="Default">' . L::album . '</option>';
 				foreach ($sub_dirs as $dir) {
 					$dir_name = basename($dir);
-					$dir_option = str_replace('\'', '&apos;', $sub_photo_dir . DIRECTORY_SEPARATOR . $dir_name);
+					$dir_option = str_replace('\'', '&apos;', $album . DIRECTORY_SEPARATOR . $dir_name);
 					echo "<option value='?album=" . ltrim($dir_option, '/') . "'>" . $dir_name . "</option>";
 				}
 				echo "</select></div>";
@@ -285,7 +281,7 @@ set_time_limit(600);
 					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="index.php?file=' . $file . $album . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?file=' . $file . "&album=" . $album . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			} else {
@@ -294,7 +290,7 @@ set_time_limit(600);
 					$tim = $photo_dir . '.tims/' . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="index.php?file=' . $file . $album . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="index.php?file=' . $file . "&album=" . $album . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			}
@@ -304,7 +300,7 @@ set_time_limit(600);
 		if (!isset($_GET["all"])) {
 			// Set $page to NULL if $file is set to avoid undefined variable warning
 			(isset($_GET["file"])) ? $page = NULL : NULL;
-			show_pagination($page, $last_page, $album, $sub_photo_dir); // Pagination. Show navigation on bottom of page
+			show_pagination($page, $last_page, "&album=" . $album, $album); // Pagination. Show navigation on bottom of page
 		}
 
 		//Pagination. Create the navigation links * START
@@ -312,16 +308,16 @@ set_time_limit(600);
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && !isset($_GET["file"])) {
-				echo '<a color: #e3e3e3;" href="?page=' . "1" . $album . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . "1" . "&album=" . $album . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
 			if ($current_page > 1 && !isset($_GET["file"])) {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . $album . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . "&album=" . $album . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
 			if ($current_page < $last_page && !isset($_GET["file"])) {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . $album . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . "&album=" . $album . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
 			if ($current_page != $last_page && !isset($_GET["file"])) {
-				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . $album . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
+				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . "&album=" . $album . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
 		}
@@ -349,16 +345,16 @@ set_time_limit(600);
 
 			// If there is only one photo in the album, show the home navigation link
 			if ($file_count == 1) {
-				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
+				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
 			} elseif (empty($files[$key - 1])) {
 				// Disable the Previous link if this is the FIRST photo
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav .  "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg'  alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . $album .  "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album .  "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . "&album=" . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg'  alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . "&album=" . $album .  "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
 			} elseif (empty($files[$key + 1])) {
 				// Disable the Next link if this is the LAST photo
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . $album . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . "&album=" . $album . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . "&album=" . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
 			} else {
 				// Show all navigation links
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . $album . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg' alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . $album . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . "&album=" . $album . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . "&album=" . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . "&album=" . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg' alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . "&album=" . $album . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
 			}
 
 			// Check whether the localized description file matching the browser language exists
