@@ -54,12 +54,14 @@ set_time_limit(600);
 		// htmlentities and str_replace are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
 		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
 
-		/*
-	 * Returns an array of latitude and longitude from the image file.
-	 * @param image $file
-	 * @return multitype:number |boolean
-	 * http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
-	 */
+		/* ======= FUNCTIONS ======= */
+
+		/* EXTRACT LATITUDE AND LONGITUDE ---START---
+	   * Returns an array of latitude and longitude from the image file.
+	   * @param image $file
+	   * @return multitype:number |boolean
+	   * http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
+	   */
 		function read_gps_location($file)
 		{
 			if (is_file($file)) {
@@ -103,28 +105,9 @@ set_time_limit(600);
 			}
 			return false;
 		}
+		/* EXTRACT LATITUDE AND LONGITUDE ---STOP--- */
 
-		// Create missing tims
-		if (file_exists($photo_dir) && !file_exists($photo_dir . '.tims')) {
-			mkdir($photo_dir . '.tims');
-		}
-
-		// Find all files or a specific file if $_GET["query"] is set
-		if (isset($_GET["query"])) {
-			$files = glob($photo_dir . "*" . $_GET["query"] . "*.{" . $img_formats . "}", GLOB_BRACE);
-		} else {
-			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
-		}
-
-		// Check whether the reversed order option is enabled and sort the array accordingly
-		if ($r_sort) {
-			rsort($files);
-		}
-
-		// Update count (we might have removed some files)
-		$file_count = count($files);
-
-		// Function that generates tims
+		/* CREATE TIMS ---START--- */
 		function createTim($original, $tim, $timWidth)
 		{
 			// Load image
@@ -155,6 +138,49 @@ set_time_limit(600);
 			// Return bool true if tim creation worked
 			return $ok;
 		}
+		/* CREATE TIMS ---END--- */
+
+		/* PAGINATION LINKS ---START --- */
+		function show_pagination($current_page, $last_page, $album)
+		{
+			echo '<div class="center">';
+			if ($current_page != 1 && !isset($_GET["file"])) {
+				echo '<a color: #e3e3e3;" href="?page=' . "1" . $album . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
+			}
+			if ($current_page > 1 && !isset($_GET["file"])) {
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . $album . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
+			}
+			if ($current_page < $last_page && !isset($_GET["file"])) {
+				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . $album . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
+			}
+			if ($current_page != $last_page && !isset($_GET["file"])) {
+				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . $album . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
+			}
+			echo '</div>';
+		}
+		/* PAGINATION LINKS ---END --- */
+
+		/* ======= FUNCTIONS ======= */
+
+		// Create missing tims
+		if (file_exists($photo_dir) && !file_exists($photo_dir . '.tims')) {
+			mkdir($photo_dir . '.tims');
+		}
+
+		// Find all files or a specific file if $_GET["query"] is set
+		if (isset($_GET["query"])) {
+			$files = glob($photo_dir . "*" . $_GET["query"] . "*.{" . $img_formats . "}", GLOB_BRACE);
+		} else {
+			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+		}
+
+		// Check whether the reversed order option is enabled and sort the array accordingly
+		if ($r_sort) {
+			rsort($files);
+		}
+
+		// Update count (we might have removed some files)
+		$file_count = count($files);
 
 		// Generate missing tims
 		for ($i = 0; $i < $file_count; $i++) {
@@ -245,6 +271,7 @@ set_time_limit(600);
 			}
 		?>
 
+			<!-- Search filed in the upper-right corner -->
 			<div class="topcorner">
 				<form autocomplete='off' style='margin-top: 0.5em; margin-right: 1em;' method='GET' action=' '>
 					<label for='weight'><?php echo L::find_by_name; ?>:</label>
@@ -300,28 +327,8 @@ set_time_limit(600);
 		if (!isset($_GET["all"])) {
 			// Set $page to NULL if $file is set to avoid undefined variable warning
 			(isset($_GET["file"])) ? $page = NULL : NULL;
-			show_pagination($page, $last_page, "&album=" . $album, $album); // Pagination. Show navigation on bottom of page
+			show_pagination($page, $last_page, "&album=" . $album); // Pagination. Show navigation on bottom of page
 		}
-
-		//Pagination. Create the navigation links * START
-		function show_pagination($current_page, $last_page, $album)
-		{
-			echo '<div class="center">';
-			if ($current_page != 1 && !isset($_GET["file"])) {
-				echo '<a color: #e3e3e3;" href="?page=' . "1" . "&album=" . $album . '"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
-			}
-			if ($current_page > 1 && !isset($_GET["file"])) {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . "&album=" . $album . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
-			}
-			if ($current_page < $last_page && !isset($_GET["file"])) {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . "&album=" . $album . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
-			}
-			if ($current_page != $last_page && !isset($_GET["file"])) {
-				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . "&album=" . $album . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
-			}
-			echo '</div>';
-		}
-		//Pagination. Create the navigation links * END
 
 		// The $file parameter is used to show an individual photo
 		$file = (isset($_GET["file"]) ? $_GET["file"] : NULL);
