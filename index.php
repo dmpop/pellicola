@@ -40,7 +40,10 @@ set_time_limit(600);
 <body>
 	<div id="content">
 		<?php
-		// basename and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
+		// Create $base_photo_dir if it doesn't exist
+		if (!file_exists($base_photo_dir)) {
+			mkdir($base_photo_dir, 0755, true);
+		}
 		//  The $album parameter is used to detect a subdirectory
 		if (isset($_GET["album"])) {
 			$sub_photo_dir = $_GET["album"];
@@ -51,11 +54,8 @@ set_time_limit(600);
 			$album_nav = NULL;
 			$sub_photo_dir = NULL;
 		}
-		// Create $base_photo_dir if it doesn't exist
-		if (!file_exists($base_photo_dir)) {
-			mkdir($base_photo_dir, 0755, true);
-		}
-		$photo_dir = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR);
+		// htmlentities and str_replace are used to prevent the path traversal attacks. Not very elegant, but it should do the trick.
+		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $sub_photo_dir . DIRECTORY_SEPARATOR));
 
 		/*
 	 * Returns an array of latitude and longitude from the image file.
@@ -272,9 +272,9 @@ set_time_limit(600);
 				exit;
 			}
 			// Show the content of the preamble.html file if it exists in the album
-			if (file_exists($photo_dir . DIRECTORY_SEPARATOR . "preamble.html")) {
+			if (file_exists($photo_dir . "preamble.html")) {
 				echo '<div style="margin: auto; margin-top: 1.5em; margin-bottom: 1em; width: 50%;">';
-				echo file_get_contents($photo_dir . DIRECTORY_SEPARATOR . "preamble.html");
+				echo file_get_contents($photo_dir . "preamble.html");
 				echo "</div>";
 			}
 			echo "</div>";
@@ -327,7 +327,7 @@ set_time_limit(600);
 		}
 		//Pagination. Create the navigation links * END
 
-		// The $photo parameter is used to show an individual photo
+		// The $file parameter is used to show an individual photo
 		$file = (isset($_GET["file"]) ? $_GET["file"] : NULL);
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
@@ -350,19 +350,15 @@ set_time_limit(600);
 			// If there is only one photo in the album, show the home navigation link
 			if ($file_count == 1) {
 				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
-			}
-			// Disable the Previous link if this is the FIRST photo
-			elseif (empty($files[$key - 1])) {
+			} elseif (empty($files[$key - 1])) {
+				// Disable the Previous link if this is the FIRST photo
 				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav .  "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg'  alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . $album .  "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
-			}
-			// Disable the Next link if this is the LAST photo
-			elseif (empty($files[$key + 1])) {
+			} elseif (empty($files[$key + 1])) {
+				// Disable the Next link if this is the LAST photo
 				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . $album . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
-			}
-			// Show all navigation links
-			else {
-
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . "&d=" . htmlentities($sub_photo_dir) . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg' alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . $album . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
+			} else {
+				// Show all navigation links
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . $album_nav . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $first_photo . $album . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key - 1] . $album . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $files[$key + 1] . $album . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg' alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . $last_photo . $album . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
 			}
 
 			// Check whether the localized description file matching the browser language exists
