@@ -55,7 +55,7 @@ session_start();
         </div>
     </div>
     <?php
-    if (isset($_POST['delete']) && ($_POST['password'] == $delete_password) || (empty($download_password))) {
+    if (isset($_POST['delete']) && ($_POST['password'] == $delete_password) || (empty($delete_password))) {
         $file_path = pathinfo($file);
         unlink($file);
         if ($raw) {
