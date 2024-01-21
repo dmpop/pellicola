@@ -8,10 +8,12 @@ $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
 $i18n->init();
 
-$file = $_GET["file"] ?? NULL;
-$raw = $_GET["raw"] ?? NULL;
+$file = hex2bin($_GET["file"]) ?? NULL;
+$raw = hex2bin($_GET["raw"]) ?? NULL;
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 (isset($_SESSION["page"])) ? $return = $_SESSION["page"] : $return = "index.php";
 ?>
 
@@ -43,6 +45,8 @@ session_start();
         </div>
         <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
         <hr>
+        <?php
+        ?>
         <div class='c'>
             <div class='card' style="text-align: center;">
                 <form style="margin-top: .7em; display: inline;" action=" " method="POST">

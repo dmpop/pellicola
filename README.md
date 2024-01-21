@@ -20,7 +20,7 @@ The [Mejiro for photographers](https://dmpop.gumroad.com/l/mejiro-for-photograph
 - **Optional album description** If a _preamble.html_ file exists in the album's folder, Mejiro displays its contents as the album's description.
 - **Optional photo description** You can add a description to each photo by creating an accompanying _.txt_ file. The app can also read and display descriptions from the photo's _UserComment_ EXIF field.
 - **Automatic language detection** Mejiro automatically detects the browser language and picks the description text file with the appropriate language prefix.
-- **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos.
+- **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos. Downloads are password protected by default. Password protection can be disabled by leaving `$download_password` in the _config.php_ file empty.
 - **RAW downloads** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a download link to it when the download option is enabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
 - **Statistics** View basic statistics: camera models, the total number of photos and RAW files, disk usage, total number of downloads, and number of downloads of each file (if enabled).
