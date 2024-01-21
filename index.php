@@ -54,8 +54,10 @@ if (session_status() == PHP_SESSION_NONE) {
 		if (isset($_GET["album"])) {
 			$_SESSION["album"] = htmlentities($_GET["album"]);
 			$album = $_SESSION["album"];
-		} else {
+		} elseif (isset($_GET["album"]) || !empty($_SESSION["album"])) {
 			$album = $_SESSION["album"];
+		} else {
+			$album = NULL;
 		}
 		// Create $base_photo_dir if it doesn't exist
 		if (!file_exists($base_photo_dir)) {
@@ -418,12 +420,12 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 			// Find all RAW files
 			$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
-			$raw = (!empty($raw_file[0]) ? '&raw=' .  $raw_file[0] : NULL);
+			$raw = (!empty($raw_file[0]) ? '&raw=' .  $raw_file[0] : $raw = NULL);
 			$image_download = '<a href="download.php?file=' . htmlentities($file) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
 			$image_delete = '<a href="delete.php?file=' . $file . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 			//Check if the related RAW file exists and link to it
 			if (!empty($raw_file)) {
-				$raw_download = "<a href='download.php?file=" . $raw_file[0] . "'><img style='margin-right: 1em;' alt='" . L::raw_download . "' title='" . L::raw_download . "' src='svg/raw.svg'/></a>";
+				$raw_download = "<a href='download.php?file=" . $raw . "'><img style='margin-right: 1em;' alt='" . L::raw_download . "' title='" . L::raw_download . "' src='svg/raw.svg'/></a>";
 			}
 			if ($download) {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
