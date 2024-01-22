@@ -91,20 +91,45 @@ class DiskSpaceCheck
 
         $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
 
-        $stats = array();
+        $model = array();
         foreach ($files as $file) {
             $exif = @exif_read_data($file);
-            if (!empty($exif['Model'])) {
-                array_push($stats, $exif['Model']);
+            if (!empty($exif["Model"])) {
+                array_push($model, $exif["Model"]);
+            }
+        }
+        $f_length = array();
+        foreach ($files as $file) {
+            $exif = @exif_read_data($file);
+            if (!empty($exif["FocalLength"])) {
+                $f_length_mm = eval("return " . $exif["FocalLength"] . ";") . "mm";
+                array_push($f_length, $f_length_mm);
             }
         }
         echo "
         <div class='c'>
-        <h2 style='text-align: left;'>" . L::cameras . "</h2>
+        <h2 style='text-align: left;'>" . L::camera_model . "</h2>
         <div class='card'>
         <table>
         ";
-        $count = array_count_values(array_filter($stats));
+        $count = array_count_values(array_filter($model));
+        ksort($count);
+        foreach ($count as $key => $value) {
+            echo "<tr><td>$key</td><td>$value</td></tr>";
+        }
+        echo "
+        </table>
+        </div>
+        </div>
+        ";
+
+        echo "
+        <div class='c'>
+        <h2 style='text-align: left;'>" . L::f_length . "</h2>
+        <div class='card'>
+        <table>
+        ";
+        $count = array_count_values(array_filter($f_length));
         ksort($count);
         foreach ($count as $key => $value) {
             echo "<tr><td>$key</td><td>$value</td></tr>";
@@ -152,7 +177,7 @@ class DiskSpaceCheck
             </div>
         <?php endif; ?>
     </div>
-    <div class="center" style="margin-top: 1em;">
+    <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
         <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
     </div>
     <?php
@@ -165,7 +190,7 @@ class DiskSpaceCheck
         }
         echo  $footer . '</div>';
     } else {
-        echo '<div class="footer">' . $footer . '</div>';
+        echo '<div class="footer"' . $footer . '</div>';
     }
     ?>
 </body>
