@@ -72,11 +72,20 @@ if (session_status() == PHP_SESSION_NONE) {
 		// Mask and unmask URL parameter using the bin2hex and hex2bin functions
 		function mask_param($param)
 		{
+			if (file_exists($param)) {
 			return bin2hex($param);
+			} else {
+				exit("¯\_(ツ)_/¯");
+			}
 		}
 		function unmask_param($param)
 		{
-			return hex2bin($param);
+			// Check if $param is a hex string
+			if (ctype_xdigit($param)) {
+				return hex2bin($param);
+			} else {
+				exit("¯\_(ツ)_/¯");
+			}
 		}
 
 		/* EXTRACT LATITUDE AND LONGITUDE ---START---

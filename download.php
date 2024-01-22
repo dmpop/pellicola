@@ -7,7 +7,14 @@ $i18n->setCachePath('cache');
 $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
 $i18n->init();
-$file = hex2bin($_GET["file"]) ?? NULL;
+
+// Check if $_GET["file"] value is hex,
+// then convert it to the file path
+if (ctype_xdigit($_GET["file"])) {
+    $file = hex2bin($_GET["file"]) ?? NULL;
+} else {
+    exit("¯\_(ツ)_/¯");
+}
 ?>
 
 <!DOCTYPE html>
