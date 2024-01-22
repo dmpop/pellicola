@@ -113,16 +113,6 @@ class DiskSpaceCheck
         </table>
         </div>
         ";
-        if ($links) {
-            $array_length = count($urls);
-            echo '<div class="footer">';
-            for ($i = 0; $i < $array_length; $i++) {
-                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
-            }
-            echo  $footer . '</div>';
-        } else {
-            echo '<div class="footer">' . $footer . '</div>';
-        }
         ?>
         <h2 style='text-align: left;'><?php echo L::storage; ?></h2>
         <div class="card">
@@ -165,7 +155,19 @@ class DiskSpaceCheck
     <div class="center" style="margin-top: 1em;">
         <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
     </div>
-    </div>
+    <?php
+    // Show links and footer
+    if ($links) {
+        $array_length = count($urls);
+        echo '<div class="footer">';
+        for ($i = 0; $i < $array_length; $i++) {
+            echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+        }
+        echo  $footer . '</div>';
+    } else {
+        echo '<div class="footer">' . $footer . '</div>';
+    }
+    ?>
 </body>
 
 </html>

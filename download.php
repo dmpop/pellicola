@@ -55,7 +55,7 @@ $file = hex2bin($_GET["file"]) ?? NULL;
         // https://www.kavoir.com/2010/05/simplest-php-hit-counter-or-download-counter-count-the-number-of-times-of-access-visits-or-downloads.html
         // https://stackoverflow.com/questions/8485886/force-file-download-with-php-using-header
         $current = @file_get_contents('downloads.txt');
-        $current .= basename($file) . PHP_EOL;
+        $current .= "<a href='index.php?file=" . bin2hex($file) . "'>" . basename($file) . "</a>" . PHP_EOL;
         @file_put_contents('downloads.txt', $current);
         header("Content-Disposition: attachment; filename=" . basename($file) . "");
         header('Content-Type: application/octet-stream'); // Downloading on Android might fail without this

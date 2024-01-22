@@ -243,8 +243,8 @@ if (session_status() == PHP_SESSION_NONE) {
 		$grid = (isset($_GET["file"]) ? $_GET["file"] : NULL);
 		if (!isset($grid)) {
 			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
-			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
-			echo '<a style="text-decoration:none;" href="' . basename($_SERVER['PHP_SELF']) . '?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $title . '</h1></a>';
+			echo '<a style="text-decoration:none;" href="index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
+			echo '<a style="text-decoration:none;" href="index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $title . '</h1></a>';
 			echo '</div>';
 			echo "<div class ='center' style='color: gray; margin-bottom: 1em;'>" . $subtitle . "</div>";
 			echo "<div class ='center' style='margin-bottom: 1em;'>";
@@ -370,20 +370,20 @@ if (session_status() == PHP_SESSION_NONE) {
 
 			// If there is only one photo in the album, show the home navigation link
 			if ($file_count == 1) {
-				echo "<div class='center'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
+				echo "<div class='center'><a href='index.php?album=" . $album . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
 			}
 			// Disable the Previous link if this is the FIRST photo
 			elseif (empty($files[$key - 1])) {
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($files[$key + 1]) . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg'  alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($last_photo) . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='index.php?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='index.php?file=" . mask_param($files[$key + 1]) . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg'  alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='index.php?file=" . mask_param($last_photo) . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
 			}
 			// Disable the Next link if this is the LAST photo
 			elseif (empty($files[$key + 1])) {
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($first_photo) . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($files[$key - 1]) . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='index.php?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='index.php?file=" . mask_param($first_photo) . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='index.php?file=" . mask_param($files[$key - 1]) . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a></div>";
 			}
 			// Show all navigation links
 			else {
 
-				echo "<div class='center' style='margin-bottom: 1em;'><a href='" . basename($_SERVER['PHP_SELF']) . "?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($first_photo) . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($files[$key - 1]) . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($files[$key + 1]) . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg' alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='" . basename($_SERVER['PHP_SELF']) . "?file=" . mask_param($last_photo) . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;'><a href='index.php?album=" . $album . "' accesskey='g'><img style='margin-right:1em;' src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a><a href='index.php?file=" . mask_param($first_photo) . "' accesskey='f'><img style='margin-right:1em;' src='svg/arrow-up.svg' alt='" . L::nav_first . "' title='" . L::nav_first . "'/></a><a href='index.php?file=" . mask_param($files[$key - 1]) . "' accesskey='p'><img style='margin-right:1em;' src='svg/arrow-left.svg' alt='" . L::nav_prev . "' title='" . L::nav_prev . "'/></a><a href='index.php?file=" . mask_param($files[$key + 1]) . "' accesskey='n'><img style='margin-right:1em;' src='svg/arrow-right.svg' alt='" . L::nav_next . "' title='" . L::nav_next . "'/></a><a href='index.php?file=" . mask_param($last_photo) . "' accesskey='l'><img src='svg/arrow-down.svg' alt='" . L::nav_last . "' title='" . L::nav_last . "'/></a></div>";
 			}
 			/* NAVIGATION LINKS ---END--- */
 
