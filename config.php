@@ -15,6 +15,7 @@ $img_formats = 'jpg,jpeg,JPG,JPEG'; // File types Mejiro displays. Add other fil
 $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add other file extensions, if needed
 $download = false; // Toggle photo download
 $download_password = "secret"; // Password to protect downloads. Leave empty to disable password protection.
+$f_length_threshold = 3; // Focal lengths with count lower that the specified number are not shown in stats.
 
 /* DO NOT CHANGE SETTINGS BELOW */
 $base_photo_dir = "photos"; // Directory for storing photos

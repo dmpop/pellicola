@@ -23,7 +23,7 @@ The [Mejiro for photographers](https://dmpop.gumroad.com/l/mejiro-for-photograph
 - **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos. Downloads are password protected by default. Password protection can be disabled by leaving `$download_password` in the _config.php_ file empty.
 - **RAW downloads** For each photo in the JPEG format, you can upload the accompanying RAW file, and Mejiro automatically adds a download link to it when the download option is enabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
-- **Statistics** View basic statistics: camera models, the total number of photos and RAW files, disk usage, total number of downloads, and number of downloads of each file (if enabled).
+- **Statistics** View basic statistics: camera models, focal length stats, the total number of photos and RAW files, disk usage, total number of downloads, and number of downloads of each file (if enabled).
 - **Access keys** The application supports access keys for common actions.
 - **Internationalization** support. The application automatically detects and picks the right language. Localizing Mejiro is a matter of translating a handful of text strings in a dedicated _.ini_ file.
 - **Self-contained and GDPR-compliant** Mejiro has no external dependencies, and it doesn't collect any user data.

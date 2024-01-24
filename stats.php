@@ -132,7 +132,9 @@ class DiskSpaceCheck
         $count = array_count_values(array_filter($f_length));
         ksort($count);
         foreach ($count as $key => $value) {
-            echo "<tr><td>$key</td><td>$value</td></tr>";
+            if ($value > $f_length_threshold) {
+                echo "<tr><td>$key</td><td>$value</td></tr>";
+            }
         }
         echo "
         </table>
