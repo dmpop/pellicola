@@ -195,8 +195,8 @@ if (session_status() == PHP_SESSION_NONE) {
 		/* ======= FUNCTIONS ======= */
 
 		// Create missing tims
-		if (file_exists($photo_dir) && !file_exists($photo_dir . '.tims')) {
-			mkdir($photo_dir . '.tims');
+		if (file_exists($photo_dir) && !file_exists($tims_dir)) {
+			mkdir($tims_dir);
 		}
 
 		// Find all files or a specific file if $_GET["query"] is set
@@ -217,7 +217,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		// Generate missing tims
 		for ($i = 0; $i < $file_count; $i++) {
 			$file  = $files[$i];
-			$tim = dirname($file) . DIRECTORY_SEPARATOR . '.tims/' . basename($file);
+			$tim = $tims_dir . basename($file);
 
 			if (!file_exists($tim)) {
 				createTim($file, $tim, $tim_size);
@@ -267,8 +267,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 			// Create an array with all subdirectories
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
-			$sub_dirs = array_diff($all_sub_dirs, array($photo_dir . ".tims"));
-			$count = count(glob($photo_dir . ".tims/*"));
+			$sub_dirs = array_diff($all_sub_dirs, array($tims_dir));
+			$count = count(glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE));
 			echo "<span style='color: gray'>" . L::album_items_count . ": </span>" . $count;
 			echo "</div>";
 
@@ -334,7 +334,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			if (isset($_GET["all"])) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
-					$tim = dirname($file) . DIRECTORY_SEPARATOR . '.tims/' . basename($file);
+					$tim = $tims_dir . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
 					echo '<a href="index.php?file=' . mask_param($file)  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
@@ -343,7 +343,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			} else {
 				for ($i = $offset; $i < $max; $i++) {
 					$file = $files[$i];
-					$tim = dirname($file) . DIRECTORY_SEPARATOR . '.tims/' . basename($file);
+					$tim = $tims_dir . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
 					echo '<a href="index.php?file=' . mask_param($file) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
@@ -362,7 +362,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		$file = isset($_GET["file"]) ? unmask_param($_GET["file"]) : NULL;
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
-			$tim = dirname($file) . DIRECTORY_SEPARATOR . '.tims/' . basename($file);
+			$tim = $tims_dir . basename($file);
 			$exif = exif_read_data($file, 0, true);
 			$file_path = pathinfo($file);
 
