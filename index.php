@@ -309,7 +309,7 @@ if (session_status() == PHP_SESSION_NONE) {
 					<input style="vertical-align: middle;" type='text' name='query'>
 					<!-- The hidden input field is used to pass the $album value (album) to the search -->
 					<input type='hidden' name='album' value='<?php echo $album; ?>'>
-					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>">
+					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
 				</form>
 			</div>
 
