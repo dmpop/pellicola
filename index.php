@@ -29,7 +29,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <!--
 	 Author: Dmitri Popov
 	 License: GPLv3 https://www.gnu.org/licenses/gpl-3.0.txt
-	 Source code: https://github.com/dmpop/mejiro
+	 Source code: https://github.com/dmpop/pellicola
 	-->
 
 <head>

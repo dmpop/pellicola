@@ -83,5 +83,5 @@ sudo mkdir /var/www/html/$domain_name
 sudo chown www-data:www-data -R /var/www/html/$domain_name
 
 cd /var/www/html/$domain_name
-git clone https://github.com/dmpop/mejiro.git
-chown www-data:www-data -R mejiro/
+git clone https://github.com/dmpop/pellicola.git
+chown www-data:www-data -R pellicola/

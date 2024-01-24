@@ -40,7 +40,7 @@ sudo apt install -y apache2 php php-gd php-common git
 sudo apt autoremove -y
 
 cd
-git clone https://github.com/dmpop/mejiro.git
+git clone https://github.com/dmpop/pellicola.git
 
 # Finish
 echo "All done!"
