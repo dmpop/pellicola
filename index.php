@@ -97,7 +97,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		function read_gps_location($file)
 		{
 			if (is_file($file)) {
-				$exif = exif_read_data($file);
+				$exif = @exif_read_data($file);
 				if (
 					isset($exif['GPSLatitude']) && isset($exif['GPSLongitude']) &&
 					isset($exif['GPSLatitudeRef']) && isset($exif['GPSLongitudeRef']) &&
@@ -363,7 +363,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 			$tim = $tims_dir . basename($file);
-			$exif = exif_read_data($file, 0, true);
+			$exif = @exif_read_data($file, 0, true);
 			$file_path = pathinfo($file);
 
 			// Obtain URL of the current page for use with the Back button
