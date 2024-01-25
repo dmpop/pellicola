@@ -19,5 +19,7 @@
         "titleBar.inactiveForeground": "#e7e7e799",
         "commandCenter.border": "#e7e7e799"
     },
-    "peacock.color": "#9b6172ff"
+    "peacock.color": "#9b6172ff",
+    "workbench.colorTheme": "Catppuccin Frappé",
+    "editor.wordWrap": "on"
 }
