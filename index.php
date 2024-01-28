@@ -37,6 +37,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	<link rel="shortcut icon" href="favicon.png" />
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="styles.css" />
+	<link rel="alternate" type="application/rss+xml" href="rss.php" title="<?php echo $title; ?>">
 
 	<title><?php echo $title; ?></title>
 </head>

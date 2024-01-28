@@ -20,6 +20,9 @@
         "commandCenter.border": "#e7e7e799"
     },
     "peacock.color": "#9b6172ff",
-    "workbench.colorTheme": "Catppuccin Frappé",
-    "editor.wordWrap": "on"
+    "workbench.colorTheme": "Monokai Dimmed",
+    "editor.wordWrap": "on",
+    "editor.fontFamily": "'IntelOne Mono', 'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontSize": 16,
+    "editor.lineHeight": 2
 }

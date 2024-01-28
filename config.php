@@ -1,6 +1,7 @@
 <?php
-$title = "Pellicola";
-$subtitle = "Responsive open-source photo grid";
+$server = "https://hello.xyz"; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://hello.xyz/pellicola)
+$title = "Pellicola"; // Name of the Pellicola instance.
+$subtitle = "Responsive open-source photo grid"; // Tagline displayed under the title.
 $delete_password = "secret"; // Password to delete photos
 $per_page = 12; // Number of images per page for pagination
 $r_sort = true; // Set to true to show tims in the newest to oldest order
@@ -16,6 +17,7 @@ $raw_formats = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng, heic,HEIC'; // Supported RAW fo
 $download = false; // Toggle photo download
 $download_password = "secret"; // Password to protect downloads. Leave empty to disable password protection.
 $f_length_threshold = 3; // Focal lengths with count lower that the specified number are not shown in stats.
+$rss_feed_limit = 31; // Show only items in the RSS feed that are newer than the specified number of days.
 
 /* DO NOT CHANGE SETTINGS BELOW */
 $base_photo_dir = "photos"; // Directory for storing photos

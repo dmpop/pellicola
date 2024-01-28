@@ -24,8 +24,9 @@ The [Pellicola manual](https://dmpop.gumroad.com/l/pellicola-manual) provides de
 - **RAW downloads** For each photo in the JPEG format, you can upload the accompanying RAW file, and Pellicola automatically adds a download link to it when the download option is enabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
 - **Statistics** View basic statistics: camera models, focal length stats, the total number of photos and RAW files, disk usage, total number of downloads, and number of downloads of each file (if enabled).
-- **Access keys** The application supports access keys for common actions.
-- **Internationalization** support. The application automatically detects and picks the right language. Localizing Pellicola is a matter of translating a handful of text strings in a dedicated _.ini_ file.
+- **Access keys** The application supports [access keys](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) for common actions.
+- **Internationalization** support. Pellicola automatically detects and picks the right language. Localizing Pellicola is a matter of translating text strings in an appropriate _.ini_ file.
+- **RSS feed** The application automatically generates an RSS feed with newly added photos.
 - **Self-contained and GDPR-compliant** Pellicola has no external dependencies, and it doesn't collect any user data.
 
 ## Requirements
