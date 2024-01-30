@@ -1,0 +1,96 @@
+# Enable GZIP compression for certain file types to reduce page load times by compressing data before sending it to the browser.
+
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/x-javascript application/x-httpd-php
+
+# Specify how to handle compression for different user agents (browsers).
+
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+
+# Do not cache if these files are already cached
+
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
+
+# Set expiration headers for various file types, which can help browsers cache static content.
+
+# BEGIN Expire headers
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 7200 seconds"
+</IfModule>
+
+# END Expire headers
+
+# Configure cache control headers for specific file types, instructing browsers to cache them for a certain duration.
+
+# BEGIN Cache-Control Headers
+
+<IfModule mod_headers.c>
+    <FilesMatch "\\.(ico|jpe?g|png|gif|swf|gz|ttf|woff2)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    <FilesMatch "\\.(css)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    <FilesMatch "\\.(js)$">
+        Header set Cache-Control "max-age=31536000, private"
+    </FilesMatch>
+    <FilesMatch "\\.(html|htm)$">
+        Header set Cache-Control "max-age=7200, public"
+    </FilesMatch>
+    # Disable caching for scripts and other dynamic files
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+        Header unset Cache-Control
+    </FilesMatch>
+</IfModule>
+
+# END Cache-Control Headers
+
+# X-XSS-Protection, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "same-origin"
+</IfModule>
+
+# Disable ETags and FileETags, which can reduce unnecessary HTTP requests.
+
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
+
+# Block access to the xmlprc.php, wp-login.php, and config.php files
+
+<FilesMatch "(xmlrpc|wp-login|config)\.php$">
+Deny from all
+</FilesMatch>
+
+# Prevent access to .htaccess and .htpasswd files
+
+<Files ~ "^.ht">
+Order allow,deny
+Deny from all
+</Files>
+
+# Protect directory listing, preventing users from viewing the contents of directories without an index file.
+# Disable Server Side Include
+
+Options -Indexes -Includes
+
+# Limit HTTP request methods to GET POST HEAD
+
+<LimitExcept GET POST HEAD>
+Deny from all
+</LimitExcept>
+
+# Set PHP parameters
+
+php_value upload_max_filesize 50M
+php_value max_execution_time 600
