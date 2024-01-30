@@ -74,7 +74,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		function mask_param($param)
 		{
 			if (file_exists($param)) {
-			return bin2hex($param);
+				return bin2hex($param);
 			} else {
 				exit("¯\_(ツ)_/¯");
 			}
@@ -435,7 +435,11 @@ if (session_status() == PHP_SESSION_NONE) {
 			// Add the pin icon if the photo contains geographical coordinates
 			if (!empty($gps['lat']) && !empty($gps['lon'])) {
 				//Generate Geo URI
-				$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+				if ($openstreetmap) {
+					$map_url = "<a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+				} else {
+					$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+				}
 				$exif_info = $exif_info . $map_url;
 			}
 			// Find all RAW files
