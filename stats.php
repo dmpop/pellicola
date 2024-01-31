@@ -161,6 +161,8 @@ class DiskSpaceCheck
             <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
             <div class="card">
                 <?php
+                // Use explode() to read each line of downloads.txt into the $downloads array
+                // Use array_filter() to remove empty values from the $downloads array
                 $downloads = array_filter(explode("\n", file_get_contents("downloads.txt")));
                 $download_count = count($downloads);
                 ?>
@@ -170,6 +172,8 @@ class DiskSpaceCheck
                     <table>
                         <?php
                         $details = array_count_values($downloads);
+                        // Sort the $details array in descending order by value
+                        arsort($details);
                         foreach ($details as $key => $value) {
                             echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
                         }
