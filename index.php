@@ -65,12 +65,12 @@ if (session_status() == PHP_SESSION_NONE) {
 			mkdir($base_photo_dir, 0755, true);
 		}
 
-		// htmlentities and str_replace are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
+		// htmlentities() and str_replace() are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
 		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
 
 		/* ======= FUNCTIONS ======= */
 
-		// Mask and unmask URL parameter using the bin2hex and hex2bin functions
+		// Mask and unmask URL parameter using bin2hex() and hex2bin()
 		function mask_param($param)
 		{
 			if (file_exists($param)) {
@@ -138,7 +138,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 			return false;
 		}
-		/* EXTRACT LATITUDE AND LONGITUDE ---STOP--- */
+		/* EXTRACT LATITUDE AND LONGITUDE ---END--- */
 
 		/* CREATE TIMS ---START--- */
 		function createTim($original, $tim, $timWidth)
@@ -225,7 +225,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 		}
 
-		// Prepare pagination. Calculate total items per page * START
+		/* Prepare pagination. Calculate total items per page ---START--- */
 		$total = count($files);
 		$last_page = ceil($total / $per_page);
 
@@ -247,7 +247,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		if ($max > $total) {
 			$max = $total;
 		}
-		// Pagination. Calculate total items per page * END
+		/* Pagination. Calculate total items per page ---END --- */
 
 		// The $grid parameter is used to show the main grid
 		$grid = (isset($_GET["file"]) ? $_GET["file"] : NULL);
