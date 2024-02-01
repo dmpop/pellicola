@@ -88,117 +88,118 @@ class DiskSpaceCheck
             }
             return $return;
         }
+        ?>
+        <div class="c">
+            <h2 style='text-align: left;'><?php echo L::storage; ?></h2>
+            <div class="card">
+                <?php
+                $disk = new DiskSpaceCheck(dirname(__FILE__));
+                ?>
+                <table>
+                    <tr>
+                        <td><?php echo L::total_storage; ?> </td>
+                        <td><?php echo $disk->formatBytes($disk->total_space); ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo L::used_storage; ?> </td>
+                        <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
+                    </tr>
+                </table>
+            </div>
+            <?php if (file_exists("downloads.txt")) : ?>
+                <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
+                <div class="card">
+                    <?php
+                    // Use explode() to read each line of downloads.txt into the $downloads array
+                    // Use array_filter() to remove empty values from the $downloads array
+                    $downloads = array_filter(explode("\n", file_get_contents("downloads.txt")));
+                    $download_count = count($downloads);
+                    ?>
+                    <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . " " . $download_count; ?></div>
+                    <details>
+                        <summary><?php echo L::download_details; ?></summary>
+                        <table>
+                            <?php
+                            $details = array_count_values($downloads);
+                            // Sort the $details array in descending order by value
+                            arsort($details);
+                            foreach ($details as $key => $value) {
+                                echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
+                            }
+                            ?>
+                        </table>
+                    </details>
+                </div>
+            <?php endif; ?>
+            <?php
+            $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
 
-        $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
-
-        $model = array();
-        foreach ($files as $file) {
-            $exif = @exif_read_data($file);
-            if (!empty($exif["Model"])) {
-                array_push($model, $exif["Model"]);
+            $model = array();
+            foreach ($files as $file) {
+                $exif = @exif_read_data($file);
+                if (!empty($exif["Model"])) {
+                    array_push($model, $exif["Model"]);
+                }
             }
-        }
-        $f_length = array();
-        foreach ($files as $file) {
-            $exif = @exif_read_data($file);
-            if (!empty($exif["FocalLength"])) {
-                $f_length_mm = eval("return " . $exif["FocalLength"] . ";") . "mm";
-                array_push($f_length, $f_length_mm);
+            $f_length = array();
+            foreach ($files as $file) {
+                $exif = @exif_read_data($file);
+                if (!empty($exif["FocalLength"])) {
+                    $f_length_mm = eval("return " . $exif["FocalLength"] . ";") . "mm";
+                    array_push($f_length, $f_length_mm);
+                }
             }
-        }
-        echo "
-        <div class='c'>
+            echo "
         <h2 style='text-align: left;'>" . L::camera_model . "</h2>
         <div class='card'>
         <table>
         ";
-        $count = array_count_values(array_filter($model));
-        ksort($count);
-        foreach ($count as $key => $value) {
-            echo "<tr><td>$key</td><td>$value</td></tr>";
-        }
-        echo "
+            $count = array_count_values(array_filter($model));
+            ksort($count);
+            foreach ($count as $key => $value) {
+                echo "<tr><td>$key</td><td>$value</td></tr>";
+            }
+            echo "
         </table>
         </div>
         </div>
         ";
 
-        echo "
+            echo "
         <div class='c'>
         <h2 style='text-align: left;'>" . L::f_length . "</h2>
         <div class='card'>
         <table>
         ";
-        $count = array_count_values(array_filter($f_length));
-        ksort($count);
-        foreach ($count as $key => $value) {
-            if ($value > $f_length_threshold) {
-                echo "<tr><td>$key</td><td>$value</td></tr>";
+            $count = array_count_values(array_filter($f_length));
+            ksort($count);
+            foreach ($count as $key => $value) {
+                if ($value > $f_length_threshold) {
+                    echo "<tr><td>$key</td><td>$value</td></tr>";
+                }
             }
-        }
-        echo "
+            echo "
         </table>
         </div>
         ";
-        ?>
-        <h2 style='text-align: left;'><?php echo L::storage; ?></h2>
-        <div class="card">
-            <?php
-            $disk = new DiskSpaceCheck(dirname(__FILE__));
             ?>
-            <table>
-                <tr>
-                    <td><?php echo L::total_storage; ?> </td>
-                    <td><?php echo $disk->formatBytes($disk->total_space); ?></td>
-                </tr>
-                <tr>
-                    <td><?php echo L::used_storage; ?> </td>
-                    <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
-                </tr>
-            </table>
         </div>
-        <?php if (file_exists("downloads.txt")) : ?>
-            <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
-            <div class="card">
-                <?php
-                // Use explode() to read each line of downloads.txt into the $downloads array
-                // Use array_filter() to remove empty values from the $downloads array
-                $downloads = array_filter(explode("\n", file_get_contents("downloads.txt")));
-                $download_count = count($downloads);
-                ?>
-                <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . " " . $download_count; ?></div>
-                <details>
-                    <summary><?php echo L::download_details; ?></summary>
-                    <table>
-                        <?php
-                        $details = array_count_values($downloads);
-                        // Sort the $details array in descending order by value
-                        arsort($details);
-                        foreach ($details as $key => $value) {
-                            echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
-                        }
-                        ?>
-                    </table>
-                </details>
-            </div>
-        <?php endif; ?>
-    </div>
-    <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
-        <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
-    </div>
-    <?php
-    // Show links and footer
-    if ($links) {
-        $array_length = count($urls);
-        echo '<div class="footer">';
-        for ($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+        <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
+            <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
+        </div>
+        <?php
+        // Show links and footer
+        if ($links) {
+            $array_length = count($urls);
+            echo '<div class="footer">';
+            for ($i = 0; $i < $array_length; $i++) {
+                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+            }
+            echo  $footer . '</div>';
+        } else {
+            echo '<div class="footer"' . $footer . '</div>';
         }
-        echo  $footer . '</div>';
-    } else {
-        echo '<div class="footer"' . $footer . '</div>';
-    }
-    ?>
+        ?>
 </body>
 
 </html>
