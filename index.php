@@ -90,53 +90,26 @@ if (session_status() == PHP_SESSION_NONE) {
 		}
 
 		/* EXTRACT LATITUDE AND LONGITUDE ---START---
-	   * Returns an array of latitude and longitude from the image file.
-	   * @param image $file
-	   * @return multitype:number |boolean
-	   * http://stackoverflow.com/questions/5449282/reading-geotag-data-from-image-in-php
+	   * https://stackoverflow.com/a/16437888
 	   */
-		function read_gps_location($file)
+		function gps($coordinate, $hemisphere)
 		{
-			if (is_file($file)) {
-				$exif = @exif_read_data($file);
-				if (
-					isset($exif['GPSLatitude']) && isset($exif['GPSLongitude']) &&
-					isset($exif['GPSLatitudeRef']) && isset($exif['GPSLongitudeRef']) &&
-					in_array($exif['GPSLatitudeRef'], array('E', 'W', 'N', 'S')) && in_array($exif['GPSLongitudeRef'], array('E', 'W', 'N', 'S'))
-				) {
-
-					$GPSLatitudeRef	 = strtolower(trim($exif['GPSLatitudeRef']));
-					$GPSLongitudeRef = strtolower(trim($exif['GPSLongitudeRef']));
-
-					$lat_degrees_a = explode('/', $exif['GPSLatitude'][0]);
-					$lat_minutes_a = explode('/', $exif['GPSLatitude'][1]);
-					$lat_seconds_a = explode('/', $exif['GPSLatitude'][2]);
-					$lon_degrees_a = explode('/', $exif['GPSLongitude'][0]);
-					$lon_minutes_a = explode('/', $exif['GPSLongitude'][1]);
-					$lon_seconds_a = explode('/', $exif['GPSLongitude'][2]);
-
-					$lat_degrees = $lat_degrees_a[0] / $lat_degrees_a[1];
-					$lat_minutes = $lat_minutes_a[0] / $lat_minutes_a[1];
-					$lat_seconds = $lat_seconds_a[0] / $lat_seconds_a[1];
-					$lon_degrees = $lon_degrees_a[0] / $lon_degrees_a[1];
-					$lon_minutes = $lon_minutes_a[0] / $lon_minutes_a[1];
-					$lon_seconds = $lon_seconds_a[0] / $lon_seconds_a[1];
-
-					$lat = (float) $lat_degrees + ((($lat_minutes * 60) + ($lat_seconds)) / 3600);
-					$lon = (float) $lon_degrees + ((($lon_minutes * 60) + ($lon_seconds)) / 3600);
-
-					// If the latitude is South, make it negative
-					// If the longitude is west, make it negative
-					$GPSLatitudeRef	 == 's' ? $lat *= -1 : '';
-					$GPSLongitudeRef == 'w' ? $lon *= -1 : '';
-
-					return array(
-						'lat' => htmlentities($lat),
-						'lon' => htmlentities($lon)
-					);
+			if (is_string($coordinate)) {
+				$coordinate = array_map("trim", explode(",", $coordinate));
+			}
+			for ($i = 0; $i < 3; $i++) {
+				$part = explode('/', $coordinate[$i]);
+				if (count($part) == 1) {
+					$coordinate[$i] = $part[0];
+				} else if (count($part) == 2) {
+					$coordinate[$i] = floatval($part[0]) / floatval($part[1]);
+				} else {
+					$coordinate[$i] = 0;
 				}
 			}
-			return false;
+			list($degrees, $minutes, $seconds) = $coordinate;
+			$sign = ($hemisphere == 'W' || $hemisphere == 'S') ? -1 : 1;
+			return $sign * ($degrees + $minutes / 60 + $seconds / 3600);
 		}
 		/* EXTRACT LATITUDE AND LONGITUDE ---END--- */
 
@@ -365,6 +338,8 @@ if (session_status() == PHP_SESSION_NONE) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 			$tim = $tims_dir . basename($file);
 			$exif = @exif_read_data($file, 0, true);
+			$lat = gps($exif["GPS"]["GPSLatitude"], $exif["GPS"]["GPSLatitudeRef"]);
+			$lon = gps($exif["GPS"]["GPSLongitude"], $exif["GPS"]["GPSLongitudeRef"]);
 			$file_path = pathinfo($file);
 
 			// Obtain URL of the current page for use with the Back button
@@ -404,7 +379,6 @@ if (session_status() == PHP_SESSION_NONE) {
 			} else {
 				$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');
 			}
-			$gps = read_gps_location($file);
 
 			// Get aperture, exposure, iso, and datetime from EXIF
 			$aperture = htmlentities((is_null($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
@@ -433,12 +407,12 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 
 			// Add the pin icon if the photo contains geographical coordinates
-			if (!empty($gps['lat']) && !empty($gps['lon'])) {
+			if (!empty($lat) && !empty($lon)) {
 				//Generate Geo URI
 				if ($openstreetmap) {
-					$map_url = "<a href='http://www.openstreetmap.org/index.html?mlat=" . $gps['lat'] . "&mlon=" . $gps['lon'] . "&zoom=18' target='_blank'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+					$map_url = "<a href='http://www.openstreetmap.org/index.html?mlat=" . $lat . "&mlon=" . $lon . "&zoom=18' target='_blank'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 				} else {
-					$map_url = "<a href='geo:" . $gps['lat'] . "," . $gps['lon'] . "'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
+					$map_url = "<a href='geo:" . $lat . "," . $lon . "'><img style='margin-left: .5rem;' src='svg/pin.svg' alt='" . L::img_map . "' title='" . L::img_map . "'/></a>";
 				}
 				$exif_info = $exif_info . $map_url;
 			}
