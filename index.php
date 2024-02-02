@@ -303,7 +303,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 		?>
 
-			<!-- Search filed in the upper-right corner -->
+			<!-- Search field in the upper-right corner -->
 			<div class="topcorner">
 				<form autocomplete="off" style="margin-top: 0.5em; margin-right: 1em;" method="GET" action=" ">
 					<label for='weight'><?php echo L::find_by_name; ?>:</label>
@@ -380,7 +380,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 			// If there is only one photo in the album, show the home navigation link
 			if ($file_count == 1) {
-				echo "<div class='center'><a href='index.php?album=" . $album . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
+				echo "<div class='center' style='margin-bottom: 1em;><a href='index.php?album=" . $album . "' accesskey='g'><img src='svg/home.svg' alt='" . L::nav_home . "' title='" . L::nav_home . "'/></a></div>";
 			}
 			// Disable the Previous link if this is the FIRST photo
 			elseif (empty($files[$key - 1])) {
