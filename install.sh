@@ -34,13 +34,17 @@ sudo apt full-upgrade -y
 sudo apt update
 
 # Install the required packages
-sudo apt install -y apache2 php php-gd php-common git
+sudo apt install -y apache2 php php-gd php-common git rsync
 
 # Remove obsolete packages
 sudo apt autoremove -y
 
+# Clone the Git repo
 cd
 git clone https://github.com/dmpop/pellicola.git
+
+# Copy Pellicola to the document root
+rsync -avh --delete --progress pellicola/ /var/www/html
 
 # Finish
 echo "All done!"
