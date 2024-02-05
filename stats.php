@@ -131,6 +131,15 @@ class DiskSpaceCheck
                     </details>
                 </div>
             <?php endif; ?>
+            <?php if (`which vnstati`) : ?>
+                <h2 style='text-align: left;'><?php echo L::network_traffic; ?></h2>
+                <div class="card" style="text-align: center;">
+                    <?php
+                    shell_exec("vnstati -m -s -o vnstat.png");
+                    ?>
+                    <img style="max-width:100%; height: auto;" src="vnstat.png" />
+                </div>
+            <?php endif; ?>
             <?php
             $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
 
