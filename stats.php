@@ -164,7 +164,7 @@ class DiskSpaceCheck
         <table>
         ";
             $count = array_count_values(array_filter($model));
-            ksort($count);
+            arsort($count);
             foreach ($count as $key => $value) {
                 echo "<tr><td>$key</td><td>$value</td></tr>";
             }
@@ -181,7 +181,7 @@ class DiskSpaceCheck
         <table>
         ";
             $count = array_count_values(array_filter($f_length));
-            ksort($count);
+            arsort($count);
             foreach ($count as $key => $value) {
                 if ($value > $f_length_threshold) {
                     echo "<tr><td>$key</td><td>$value</td></tr>";
