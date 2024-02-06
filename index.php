@@ -383,6 +383,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			// Get aperture, exposure, iso, and datetime from EXIF
 			$aperture = htmlentities((is_null($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
 			$exposure = htmlentities((is_null($exif['EXIF']['ExposureTime']) ? NULL : $exif['EXIF']['ExposureTime']));
+			$f_length = htmlentities((is_null($exif['EXIF']['FocalLength']) ? NULL : " • " . eval("return " . $exif['EXIF']['FocalLength'] . ";"). "mm"));
 			// Normalize exposure
 			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
 			if (!is_null($exposure)) {
@@ -403,7 +404,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 			// Concatenate $exif_info
 			if (!is_null($aperture) || !is_null($exposure) || !is_null($iso) || !is_null($datetime)) {
-				$exif_info = '<img style="margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $exposure . $iso . '<img style="margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
+				$exif_info = '<img style="margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . '<img style="margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
 			}
 
 			// Add the pin icon if the photo contains geographical coordinates
