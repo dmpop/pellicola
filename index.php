@@ -399,7 +399,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				}
 			}
 			$iso = htmlentities((is_null($exif['EXIF']['ISOSpeedRatings']) ? NULL : " • " . $exif['EXIF']['ISOSpeedRatings']));
-			$datetime = htmlentities($exif['EXIF']['DateTimeOriginal']) ?? NULL;
+			$datetime = htmlentities(date("Y-m-d H:i", strtotime($exif['EXIF']['DateTimeOriginal']))) ?? NULL;
 			$comment = htmlentities($exif['COMMENT']['0']) ?? NULL;
 
 			// Concatenate $exif_info
