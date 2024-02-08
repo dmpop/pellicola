@@ -379,11 +379,14 @@ if (session_status() == PHP_SESSION_NONE) {
 			} else {
 				$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');
 			}
-
+			// Get download count
+			if (file_exists("downloads.txt")) {
+				$download_count = substr_count(file_get_contents("downloads.txt"), $file_path['basename']);
+			}
 			// Get aperture, exposure, iso, and datetime from EXIF
 			$aperture = htmlentities((is_null($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
 			$exposure = htmlentities((is_null($exif['EXIF']['ExposureTime']) ? NULL : $exif['EXIF']['ExposureTime']));
-			$f_length = htmlentities((is_null($exif['EXIF']['FocalLength']) ? NULL : " • " . eval("return " . $exif['EXIF']['FocalLength'] . ";"). "mm"));
+			$f_length = htmlentities((is_null($exif['EXIF']['FocalLength']) ? NULL : " • " . eval("return " . $exif['EXIF']['FocalLength'] . ";") . "mm"));
 			// Normalize exposure
 			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
 			if (!is_null($exposure)) {
