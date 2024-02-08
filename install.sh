@@ -34,7 +34,7 @@ sudo apt full-upgrade -y
 sudo apt update
 
 # Install the required packages
-sudo apt install -y apache2 php php-gd php-common git rsync vnstat vnstati
+sudo apt install -y apache2 php php-gd php-common git rsync
 
 # Remove obsolete packages
 sudo apt autoremove -y
