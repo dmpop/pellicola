@@ -383,7 +383,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			// Get aperture, exposure, iso, and datetime from EXIF
 			$aperture = htmlentities((is_null($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
 			$exposure = htmlentities((is_null($exif['EXIF']['ExposureTime']) ? NULL : $exif['EXIF']['ExposureTime']));
-			$f_length = htmlentities((is_null($exif['EXIF']['FocalLength']) ? NULL : " • " . eval("return " . $exif['EXIF']['FocalLength'] . ";"). "mm"));
+			$f_length = htmlentities((is_null($exif['EXIF']['FocalLength']) ? NULL : " • " . eval("return " . $exif['EXIF']['FocalLength'] . ";") . "mm"));
 			// Normalize exposure
 			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
 			if (!is_null($exposure)) {
@@ -418,7 +418,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				$exif_info = $exif_info . $map_url;
 			}
 			// Find all RAW files
-			$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE);
+			$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE) ?? NULL;
 			$raw = (!empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : $raw = NULL);
 			$image_download = '<a href="download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
 			$image_delete = '<a href="delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
