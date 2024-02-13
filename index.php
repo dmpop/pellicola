@@ -38,7 +38,8 @@ if (session_status() == PHP_SESSION_NONE) {
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="styles.css" />
 	<link rel="alternate" type="application/rss+xml" href="rss.php" title="<?php echo $title; ?>">
-
+	<link rel="stylesheet" href="leaflet/leaflet.css" />
+	<script src="leaflet/leaflet.js"></script>
 	<title><?php echo $title; ?></title>
 </head>
 
@@ -429,17 +430,40 @@ if (session_status() == PHP_SESSION_NONE) {
 			if ($download) {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 				echo '<div class="caption">' . $exif_info . '</div>';
-				echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div></div>';
+				echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div>';
 			} else {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
-				echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div></div>';
+				echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div>';
+			}
+			// Show embedded map if photo is geotagged and $show_map is true
+			if ($show_map && !empty($lat) && !empty($lon)) {
+				echo '<div id="map" style="z-index: 1; margin: 1.5em auto; width: 250px; height: 250px; border-radius:5px;"></div>';
 			}
 		}
+		?>
+		<!-- JavaScript to display embedded map for geotagged photos -->
+		<script type="text/javascript">
+			// Creating map options
+			var mapOptions = {
+				center: [<?php echo $lat; ?>, <?php echo $lon; ?>],
+				zoom: 10
+			}
+			// Creating a map object
+			var map = new L.map('map', mapOptions);
+			// Creating a Layer object
+			var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+			// Adding layer to the map
+			map.addLayer(layer);
+			// Creating a marker
+			var marker = L.marker([<?php echo $lat; ?>, <?php echo $lon; ?>]);
+			// Adding marker to the map
+			marker.addTo(map);
+		</script>
 
-		// Show links
+		<?php // Show links
 		if ($links) {
 			$array_length = count($urls);
-			echo '<div class="footer">';
+			echo '<div class="footer" style="z-index: 2">';
 			for ($i = 0; $i < $array_length; $i++) {
 				echo '<span style="word-spacing:0.1em;"><a href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
 			}
