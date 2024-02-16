@@ -174,9 +174,20 @@ if (session_status() == PHP_SESSION_NONE) {
 			mkdir($tims_dir);
 		}
 
+		$files = array();
 		// Find all files or a specific file if $_GET["query"] is set
-		if (isset($_GET["query"])) {
-			$files = glob($photo_dir . "*" . $_GET["query"] . "*.{" . $img_formats . "}", GLOB_BRACE);
+		if (isset($_GET['query'])) {
+			if ($_GET['search'] == 'search_name') {
+				$files = glob($photo_dir . "*" . $_GET['query'] . "*.{" . $img_formats . "}", GLOB_BRACE);
+			} else {
+				$all_files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+				foreach ($all_files as $file) {
+					$exif = exif_read_data($file, 0, true);
+					if (stripos($exif['COMMENT']['0'], $_GET['query']) !== FALSE) {
+						array_push($files, $file);
+					}
+				}
+			}
 		} else {
 			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
 		}
@@ -280,10 +291,15 @@ if (session_status() == PHP_SESSION_NONE) {
 			<!-- Search field in the upper-right corner -->
 			<div class="topcorner">
 				<form autocomplete="off" style="margin-top: 0.5em; margin-right: 1em;" method="GET" action=" ">
-					<label for='weight'><?php echo L::find_by_name; ?>:</label>
-					<input style="vertical-align: middle;" type='text' name='query'>
+					<select style="vertical-align: middle;" name="search">
+						<option value="search_name"><?php echo L::find_by_name; ?></option>
+						<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
+					</select>
+					<input style="vertical-align: middle;" type="text" name="query">
 					<!-- The hidden input field is used to pass the $album value (album) to the search -->
 					<input type='hidden' name='album' value='<?php echo $album; ?>'>
+					<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
+					<input type='hidden' name='all' value='show'>
 					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
 				</form>
 			</div>
