@@ -458,24 +458,26 @@ if (session_status() == PHP_SESSION_NONE) {
 		}
 		?>
 		<!-- JavaScript to display embedded map for geotagged photos -->
-		<script type="text/javascript">
-			// Creating map options
-			var mapOptions = {
-				center: [<?php echo $lat; ?>, <?php echo $lon; ?>],
-				zoom: 10
-			}
-			// Creating a map object
-			var map = new L.map('map', mapOptions);
-			// Creating a Layer object
-			var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-			// Adding layer to the map
-			map.addLayer(layer);
-			// Creating a marker
-			var marker = L.marker([<?php echo $lat; ?>, <?php echo $lon; ?>]);
-			// Adding marker to the map
-			marker.addTo(map);
-		</script>
-
+		<?php if ($show_map && !empty($lat) && !empty($lon)) : ?>
+			<script type="text/javascript">
+				// Creating map options
+				var mapOptions = {
+					center: [<?php echo $lat; ?>, <?php echo $lon; ?>],
+					zoom: 10
+				}
+				// Creating a map object
+				var map = new L.map('map', mapOptions);
+				// Creating a Layer object
+				var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+				// Adding layer to the map
+				map.addLayer(layer);
+				// Creating a marker
+				var marker = L.marker([<?php echo $lat; ?>, <?php echo $lon; ?>]);
+				// Adding marker to the map
+				marker.addTo(map);
+			</script>
+		<?php endif; ?>
+		
 		<?php // Show links
 		if ($links) {
 			$array_length = count($urls);
