@@ -66,6 +66,10 @@ if (session_status() == PHP_SESSION_NONE) {
 			mkdir($base_photo_dir, 0755, true);
 		}
 
+		if ($download && !file_exists($download_count_dir)) {
+			mkdir($download_count_dir, 0755, true);
+		}
+
 		// htmlentities() and str_replace() are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
 		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
 
@@ -188,6 +192,7 @@ if (session_status() == PHP_SESSION_NONE) {
 					}
 				}
 			}
+			// Find all files if $_GET["query"] is not set
 		} else {
 			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
 		}
@@ -349,8 +354,17 @@ if (session_status() == PHP_SESSION_NONE) {
 			show_pagination($page, $last_page, $album); // Pagination. Show navigation on bottom of page
 		}
 
+		/* SHOW SINGLE PHOTO */
 		// The $file parameter is used to show an individual photo
 		$file = isset($_GET["file"]) ? unmask_param($_GET["file"]) : NULL;
+		// Get the current download count
+		$filename = pathinfo($file, PATHINFO_FILENAME);
+		$download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
+		if (file_exists($download_file)) {
+			$count = fgets(fopen($download_file, 'r'));
+		} else {
+			$count = 0;
+		}
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 			$tim = $tims_dir . basename($file);
@@ -447,6 +461,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 				echo '<div class="caption">' . $exif_info . '</div>';
 				echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div>';
+				echo '<div class="caption">' . L::downloads . ": " . $count . '</div>';
 			} else {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 				echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div>';
@@ -477,7 +492,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				marker.addTo(map);
 			</script>
 		<?php endif; ?>
-		
+
 		<?php // Show links
 		if ($links) {
 			$array_length = count($urls);

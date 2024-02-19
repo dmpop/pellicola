@@ -59,11 +59,15 @@ if (ctype_xdigit($_GET["file"])) {
 
     <?php
     if (isset($_POST['download']) && ($_POST['password'] == $download_password) || (empty($download_password))) {
-        // https://www.kavoir.com/2010/05/simplest-php-hit-counter-or-download-counter-count-the-number-of-times-of-access-visits-or-downloads.html
-        // https://stackoverflow.com/questions/8485886/force-file-download-with-php-using-header
-        $current = @file_get_contents('downloads.txt');
-        $current .= "<a href='index.php?file=" . bin2hex($file) . "'>" . basename($file) . "</a>" . PHP_EOL;
-        @file_put_contents('downloads.txt', $current);
+        $filename = pathinfo($file, PATHINFO_FILENAME);
+        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
+        if (file_exists($download_file)) {
+            $count = fgets(fopen($download_file, 'r'));
+            $count++;
+            @file_put_contents($download_file, $count);
+        } else {
+            @file_put_contents($download_file, '1');
+        }
         header("Content-Disposition: attachment; filename=" . basename($file) . "");
         header('Content-Type: application/octet-stream'); // Downloading on Android might fail without this
         ob_clean();

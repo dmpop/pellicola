@@ -106,29 +106,21 @@ class DiskSpaceCheck
                     </tr>
                 </table>
             </div>
-            <?php if (file_exists("downloads.txt")) : ?>
+            <?php if ($download) : ?>
                 <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
                 <div class="card">
-                    <?php
-                    // Use explode() to read each line of downloads.txt into the $downloads array
-                    // Use array_filter() to remove empty values from the $downloads array
-                    $downloads = array_filter(explode("\n", file_get_contents("downloads.txt")));
-                    $download_count = count($downloads);
-                    ?>
-                    <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . " " . $download_count; ?></div>
-                    <details>
-                        <summary><?php echo L::download_details; ?></summary>
-                        <table>
-                            <?php
-                            $details = array_count_values($downloads);
-                            // Sort the $details array in descending order by value
-                            arsort($details);
-                            foreach ($details as $key => $value) {
-                                echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
-                            }
-                            ?>
-                        </table>
-                    </details>
+                    <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . ": " . $download_count; ?>
+                        <?php
+                        $count = 0;
+                        // Get all .downloads files
+                        $all_download_files = glob($download_count_dir . DIRECTORY_SEPARATOR . "*.downloads");
+                        // Read value from each .download file and add it $count
+                        foreach ($all_download_files  as $download_file) {
+                            $count += fgets(fopen($download_file, 'r'));
+                        }
+                        echo $count;
+                        ?>
+                    </div>
                 </div>
             <?php endif; ?>
             <?php if (`which vnstati`) : ?>
