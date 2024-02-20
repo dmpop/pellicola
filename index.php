@@ -368,12 +368,14 @@ if (session_status() == PHP_SESSION_NONE) {
 		if (isset($file)) {
 			$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 			$tim = $tims_dir . basename($file);
+			// Get latitude and longitude values
 			$exif = @exif_read_data($file, 0, true);
 			$lat = gps($exif["GPS"]["GPSLatitude"], $exif["GPS"]["GPSLatitudeRef"]);
 			$lon = gps($exif["GPS"]["GPSLongitude"], $exif["GPS"]["GPSLongitudeRef"]);
+
 			$file_path = pathinfo($file);
 
-			// Obtain URL of the current page for use with the Back button
+			// Get URL of the current page for use with the Back button
 			$url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			$_SESSION["page"] = $url;
 

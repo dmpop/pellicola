@@ -78,7 +78,7 @@ if (session_status() == PHP_SESSION_NONE) {
             unlink($raw);
         }
         unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
-        unlink($download_count_dir . DIRECTORY_SEPARATOR . pathinfo($file, PATHINFO_FILENAME) . ".downloads");
+        unlink($download_count_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . ".downloads");
         header('Location: index.php');
     } elseif (isset($_POST['delete']) && ($_POST['password'] !== $delete_password)) {
         echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_wrong_password . "</h3>";

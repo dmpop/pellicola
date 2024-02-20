@@ -88,6 +88,7 @@ p {
 }
 
 .caption {
+  max-width: 60em;
   font-size: 0.9em;
   color: #e3e3e3;
   margin-left: auto;
