@@ -9,10 +9,10 @@ $i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif and php-gd libraries are installed
 if (!extension_loaded('gd')) {
-	exit("<center><code style='color: red;'>" . L::warning_php_gd . "</code></center>");
+	exit('<center><code style="color: red;">' . L::warning_php_gd . '</code></center>');
 }
 if (!extension_loaded('exif')) {
-	exit("<center><code style='color: red;'>" . L::warning_php_exif . "</code></center>");
+	exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
 }
 // Time allowed the script to run. Generating tims can take time,
 // and increasing the time limit prevents the script from ending prematurely
@@ -50,13 +50,13 @@ if (session_status() == PHP_SESSION_NONE) {
 		if (!file_exists($base_photo_dir)) {
 			mkdir($base_photo_dir, 0755, true);
 		}
-		/*  If $_GET["album"] is set, its value is saved in the $_SESSION["album"] session and assigned to the $album variable.
-		If $_GET["album"] is not set, the value of $album is the current (unchanged) value of $_SESSION["album"].
+		/*  If $_GET['album'] is set, its value is saved in the $_SESSION["album"] session and assigned to the $album variable.
+		If $_GET['album'] is not set, the value of $album is the current (unchanged) value of $_SESSION["album"].
 		*/
-		if (isset($_GET["album"])) {
-			$_SESSION["album"] = htmlentities($_GET["album"]);
+		if (isset($_GET['album'])) {
+			$_SESSION["album"] = htmlentities($_GET['album']);
 			$album = $_SESSION["album"];
-		} elseif (isset($_GET["album"]) || !empty($_SESSION["album"])) {
+		} elseif (isset($_GET['album']) || !empty($_SESSION["album"])) {
 			$album = $_SESSION["album"];
 		} else {
 			$album = NULL;
@@ -81,7 +81,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			if (file_exists($param)) {
 				return bin2hex($param);
 			} else {
-				exit("¯\_(ツ)_/¯");
+				exit('¯\_(ツ)_/¯');
 			}
 		}
 		function unmask_param($param)
@@ -90,7 +90,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			if (ctype_xdigit($param)) {
 				return hex2bin($param);
 			} else {
-				exit("¯\_(ツ)_/¯");
+				exit('¯\_(ツ)_/¯');
 			}
 		}
 
@@ -155,16 +155,16 @@ if (session_status() == PHP_SESSION_NONE) {
 		function show_pagination($current_page, $last_page)
 		{
 			echo '<div class="center">';
-			if ($current_page != 1 && !isset($_GET["file"])) {
+			if ($current_page != 1 && !isset($_GET['file'])) {
 				echo '<a color: #e3e3e3;" href="?page=1"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
-			if ($current_page > 1 && !isset($_GET["file"])) {
+			if ($current_page > 1 && !isset($_GET['file'])) {
 				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
-			if ($current_page < $last_page && !isset($_GET["file"])) {
+			if ($current_page < $last_page && !isset($_GET['file'])) {
 				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
-			if ($current_page != $last_page && !isset($_GET["file"])) {
+			if ($current_page != $last_page && !isset($_GET['file'])) {
 				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
@@ -179,7 +179,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		}
 
 		$files = array();
-		// Find all files or a specific file if $_GET["query"] is set
+		// Find all files or a specific file if $_GET['query'] is set
 		if (isset($_GET['query'])) {
 			if ($_GET['search'] == 'search_name') {
 				$files = glob($photo_dir . "*" . $_GET['query'] . "*.{" . $img_formats . "}", GLOB_BRACE);
@@ -192,7 +192,7 @@ if (session_status() == PHP_SESSION_NONE) {
 					}
 				}
 			}
-			// Find all files if $_GET["query"] is not set
+			// Find all files if $_GET['query'] is not set
 		} else {
 			$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
 		}
@@ -219,10 +219,10 @@ if (session_status() == PHP_SESSION_NONE) {
 		$total = count($files);
 		$last_page = ceil($total / $per_page);
 
-		if (!isset($_GET["file"])) {
+		if (!isset($_GET['file'])) {
 
-			if (isset($_GET["page"]) && ($_GET["page"] <= $last_page) && ($_GET["page"] > 0) && (!isset($_GET["all"]))) {
-				$page = $_GET["page"];
+			if (isset($_GET['page']) && ($_GET['page'] <= $last_page) && ($_GET['page'] > 0) && (!isset($_GET['all']))) {
+				$page = $_GET['page'];
 				$offset = ($per_page) * ($page - 1);
 			} else {
 				$page = 1;
@@ -240,7 +240,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		/* Pagination. Calculate total items per page ---END --- */
 
 		// The $grid parameter is used to show the main grid
-		$grid = (isset($_GET["file"]) ? $_GET["file"] : NULL);
+		$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
 		if (!isset($grid)) {
 			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
 			echo '<a style="text-decoration:none;" href="index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
@@ -251,7 +251,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			// Show stats icon
 			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show the grid icon if there are several pages
-			if (!isset($_GET["all"]) && $file_count > $per_page) {
+			if (!isset($_GET['all']) && $file_count > $per_page) {
 				echo '<a href="?all=show"><img  style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
 			echo '<hr style="margin-bottom: 1em;">';
@@ -302,9 +302,9 @@ if (session_status() == PHP_SESSION_NONE) {
 					</select>
 					<input style="vertical-align: middle;" type="text" name="query">
 					<!-- The hidden input field is used to pass the $album value (album) to the search -->
-					<input type='hidden' name='album' value='<?php echo $album; ?>'>
+					<input type="hidden" name="album" value="<?php echo $album; ?>">
 					<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
-					<input type='hidden' name='all' value='show'>
+					<input type="hidden" name="all" value="show">
 					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
 				</form>
 			</div>
@@ -327,7 +327,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 			echo "</div>";
 			echo '<div class="gallery-grid">';
-			if (isset($_GET["all"])) {
+			if (isset($_GET['all'])) {
 				for ($i = 0; $i < $file_count; $i++) {
 					$file = $files[$i];
 					$tim = $tims_dir . basename($file);
@@ -348,15 +348,15 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 			echo "</div>";
 		}
-		if (!isset($_GET["all"])) {
+		if (!isset($_GET['all'])) {
 			// Set $page to NULL if $file is set to avoid undefined variable warning
-			(isset($_GET["file"])) ? $page = NULL : NULL;
+			(isset($_GET['file'])) ? $page = NULL : NULL;
 			show_pagination($page, $last_page, $album); // Pagination. Show navigation on bottom of page
 		}
 
 		/* SHOW SINGLE PHOTO */
 		// The $file parameter is used to show an individual photo
-		$file = isset($_GET["file"]) ? unmask_param($_GET["file"]) : NULL;
+		$file = isset($_GET['file']) ? unmask_param($_GET['file']) : NULL;
 		// Get the current download count
 		$filename = pathinfo($file, PATHINFO_FILENAME);
 		$download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";

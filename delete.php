@@ -8,19 +8,19 @@ $i18n->setFilePath('lang/{LANGUAGE}.ini');
 $i18n->setFallbackLang('en');
 $i18n->init();
 
-// Check if $_GET["file"] value is hex,
+// Check if $_GET['file'] value is hex,
 // then convert it to the file path
-if (ctype_xdigit($_GET["file"])) {
-    $file = hex2bin($_GET["file"]) ?? NULL;
+if (ctype_xdigit($_GET['file'])) {
+    $file = hex2bin($_GET['file']) ?? NULL;
 } else {
-    exit("¯\_(ツ)_/¯");
+    exit('¯\_(ツ)_/¯');
 }
 
-// Do the same for $_GET["raw"]
-if (ctype_xdigit($_GET["raw"])) {
-    $raw = hex2bin($_GET["raw"]) ?? NULL;
+// Do the same for $_GET['raw']
+if (ctype_xdigit($_GET['raw'])) {
+    $raw = hex2bin($_GET['raw']) ?? NULL;
 } else {
-    exit("¯\_(ツ)_/¯");
+    exit('¯\_(ツ)_/¯');
 }
 
 if (session_status() == PHP_SESSION_NONE) {

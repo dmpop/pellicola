@@ -9,7 +9,7 @@ $i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif library is installed
 if (!extension_loaded('exif')) {
-    exit("<center><code style='color: red;'>" . L::warning_php_exif . "</code></center>");
+    exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
 }
 
 class DiskSpaceCheck
@@ -71,7 +71,7 @@ class DiskSpaceCheck
                 <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #59a2d8ff;"><?php echo $title ?></h1>
             </a>
         </div>
-        <div class='center' style='color: gray; margin-bottom: 1em;'><?php echo $subtitle ?></div>
+        <div class="center" style="color: gray; margin-bottom: 1em;"><?php echo $subtitle ?></div>
         <hr>
         <?php
         function rsearch($dir, $excluded, $pattern_array)
@@ -90,7 +90,7 @@ class DiskSpaceCheck
         }
         ?>
         <div class="c">
-            <h2 style='text-align: left;'><?php echo L::storage; ?></h2>
+            <h2 style="text-align: left;"><?php echo L::storage; ?></h2>
             <div class="card">
                 <?php
                 $disk = new DiskSpaceCheck(dirname(__FILE__));
