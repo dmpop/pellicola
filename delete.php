@@ -17,14 +17,12 @@ if (ctype_xdigit($_GET['file'])) {
 }
 
 // Do the same for $_GET['raw']
-if (ctype_xdigit($_GET['raw'])) {
+if (!empty($_GET['raw']) && ctype_xdigit($_GET['raw'])) {
     $raw = hex2bin($_GET['raw']) ?? NULL;
-} else {
-    exit('¯\_(ツ)_/¯');
 }
 
 if (session_status() == PHP_SESSION_NONE) {
-	session_start();
+    session_start();
 }
 (isset($_SESSION["page"])) ? $return = $_SESSION["page"] : $return = "index.php";
 ?>
@@ -78,7 +76,10 @@ if (session_status() == PHP_SESSION_NONE) {
             unlink($raw);
         }
         unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
-        unlink($download_count_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . ".downloads");
+        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . ".downloads";
+        if ($download_file) {
+            unlink($download_file);
+        }
         header('Location: index.php');
     } elseif (isset($_POST['delete']) && ($_POST['password'] !== $delete_password)) {
         echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_wrong_password . "</h3>";
