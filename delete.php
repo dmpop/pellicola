@@ -13,7 +13,7 @@ $i18n->init();
 if (ctype_xdigit($_GET['file'])) {
     $file = hex2bin($_GET['file']) ?? NULL;
 } else {
-    exit('¯\_(ツ)_/¯');
+    exit('<code><center>¯\_(ツ)_/¯</code></center>');
 }
 
 // Do the same for $_GET['raw']
@@ -24,7 +24,7 @@ if (!empty($_GET['raw']) && ctype_xdigit($_GET['raw'])) {
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-(isset($_SESSION["page"])) ? $return = $_SESSION["page"] : $return = "index.php";
+(isset($_SESSION['page'])) ? $return = $_SESSION['page'] : $return = 'index.php';
 ?>
 
 <!DOCTYPE html>
@@ -53,15 +53,15 @@ if (session_status() == PHP_SESSION_NONE) {
                 <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $title ?></h1>
             </a>
         </div>
-        <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
+        <div class="center" style="color: gray;"><?php echo $subtitle ?></div>
         <hr>
         <?php
         ?>
-        <div class='c'>
-            <div class='card' style="text-align: center;">
+        <div class="c">
+            <div class="card" style="text-align: center;">
                 <form style="margin-top: .7em; display: inline;" action=" " method="POST">
                     <label for="password"><?php echo L::password; ?></label>
-                    <input style="vertical-align: middle;" class="card" type='password' name='password' value=''>
+                    <input style="vertical-align: middle;" class="card" type="password" name="password" value="">
                     <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn red" type="submit" name="delete"><?php echo L::btn_delete; ?></button>
                 </form>
                 <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="<?php echo $return; ?>"><?php echo L::btn_back; ?></a>
@@ -76,13 +76,13 @@ if (session_status() == PHP_SESSION_NONE) {
             unlink($raw);
         }
         unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
-        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . ".downloads";
+        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . '.downloads';
         if ($download_file) {
             unlink($download_file);
         }
         header('Location: index.php');
     } elseif (isset($_POST['delete']) && ($_POST['password'] !== $delete_password)) {
-        echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_wrong_password . "</h3>";
+        echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }
     if ($links) {
         $array_length = count($urls);
