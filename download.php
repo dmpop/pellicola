@@ -13,7 +13,7 @@ $i18n->init();
 if (ctype_xdigit($_GET['file'])) {
     $file = hex2bin($_GET['file']) ?? NULL;
 } else {
-    exit('¯\_(ツ)_/¯');
+    exit('<code><center>¯\_(ツ)_/¯</code></center>');
 }
 ?>
 
@@ -45,11 +45,11 @@ if (ctype_xdigit($_GET['file'])) {
         </div>
         <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
         <hr>
-        <div class='c'>
-            <div class='card' style="text-align: center;">
+        <div class="c">
+            <div class="card" style="text-align: center;">
                 <form style="margin-top: .7em; display: inline;" action=" " method="POST">
                     <label for="password"><?php echo L::password; ?></label>
-                    <input style="vertical-align: middle;" class="card" type='password' name='password' value=''>
+                    <input style="vertical-align: middle;" class="card" type='password' name="password" value="">
                     <button style="display: inline; vertical-align: middle; margin-left: 0.5em;" class="btn green" type="submit" name="download"><?php echo L::download_btn; ?></button>
                 </form>
                 <button onclick="history.back();" style="vertical-align: middle; margin-left: 0.5em;" class="btn primary" type="submit" name="back"><?php echo L::btn_back; ?></button>
@@ -60,7 +60,7 @@ if (ctype_xdigit($_GET['file'])) {
     <?php
     if (isset($_POST['download']) && ($_POST['password'] == $download_password) || (empty($download_password))) {
         $filename = pathinfo($file, PATHINFO_FILENAME);
-        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
+        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . '.downloads';
         if (file_exists($download_file)) {
             $count = fgets(fopen($download_file, 'r'));
             $count++;
@@ -69,9 +69,9 @@ if (ctype_xdigit($_GET['file'])) {
             @file_put_contents($download_file, '1');
         }
         header("Content-Disposition: attachment; filename=" . basename($file) . "");
-        header('Content-Type: application/octet-stream'); // Downloading on Android might fail without this
+        header("Content-Type: application/octet-stream"); // Downloading on Android might fail without this
         ob_clean();
         readfile($file);
     } elseif (isset($_POST['download']) && ($_POST['password'] !== $download_password)) {
-        echo "<h3><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_wrong_password . "</h3>";
+        echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }

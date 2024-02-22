@@ -107,7 +107,7 @@ class DiskSpaceCheck
                 </table>
             </div>
             <?php if ($download) : ?>
-                <h2 style='text-align: left;'><?php echo L::downloads; ?></h2>
+                <h2 style="text-align: left;"><?php echo L::downloads; ?></h2>
                 <div class="card">
                     <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . ": " . $download_count; ?>
                         <?php
@@ -145,33 +145,33 @@ class DiskSpaceCheck
             $f_length = array();
             foreach ($files as $file) {
                 $exif = @exif_read_data($file);
-                if (!empty($exif["FocalLength"])) {
-                    $f_length_mm = eval("return " . $exif["FocalLength"] . ";") . "mm";
+                if (!empty($exif['FocalLength'])) {
+                    $f_length_mm = eval('return ' . $exif['FocalLength'] . ';') . 'mm';
                     array_push($f_length, $f_length_mm);
                 }
             }
-            echo "
-        <h2 style='text-align: left;'>" . L::camera_model . "</h2>
-        <div class='card'>
+            echo '
+        <h2 style="text-align: left;">' . L::camera_model . '</h2>
+        <div class="card">
         <table>
-        ";
+        ';
             $count = array_count_values(array_filter($model));
             arsort($count);
             foreach ($count as $key => $value) {
                 echo "<tr><td>$key</td><td>$value</td></tr>";
             }
-            echo "
+            echo '
         </table>
         </div>
         </div>
-        ";
+        ';
 
-            echo "
-        <div class='c'>
-        <h2 style='text-align: left;'>" . L::f_length . "</h2>
-        <div class='card'>
+            echo '
+        <div class="c">
+        <h2 style="text-align: left;">' . L::f_length . '</h2>
+        <div class="card">
         <table>
-        ";
+        ';
             $count = array_count_values(array_filter($f_length));
             arsort($count);
             foreach ($count as $key => $value) {
@@ -179,10 +179,10 @@ class DiskSpaceCheck
                     echo "<tr><td>$key</td><td>$value</td></tr>";
                 }
             }
-            echo "
+            echo '
         </table>
         </div>
-        ";
+        ';
             ?>
         </div>
         <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
