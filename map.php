@@ -4,6 +4,10 @@ include('config.php');
 if (!extension_loaded('exif')) {
     exit("<center><code style='color: red;'>php-exif is not installed</code></center>");
 }
+if (!$show_map) {
+    exit('<code><center>¯\_(ツ)_/¯</code></center>');
+}
+
 // Start a session to keep track of albums
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -50,17 +54,6 @@ function gps($coordinate, $hemisphere)
     return $sign * ($degrees + $minutes / 60 + $seconds / 3600);
 }
 /* EXTRACT LATITUDE AND LONGITUDE ---END--- */
-
-// Find and remove photos that are not geotagged
-foreach ($photos as $file) {
-    // Get latitude and longitude values
-    $exif = @exif_read_data($file, 0, true);
-    $lat = gps($exif["GPS"]["GPSLatitude"], $exif["GPS"]["GPSLatitudeRef"]);
-    $lon = gps($exif["GPS"]["GPSLongitude"], $exif["GPS"]["GPSLongitudeRef"]);
-    if (!isset($lat) && !isset($lon)) {
-        unlink($file);
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -68,19 +61,13 @@ foreach ($photos as $file) {
 <!--
 Author: Dmitri Popov
 License: GPLv3 https://www.gnu.org/licenses/gpl-3.0.txt
-Source code: https://github.com/dmpop/pinpinpin
-
-Useful resources:
-https://github.com/mpetazzoni/leaflet-gpx
-https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
-https://www.tutorialspoint.com/leafletjs/leafletjs_markers.htm
-https://stackoverflow.com/questions/42968243/how-to-add-multiple-markers-in-leaflet-js
+Source code: https://github.com/dmpop/pellicola
 -->
 
 <html>
 
 <head>
-    <title>PinPinPin</title>
+    <title><?php echo $title; ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.png" />
@@ -89,6 +76,15 @@ https://stackoverflow.com/questions/42968243/how-to-add-multiple-markers-in-leaf
     <link rel="stylesheet" href="leaflet/MarkerCluster.css" />
     <link rel="stylesheet" href="leaflet/MarkerCluster.Default.css" />
     <script src="leaflet/leaflet.markercluster.js"></script>
+    <style>
+        html,
+        body,
+        #map {
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -97,7 +93,7 @@ https://stackoverflow.com/questions/42968243/how-to-add-multiple-markers-in-leaf
     <script type="text/javascript">
         var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors,  This is <a href="https://github.com/dmpop/pinpinpin">PinPinPin</a>. Photos: <?php echo $total_count; ?>'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors,  This is <a href="https://github.com/dmpop/pellicola">Pellicola</a>. Photos: <?php echo $total_count; ?>'
         });
 
         var map = L.map('map', {
@@ -110,17 +106,24 @@ https://stackoverflow.com/questions/42968243/how-to-add-multiple-markers-in-leaf
         foreach ($photos as $file) {
             // Get latitude and longitude values
             $exif = @exif_read_data($file, 0, true);
-            $lat = gps($exif["GPS"]["GPSLatitude"], $exif["GPS"]["GPSLatitudeRef"]);
-            $lon = gps($exif["GPS"]["GPSLongitude"], $exif["GPS"]["GPSLongitudeRef"]);
+            if (array_key_exists('GPS', $exif)) {
+				$lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+				$lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+			} else {
+				$lat = NULL;
+				$lon = NULL;
+			}
             if (empty($exif['COMMENT']['0'])) {
                 $caption = "";
             } else {
                 $caption = $exif['COMMENT']['0'];
                 $caption = str_replace(array("\r", "\n"), '', $caption);
             }
-            echo 'var marker = L.marker(new L.LatLng(' . $lat . ', ' . $lon . '));';
-            echo "marker.bindPopup('<a href=\"" . $file . "\"  target=\"_blank\"><img src=\"tim.php?image=" . $file . "\" width=300px /></a>" . $caption . "');";
-            echo 'markers.addLayer(marker);';
+            if (isset($lat) && isset($lon)) {
+                echo 'var marker = L.marker(new L.LatLng(' . $lat . ', ' . $lon . '));';
+                echo "marker.bindPopup('<a href=\"index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"tim.php?image=" . $file . "\" width=300px /></a>" . $caption . "');";
+                echo 'markers.addLayer(marker);';
+            }
         }
         ?>
         map.addLayer(markers);
@@ -128,8 +131,13 @@ https://stackoverflow.com/questions/42968243/how-to-add-multiple-markers-in-leaf
         <?php
         // Get latitude and longitude values og the last photo
         $exif = @exif_read_data($last_photo, 0, true);
-        $lat = gps($exif["GPS"]["GPSLatitude"], $exif["GPS"]["GPSLatitudeRef"]);
-        $lon = gps($exif["GPS"]["GPSLongitude"], $exif["GPS"]["GPSLongitudeRef"]);
+        if (array_key_exists('GPS', $exif)) {
+            $lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+            $lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+        } else {
+            $lat = NULL;
+            $lon = NULL;
+        }
         ?>
         map.panTo(new L.LatLng(<?php echo $lat; ?>, <?php echo $lon; ?>));
     </script>
