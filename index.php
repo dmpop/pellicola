@@ -252,7 +252,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show map icon
 			if ($show_map) {
-				echo '<a href="map.php" target="_blank"><img style="margin-left: .5em;" src="svg/map.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
+				echo '<a href="map.php" target="_blank"><img style="margin-left: .5em;" src="svg/map.svg" alt="' . L::map . '" title="' . L::map . '"/></a>';
 			}
 			// Show the grid icon if there are several pages
 			if (!isset($_GET['all']) && $file_count > $per_page) {
