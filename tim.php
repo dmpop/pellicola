@@ -26,4 +26,4 @@ function tim($source, $newWidth)
     imagedestroy($resizedImage);
 }
 
-tim($_GET["image"], 300); // Resize to 300 pixels in width
+tim(hex2bin($_GET["image"]), 300); // Resize to 300 pixels in width

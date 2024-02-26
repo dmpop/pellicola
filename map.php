@@ -121,7 +121,7 @@ Source code: https://github.com/dmpop/pellicola
             }
             if (isset($lat) && isset($lon)) {
                 echo 'var marker = L.marker(new L.LatLng(' . $lat . ', ' . $lon . '));';
-                echo "marker.bindPopup('<a href=\"index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"tim.php?image=" . $file . "\" width=300px /></a>" . $caption . "');";
+                echo "marker.bindPopup('<a href=\"index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"tim.php?image=" . bin2hex($file) . "\" width=300px /></a>" . $caption . "');";
                 echo 'markers.addLayer(marker);';
             }
         }
