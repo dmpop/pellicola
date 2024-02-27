@@ -422,31 +422,36 @@ if (session_status() == PHP_SESSION_NONE) {
 				$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');
 			}
 
-			// Get aperture, exposure, iso, and datetime from EXIF
-			$aperture = htmlentities((is_null($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
-			$exposure = htmlentities((is_null($exif['EXIF']['ExposureTime']) ? NULL : $exif['EXIF']['ExposureTime']));
-			$f_length = htmlentities((is_null($exif['EXIF']['FocalLength']) ? NULL : ' • ' . eval('return ' . $exif['EXIF']['FocalLength'] . ';') . 'mm'));
-			// Normalize exposure
-			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
-			if (!is_null($exposure)) {
-				$parts = explode("/", $exposure);
-				if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
-					$exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0));
-				} else {
-					if ($parts[1] == 1) {
-						$exposure = htmlentities(' • ' . $parts[0]);
+			if (isset($exif['EXIF'])) {
+				// Get aperture, exposure, iso, and datetime from EXIF
+				$aperture = htmlentities((!isset($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
+				$exposure = htmlentities((!isset($exif['EXIF']['ExposureTime']) ? NULL : $exif['EXIF']['ExposureTime']));
+				$f_length = htmlentities((!isset($exif['EXIF']['FocalLength']) ? NULL : ' • ' . eval('return ' . $exif['EXIF']['FocalLength'] . ';') . 'mm'));
+				// Normalize exposure
+				// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
+				if (!is_null($exposure)) {
+					$parts = explode('/', $exposure);
+					if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
+						$exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0));
 					} else {
-						$exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1]);
+						if ($parts[1] == 1) {
+							$exposure = htmlentities(' • ' . $parts[0]);
+						} else {
+							$exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1]);
+						}
 					}
 				}
+				$iso = htmlentities((!isset($exif['EXIF']['ISOSpeedRatings']) ? NULL : ' • ' . $exif['EXIF']['ISOSpeedRatings']));
+				$datetime = htmlentities(date('Y-m-d H:i', strtotime($exif['EXIF']['DateTimeOriginal']))) ?? NULL;
+				$comment = htmlentities($exif['COMMENT']['0']) ?? NULL;
+			} else {
+				$aperture = $exposure = $f_length = $iso = $datetime = $comment = NULL;
 			}
-			$iso = htmlentities((is_null($exif['EXIF']['ISOSpeedRatings']) ? NULL : ' • ' . $exif['EXIF']['ISOSpeedRatings']));
-			$datetime = htmlentities(date('Y-m-d H:i', strtotime($exif['EXIF']['DateTimeOriginal']))) ?? NULL;
-			$comment = htmlentities($exif['COMMENT']['0']) ?? NULL;
-
 			// Concatenate $exif_info
-			if (!is_null($aperture) || !is_null($exposure) || !is_null($iso) || !is_null($datetime)) {
+			if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
 				$exif_info = '<img style="margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . '<img style="margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
+			} else {
+				$exif_info = NULL;
 			}
 
 			// Add the pin icon if the photo contains geographical coordinates
@@ -467,6 +472,8 @@ if (session_status() == PHP_SESSION_NONE) {
 			//Check if the related RAW file exists and link to it
 			if (!empty($raw_file)) {
 				$raw_download = '<a href="download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
+			} else {
+				$raw_download = NULL;
 			}
 			if ($download) {
 				echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';

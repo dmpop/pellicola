@@ -11,14 +11,16 @@ $i18n->init();
 // Check if $_GET['file'] value is hex,
 // then convert it to the file path
 if (ctype_xdigit($_GET['file'])) {
-    $file = hex2bin($_GET['file']) ?? NULL;
+    $file = hex2bin($_GET['file']);
 } else {
     exit('<code><center>¯\_(ツ)_/¯</code></center>');
 }
 
 // Do the same for $_GET['raw']
 if (!empty($_GET['raw']) && ctype_xdigit($_GET['raw'])) {
-    $raw = hex2bin($_GET['raw']) ?? NULL;
+    $raw = hex2bin($_GET['raw']);
+} else {
+    $raw = NULL;
 }
 
 if (session_status() == PHP_SESSION_NONE) {
