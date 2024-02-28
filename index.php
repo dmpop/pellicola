@@ -99,7 +99,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	function gps($coordinate, $hemisphere)
 	{
 		if (is_string($coordinate)) {
-			$coordinate = array_map("trim", explode(",", $coordinate));
+			$coordinate = array_map('trim', explode(',', $coordinate));
 		}
 		for ($i = 0; $i < 3; $i++) {
 			$part = explode('/', $coordinate[$i]);

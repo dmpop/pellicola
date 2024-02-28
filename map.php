@@ -1,8 +1,15 @@
 <?php
 include('config.php');
+// Include i18n class and initialize it
+require_once 'i18n.class.php';
+$i18n = new i18n();
+$i18n->setCachePath('cache');
+$i18n->setFilePath('lang/{LANGUAGE}.ini');
+$i18n->setFallbackLang('en');
+$i18n->init();
 // Check whether the php-exif library is installed
 if (!extension_loaded('exif')) {
-    exit("<center><code style='color: red;'>php-exif is not installed</code></center>");
+	exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
 }
 if (!$show_map) {
     exit('<code><center>¯\_(ツ)_/¯</code></center>');
@@ -18,13 +25,13 @@ if (!empty($_SESSION['album'])) {
     $album = NULL;
 }
 $photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
-$photos = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+$photos = glob($photo_dir . '*.{' . $img_formats . '}', GLOB_BRACE);
 
 // Count all photos in $photo_dir 
 $total_count = count($photos);
 // Check if $photo_dir is empty
 if ($total_count === 0) {
-    exit("<center><code style='color: red;'>No photos found</code></center>");
+    exit('<center><code style="color: red;">' . L::warning_empty . '</code></center>');
 } else {
     // Find the most recent photo to center the map on
     // $total_count-1 because arrays start with 0
@@ -37,7 +44,7 @@ if ($total_count === 0) {
 function gps($coordinate, $hemisphere)
 {
     if (is_string($coordinate)) {
-        $coordinate = array_map("trim", explode(",", $coordinate));
+        $coordinate = array_map('trim', explode(',', $coordinate));
     }
     for ($i = 0; $i < 3; $i++) {
         $part = explode('/', $coordinate[$i]);
