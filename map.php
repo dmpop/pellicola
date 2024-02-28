@@ -107,12 +107,11 @@ Source code: https://github.com/dmpop/pellicola
             // Get latitude and longitude values
             $exif = @exif_read_data($file, 0, true);
             if (array_key_exists('GPS', $exif)) {
-				$lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-				$lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-			} else {
-				$lat = NULL;
-				$lon = NULL;
-			}
+                $lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                $lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+            } else {
+                $lat = $lon = NULL;
+            }
             if (empty($exif['COMMENT']['0'])) {
                 $caption = "";
             } else {
@@ -135,8 +134,7 @@ Source code: https://github.com/dmpop/pellicola
             $lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
             $lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
         } else {
-            $lat = NULL;
-            $lon = NULL;
+            $lat = $lon = NULL;
         }
         ?>
         map.panTo(new L.LatLng(<?php echo $lat; ?>, <?php echo $lon; ?>));
