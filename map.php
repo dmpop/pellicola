@@ -104,7 +104,7 @@ Source code: https://github.com/dmpop/pellicola
         });
 
         var map = L.map('map', {
-            zoom: 9,
+            zoom: 5,
             layers: [tiles]
         });
 

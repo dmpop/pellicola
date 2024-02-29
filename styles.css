@@ -125,15 +125,14 @@ input[type="password"] {
   padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
   min-width: 10em;
-  vertical-align: middle;
   margin-right: 0.5em;
   border-radius: 5px;
 }
 
 .topcorner {
   position: absolute;
-  top: 0;
-  right: 0.5em;
+  top: 0.3em;
+  right: 1em;
 }
 
 .btn {

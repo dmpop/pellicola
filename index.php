@@ -298,7 +298,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 		<!-- Search field in the upper-right corner -->
 		<div class="topcorner">
-			<form autocomplete="off" style="margin-top: 0.5em; margin-right: 1em;" method="GET" action=" ">
+			<form autocomplete="off" method="GET" action=" ">
 				<select style="vertical-align: middle;" name="search">
 					<option value="search_name"><?php echo L::find_by_name; ?></option>
 					<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
