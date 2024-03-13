@@ -8,8 +8,8 @@ echo "<rss version='2.0'>" . PHP_EOL;
 echo "<channel>" . PHP_EOL;
 
 echo "<title>" . $title  . "</title>" . PHP_EOL;
-echo "<image><url>" . $server . DIRECTORY_SEPARATOR . "favicon.png</url><title>$title</title><link>$server</link></image>" . PHP_EOL;
-echo "<link>$server</link>" . PHP_EOL;
+echo "<image><url>" . $base_url . DIRECTORY_SEPARATOR . "favicon.png</url><title>$title</title><link>$base_url</link></image>" . PHP_EOL;
+echo "<link>$base_url</link>" . PHP_EOL;
 echo "<description>" . $title . " " . $subtitle . "</description>" . PHP_EOL;
 
 $date = date("Y-m-d", strtotime("-" . $rss_feed_limit . " day"));
@@ -32,8 +32,8 @@ foreach ($rss_items as $item) {
     $album = str_replace($base_photo_dir, "", dirname($item->getPathname()));
     echo "<item>" . PHP_EOL;
     echo "<title>" . htmlspecialchars(pathinfo(basename($item->getPathname()), PATHINFO_FILENAME), ENT_QUOTES) . "</title>" . PHP_EOL;
-    echo "<link>" . htmlspecialchars("$server/index.php?file=" . bin2hex($item->getPathname()) . "&album=" . ltrim($album, "/"), ENT_QUOTES) . "</link>" . PHP_EOL;
-    echo "<description>" . htmlspecialchars("<img src='" . $server . DIRECTORY_SEPARATOR . $tims_dir . basename($item->getPathname()) . "' width=128 />", ENT_QUOTES) . "</description>" . PHP_EOL;
+    echo "<link>" . htmlspecialchars("$base_url/index.php?file=" . bin2hex($item->getPathname()) . "&album=" . ltrim($album, "/"), ENT_QUOTES) . "</link>" . PHP_EOL;
+    echo "<description>" . htmlspecialchars("<img src='" . $base_url . DIRECTORY_SEPARATOR . $tims_dir . basename($item->getPathname()) . "' width=128 />", ENT_QUOTES) . "</description>" . PHP_EOL;
     echo "<pubDate>" . htmlspecialchars(date("Y-m-d H:i:s", $item->getMTime()), ENT_QUOTES) . "</pubDate>" . PHP_EOL;
     echo "</item>" . PHP_EOL;
 }

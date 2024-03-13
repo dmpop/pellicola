@@ -242,8 +242,8 @@ if (session_status() == PHP_SESSION_NONE) {
 	$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
 	if (!isset($grid)) {
 		echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
-		echo '<a style="text-decoration:none;" href="index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
-		echo '<a style="text-decoration:none;" href="index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $title . '</h1></a>';
+		echo '<a style="text-decoration:none;" href="' . $base_url . '/index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
+		echo '<a style="text-decoration:none;" href="' . $base_url . '/index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $title . '</h1></a>';
 		echo '</div>';
 		echo '<div class="center" style="color: gray; margin-bottom: 1em;">' . $subtitle . '</div>';
 		echo '<div class="center" style="margin-bottom: 1em;">';
@@ -336,7 +336,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				$tim = $tims_dir . basename($file);
 				$file_path = pathinfo($file);
 				echo '<figure class="gallery-frame">';
-				echo '<a href="index.php?file=' . mask_param($file)  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+				echo '<a href="' . $base_url . '/index.php?file=' . mask_param($file)  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 			}
 		} else {
@@ -345,7 +345,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				$tim = $tims_dir . basename($file);
 				$file_path = pathinfo($file);
 				echo '<figure class="gallery-frame">';
-				echo '<a href="index.php?file=' . mask_param($file) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+				echo '<a href="' . $base_url . '/index.php?file=' . mask_param($file) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 			}
 		}
@@ -396,20 +396,20 @@ if (session_status() == PHP_SESSION_NONE) {
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($file_count == 1) {
-			echo '<div class="center" style="margin-bottom: 1em;><a href="index.php?album=' . $album . '" accesskey="g"><img src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a></div>';
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
 		}
 		// Show all navigation links
 		else {
 
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		/* NAVIGATION LINKS ---END--- */
 
@@ -466,11 +466,11 @@ if (session_status() == PHP_SESSION_NONE) {
 		// Find all RAW files
 		$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE) ?? NULL;
 		$raw = (!empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : $raw = NULL);
-		$image_download = '<a href="download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
-		$image_delete = '<a href="delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+		$image_download = '<a href="' . $base_url . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
+		$image_delete = '<a href="' . $base_url . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 		//Check if the related RAW file exists and link to it
 		if (!empty($raw_file)) {
-			$raw_download = '<a href="download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
+			$raw_download = '<a href="' . $base_url . '/download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
 		} else {
 			$raw_download = NULL;
 		}

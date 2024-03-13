@@ -1,5 +1,5 @@
 <?php
-$server = "https://hello.xyz"; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://hello.xyz/pellicola)
+$base_url = "https://hello.xyz"; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://hello.xyz/pellicola)
 $title = "Pellicola"; // Name of the Pellicola instance.
 $subtitle = "Responsive open-source photo grid"; // Tagline displayed under the title.
 $delete_password = "secret"; // Password to delete photos
