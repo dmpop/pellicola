@@ -65,8 +65,8 @@ if (session_status() == PHP_SESSION_NONE) {
 		mkdir($base_photo_dir, 0755, true);
 	}
 
-	if ($download && !file_exists($download_count_dir)) {
-		mkdir($download_count_dir, 0755, true);
+	if ($download && !file_exists($stats_dir)) {
+		mkdir($stats_dir, 0755, true);
 	}
 
 	// htmlentities() and str_replace() are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
@@ -329,6 +329,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			echo '</div>';
 		}
 		echo '</div>';
+		/* SHOW THE GRID WITH TIMS ---START --- */
 		echo '<div class="gallery-grid">';
 		if (isset($_GET['all'])) {
 			for ($i = 0; $i < $file_count; $i++) {
@@ -351,24 +352,38 @@ if (session_status() == PHP_SESSION_NONE) {
 		}
 		echo '</div>';
 	}
+	/* SHOW PAGINATION */
 	if (!isset($_GET['all'])) {
 		// Set $page to NULL if $file is set to avoid undefined variable warning
 		(isset($_GET['file'])) ? $page = NULL : NULL;
 		show_pagination($page, $last_page, $album); // Pagination. Show navigation on bottom of page
 	}
+	/* SHOW THE GRID WITH TIMS ---END --- */
 
 	/* SHOW SINGLE PHOTO */
 	// The $file parameter is used to show an individual photo
 	$file = isset($_GET['file']) ? unmask_param($_GET['file']) : NULL;
 	// Get the current download count
 	$filename = pathinfo($file, PATHINFO_FILENAME);
-	$download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
-	if (file_exists($download_file)) {
-		$count = fgets(fopen($download_file, 'r'));
+	$views_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . ".views";
+	$downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
+	if (file_exists($downloads_file)) {
+		$downloads_count = fgets(fopen($downloads_file, 'r'));
 	} else {
-		$count = 0;
+		$downloads_count = 0;
 	}
+
 	if (isset($file)) {
+		// If $views_file exists, increment views count by 1
+		if (file_exists($views_file)) {
+			$views_count = fgets(fopen($views_file, 'r'));
+			$views_count++;
+			@file_put_contents($views_file, $views_count);
+		} else {
+			// otherwise, create $views_file and set $views_count to 0
+			@file_put_contents($views_file, '1');
+			$views_count = 1;
+		}
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$tim = $tims_dir . basename($file);
 		// Get latitude and longitude values
@@ -478,7 +493,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 			echo '<div class="caption">' . $exif_info . '</div>';
 			echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div>';
-			echo '<div class="caption">' . L::downloads . ": " . $count . '</div>';
+			echo '<div class="caption">' . L::views . ': ' . $views_count . ' ' . L::downloads . ": " . $downloads_count . '</div>';
 		} else {
 			echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 			echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div>';

@@ -60,13 +60,13 @@ if (ctype_xdigit($_GET['file'])) {
     <?php
     if (isset($_POST['download']) && ($_POST['password'] == $download_password) || (empty($download_password))) {
         $filename = pathinfo($file, PATHINFO_FILENAME);
-        $download_file = $download_count_dir . DIRECTORY_SEPARATOR . $filename . '.downloads';
-        if (file_exists($download_file)) {
-            $count = fgets(fopen($download_file, 'r'));
-            $count++;
-            @file_put_contents($download_file, $count);
+        $downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . '.downloads';
+        if (file_exists($downloads_file)) {
+            $downloads_count = fgets(fopen($downloads_file, 'r'));
+            $downloads_count++;
+            @file_put_contents($downloads_file, $downloads_count);
         } else {
-            @file_put_contents($download_file, '1');
+            @file_put_contents($downloads_file, '1');
         }
         header("Content-Disposition: attachment; filename=" . basename($file) . "");
         header("Content-Type: application/octet-stream"); // Downloading on Android might fail without this

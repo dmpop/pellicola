@@ -111,14 +111,14 @@ class DiskSpaceCheck
                 <div class="card">
                     <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . ": " . $download_count; ?>
                         <?php
-                        $count = 0;
+                        $downloads_count = 0;
                         // Get all .downloads files
-                        $all_download_files = glob($download_count_dir . DIRECTORY_SEPARATOR . "*.downloads");
-                        // Read value from each .download file and add it $count
-                        foreach ($all_download_files  as $download_file) {
-                            $count += fgets(fopen($download_file, 'r'));
+                        $all_download_files = glob($stats_dir . DIRECTORY_SEPARATOR . "*.downloads");
+                        // Read value from each .download file and add it $downloads_count
+                        foreach ($all_download_files  as $downloads_file) {
+                            $downloads_count += fgets(fopen($downloads_file, 'r'));
                         }
-                        echo $count;
+                        echo $downloads_count;
                         ?>
                     </div>
                 </div>

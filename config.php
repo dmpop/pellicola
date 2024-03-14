@@ -23,6 +23,6 @@ $openstreetmap = true; // If set to _true_, the application generates a URL that
 
 /* DO NOT CHANGE THE SETTINGS BELOW */
 $base_photo_dir = "photos"; // Directory for storing photos
-$download_count_dir = "downloads"; // Directory for storing download stats
+$stats_dir = "stats"; // Directory for storing downloads and views stats
 $tims_dir = $base_photo_dir . "/.tims/"; // Directory for storing tims
 $tim_size = 1200; //Tim size
