@@ -98,7 +98,7 @@ class DiskSpaceCheck
                 <table>
                     <tr>
                         <td><?php echo L::total_storage; ?> </td>
-                        <td><?php echo $disk->formatBytes($disk->total_space); ?></td>
+                        <td><strong><?php echo $disk->formatBytes($disk->total_space); ?></strong></td>
                     </tr>
                     <tr>
                         <td><?php echo L::used_storage; ?> </td>
@@ -106,101 +106,115 @@ class DiskSpaceCheck
                     </tr>
                 </table>
             </div>
-            <?php if ($download) : ?>
-                <h2 style="text-align: left;"><?php echo L::downloads; ?></h2>
-                <div class="card">
-                    <div class="center" style="margin-top: 0.5em; margin-bottom: 0.5em; font-size:115%"><?php echo L::download_count . ": " . $download_count; ?>
+
+            <h2 style="text-align: left;"><?php echo L::stats; ?></h2>
+            <div class="card">
+                <div class="left" style="margin: 0.5em 0.5em;"><?php echo L::total_views . ": "; ?>
+                    <?php
+                    $views_count = 0;
+                    // Get all .views files
+                    $all_views_files = glob($stats_dir . DIRECTORY_SEPARATOR . "*.views");
+                    // Read value from each .views file and add it $downloads_count
+                    foreach ($all_views_files  as $views_file) {
+                        $views_count += fgets(fopen($views_file, 'r'));
+                    }
+                    echo '<strong>' . $views_count . '</strong>';
+                    ?>
+                </div>
+
+                <?php if ($download) : ?>
+                    <div class="left" style="margin: 0.5em 0.5em;"><?php echo L::total_downloads . ": "; ?>
                         <?php
                         $downloads_count = 0;
                         // Get all .downloads files
-                        $all_download_files = glob($stats_dir . DIRECTORY_SEPARATOR . "*.downloads");
+                        $all_downloads_files = glob($stats_dir . DIRECTORY_SEPARATOR . "*.downloads");
                         // Read value from each .download file and add it $downloads_count
-                        foreach ($all_download_files  as $downloads_file) {
+                        foreach ($all_downloads_files  as $downloads_file) {
                             $downloads_count += fgets(fopen($downloads_file, 'r'));
                         }
-                        echo $downloads_count;
+                        echo '<strong>' . $downloads_count . '<strong>';
+                        echo '</div>';
                         ?>
                     </div>
-                </div>
-            <?php endif; ?>
-            <?php if (`which vnstati`) : ?>
-                <h2 style='text-align: left;'><?php echo L::network_traffic; ?></h2>
-                <div class="card" style="text-align: center;">
-                    <?php
-                    shell_exec("vnstati -m -s -o vnstat.png");
-                    ?>
-                    <img style="max-width:100%; height: auto;" src="vnstat.png" />
-                </div>
-            <?php endif; ?>
-            <?php
-            $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
+                <?php endif; ?>
+                <?php if (`which vnstati`) : ?>
+                    <h2 style='text-align: left;'><?php echo L::network_traffic; ?></h2>
+                    <div class="card" style="text-align: center;">
+                        <?php
+                        shell_exec("vnstati -m -s -o vnstat.png");
+                        ?>
+                        <img style="max-width:100%; height: auto;" src="vnstat.png" />
+                    </div>
+                <?php endif; ?>
+                <?php
+                $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
 
-            $model = array();
-            foreach ($files as $file) {
-                $exif = @exif_read_data($file);
-                if (!empty($exif["Model"])) {
-                    array_push($model, $exif["Model"]);
+                $model = array();
+                foreach ($files as $file) {
+                    $exif = @exif_read_data($file);
+                    if (!empty($exif["Model"])) {
+                        array_push($model, $exif["Model"]);
+                    }
                 }
-            }
-            $f_length = array();
-            foreach ($files as $file) {
-                $exif = @exif_read_data($file);
-                if (!empty($exif['FocalLength'])) {
-                    $f_length_mm = eval('return ' . $exif['FocalLength'] . ';') . 'mm';
-                    array_push($f_length, $f_length_mm);
+                $f_length = array();
+                foreach ($files as $file) {
+                    $exif = @exif_read_data($file);
+                    if (!empty($exif['FocalLength'])) {
+                        $f_length_mm = eval('return ' . $exif['FocalLength'] . ';') . 'mm';
+                        array_push($f_length, $f_length_mm);
+                    }
                 }
-            }
-            echo '
+                echo '
         <h2 style="text-align: left;">' . L::camera_model . '</h2>
         <div class="card">
         <table>
         ';
-            $count = array_count_values(array_filter($model));
-            arsort($count);
-            foreach ($count as $key => $value) {
-                echo "<tr><td>$key</td><td>$value</td></tr>";
-            }
-            echo '
+                $count = array_count_values(array_filter($model));
+                arsort($count);
+                foreach ($count as $key => $value) {
+                    echo "<tr><td>$key</td><td>$value</td></tr>";
+                }
+                echo '
         </table>
         </div>
         </div>
         ';
 
-            echo '
+                echo '
         <div class="c">
         <h2 style="text-align: left;">' . L::f_length . '</h2>
         <div class="card">
         <table>
         ';
-            $count = array_count_values(array_filter($f_length));
-            arsort($count);
-            foreach ($count as $key => $value) {
-                if ($value > $f_length_threshold) {
-                    echo "<tr><td>$key</td><td>$value</td></tr>";
+                $count = array_count_values(array_filter($f_length));
+                arsort($count);
+                foreach ($count as $key => $value) {
+                    if ($value > $f_length_threshold) {
+                        echo "<tr><td>$key</td><td>$value</td></tr>";
+                    }
                 }
-            }
-            echo '
+                echo '
         </table>
         </div>
         ';
-            ?>
-        </div>
-        <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
-            <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
-        </div>
-        <?php
-        // Show links and footer
-        if ($links) {
-            $array_length = count($urls);
-            echo '<div class="footer">';
-            for ($i = 0; $i < $array_length; $i++) {
-                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+                ?>
+            </div>
+            <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
+                <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
+            </div>
+            <?php
+            // Show links and footer
+            if ($links) {
+                $array_length = count($urls);
+                echo '<div class="footer">';
+                for ($i = 0; $i < $array_length; $i++) {
+                    echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+                }
+                echo  $footer . '</div>';
+            } else {
+                echo '<div class="footer"' . $footer . '</div>';
             }
-            echo  $footer . '</div>';
-        } else {
-            echo '<div class="footer"' . $footer . '</div>';
-        }
-        ?>
+            ?>
 </body>
 
 </html>
