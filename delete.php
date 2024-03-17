@@ -79,8 +79,10 @@ if (session_status() == PHP_SESSION_NONE) {
         }
         unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
         $downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . '.downloads';
+        $views_file = $stats_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . '.views';
         if ($downloads_file) {
             unlink($downloads_file);
+            unlink($views_file);
         }
         header('Location: index.php');
     } elseif (isset($_POST['delete']) && ($_POST['password'] !== $delete_password)) {
