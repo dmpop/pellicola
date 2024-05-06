@@ -63,8 +63,11 @@ if (ctype_xdigit($_GET['file'])) {
         $downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . '.downloads';
         if (file_exists($downloads_file)) {
             $downloads_count = fgets(fopen($downloads_file, 'r'));
-            $downloads_count++;
-            @file_put_contents($downloads_file, $downloads_count);
+            // Increment count only if $_COOKIE['count'] is not set
+            if (!isset($_COOKIE['count'])) {
+                $downloads_count++;
+                @file_put_contents($downloads_file, $downloads_count);
+            }
         } else {
             @file_put_contents($downloads_file, '1');
         }

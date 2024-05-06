@@ -17,9 +17,14 @@ if (!extension_loaded('exif')) {
 // Time allowed the script to run. Generating tims can take time,
 // and increasing the time limit prevents the script from ending prematurely
 set_time_limit(600);
+
 // Start a session to keep track of albums
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
+}
+// If $_GET['count'] = 0, set a cookie to disable counting views and downloads
+if (isset($_GET['count'])) {
+	setcookie("count", "0", 2147483647);
 }
 ?>
 
@@ -374,13 +379,15 @@ if (session_status() == PHP_SESSION_NONE) {
 	} else {
 		$downloads_count = 0;
 	}
-
 	if (isset($file)) {
 		// If $views_file exists, increment views count by 1
 		if (file_exists($views_file)) {
 			$views_count = fgets(fopen($views_file, 'r'));
-			$views_count++;
-			@file_put_contents($views_file, $views_count);
+			// Increment count only if $_COOKIE['count'] is not set
+			if (!isset($_COOKIE['count'])) {
+				$views_count++;
+				@file_put_contents($views_file, $views_count);
+			}
 		} else {
 			// otherwise, create $views_file and set $views_count to 0
 			@file_put_contents($views_file, '1');
