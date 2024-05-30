@@ -389,7 +389,7 @@ if (isset($_GET['count'])) {
 				@file_put_contents($views_file, $views_count);
 			}
 		} else {
-			// otherwise, create $views_file and set $views_count to 0
+			// Otherwise, create $views_file and set $views_count to 1
 			@file_put_contents($views_file, '1');
 			$views_count = 1;
 		}
@@ -406,6 +406,12 @@ if (isset($_GET['count'])) {
 		}
 
 		$file_path = pathinfo($file);
+
+		// Easter egg: if $_GET['t'] is set, rebuild the tim of the currently viewed photo
+		if (isset($_GET['t'])) {
+			unlink($tim);
+			createTim($file, $tim, $tim_size);
+		}
 
 		// Get URL of the current page for use with the Back button
 		$url = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
