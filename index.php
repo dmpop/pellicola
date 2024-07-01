@@ -450,32 +450,29 @@ if (isset($_GET['count'])) {
 		} else {
 			$description = @file_get_contents($photo_dir . $file_path['filename'] . '.txt');
 		}
-
-		if (isset($exif['EXIF'])) {
-			// Get aperture, exposure, iso, and datetime from EXIF
-			$aperture = htmlentities((!isset($exif['COMPUTED']['ApertureFNumber']) ? NULL : $exif['COMPUTED']['ApertureFNumber']));
-			$exposure = htmlentities((!isset($exif['EXIF']['ExposureTime']) ? NULL : $exif['EXIF']['ExposureTime']));
-			$f_length = htmlentities((!isset($exif['EXIF']['FocalLength']) ? NULL : ' • ' . eval('return ' . $exif['EXIF']['FocalLength'] . ';') . 'mm'));
-			// Normalize exposure
-			// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
-			if (!is_null($exposure)) {
-				$parts = explode('/', $exposure);
-				if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
-					$exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0));
+		
+		// Get aperture, exposure, iso, and datetime from EXIF
+		$aperture = (!isset($exif['COMPUTED']['ApertureFNumber']) ? NULL : htmlentities($exif['COMPUTED']['ApertureFNumber']));
+		$exposure = (!isset($exif['EXIF']['ExposureTime']) ? NULL : htmlentities($exif['EXIF']['ExposureTime']));
+		$f_length = (!isset($exif['EXIF']['FocalLength']) ? NULL : ' • ' . eval('return ' . htmlentities($exif['EXIF']['FocalLength']) . ';') . 'mm');
+		// Normalize exposure
+		// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
+		if (!is_null($exposure)) {
+			$parts = explode('/', $exposure);
+			if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
+				$exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0));
+			} else {
+				if ($parts[1] == 1) {
+					$exposure = htmlentities(' • ' . $parts[0]);
 				} else {
-					if ($parts[1] == 1) {
-						$exposure = htmlentities(' • ' . $parts[0]);
-					} else {
-						$exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1]);
-					}
+					$exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1]);
 				}
 			}
-			$iso = htmlentities((!isset($exif['EXIF']['ISOSpeedRatings']) ? NULL : ' • ' . $exif['EXIF']['ISOSpeedRatings']));
-			$datetime = htmlentities(date('Y-m-d H:i', strtotime($exif['EXIF']['DateTimeOriginal']))) ?? NULL;
-			$comment = htmlentities($exif['COMMENT']['0']) ?? NULL;
-		} else {
-			$aperture = $exposure = $f_length = $iso = $datetime = $comment = NULL;
 		}
+		$iso = !isset($exif['EXIF']['ISOSpeedRatings']) ? NULL : ' • ' . htmlentities($exif['EXIF']['ISOSpeedRatings']);
+		$datetime = !isset($exif['EXIF']['DateTimeOriginal']) ? NULL : htmlentities((date('Y-m-d H:i', strtotime($exif['EXIF']['DateTimeOriginal']))));
+		$comment = (!isset($exif['COMMENT']['0']) ? NULL : htmlentities($exif['COMMENT']['0']));
+
 		// Concatenate $exif_info
 		if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
 			$exif_info = '<img style="margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . '<img style="margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
