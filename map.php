@@ -123,7 +123,7 @@ Source code: https://github.com/dmpop/pellicola
                 $caption = "";
             } else {
                 $caption = $exif['COMMENT']['0'];
-                $caption = str_replace(array("\r", "\n"), '', $caption);
+                $caption = addslashes(str_replace(array("\r", "\n"), '', $caption));
             }
             if (isset($lat) && isset($lon)) {
                 echo 'var marker = L.marker(new L.LatLng(' . $lat . ', ' . $lon . '));';
