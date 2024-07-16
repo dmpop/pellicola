@@ -193,7 +193,7 @@ if (isset($_GET['count'])) {
 			$all_files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
 			foreach ($all_files as $file) {
 				$exif = exif_read_data($file, 0, true);
-				if (stripos($exif['COMMENT']['0'], $_GET['query']) !== FALSE) {
+				if (isset($exif['COMMENT']['0']) && stripos($exif['COMMENT']['0'], $_GET['query']) !== FALSE) {
 					array_push($files, $file);
 				}
 			}
