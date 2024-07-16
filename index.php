@@ -307,8 +307,8 @@ if (isset($_GET['count'])) {
 		<div class="topcorner">
 			<form autocomplete="off" method="GET" action=" ">
 				<select style="vertical-align: middle;" name="search">
-					<option value="search_name"><?php echo L::find_by_name; ?></option>
 					<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
+					<option value="search_name"><?php echo L::find_by_name; ?></option>
 				</select>
 				<input style="vertical-align: middle;" type="text" name="query">
 				<!-- The hidden input field is used to pass the $album value (album) to the search -->
