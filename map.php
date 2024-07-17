@@ -9,7 +9,7 @@ $i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif library is installed
 if (!extension_loaded('exif')) {
-	exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
+    exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
 }
 if (!$show_map) {
     exit('<code><center>¯\_(ツ)_/¯</code></center>');
@@ -32,11 +32,7 @@ $total_count = count($photos);
 // Check if $photo_dir is empty
 if ($total_count === 0) {
     exit('<center><code style="color: red;">' . L::warning_empty . '</code></center>');
-} else {
-    // Find the most recent photo to center the map on
-    // $total_count-1 because arrays start with 0
-    $last_photo = $photos[$total_count - 1];
-};
+}
 
 /* EXTRACT LATITUDE AND LONGITUDE ---START---
 	   * https://stackoverflow.com/a/16437888
@@ -61,6 +57,22 @@ function gps($coordinate, $hemisphere)
     return $sign * ($degrees + $minutes / 60 + $seconds / 3600);
 }
 /* EXTRACT LATITUDE AND LONGITUDE ---END--- */
+
+$geotagged_items = array();
+foreach ($photos as $file) {
+    // Get latitude and longitude values
+    $exif = @exif_read_data($file, 0, true);
+    if ($exif['GPS']['GPSLatitude'] && $exif['GPS']['GPSLongitude']) {
+        array_push($geotagged_items, $file);
+    }
+}
+
+$result = count($geotagged_items);
+$last_photo = $geotagged_items[$result - 1];
+if ($result == 0) {
+    exit("<code><center>¯\_(ツ)_/¯</code></center>");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -110,10 +122,10 @@ Source code: https://github.com/dmpop/pellicola
 
         var markers = L.markerClusterGroup();
         <?php
-        foreach ($photos as $file) {
+        foreach ($geotagged_items as $file) {
             // Get latitude and longitude values
             $exif = @exif_read_data($file, 0, true);
-            if (array_key_exists('GPS', $exif)) {
+            if ($exif['GPS']['GPSLatitude'] && $exif['GPS']['GPSLongitude']) {
                 $lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
                 $lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
             } else {
@@ -127,7 +139,7 @@ Source code: https://github.com/dmpop/pellicola
             }
             if (isset($lat) && isset($lon)) {
                 echo 'var marker = L.marker(new L.LatLng(' . $lat . ', ' . $lon . '));';
-                echo "marker.bindPopup('<a href=\"". $base_url . "/index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"". $base_url . "/tim.php?image=" . bin2hex($file) . "\" width=300px /></a>" . $caption . "');";
+                echo "marker.bindPopup('<a href=\"" . $base_url . "/index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"" . $base_url . "/tim.php?image=" . bin2hex($file) . "\" width=300px /></a>" . $caption . "');";
                 echo 'markers.addLayer(marker);';
             }
         }
@@ -137,14 +149,13 @@ Source code: https://github.com/dmpop/pellicola
         <?php
         // Get latitude and longitude values og the last photo
         $exif = @exif_read_data($last_photo, 0, true);
-        if (array_key_exists('GPS', $exif)) {
+        if ($exif['GPS']['GPSLatitude'] && $exif['GPS']['GPSLongitude']) {
             $lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
             $lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-        } else {
-            $lat = $lon = NULL;
+            echo "map.panTo(new L.LatLng($lat, $lon));";
+            echo "";
         }
         ?>
-        map.panTo(new L.LatLng(<?php echo $lat; ?>, <?php echo $lon; ?>));
     </script>
 </body>
 
