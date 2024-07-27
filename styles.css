@@ -97,6 +97,9 @@ p {
 }
 
 select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 3em;
   padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
   color: #fff;
@@ -107,6 +110,7 @@ select {
 }
 
 input[type="text"] {
+  height: 2em;
   padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
   border: 0px;
