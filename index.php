@@ -22,9 +22,9 @@ set_time_limit(600);
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
-// If $_GET['count'] = 0, set a cookie to disable counting views and downloads
-if (isset($_GET['count'])) {
-	setcookie("count", "0", 2147483647);
+// If $_GET['nocount'] is set, set a cookie to disable counting views and downloads
+if (isset($_GET['nocount'])) {
+	setcookie("nocount", "0", 2147483647);
 }
 ?>
 
@@ -383,8 +383,8 @@ if (isset($_GET['count'])) {
 		// If $views_file exists, increment views count by 1
 		if (file_exists($views_file)) {
 			$views_count = fgets(fopen($views_file, 'r'));
-			// Increment count only if $_COOKIE['count'] is not set
-			if (!isset($_COOKIE['count'])) {
+			// Increment count only if $_COOKIE['nocount'] is not set
+			if (!isset($_COOKIE['nocount'])) {
 				$views_count++;
 				@file_put_contents($views_file, $views_count);
 			}
