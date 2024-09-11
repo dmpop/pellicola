@@ -46,5 +46,8 @@ git clone https://github.com/dmpop/pellicola.git
 # Copy Pellicola to the document root
 rsync -avh --delete --progress pellicola/ /var/www/html
 
+# Set the correct permissions
+chown www-data:www-data -R /var/www/html/
+
 # Finish
 echo "All done!"

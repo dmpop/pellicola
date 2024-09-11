@@ -279,8 +279,8 @@ if (isset($_GET['nocount'])) {
 			echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_enable_js . '</h3>';
 			echo '</noscript>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
-			echo '<a href="'  . basename($_SERVER['PHP_SELF']) . '?album="><img style="vertical-align: middle;" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
-			$higher_dirs = explode('/', $album);
+			echo '<a href="'  . $base_url . '?album="><img style="vertical-align: middle;" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
+			$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
 			$higher_dir_cascade = '';
 			foreach ($higher_dirs as $higher_dir) {
 				if (!empty($higher_dir)) {
@@ -288,7 +288,7 @@ if (isset($_GET['nocount'])) {
 						$higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
 					}
 					$higher_dir_cascade = $higher_dir_cascade . $higher_dir;
-					echo '<a href="'  . basename($_SERVER['PHP_SELF']) . '?album="' . $higher_dir_cascade . '">' . $higher_dir . '</a> &rarr;&nbsp;';
+					echo '<a href="'  . $base_url . '?album=' . $higher_dir_cascade . '">' . $higher_dir . '</a> &rarr;&nbsp;';
 				}
 			}
 
