@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-container=$(buildah from opensuse/leap)
-buildah run $container zypper update
-buildah run $container zypper -n install php7 php7-gd php-exif
+container=$(buildah from docker.io/debian)
+buildah run $container apt update
+buildah run $container apt install -y php8.2 php8.2-gd php8.2-common
 buildah copy $container . /usr/src/pellicola/
 buildah config --workingdir /usr/src/pellicola $container
 buildah config --port 8000 $container
