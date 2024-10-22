@@ -50,15 +50,25 @@ You can add descriptions to photos by creating accompanying _.txt_ files. For ex
 
 Perform the following steps on the machine you want to use as a Pellicola server.
 
-1. Install [Podman](https://podman.io) and [Buildah](https://buildah.io).
+1. Install [Docker](https://docker.com).
 2. Run the `hostname -I` command and note the IP address of the machine.
 3. Create a directory for storing photos.
 4. Clone the Pellicola Git repository using the `git clone https://github.com/dmpop/pellicola.git` command.
 5. Switch to the resulting _pellicola_ directory, open the _config.php_ file for editing and replace the default value of the `base_url` to the IP address of the machine.
 6. Become root using either `su` or `sudo su` command.
-7. Build an image using the `./buildah.sh` command.
-4. Run a container: `podman run -d --rm -p 80:8000 --name=pellicola -v /path/to/photos:/usr/src/pellicola/photos:rw pellicola` (replace _/path/to/photos_ with the actual path to the created directory).
+7. Build an image using the `docker build -t pellicola .` command.
+4. Run a container: `docker run -d --rm -p 80:8000 --name=pellicola -v /path/to/photos:/usr/src/pellicola/photos:rw pellicola` (replace _/path/to/photos_ with the actual path to the created directory).
 5. Point the browser to _http://127.0.0.1_ (replace _127.0.0.1_ with the actual IP address or domain name of the machine running the container).
+
+### Deploy Pellicola with docker-compose.yml
+
+Using the supplied _docker-compose.yml_ file, you can deploy Pellicola on a machine with a domain name assigned to it. This approach automatically enables HTTPS.
+
+1. Open the _Caddyfile_ for editing.
+2. Replace `<email address>` with the email address you want to use with the Let's Encrypt service.
+3. Replace `<domain name>` with the domain name assigned to the server.
+4. Save the changes.
+5. Run the `docker compose -d`command.
 
 ## Author
 

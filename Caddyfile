@@ -1,0 +1,7 @@
+{
+    email <email address>
+}
+
+<domain name> {
+    reverse_proxy pellicola:8000
+}

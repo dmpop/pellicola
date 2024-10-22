@@ -1,0 +1,32 @@
+services:
+  caddy_reverse_proxy:
+    image: caddy:latest
+    restart: unless-stopped
+    container_name: caddy_proxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - caddy_net
+
+  pellicola:
+    container_name: pellicola
+    build:
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - type: bind
+        source: ./content
+        target: /usr/src/pellicola/content
+    networks:
+      - caddy_net
+
+volumes:
+  caddy_data:
+  caddy_config:
+networks:
+  caddy_net:
