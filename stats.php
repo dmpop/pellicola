@@ -125,9 +125,9 @@ class DiskSpaceCheck
                             ?>
                         </td>
                     </tr>
-                    <tr>
 
-                        <?php if ($download) : ?>
+                    <?php if ($download) : ?>
+                        <tr>
                             <td><?php echo L::total_downloads; ?></td>
                             <td>
                                 <?php
@@ -141,71 +141,71 @@ class DiskSpaceCheck
                                 echo '<strong>' . $downloads_count . '<strong>';
                                 ?>
                             </td>
-                    </tr>
+                        </tr>
+                    <?php endif; ?>
                 </table>
             </div>
-        <?php endif; ?>
-        <?php if (`which vnstati`) : ?>
-            <h2 style='text-align: left;'><?php echo L::network_traffic; ?></h2>
-            <div class="card" style="text-align: center;">
-                <?php
-                shell_exec("vnstati -m -s -o vnstat.png");
-                ?>
-                <img style="max-width:100%; height: auto;" src="vnstat.png" />
-            </div>
-        <?php endif; ?>
-        <?php
-        $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
+            <?php if (`which vnstati`) : ?>
+                <h2 style='text-align: left;'><?php echo L::network_traffic; ?></h2>
+                <div class="card" style="text-align: center;">
+                    <?php
+                    shell_exec("vnstati -m -s -o vnstat.png");
+                    ?>
+                    <img style="max-width:100%; height: auto;" src="vnstat.png" />
+                </div>
+            <?php endif; ?>
+            <?php
+            $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
 
-        $model = array();
-        foreach ($files as $file) {
-            $exif = @exif_read_data($file);
-            if (!empty($exif["Model"])) {
-                array_push($model, $exif["Model"]);
+            $model = array();
+            foreach ($files as $file) {
+                $exif = @exif_read_data($file);
+                if (!empty($exif["Model"])) {
+                    array_push($model, $exif["Model"]);
+                }
             }
-        }
-        $f_length = array();
-        foreach ($files as $file) {
-            $exif = @exif_read_data($file);
-            if (!empty($exif['FocalLength'])) {
-                $f_length_mm = eval('return ' . $exif['FocalLength'] . ';') . 'mm';
-                array_push($f_length, $f_length_mm);
+            $f_length = array();
+            foreach ($files as $file) {
+                $exif = @exif_read_data($file);
+                if (!empty($exif['FocalLength'])) {
+                    $f_length_mm = eval('return ' . $exif['FocalLength'] . ';') . 'mm';
+                    array_push($f_length, $f_length_mm);
+                }
             }
-        }
-        echo '
+            echo '
         <h2 style="text-align: left;">' . L::camera_model . '</h2>
         <div class="card">
         <table>
         ';
-        $count = array_count_values(array_filter($model));
-        arsort($count);
-        foreach ($count as $key => $value) {
-            echo "<tr><td>$key</td><td>$value</td></tr>";
-        }
-        echo '
+            $count = array_count_values(array_filter($model));
+            arsort($count);
+            foreach ($count as $key => $value) {
+                echo "<tr><td>$key</td><td>$value</td></tr>";
+            }
+            echo '
         </table>
         </div>
         </div>
         ';
 
-        echo '
+            echo '
         <div class="c">
         <h2 style="text-align: left;">' . L::f_length . '</h2>
         <div class="card">
         <table>
         ';
-        $count = array_count_values(array_filter($f_length));
-        arsort($count);
-        foreach ($count as $key => $value) {
-            if ($value > $f_length_threshold) {
-                echo "<tr><td>$key</td><td>$value</td></tr>";
+            $count = array_count_values(array_filter($f_length));
+            arsort($count);
+            foreach ($count as $key => $value) {
+                if ($value > $f_length_threshold) {
+                    echo "<tr><td>$key</td><td>$value</td></tr>";
+                }
             }
-        }
-        echo '
+            echo '
         </table>
         </div>
         ';
-        ?>
+            ?>
         </div>
         <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
             <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>

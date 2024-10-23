@@ -70,7 +70,7 @@ if (isset($_GET['nocount'])) {
 		mkdir($base_photo_dir, 0755, true);
 	}
 
-	if ($download && !file_exists($stats_dir)) {
+	if (!file_exists($stats_dir)) {
 		mkdir($stats_dir, 0755, true);
 	}
 
@@ -374,7 +374,7 @@ if (isset($_GET['nocount'])) {
 	/* SHOW SINGLE PHOTO */
 	// The $file parameter is used to show an individual photo
 	$file = isset($_GET['file']) ? unmask_param($_GET['file']) : NULL;
-	// Get the current download count
+	// Get the current views and downloads count
 	$filename = pathinfo($file, PATHINFO_FILENAME);
 	$views_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . ".views";
 	$downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
@@ -430,7 +430,7 @@ if (isset($_GET['nocount'])) {
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($file_count == 1) {
-			echo '<div class="center" style="margin-bottom: 1em;><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a></div>';
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
