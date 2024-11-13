@@ -192,8 +192,8 @@ if (isset($_GET['nocount'])) {
 		} else {
 			$all_files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
 			foreach ($all_files as $file) {
-				$exif = exif_read_data($file, 0, true);
-				if (isset($exif['COMMENT']['0']) && stripos($exif['COMMENT']['0'], $_GET['query']) !== FALSE) {
+				$exif = exif_read_data($file);
+				if (isset($exif['ImageDescription']) && stripos($exif['ImageDescription'], $_GET['query']) !== FALSE) {
 					array_push($files, $file);
 				}
 			}
@@ -399,6 +399,9 @@ if (isset($_GET['nocount'])) {
 		}
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
 		$tim = $tims_dir . basename($file);
+		// Get the content of the ImageDescription EXIF tag
+		$exif = @exif_read_data($file);
+		$comment = (!isset($exif['ImageDescription']) ? NULL : htmlentities($exif['ImageDescription']));
 		// Get latitude and longitude values
 		$exif = @exif_read_data($file, 0, true);
 		if (array_key_exists('GPS', $exif)) {
@@ -475,7 +478,6 @@ if (isset($_GET['nocount'])) {
 		}
 		$iso = !isset($exif['EXIF']['ISOSpeedRatings']) ? NULL : ' • ' . htmlentities($exif['EXIF']['ISOSpeedRatings']);
 		$datetime = !isset($exif['EXIF']['DateTimeOriginal']) ? NULL : htmlentities((date('Y-m-d H:i', strtotime($exif['EXIF']['DateTimeOriginal']))));
-		$comment = (!isset($exif['COMMENT']['0']) ? NULL : htmlentities($exif['COMMENT']['0']));
 
 		// Concatenate $exif_info
 		if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
