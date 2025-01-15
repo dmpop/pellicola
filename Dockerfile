@@ -1,5 +1,5 @@
 FROM docker.io/debian:latest
-LABEL maintainer="dmpop@cameracode.coffee"
+LABEL maintainer="dmpop@fastmail.com"
 LABEL version="1.0"
 LABEL description="Pellicola container image"
 RUN apt update

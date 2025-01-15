@@ -6,4 +6,4 @@ The code in the `main` branch supported with security updates.
 
 ## Reporting a vulnerability
 
-Please report security issues and vulnerabilities to dmpop@cameracode.coffee
+Please report security issues and vulnerabilities to dmpop@fastmail.com
