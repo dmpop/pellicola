@@ -43,6 +43,11 @@ class DiskSpaceCheck
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 }
+
+function round_to_ten($value)
+{
+    return round($value / 10) * 10;
+}
 ?>
 
 <!DOCTYPE html>
@@ -197,9 +202,7 @@ class DiskSpaceCheck
             $count = array_count_values(array_filter($f_length));
             arsort($count);
             foreach ($count as $key => $value) {
-                if ($value > $f_length_threshold) {
-                    echo "<tr><td>$key</td><td>$value</td></tr>";
-                }
+                echo "<tr><td>" . round_to_ten($key) . "</td><td>$value</td></tr>";
             }
             echo '
         </table>
