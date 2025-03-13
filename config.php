@@ -5,7 +5,7 @@ $subtitle = "Responsive open-source photo grid"; // Tagline displayed under the 
 $delete_password = "secret"; // Password to delete photos
 $per_page = 12; // Number of images per page for pagination
 $r_sort = true; // Set to true to show tims in the newest to oldest order
-$footer = "<a style='color: white' href='https://cameracode.coffee'>Camera, code, coffee</a>";
+$footer = "This is Pellicola";
 $links = true;	// Enable links in the footer
 // If $links is set to "true", specify the desired URLs
 $urls = array(
