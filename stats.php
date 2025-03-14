@@ -173,8 +173,12 @@ function round_to_ten($value)
             foreach ($files as $file) {
                 $exif = @exif_read_data($file);
                 if (!empty($exif['FocalLength'])) {
-                    $f_length_mm = eval('return ' . $exif['FocalLength'] . ';') . 'mm';
-                    array_push($f_length, $f_length_mm);
+                    // Focal length in $exif['FocalLength'] is stored as X/10
+                    // The eval() function perform the division to calculate the actual focal length in mm
+                    $f_length_mm = eval('return ' . $exif['FocalLength'] . ';');
+                    // The round_to_ten() function rounds the focal length value up or down to the nearest 10
+                    $f_length_rounded = (int)round_to_ten($f_length_mm);
+                    array_push($f_length, $f_length_rounded);
                 }
             }
             echo '
@@ -202,7 +206,7 @@ function round_to_ten($value)
             $count = array_count_values(array_filter($f_length));
             arsort($count);
             foreach ($count as $key => $value) {
-                echo "<tr><td>" . round_to_ten($key) . "</td><td>$value</td></tr>";
+                echo "<tr><td>$key</td><td>$value</td></tr>";
             }
             echo '
         </table>
