@@ -1,4 +1,5 @@
 <?php
+include('config.php');
 
 function tim($source, $newWidth)
 {
@@ -26,4 +27,4 @@ function tim($source, $newWidth)
     imagedestroy($resizedImage);
 }
 
-tim(hex2bin($_GET["image"]), 300); // Resize to 300 pixels in width
+tim(hex2bin($_GET["image"]), $TIM_SIZE);
