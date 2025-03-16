@@ -63,6 +63,7 @@ function find_files($directory)
 
         .flexbox {
             font-family: "Inter", sans-serif;
+            font-size: 9pt;
             float: left;
             color: #ffffff;
             background-color: #000000;
@@ -100,7 +101,7 @@ function find_files($directory)
 
         if (!savedInput) {
             // Prompt the user for input if the cookie is not set
-            const key = prompt("Key:");
+            const key = prompt("<?php echo L::password; ?>");
 
             if (key) {
                 // Save the user input as a cookie
@@ -114,13 +115,7 @@ function find_files($directory)
 
                 // Set the cookie
                 document.cookie = `${cookieName}=${cookieValue}; ${expires}; path=/`;
-
-                console.log("User input saved as a cookie.");
-            } else {
-                console.log("No input provided. Cookie not set.");
             }
-        } else {
-            console.log("Cookie already exists. Saved input:", savedInput);
         }
     </script>
 </head>
@@ -167,7 +162,7 @@ if (isset($_COOKIE['key']) && ($_COOKIE['key'] == $KEY) || empty($KEY)) {
         $exif_info = NULL;
     }
     echo "
-    <body style='background-color:#000000; background: url(" . $background . "); background-size: cover; background-position: no-repeat center center fixed;'>
+    <body style='background-color:#000000; background: url(" . $background . "); background-size: cover; background-position: center;  background-repeat: no-repeat; background-attachment: fixed;'>
     <div class='flexbox'>" . $exif_info . $image_description . "</div>
     </body>
     ";
