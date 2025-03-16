@@ -12,7 +12,7 @@ if (!extension_loaded('exif')) {
     exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
 }
 if (!$SHOW_MAP) {
-    exit('<code><center>¯\_(ツ)_/¯</code></center>');
+    exit('<div style="text-align: center;"><code>¯\_(ツ)_/¯</code></div>');
 }
 
 // Start a session to keep track of albums
@@ -70,7 +70,7 @@ foreach ($photos as $file) {
 $result = count($geotagged_items);
 $last_photo = $geotagged_items[$result - 1];
 if ($result == 0) {
-    exit("<code><center>¯\_(ツ)_/¯</code></center>");
+    exit("<div style='text-align: center;'><code>¯\_(ツ)_/¯</code></div>");
 }
 
 ?>

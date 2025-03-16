@@ -13,7 +13,7 @@ $i18n->init();
 if (ctype_xdigit($_GET['file'])) {
     $file = hex2bin($_GET['file']) ?? NULL;
 } else {
-    exit('<code><center>¯\_(ツ)_/¯</code></center>');
+    exit('<div style="text-align: center;"><code>¯\_(ツ)_/¯</code></div>');
 }
 ?>
 

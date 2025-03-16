@@ -85,7 +85,7 @@ if (isset($_GET['nocount'])) {
 		if (file_exists($param)) {
 			return bin2hex($param);
 		} else {
-			exit('<code><center>¯\_(ツ)_/¯</code></center>');
+			exit('<div style="text-align: center;"><code>¯\_(ツ)_/¯</code></div>');
 		}
 	}
 	function unmask_param($param)
@@ -94,7 +94,7 @@ if (isset($_GET['nocount'])) {
 		if (ctype_xdigit($param)) {
 			return hex2bin($param);
 		} else {
-			exit('<code><center>¯\_(ツ)_/¯</code></center>');
+			exit('<div style="text-align: center;"><code>¯\_(ツ)_/¯</code></div>');
 		}
 	}
 

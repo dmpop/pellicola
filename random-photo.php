@@ -167,8 +167,8 @@ if (isset($_COOKIE['key']) && ($_COOKIE['key'] == $KEY) || empty($KEY)) {
     </body>
     ";
 } else {
+    echo "<div style='text-align: center;'><code>¯\_(ツ)_/¯</code></div>";
     setcookie('key', "", time() - 3600, "/");
-    echo "¯\_(ツ)_/¯";
 }
 ?>
 
