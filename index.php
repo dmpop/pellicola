@@ -42,17 +42,17 @@ if (isset($_GET['nocount'])) {
 	<link rel="shortcut icon" href="favicon.png" />
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="styles.css" />
-	<link rel="alternate" type="application/rss+xml" href="rss.php" title="<?php echo $title; ?>">
+	<link rel="alternate" type="application/rss+xml" href="rss.php" title="<?php echo $TITLE; ?>">
 	<link rel="stylesheet" href="leaflet/leaflet.css" />
 	<script src="leaflet/leaflet.js"></script>
-	<title><?php echo $title; ?></title>
+	<title><?php echo $TITLE; ?></title>
 </head>
 
 <body>
 	<?php
-	// Create $base_photo_dir if it doesn't exist
-	if (!file_exists($base_photo_dir)) {
-		mkdir($base_photo_dir, 0755, true);
+	// Create $ROOT_PHOTO_DIR if it doesn't exist
+	if (!file_exists($ROOT_PHOTO_DIR)) {
+		mkdir($ROOT_PHOTO_DIR, 0755, true);
 	}
 	/*  If $_GET['album'] is set, its value is saved in the $_SESSION['album'] session and assigned to the $album variable.
 		If $_GET['album'] is not set, the value of $album is the current (unchanged) value of $_SESSION['album'].
@@ -65,17 +65,17 @@ if (isset($_GET['nocount'])) {
 	} else {
 		$album = NULL;
 	}
-	// Create $base_photo_dir if it doesn't exist
-	if (!file_exists($base_photo_dir)) {
-		mkdir($base_photo_dir, 0755, true);
+	// Create $ROOT_PHOTO_DIR if it doesn't exist
+	if (!file_exists($ROOT_PHOTO_DIR)) {
+		mkdir($ROOT_PHOTO_DIR, 0755, true);
 	}
 
-	if (!file_exists($stats_dir)) {
-		mkdir($stats_dir, 0755, true);
+	if (!file_exists($STATS_DIR)) {
+		mkdir($STATS_DIR, 0755, true);
 	}
 
 	// htmlentities() and str_replace() are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
-	$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
+	$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $ROOT_PHOTO_DIR . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
 
 	/* ======= FUNCTIONS ======= */
 
@@ -180,17 +180,17 @@ if (isset($_GET['nocount'])) {
 	/* ======= FUNCTIONS ======= */
 
 	// Create missing tims
-	if (file_exists($photo_dir) && !file_exists($tims_dir)) {
-		mkdir($tims_dir);
+	if (file_exists($photo_dir) && !file_exists($TIMS_DIR)) {
+		mkdir($TIMS_DIR);
 	}
 
 	$files = array();
 	// Find all files or a specific file if $_GET['query'] is set
 	if (isset($_GET['query'])) {
 		if ($_GET['search'] == 'search_name') {
-			$files = glob($photo_dir . "*" . $_GET['query'] . "*.{" . $img_formats . "}", GLOB_BRACE);
+			$files = glob($photo_dir . "*" . $_GET['query'] . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
 		} else {
-			$all_files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+			$all_files = glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
 			foreach ($all_files as $file) {
 				$exif = exif_read_data($file);
 				if (isset($exif['ImageDescription']) && stripos($exif['ImageDescription'], $_GET['query']) !== FALSE) {
@@ -200,11 +200,11 @@ if (isset($_GET['nocount'])) {
 		}
 		// Find all files if $_GET['query'] is not set
 	} else {
-		$files = glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE);
+		$files = glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
 	}
 
 	// Check whether the reversed order option is enabled and sort the array accordingly
-	if ($r_sort) {
+	if ($REVERSED_SORT) {
 		rsort($files);
 	}
 
@@ -214,28 +214,28 @@ if (isset($_GET['nocount'])) {
 	// Generate missing tims
 	for ($i = 0; $i < $file_count; $i++) {
 		$file  = $files[$i];
-		$tim = $tims_dir . basename($file);
+		$tim = $TIMS_DIR . basename($file);
 
 		if (!file_exists($tim)) {
-			createTim($file, $tim, $tim_size);
+			createTim($file, $tim, $TIM_SIZE);
 		}
 	}
 
 	/* Prepare pagination. Calculate total items per page ---START--- */
 	$total = count($files);
-	$last_page = ceil($total / $per_page);
+	$last_page = ceil($total / $PER_PAGE);
 
 	if (!isset($_GET['file'])) {
 
 		if (isset($_GET['page']) && ($_GET['page'] <= $last_page) && ($_GET['page'] > 0) && (!isset($_GET['all']))) {
 			$page = $_GET['page'];
-			$offset = ($per_page) * ($page - 1);
+			$offset = ($PER_PAGE) * ($page - 1);
 		} else {
 			$page = 1;
 			$offset = 0;
 		}
 
-		$max = $offset + $per_page;
+		$max = $offset + $PER_PAGE;
 	}
 	if (!isset($max)) {
 		$max = NULL;
@@ -249,27 +249,27 @@ if (isset($_GET['nocount'])) {
 	$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
 	if (!isset($grid)) {
 		echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
-		echo '<a style="text-decoration:none;" href="' . $base_url . '/index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $title . '" /></a>';
-		echo '<a style="text-decoration:none;" href="' . $base_url . '/index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $title . '</h1></a>';
+		echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $TITLE . '" /></a>';
+		echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $TITLE . '</h1></a>';
 		echo '</div>';
-		echo '<div class="center" style="color: gray; margin-bottom: 1em;">' . $subtitle . '</div>';
+		echo '<div class="center" style="color: gray; margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 		echo '<div class="center" style="margin-bottom: 1em;">';
 		// Show stats icon
 		echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 		// Show map icon
-		if ($show_map) {
+		if ($SHOW_MAP) {
 			echo '<a href="map.php" target="_blank"><img style="margin-left: .5em;" src="svg/map.svg" alt="' . L::map . '" title="' . L::map . '"/></a>';
 		}
 		// Show the grid icon if there are several pages
-		if (!isset($_GET['all']) && $file_count > $per_page) {
+		if (!isset($_GET['all']) && $file_count > $PER_PAGE) {
 			echo '<a href="?all=show"><img style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 		}
 		echo '<hr style="margin-bottom: 1em;">';
 
 		// Create an array with all subdirectories
 		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
-		$sub_dirs = array_diff($all_sub_dirs, array($tims_dir));
-		$count = count(glob($photo_dir . "*.{" . $img_formats . "}", GLOB_BRACE));
+		$sub_dirs = array_diff($all_sub_dirs, array($TIMS_DIR));
+		$count = count(glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE));
 		echo '<span style="color: gray">' . L::album_items_count . ': </span>' . $count;
 		echo '</div>';
 
@@ -279,7 +279,7 @@ if (isset($_GET['nocount'])) {
 			echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_enable_js . '</h3>';
 			echo '</noscript>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
-			echo '<a href="'  . $base_url . '?album="><img style="vertical-align: middle;" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
+			echo '<a href="'  . $BASE_URL . '?album="><img style="vertical-align: middle;" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
 			if (isset($_GET['album'])) {
 				$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
 			} else {
@@ -292,7 +292,7 @@ if (isset($_GET['nocount'])) {
 						$higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
 					}
 					$higher_dir_cascade = $higher_dir_cascade . $higher_dir;
-					echo '<a href="'  . $base_url . '?album=' . $higher_dir_cascade . '">' . $higher_dir . '</a> &rarr;&nbsp;';
+					echo '<a href="'  . $BASE_URL . '?album=' . $higher_dir_cascade . '">' . $higher_dir . '</a> &rarr;&nbsp;';
 				}
 			}
 
@@ -345,19 +345,19 @@ if (isset($_GET['nocount'])) {
 		if (isset($_GET['all'])) {
 			for ($i = 0; $i < $file_count; $i++) {
 				$file = $files[$i];
-				$tim = $tims_dir . basename($file);
+				$tim = $TIMS_DIR . basename($file);
 				$file_path = pathinfo($file);
 				echo '<figure class="gallery-frame">';
-				echo '<a href="' . $base_url . '/index.php?file=' . mask_param($file)  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+				echo '<a href="' . $BASE_URL . '/index.php?file=' . mask_param($file)  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 			}
 		} else {
 			for ($i = $offset; $i < $max; $i++) {
 				$file = $files[$i];
-				$tim = $tims_dir . basename($file);
+				$tim = $TIMS_DIR . basename($file);
 				$file_path = pathinfo($file);
 				echo '<figure class="gallery-frame">';
-				echo '<a href="' . $base_url . '/index.php?file=' . mask_param($file) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+				echo '<a href="' . $BASE_URL . '/index.php?file=' . mask_param($file) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 				echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 			}
 		}
@@ -376,8 +376,8 @@ if (isset($_GET['nocount'])) {
 	$file = isset($_GET['file']) ? unmask_param($_GET['file']) : NULL;
 	// Get the current views and downloads count
 	$filename = pathinfo($file, PATHINFO_FILENAME);
-	$views_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . ".views";
-	$downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . ".downloads";
+	$views_file = $STATS_DIR . DIRECTORY_SEPARATOR . $filename . ".views";
+	$downloads_file = $STATS_DIR . DIRECTORY_SEPARATOR . $filename . ".downloads";
 	if (file_exists($downloads_file)) {
 		$downloads_count = fgets(fopen($downloads_file, 'r'));
 	} else {
@@ -398,7 +398,7 @@ if (isset($_GET['nocount'])) {
 			$views_count = 1;
 		}
 		$key = array_search($file, $files); // Determine the array key of the current item (we need this for generating the Next and Previous links)
-		$tim = $tims_dir . basename($file);
+		$tim = $TIMS_DIR . basename($file);
 		// Get the content of the ImageDescription EXIF tag
 		$exif = @exif_read_data($file);
 		$comment = (!isset($exif['ImageDescription']) ? NULL : htmlentities($exif['ImageDescription']));
@@ -417,7 +417,7 @@ if (isset($_GET['nocount'])) {
 		// Easter egg: if $_GET['t'] is set, rebuild the tim of the currently viewed photo
 		if (isset($_GET['t'])) {
 			unlink($tim);
-			createTim($file, $tim, $tim_size);
+			createTim($file, $tim, $TIM_SIZE);
 		}
 
 		// Get URL of the current page for use with the Back button
@@ -433,20 +433,20 @@ if (isset($_GET['nocount'])) {
 
 		// If there is only one photo in the album, show the home navigation link
 		if ($file_count == 1) {
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a></div>';
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
 		}
 		// Show all navigation links
 		else {
 
-			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $base_url . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $base_url . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="center" style="margin-bottom: 1em;"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		/* NAVIGATION LINKS ---END--- */
 
@@ -489,7 +489,7 @@ if (isset($_GET['nocount'])) {
 		// Add the pin icon if the photo contains geographical coordinates
 		if (!empty($lat) && !empty($lon)) {
 			//Generate Geo URI
-			if ($openstreetmap) {
+			if ($OPENSTREETMAP) {
 				$map_url = '<a href="http://www.openstreetmap.org/index.html?mlat=' . $lat . '&mlon=' . $lon . '&zoom=18" target="_blank"><img style="margin-left: .5rem;" src="svg/pin.svg" alt="' . L::img_map . '" title="' . L::img_map . '"/></a>';
 			} else {
 				$map_url = '<a href="geo:' . $lat . ',' . $lon . '"><img style="margin-left: .5rem;" src="svg/pin.svg" alt="' . L::img_map . '" title="' . L::img_map . '"/></a>';
@@ -497,17 +497,17 @@ if (isset($_GET['nocount'])) {
 			$exif_info = $exif_info . $map_url;
 		}
 		// Find all RAW files
-		$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $raw_formats . "}", GLOB_BRACE) ?? NULL;
+		$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $RAW_FORMATS . "}", GLOB_BRACE) ?? NULL;
 		$raw = (!empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : $raw = NULL);
-		$image_download = '<a href="' . $base_url . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
-		$image_delete = '<a href="' . $base_url . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+		$image_download = '<a href="' . $BASE_URL . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
+		$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 		//Check if the related RAW file exists and link to it
 		if (!empty($raw_file)) {
-			$raw_download = '<a href="' . $base_url . '/download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
+			$raw_download = '<a href="' . $BASE_URL . '/download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
 		} else {
 			$raw_download = NULL;
 		}
-		if ($download) {
+		if ($DOWNLOAD) {
 			echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 			echo '<div class="caption">' . $exif_info . '</div>';
 			echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div>';
@@ -516,14 +516,14 @@ if (isset($_GET['nocount'])) {
 			echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"><div class="caption">' . $comment . ' ' . $description . '</div>';
 			echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div>';
 		}
-		// Show embedded map if photo is geotagged and $show_map is true
-		if ($show_map && !empty($lat) && !empty($lon)) {
+		// Show embedded map if photo is geotagged and $SHOW_MAP is true
+		if ($SHOW_MAP && !empty($lat) && !empty($lon)) {
 			echo '<div id="map" style="z-index: 1; margin: 1.5em auto; width: 250px; height: 250px; border-radius:5px;"></div>';
 		}
 	}
 	?>
 	<!-- JavaScript to display embedded map for geotagged photos -->
-	<?php if ($show_map && !empty($lat) && !empty($lon)) : ?>
+	<?php if ($SHOW_MAP && !empty($lat) && !empty($lon)) : ?>
 		<script type="text/javascript">
 			// Creating map options
 			var mapOptions = {
@@ -544,15 +544,15 @@ if (isset($_GET['nocount'])) {
 	<?php endif; ?>
 
 	<?php // Show links
-	if ($links) {
-		$array_length = count($urls);
+	if ($LINKS) {
+		$array_length = count($URLS);
 		echo '<div class="footer" style="z-index: 2">';
 		for ($i = 0; $i < $array_length; $i++) {
-			echo '<span style="word-spacing:0.1em;"><a href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+			echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
 		}
-		echo  $footer . '</div>';
+		echo  $FOOTER . '</div>';
 	} else {
-		echo '<div class="footer">' . $footer . '</div>';
+		echo '<div class="footer">' . $FOOTER . '</div>';
 	}
 	?>
 </body>

@@ -32,18 +32,18 @@ if (ctype_xdigit($_GET['file'])) {
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="styles.css" />
 
-    <title><?php echo $title; ?></title>
+    <title><?php echo $TITLE; ?></title>
 </head>
 
 <body>
     <div id="content">
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
+            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $title ?></h1>
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
             </a>
         </div>
-        <div class='center' style='color: gray;'><?php echo $subtitle ?></div>
+        <div class='center' style='color: gray;'><?php echo $SUBTITLE ?></div>
         <hr>
         <div class="c">
             <div class="card" style="text-align: center;">
@@ -58,9 +58,9 @@ if (ctype_xdigit($_GET['file'])) {
     </div>
 
     <?php
-    if (isset($_POST['download']) && ($_POST['password'] == $download_password) || (empty($download_password))) {
+    if (isset($_POST['download']) && ($_POST['password'] == $DOWNLOAD_PASSWORD) || (empty($DOWNLOAD_PASSWORD))) {
         $filename = pathinfo($file, PATHINFO_FILENAME);
-        $downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $filename . '.downloads';
+        $downloads_file = $STATS_DIR . DIRECTORY_SEPARATOR . $filename . '.downloads';
         if (file_exists($downloads_file)) {
             $downloads_count = fgets(fopen($downloads_file, 'r'));
             // Increment count only if $_COOKIE['count'] is not set
@@ -75,6 +75,6 @@ if (ctype_xdigit($_GET['file'])) {
         header("Content-Type: application/octet-stream"); // Downloading on Android might fail without this
         ob_clean();
         readfile($file);
-    } elseif (isset($_POST['download']) && ($_POST['password'] !== $download_password)) {
+    } elseif (isset($_POST['download']) && ($_POST['password'] !== $DOWNLOAD_PASSWORD)) {
         echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }

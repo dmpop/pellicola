@@ -11,7 +11,7 @@ $i18n->init();
 if (!extension_loaded('exif')) {
     exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
 }
-if (!$show_map) {
+if (!$SHOW_MAP) {
     exit('<code><center>¯\_(ツ)_/¯</code></center>');
 }
 
@@ -24,8 +24,8 @@ if (!empty($_SESSION['album'])) {
 } else {
     $album = NULL;
 }
-$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $base_photo_dir . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
-$photos = glob($photo_dir . '*.{' . $img_formats . '}', GLOB_BRACE);
+$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $ROOT_PHOTO_DIR . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
+$photos = glob($photo_dir . '*.{' . $IMG_FORMATS . '}', GLOB_BRACE);
 
 // Count all photos in $photo_dir 
 $total_count = count($photos);
@@ -86,7 +86,7 @@ Source code: https://github.com/dmpop/pellicola
 <html>
 
 <head>
-    <title><?php echo $title; ?></title>
+    <title><?php echo $TITLE; ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.png" />
@@ -139,7 +139,7 @@ Source code: https://github.com/dmpop/pellicola
             }
             if (isset($lat) && isset($lon)) {
                 echo 'var marker = L.marker(new L.LatLng(' . $lat . ', ' . $lon . '));';
-                echo "marker.bindPopup('<a href=\"" . $base_url . "/index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"" . $base_url . "/tim.php?image=" . bin2hex($file) . "\" width=300px /></a>" . $caption . "');";
+                echo "marker.bindPopup('<a href=\"" . $BASE_URL . "/index.php?file=" . bin2hex($file) . "\"  target=\"_blank\"><img src=\"" . $BASE_URL . "/tim.php?image=" . bin2hex($file) . "\" width=300px /></a>" . $caption . "');";
                 echo 'markers.addLayer(marker);';
             }
         }

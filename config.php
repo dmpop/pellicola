@@ -1,27 +1,27 @@
 <?php
-$base_url = "https://domain.tld"; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://domain.tld/pellicola)
-$title = "Pellicola"; // Name of the Pellicola instance.
-$subtitle = "Responsive open-source photo grid"; // Tagline displayed under the title.
-$delete_password = "secret"; // Password to delete photos
-$per_page = 12; // Number of images per page for pagination
-$r_sort = true; // Set to true to show tims in the newest to oldest order
-$footer = "This is Pellicola";
-$links = true;	// Enable links in the footer
-// If $links is set to "true", specify the desired URLs
-$urls = array(
+$BASE_URL = "https://domain.tld"; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://domain.tld/pellicola)
+$TITLE = "Pellicola"; // Name of the Pellicola instance.
+$SUBTITLE = "Responsive open-source photo grid"; // Tagline displayed under the title.
+$DELETE_PASSWORD = "secret"; // Password to delete photos
+$PER_PAGE = 12; // Number of images per page for pagination
+$REVERSED_SORT = true; // Set to true to show tims in the newest to oldest order
+$FOOTER = "This is Pellicola";
+$LINKS = true;	// Enable links in the footer
+// If $LINKS is set to "true", specify the desired URLs
+$URLS = array(
     array('https://github.com/dmpop/pellicola', 'Pellicola'),
     array('https://www.paypal.com/paypalme/dmpop', 'I 🧡 coffee')
 );
-$img_formats = 'jpg,jpeg,JPG,JPEG'; // File types Pellicola displays. Add other file extensions (for example, PNG, HEIC, etc.), if needed.
-$raw_formats = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add other file extensions, if needed
-$download = false; // Toggle photo download
-$download_password = "secret"; // Password to protect downloads. Leave empty to disable password protection.
-$rss_feed_limit = 31; // Show only items in the RSS feed that are newer than the specified number of days.
-$show_map = false; // If set to "true", shows a Leaflet-based map marking the position of the geotagged photo. 
-$openstreetmap = true; // If set to "true", the application generates a URL that shows the position of the geotagged photo in OpenStreetMap. Otherwise, the application generates a geo URI that shows the position in the default map application.
+$IMG_FORMATS = 'jpg,jpeg,JPG,JPEG'; // File types Pellicola displays. Add other file extensions (for example, PNG, HEIC, etc.), if needed.
+$RAW_FORMATS = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add other file extensions, if needed
+$DOWNLOAD = false; // Toggle photo download
+$DOWNLOAD_PASSWORD = "secret"; // Password to protect downloads. Leave empty to disable password protection.
+$RSS_LIMIT = 31; // Show only items in the RSS feed that are newer than the specified number of days.
+$SHOW_MAP = false; // If set to "true", shows a Leaflet-based map marking the position of the geotagged photo. 
+$OPENSTREETMAP = true; // If set to "true", the application generates a URL that shows the position of the geotagged photo in OpenStreetMap. Otherwise, the application generates a geo URI that shows the position in the default map application.
 
 /* DO NOT CHANGE THE SETTINGS BELOW */
-$base_photo_dir = "photos"; // Directory for storing photos
-$stats_dir = "stats"; // Directory for storing downloads and views stats
-$tims_dir = $base_photo_dir . "/.tims/"; // Directory for storing tims
-$tim_size = 1200; //Tim size
+$ROOT_PHOTO_DIR = "photos"; // Directory for storing photos
+$STATS_DIR = "stats"; // Directory for storing downloads and views stats
+$TIMS_DIR = $ROOT_PHOTO_DIR . "/.tims/"; // Directory for storing tims
+$TIM_SIZE = 1200; //Tim size

@@ -65,18 +65,18 @@ function round_to_ten($value)
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="styles.css" />
 
-    <title><?php echo $title; ?></title>
+    <title><?php echo $TITLE; ?></title>
 </head>
 
 <body>
     <div id="content">
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
+            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #59a2d8ff;"><?php echo $title ?></h1>
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #59a2d8ff;"><?php echo $TITLE ?></h1>
             </a>
         </div>
-        <div class="center" style="color: gray; margin-bottom: 1em;"><?php echo $subtitle ?></div>
+        <div class="center" style="color: gray; margin-bottom: 1em;"><?php echo $SUBTITLE ?></div>
         <hr>
         <?php
         function rsearch($dir, $excluded, $pattern_array)
@@ -121,7 +121,7 @@ function round_to_ten($value)
                             <?php
                             $views_count = 0;
                             // Get all .views files
-                            $all_views_files = glob($stats_dir . DIRECTORY_SEPARATOR . "*.views");
+                            $all_views_files = glob($STATS_DIR . DIRECTORY_SEPARATOR . "*.views");
                             // Read value from each .views file and add it $views_count
                             foreach ($all_views_files  as $views_file) {
                                 $views_count += fgets(fopen($views_file, 'r'));
@@ -131,14 +131,14 @@ function round_to_ten($value)
                         </td>
                     </tr>
 
-                    <?php if ($download) : ?>
+                    <?php if ($DOWNLOAD) : ?>
                         <tr>
                             <td><?php echo L::total_downloads; ?></td>
                             <td>
                                 <?php
                                 $downloads_count = 0;
                                 // Get all .downloads files
-                                $all_downloads_files = glob($stats_dir . DIRECTORY_SEPARATOR . "*.downloads");
+                                $all_downloads_files = glob($STATS_DIR . DIRECTORY_SEPARATOR . "*.downloads");
                                 // Read value from each .download file and add it $downloads_count
                                 foreach ($all_downloads_files  as $downloads_file) {
                                     $downloads_count += fgets(fopen($downloads_file, 'r'));
@@ -160,7 +160,7 @@ function round_to_ten($value)
                 </div>
             <?php endif; ?>
             <?php
-            $files = rsearch($base_photo_dir, 'tims', explode(',', $img_formats));
+            $files = rsearch($ROOT_PHOTO_DIR, 'tims', explode(',', $IMG_FORMATS));
 
             $model = array();
             foreach ($files as $file) {
@@ -219,15 +219,15 @@ function round_to_ten($value)
         </div>
         <?php
         // Show links and footer
-        if ($links) {
-            $array_length = count($urls);
+        if ($LINKS) {
+            $array_length = count($URLS);
             echo '<div class="footer">';
             for ($i = 0; $i < $array_length; $i++) {
-                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
             }
-            echo  $footer . '</div>';
+            echo  $FOOTER . '</div>';
         } else {
-            echo '<div class="footer"' . $footer . '</div>';
+            echo '<div class="footer"' . $FOOTER . '</div>';
         }
         ?>
 </body>

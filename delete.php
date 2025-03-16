@@ -44,18 +44,18 @@ if (session_status() == PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="styles.css" />
 
-    <title><?php echo $title; ?></title>
+    <title><?php echo $TITLE; ?></title>
 </head>
 
 <body>
     <div id="content">
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $title; ?>" /></a>
+            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $title ?></h1>
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
             </a>
         </div>
-        <div class="center" style="color: gray;"><?php echo $subtitle ?></div>
+        <div class="center" style="color: gray;"><?php echo $SUBTITLE ?></div>
         <hr>
         <?php
         ?>
@@ -71,32 +71,32 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </div>
     <?php
-    if (isset($_POST['delete']) && ($_POST['password'] == $delete_password) || (empty($delete_password))) {
+    if (isset($_POST['delete']) && ($_POST['password'] == $DELETE_PASSWORD) || (empty($DELETE_PASSWORD))) {
         $file_path = pathinfo($file);
         unlink($file);
         if ($raw) {
             unlink($raw);
         }
         unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
-        $downloads_file = $stats_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . '.downloads';
-        $views_file = $stats_dir . DIRECTORY_SEPARATOR . $file_path['filename'] . '.views';
+        $downloads_file = $STATS_DIR . DIRECTORY_SEPARATOR . $file_path['filename'] . '.downloads';
+        $views_file = $STATS_DIR . DIRECTORY_SEPARATOR . $file_path['filename'] . '.views';
         if ($downloads_file) {
             unlink($downloads_file);
             unlink($views_file);
         }
         header('Location: index.php');
-    } elseif (isset($_POST['delete']) && ($_POST['password'] !== $delete_password)) {
+    } elseif (isset($_POST['delete']) && ($_POST['password'] !== $DELETE_PASSWORD)) {
         echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }
-    if ($links) {
-        $array_length = count($urls);
+    if ($LINKS) {
+        $array_length = count($URLS);
         echo '<div class="footer">';
         for ($i = 0; $i < $array_length; $i++) {
-            echo '<span style="word-spacing:0.1em;"><a href="' . $urls[$i][0] . '">' . $urls[$i][1] . '</a> • </span>';
+            echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
         }
-        echo $footer . '</div>';
+        echo $FOOTER . '</div>';
     } else {
-        echo '<div class="footer">' . $footer . '</div>';
+        echo '<div class="footer">' . $FOOTER . '</div>';
     }
     ?>
     </div>

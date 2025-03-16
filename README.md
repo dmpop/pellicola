@@ -14,12 +14,12 @@ The [Pellicola manual](https://dmpop.gumroad.com/l/pellicola-manual) provides de
 - **Pagination** Pellicola automatically splits photo collection into pages. You can specify the desired number of photos per page.
 - **Search** Basic search functionality makes it possible to find photos by their file names and descriptions.
 - **Basic EXIF data** The app extracts and displays basic EXIF info for each photo, including aperture, focal length, shutter speed, and ISO.
-- **Show map** If the `$show_map` option is enabled, Pellicola displays an embedded map marking the position of the currently viewed geotagged photo. This also enables a dedicated map that shows all photos in the current album.
+- **Show map** If the `$SHOW_MAP` option is enabled, Pellicola displays an embedded map marking the position of the currently viewed geotagged photo. This also enables a dedicated map that shows all photos in the current album.
 - **OpenStreetMap links or Geo URIs** For geotagged photos, Pellicola displays either OpenStreetMap links or geo URIs that show the exact locations where the photos were taken either in OpenStreetMap or in the default map application.
 - **Optional album description** If a _preamble.html_ file exists in the album's folder, Pellicola displays its contents as the album's description.
 - **Optional photo description** You can add a description to each photo by creating an accompanying _.txt_ file. The app can also read and display descriptions from the photo's _UserComment_ EXIF field.
 - **Automatic language detection** Pellicola automatically detects the browser language and picks the description text file with the appropriate language prefix.
-- **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos. Downloads are password protected by default. Password protection can be disabled by leaving `$download_password` in the _config.php_ file empty.
+- **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos. Downloads are password protected by default. Password protection can be disabled by leaving `$DOWNLOAD_PASSWORD` in the _config.php_ file empty.
 - **RAW downloads** For each photo in the JPEG format, you can upload the accompanying RAW file, and Pellicola automatically adds a download link to it when the download option is enabled.
 - **Support for subfolders** Photos inside the default photo directory can be organized into subfolders.
 - **Statistics** View basic statistics: camera models, focal length stats, the total number of photos and RAW files, disk usage, and the total number of downloads.
