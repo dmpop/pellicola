@@ -58,7 +58,7 @@ if (ctype_xdigit($_GET['file'])) {
     </div>
 
     <?php
-    if (isset($_POST['download']) && ($_POST['password'] == $DOWNLOAD_PASSWORD) || (empty($DOWNLOAD_PASSWORD))) {
+    if (isset($_POST['download']) && password_verify($_POST['password'], $DOWNLOAD_PASSWORD) || (empty($DOWNLOAD_PASSWORD))) {
         $filename = pathinfo($file, PATHINFO_FILENAME);
         $downloads_file = $STATS_DIR . DIRECTORY_SEPARATOR . $filename . '.downloads';
         if (file_exists($downloads_file)) {
@@ -75,6 +75,6 @@ if (ctype_xdigit($_GET['file'])) {
         header("Content-Type: application/octet-stream"); // Downloading on Android might fail without this
         ob_clean();
         readfile($file);
-    } elseif (isset($_POST['download']) && ($_POST['password'] !== $DOWNLOAD_PASSWORD)) {
+    } elseif (isset($_POST['download']) && password_verify($_POST['password'], $DOWNLOAD_PASSWORD)) {
         echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }

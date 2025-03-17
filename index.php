@@ -283,7 +283,7 @@ if (isset($_GET['nocount'])) {
 			if (isset($_GET['album'])) {
 				$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
 			} else {
-				$higher_dirs = NULL;
+				$higher_dirs = [];
 			}
 			$higher_dir_cascade = '';
 			foreach ($higher_dirs as $higher_dir) {
@@ -498,9 +498,14 @@ if (isset($_GET['nocount'])) {
 		}
 		// Find all RAW files
 		$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $RAW_FORMATS . "}", GLOB_BRACE) ?? NULL;
-		$raw = (!empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : $raw = NULL);
+		$raw = !empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : NULL;
 		$image_download = '<a href="' . $BASE_URL . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
-		$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+		if ($raw) {
+			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+		} else {
+			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+		}
+
 		//Check if the related RAW file exists and link to it
 		if (!empty($raw_file)) {
 			$raw_download = '<a href="' . $BASE_URL . '/download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';

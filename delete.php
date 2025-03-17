@@ -71,21 +71,23 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </div>
     <?php
-    if (isset($_POST['delete']) && ($_POST['password'] == $DELETE_PASSWORD) || (empty($DELETE_PASSWORD))) {
+    if (isset($_POST['delete']) && password_verify($_POST['password'], $DELETE_PASSWORD) || (empty($DELETE_PASSWORD))) {
         $file_path = pathinfo($file);
         unlink($file);
         if ($raw) {
             unlink($raw);
         }
-        unlink($file_path['dirname'] . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
+        unlink($ROOT_PHOTO_DIR . DIRECTORY_SEPARATOR . '.tims' . DIRECTORY_SEPARATOR . $file_path['basename']);
         $downloads_file = $STATS_DIR . DIRECTORY_SEPARATOR . $file_path['filename'] . '.downloads';
         $views_file = $STATS_DIR . DIRECTORY_SEPARATOR . $file_path['filename'] . '.views';
-        if ($downloads_file) {
+        if (file_exists($downloads_file)) {
             unlink($downloads_file);
+        }
+        if (file_exists($views_file)) {
             unlink($views_file);
         }
         header('Location: index.php');
-    } elseif (isset($_POST['delete']) && ($_POST['password'] !== $DELETE_PASSWORD)) {
+    } elseif (isset($_POST['delete']) && password_verify($_POST['password'], $DELETE_PASSWORD)) {
         echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }
     if ($LINKS) {

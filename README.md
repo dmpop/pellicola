@@ -43,6 +43,14 @@ The [Pellicola manual](https://dmpop.gumroad.com/l/pellicola-manual) provides de
 4. Make the _pellicola_ directory writable by the server by running `chown www-data -R pellicola` as root.
 5. Point the browser to _http://127.0.0.1/pellicola/_ (replace _127.0.0.1_ with the actual IP address or domain name of your server).
 
+### Important note about passwords
+
+Both `$DELETE_PASSWORD` and `$DOWNLOAD_PASSWORD` passwords in _config.php_ are _secret_. To change them you have to create a hashed version of the desired passwords. To do this, you can use the following command (replace _secret_ with the desired password.)
+
+```bash
+php -r 'echo password_hash("secret", PASSWORD_DEFAULT);'
+```
+
 You can add descriptions to photos by creating accompanying _.txt_ files. For example, to add a description to the _F994362-R1-14-15.jpg_ photo, create the _F994362-R1-14-15.txt_ file containing a short text. You can use HTML markup for formatting the text. To add description files in other languages, use the appropriate language prefix as follows: _de-F994362-R1-14-15.txt_ (for German), _ja-F994362-R1-14-15.txt_ (for Japanese), etc.
 
 ## Run Pellicola in a container
