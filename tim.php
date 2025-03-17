@@ -20,7 +20,7 @@ function tim($source, $newWidth)
 
     // Notify the browser that incoming response is an image
     header("Content-Type: image/jpeg");
-    echo imagejpeg($resizedImage);
+    echo imagejpeg($resizedImage, null, 100);
 
     // Free the memory
     imagedestroy($image);

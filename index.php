@@ -146,7 +146,7 @@ if (isset($_GET['nocount'])) {
 		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
 		// Save tim into a file
-		$ok = @imagejpeg($tmp_img, $tim);
+		$ok = @imagejpeg($tmp_img, $tim, 100);
 
 		// Cleanup
 		imagedestroy($img);
