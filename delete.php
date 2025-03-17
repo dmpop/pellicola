@@ -64,7 +64,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <form style="margin-top: .7em; display: inline;" action=" " method="POST">
                     <label for="password"><?php echo L::password; ?></label>
                     <input style="vertical-align: middle;" class="card" type="password" name="password" value="">
-                    <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn red" type="submit" name="delete"><?php echo L::btn_delete; ?></button>
+                    <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn red" type="submit" name="delete"><?php echo L::btn_confirm; ?></button>
                 </form>
                 <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="<?php echo $return; ?>"><?php echo L::btn_back; ?></a>
             </div>

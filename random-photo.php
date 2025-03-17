@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('config.php');
 // include i18n class and initialize it
 require_once 'i18n.class.php';
@@ -14,8 +15,9 @@ if (!extension_loaded('exif')) {
 
 function find_files($directory)
 {
+    global $IMG_FORMATS;
+    $file_extensions = explode(",", $IMG_FORMATS);
     $files = [];
-    $file_extensions = ['jpg', 'JPG', 'jpeg', 'JPEG'];
     $exclude_dir = '.tims';
 
     // Create a RecursiveDirectoryIterator to iterate through the directory and its subdirectories
@@ -47,8 +49,7 @@ function find_files($directory)
     <title><?php echo $TITLE; ?></title>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="favicon.png" />
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
     echo "<meta http-equiv='refresh' content='" . $AUTO_REFRESH . "' >";
@@ -63,7 +64,7 @@ function find_files($directory)
 
         .flexbox {
             font-family: "Inter", sans-serif;
-            font-size: 9pt;
+            font-size: 8pt;
             float: left;
             color: #ffffff;
             background-color: #000000;
@@ -71,7 +72,7 @@ function find_files($directory)
             border-radius: 5px;
             padding: .5em;
             margin-left: 1em;
-            max-width: 25em;
+            max-width: 26em;
         }
     </style>
     <script type="text/javascript">
@@ -79,56 +80,32 @@ function find_files($directory)
             window.history.replaceState(null, null, window.location.href);
         }
     </script>
-    <script type="text/javascript">
-        // Function to get a cookie by name
-        function getCookie(name) {
-            const cookieName = name + "=";
-            const decodedCookies = decodeURIComponent(document.cookie);
-            const cookieArray = decodedCookies.split(';');
-
-            for (let i = 0; i < cookieArray.length; i++) {
-                let cookie = cookieArray[i].trim();
-                if (cookie.startsWith(cookieName)) {
-                    return cookie.substring(cookieName.length, cookie.length);
-                }
-            }
-            return null;
-        }
-
-        // Check if the cookie is already set
-        const cookieName = "key";
-        const savedInput = getCookie(cookieName);
-
-        if (!savedInput) {
-            // Prompt the user for input if the cookie is not set
-            const key = prompt("<?php echo L::password; ?>");
-
-            if (key) {
-                // Save the user input as a cookie
-                const cookieValue = encodeURIComponent(key); // Encode the input to handle special characters
-                const daysToExpire = 7; // Set the cookie to expire in 7 days
-
-                // Calculate the expiration date
-                const date = new Date();
-                date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
-                const expires = "expires=" + date.toUTCString();
-
-                // Set the cookie
-                document.cookie = `${cookieName}=${cookieValue}; ${expires}; path=/`;
-            }
-        }
-    </script>
 </head>
 
-<?php
-if (isset($_COOKIE['key'])) {
-    $key = $_COOKIE['key'];
-} else {
-    // Reload the page until the correct key is provided as saves as a cookie
-    echo '<script type="text/javascript">location.reload();</script>';
-}
+<?php if (!isset($_SESSION['random_photo'])) : ?>
+    <div class="c">
+        <div class="card" style="text-align: center;">
+            <form style="margin-top: .7em; display: inline;" action=" " method="POST">
+                <label for="password"><?php echo L::password; ?></label>
+                <input style="vertical-align: middle;" class="card" type="password" name="key" value="">
+                <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn red" type="submit" name="submit"><?php echo L::btn_confirm; ?></button>
+            </form>
+            <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="index.php"><?php echo L::btn_back; ?></a>
+        </div>
+    </div>
+    <?php
+    if (isset($_POST['key'])) {
+        if (password_verify($_POST['key'], $KEY)) {
+            $_SESSION['random_photo'] = 1;
+            echo '<script type="text/javascript">location.reload();</script>';
+        }
+    }
+    ?>
+<?php endif; ?>
 
-if (isset($_COOKIE['key']) && ($_COOKIE['key'] == $KEY) || empty($KEY)) {
+<?php
+
+if (isset($_SESSION['random_photo']) || empty($KEY)) {
     $files = find_files($ROOT_PHOTO_DIR);
     $file = array_rand($files);
     $background = $BASE_URL . "/tim.php?image=" . bin2hex($files[$file]);
@@ -168,7 +145,6 @@ if (isset($_COOKIE['key']) && ($_COOKIE['key'] == $KEY) || empty($KEY)) {
     ";
 } else {
     echo "<div style='text-align: center;'><code>¯\_(ツ)_/¯</code></div>";
-    setcookie('key', "", time() - 3600, "/");
 }
 ?>
 

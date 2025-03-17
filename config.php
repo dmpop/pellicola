@@ -20,7 +20,7 @@ $RSS_LIMIT = 31; // Show only items in the RSS feed that are newer than the spec
 $SHOW_MAP = false; // If set to "true", shows a Leaflet-based map marking the position of the geotagged photo. 
 $OPENSTREETMAP = true; // If set to "true", the application generates a URL that shows the position of the geotagged photo in OpenStreetMap. Otherwise, the application generates a geo URI that shows the position in the default map application.
 $AUTO_REFRESH = 180; // Interval in seconds between random photo page refreshes.
-$KEY = 'secret_key'; // A key to protect the random photo page. Leave empty to disable the key prompt.
+$KEY = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // A key to protect the random photo page. Leave empty to disable the key prompt.
 
 /* DO NOT CHANGE THE SETTINGS BELOW */
 $ROOT_PHOTO_DIR = 'photos'; // Directory for storing photos

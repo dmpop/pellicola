@@ -45,7 +45,7 @@ The [Pellicola manual](https://dmpop.gumroad.com/l/pellicola-manual) provides de
 
 ### Important note about passwords
 
-Both `$DELETE_PASSWORD` and `$DOWNLOAD_PASSWORD` passwords in _config.php_ are _secret_. To change them you have to create a hashed version of the desired passwords. To do this, you can use the following command (replace _secret_ with the desired password.)
+The `$DELETE_PASSWORD`, `$DOWNLOAD_PASSWORD`, and `$KEY` variables in _config.php_ are set to _secret_. To change them you have to create a hashed version of the desired passwords. To do this, you can use the following command (replace _secret_ with the desired password.)
 
 ```bash
 php -r 'echo password_hash("secret", PASSWORD_DEFAULT);'
