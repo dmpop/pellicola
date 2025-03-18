@@ -88,7 +88,7 @@ function find_files($directory)
             <form style="margin-top: .7em; display: inline;" action=" " method="POST">
                 <label for="password"><?php echo L::password; ?></label>
                 <input style="vertical-align: middle;" class="card" type="password" name="key" value="">
-                <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn red" type="submit" name="submit"><?php echo L::btn_confirm; ?></button>
+                <button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn green" type="submit" name="submit"><?php echo L::btn_confirm; ?></button>
             </form>
             <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="index.php"><?php echo L::btn_back; ?></a>
         </div>
@@ -143,8 +143,6 @@ if (isset($_SESSION['random_photo']) || empty($KEY)) {
     <div class='flexbox'>" . $exif_info . $image_description . "</div>
     </body>
     ";
-} else {
-    echo "<div style='text-align: center;'><code>¯\_(ツ)_/¯</code></div>";
 }
 ?>
 
