@@ -95,7 +95,7 @@ function find_files($directory)
     </div>
     <?php
     if (isset($_POST['key'])) {
-        if (password_verify($_POST['key'], $KEY)) {
+        if (password_verify($_POST['key'], $PASSWORD)) {
             $_SESSION['random_photo'] = 1;
             echo '<script type="text/javascript">location.reload();</script>';
         }
@@ -105,7 +105,7 @@ function find_files($directory)
 
 <?php
 
-if (isset($_SESSION['random_photo']) || empty($KEY)) {
+if (isset($_SESSION['random_photo']) || empty($PASSWORD)) {
     $files = find_files($ROOT_PHOTO_DIR);
     $file = array_rand($files);
     $background = $BASE_URL . "/tim.php?image=" . bin2hex($files[$file]);

@@ -2,6 +2,8 @@
 $BASE_URL = 'https://domain.tld'; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://domain.tld/pellicola)
 $TITLE = 'Pellicola'; // Name of the Pellicola instance.
 $SUBTITLE = 'Responsive open-source photo grid'; // Tagline displayed under the title.
+$PASSWORD = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // Password for the random photo page and protected albums
+$PROTECTED_ALBUMS = 'Personal, Private'; // List of password-protected albums
 $DELETE_PASSWORD = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // Hashed password to delete photos
 $PER_PAGE = 12; // Number of images per page for pagination
 $REVERSED_SORT = true; // Set to true to show tims in the newest to oldest order
@@ -20,7 +22,6 @@ $RSS_LIMIT = 31; // Show only items in the RSS feed that are newer than the spec
 $SHOW_MAP = false; // If set to "true", shows a Leaflet-based map marking the position of the geotagged photo. 
 $OPENSTREETMAP = true; // If set to "true", the application generates a URL that shows the position of the geotagged photo in OpenStreetMap. Otherwise, the application generates a geo URI that shows the position in the default map application.
 $AUTO_REFRESH = 180; // Interval in seconds between random photo page refreshes.
-$KEY = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // A key to protect the random photo page. Leave empty to disable the key prompt.
 
 /* DO NOT CHANGE THE SETTINGS BELOW */
 $ROOT_PHOTO_DIR = 'photos'; // Directory for storing photos
