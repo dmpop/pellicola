@@ -20,7 +20,7 @@
         "commandCenter.border": "#e7e7e799"
     },
     "peacock.color": "#9b6172ff",
-    "workbench.colorTheme": "Monokai Dimmed",
+    "workbench.colorTheme": "Tokyo Night",
     "editor.wordWrap": "on",
     "editor.fontFamily": "'IntelOne Mono', 'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontSize": 16,

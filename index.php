@@ -60,7 +60,7 @@ if (isset($_GET['nocount'])) {
 	if (isset($_GET['album'])) {
 		$_SESSION['album'] = htmlentities($_GET['album']);
 		$album = $_SESSION['album'];
-	} elseif (isset($_GET['album']) || !empty($_SESSION['album'])) {
+	} elseif (!empty($_SESSION['album'])) {
 		$album = $_SESSION['album'];
 	} else {
 		$album = NULL;
