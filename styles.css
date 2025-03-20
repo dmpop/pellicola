@@ -86,16 +86,6 @@ p {
   text-align: left;
 }
 
-.caption {
-  max-width: 60em;
-  font-size: 0.9em;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1em;
-  line-height: 1.5em;
-  text-align: center;
-}
-
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -123,6 +113,40 @@ input[type="password"] {
   margin: 1em 1em;
   border: 0px;
   border-radius: 5px;
+}
+
+/* CUSTOM STYLES */
+
+.caption {
+  max-width: 60em;
+  font-size: 0.9em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  line-height: 1.5em;
+  text-align: center;
+}
+
+/* Details styles */
+
+details {
+  margin-bottom: 1em;
+}
+
+details[open] summary {
+  border-radius: 5px 5px 0 0;
+}
+summary {
+  padding: 0.57rem;
+  border-radius: 5px;
+  font-size: 1.1em;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3pt;
+  color: #fff;
+  background: #6f6f6f;
+  cursor: pointer;
 }
 
 .select {

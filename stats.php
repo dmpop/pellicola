@@ -94,26 +94,9 @@ function round_to_ten($value)
             return $return;
         }
         ?>
-        <div class="c">
-            <h2 style="text-align: left;"><?php echo L::storage; ?></h2>
-            <div class="card">
-                <?php
-                $disk = new DiskSpaceCheck(dirname(__FILE__));
-                ?>
-                <table>
-                    <tr>
-                        <td><?php echo L::total_storage; ?></td>
-                        <td><strong><?php echo $disk->formatBytes($disk->total_space); ?></strong></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo L::used_storage; ?></td>
-                        <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
-                    </tr>
-                </table>
-            </div>
-
-            <h2 style="text-align: left;"><?php echo L::stats; ?></h2>
-            <div class="card">
+        <div class='c' style='width: 30em;'>
+            <details open>
+                <summary><?php echo L::stats; ?></summary>
                 <table>
                     <tr>
                         <td><?php echo L::total_views; ?></td>
@@ -149,16 +132,35 @@ function round_to_ten($value)
                         </tr>
                     <?php endif; ?>
                 </table>
-            </div>
+            </details>
+
+            <details>
+                <summary><?php echo L::storage; ?></summary>
+                <?php
+                $disk = new DiskSpaceCheck(dirname(__FILE__));
+                ?>
+                <table>
+                    <tr>
+                        <td><?php echo L::total_storage; ?></td>
+                        <td><strong><?php echo $disk->formatBytes($disk->total_space); ?></strong></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo L::used_storage; ?></td>
+                        <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
+                    </tr>
+                </table>
+            </details>
+
             <?php if (`which vnstati`) : ?>
-                <h2 style='text-align: left;'><?php echo L::network_traffic; ?></h2>
-                <div class="card" style="text-align: center;">
+                <details>
+                    <summary><?php echo L::network_traffic; ?></summary>
                     <?php
                     shell_exec("vnstati -m -s -o vnstat.png");
                     ?>
-                    <img style="max-width:100%; height: auto;" src="vnstat.png" />
-                </div>
+                    <img style="max-width:100%; height: auto; margin-top: 1em;" src="vnstat.png" />
+                </details>
             <?php endif; ?>
+
             <?php
             $files = rsearch($ROOT_PHOTO_DIR, 'tims', explode(',', $IMG_FORMATS));
 
@@ -182,26 +184,24 @@ function round_to_ten($value)
                 }
             }
             echo '
-        <h2 style="text-align: left;">' . L::camera_model . '</h2>
-        <div class="card">
-        <table>
+            <details>
+                  <summary>' . L::camera_model . '</summary>
+                    <table>
         ';
             $count = array_count_values(array_filter($model));
             arsort($count);
             foreach ($count as $key => $value) {
-                echo "<tr><td>$key</td><td>$value</td></tr>";
+                echo "<tr><td>$key</td><td style='text-align: right;'>$value</td></tr>";
             }
             echo '
         </table>
-        </div>
-        </div>
+        </details>
         ';
 
             echo '
-        <div class="c">
-        <h2 style="text-align: left;">' . L::f_length . '</h2>
-        <div class="card">
-        <table>
+        <details>
+                  <summary>' . L::f_length  . '</summary>
+                    <table>
         ';
             $count = array_count_values(array_filter($f_length));
             arsort($count);
@@ -210,7 +210,7 @@ function round_to_ten($value)
             }
             echo '
         </table>
-        </div>
+        </details>
         ';
             ?>
         </div>
