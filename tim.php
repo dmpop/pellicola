@@ -3,6 +3,7 @@ include('config.php');
 
 function tim($source, $newWidth)
 {
+    global $TIM_QUALITY;
     $image = imagecreatefromjpeg($source);
     // Get image dimensions
     $dimensions = getimagesize($source);
@@ -20,7 +21,7 @@ function tim($source, $newWidth)
 
     // Notify the browser that incoming response is an image
     header("Content-Type: image/jpeg");
-    echo imagejpeg($resizedImage, null, 100);
+    echo imagejpeg($resizedImage, null, $TIM_QUALITY);
 
     // Free the memory
     imagedestroy($image);

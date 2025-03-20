@@ -16,6 +16,8 @@ $URLS = array(
 );
 $IMG_FORMATS = 'jpg,jpeg,JPG,JPEG'; // File types Pellicola displays. Add other file extensions (for example, PNG, HEIC, etc.), if needed.
 $RAW_FORMATS = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add other file extensions, if needed
+$TIM_QUALITY = 100; // Quality of generated tims (thumbnails).
+$TIM_SIZE = 1200; //Tim size
 $DOWNLOAD = false; // Toggle photo download
 $DOWNLOAD_PASSWORD = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // Hashed password to protect downloads. Leave empty to disable password protection.
 $RSS_LIMIT = 31; // Show only items in the RSS feed that are newer than the specified number of days.
@@ -27,4 +29,3 @@ $AUTO_REFRESH = 180; // Interval in seconds between random photo page refreshes.
 $ROOT_PHOTO_DIR = 'photos'; // Directory for storing photos
 $STATS_DIR = 'stats'; // Directory for storing downloads and views stats
 $TIMS_DIR = $ROOT_PHOTO_DIR . '/.tims/'; // Directory for storing tims
-$TIM_SIZE = 1200; //Tim size
