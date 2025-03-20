@@ -590,6 +590,9 @@ $protect = false;
 		</script>
 	<?php endif; ?>
 	<?php // Show links
+	if (isset($_COOKIE['nocount'])) {
+		$FOOTER = $FOOTER . " <span style='color: #ffa927;'>&there4;</span>";
+	}
 	if ($LINKS) {
 		$array_length = count($URLS);
 		echo '<div class="footer" style="z-index: 2">';
