@@ -19,9 +19,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - type: bind
-        source: ./content
-        target: /usr/src/pellicola/content
+      volumes:
+      - ./photos:/usr/src/pellicola/photos
     networks:
       - caddy_net
 

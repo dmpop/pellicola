@@ -61,8 +61,8 @@ function gps($coordinate, $hemisphere)
 $geotagged_items = array();
 foreach ($photos as $file) {
     // Get latitude and longitude values
-    $exif = @exif_read_data($file, 0, true);
-    if ($exif['GPS']['GPSLatitude'] && $exif['GPS']['GPSLongitude']) {
+    $exif = exif_read_data($file, 0, true);
+    if (isset($exif['GPS']['GPSLatitude']) && isset($exif['GPS']['GPSLongitude'])) {
         array_push($geotagged_items, $file);
     }
 }
