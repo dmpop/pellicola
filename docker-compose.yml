@@ -19,8 +19,9 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      volumes:
       - ./photos:/usr/src/pellicola/photos
+      - ./pellicola_data/stats:/usr/src/pellicola/stats
+      - ./pellicola_data/config.php:/usr/src/pellicola/config.php
     networks:
       - caddy_net
 

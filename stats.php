@@ -94,7 +94,7 @@ function round_to_ten($value)
             return $return;
         }
         ?>
-        <div class='c' style='width: 30em;'>
+        <div class='c'>
             <details open>
                 <summary><?php echo L::stats; ?></summary>
                 <table>
