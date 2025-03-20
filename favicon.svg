@@ -6,7 +6,7 @@
    height="500"
    id="svg2"
    version="1.1"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    sodipodi:docname="favicon.svg"
    inkscape:export-filename="favicon.png"
    inkscape:export-xdpi="96"
@@ -25,11 +25,11 @@
        inkscape:collect="always"
        id="linearGradient2800">
       <stop
-         style="stop-color:#000000;stop-opacity:1;"
+         style="stop-color:#ffd18c;stop-opacity:1;"
          offset="0"
          id="stop2796" />
       <stop
-         style="stop-color:#000000;stop-opacity:0;"
+         style="stop-color:#ff0000;stop-opacity:0;"
          offset="1"
          id="stop2798" />
     </linearGradient>
@@ -41,7 +41,7 @@
          offset="0"
          id="stop4690" />
       <stop
-         style="stop-color:#000000;stop-opacity:0;"
+         style="stop-color:#00505e;stop-opacity:0;"
          offset="1"
          id="stop4692" />
     </linearGradient>
@@ -266,7 +266,8 @@
        y1="-1457.3047"
        x2="389.0239"
        y2="-1457.3047"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0.12891,0.7793)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2800"
@@ -285,16 +286,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="269"
-     inkscape:cy="230.5"
+     inkscape:cx="236"
+     inkscape:cy="227.5"
      inkscape:document-units="px"
      inkscape:current-layer="g1072"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1368"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1808"
+     inkscape:window-height="1252"
+     inkscape:window-x="130"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
      inkscape:showpageshadow="false"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -326,14 +327,14 @@
        transform="translate(-9.6441146e-6,-0.00200985)">
       <path
          id="rect966"
-         style="fill:#005d75;stroke-width:7.89393"
+         style="fill:#ffac00;stroke-width:7.89393;fill-opacity:1"
          d="m 254.3536,-1432.5271 v 371.582 a 134.84036,49.171154 0 0 0 134.83985,49.1719 134.84036,49.171154 0 0 0 134.84179,-49.1719 v -371.582 z" />
       <path
          id="rect966-6"
          style="fill:url(#linearGradient2802);fill-opacity:1;stroke-width:7.89393"
          d="m 254.3536,-1432.5271 v 371.582 a 134.84036,49.171154 0 0 0 134.83985,49.1719 134.84036,49.171154 0 0 0 134.84179,-49.1719 v -371.582 z" />
       <ellipse
-         style="fill:#59a2d8;fill-opacity:1;stroke-width:12.744;stroke-linecap:round"
+         style="fill:#d87159;fill-opacity:1;stroke-width:12.744;stroke-linecap:round"
          id="path994"
          cx="389.19394"
          cy="-1432.5278"
@@ -341,19 +342,19 @@
          ry="49.171154" />
       <path
          id="rect10240"
-         style="fill:#59a2d8;fill-opacity:1;stroke-width:19.5075;stroke-linecap:round"
-         d="M 254.35358,-1433.0412 H 87.382899 v 189.1036 c 83.587391,0 126.958221,2.2309 166.970681,80.7143 z"
-         sodipodi:nodetypes="ccccc" />
+         style="fill:#46c23a;fill-opacity:1;stroke-width:19.5075;stroke-linecap:round"
+         d="m 254.35358,-1409.0412 c 0,0 -55.65689,0 -83.48534,0 -27.82845,0 -83.485341,0 -83.485341,0 v 189.1036 c 83.587391,0 126.958221,2.2309 166.970681,80.7143 z"
+         sodipodi:nodetypes="czcccc" />
       <path
          id="rect26392-3-5"
-         style="fill:#005d75;stroke-width:15.5803;stroke-linecap:round"
+         style="fill:#55c1dd;stroke-width:15.5803;stroke-linecap:round;fill-opacity:1"
          d="m 320.03675,-1485.5486 v 41.0957 0.7793 h 0.12891 a 71.914856,26.224617 0 0 0 71.78515,25.4453 71.914856,26.224617 0 0 0 71.78711,-25.4453 h 0.12891 v -0.7793 -41.0957 z" />
       <path
          id="rect26392-3-5-5"
          style="fill:url(#linearGradient4696);fill-opacity:1;stroke-width:15.5803;stroke-linecap:round"
-         d="m 319.90784,-1486.3279 v 41.0957 0.7793 h 0.12891 a 71.914856,26.224617 0 0 0 71.78515,25.4453 71.914856,26.224617 0 0 0 71.78711,-25.4453 h 0.12891 v -0.7793 -41.0957 z" />
+         d="m 320.03675,-1485.5486 v 41.0957 0.7793 h 0.12891 a 71.914856,26.224617 0 0 0 71.78515,25.4453 71.914856,26.224617 0 0 0 71.78711,-25.4453 h 0.12891 v -0.7793 -41.0957 z" />
       <ellipse
-         style="fill:#004e62;fill-opacity:1;stroke-width:6.79677;stroke-linecap:round"
+         style="fill:#009bc2;fill-opacity:1;stroke-width:6.79677;stroke-linecap:round"
          id="path994-7-3"
          cx="391.95175"
          cy="-1485.5486"
