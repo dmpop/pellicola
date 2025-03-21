@@ -10,7 +10,7 @@ $i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif library is installed
 if (!extension_loaded('exif')) {
-    exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
+    exit('<center><code style="color: #f7768e;">' . L::warning_php_exif . '</code></center>');
 }
 
 function find_files($directory)

@@ -589,7 +589,7 @@ $protect = false;
 			marker.addTo(map);
 		</script>
 	<?php endif; ?>
-	<?php // Show links
+	<?php // Show footer
 	if (isset($_COOKIE['nocount'])) {
 		$FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
 	}

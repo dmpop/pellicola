@@ -55,7 +55,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
             </a>
         </div>
-        <div class="center" style="color: gray;"><?php echo $SUBTITLE ?></div>
+        <div class="center"><?php echo $SUBTITLE ?></div>
         <hr>
         <?php
         ?>
@@ -90,13 +90,17 @@ if (session_status() == PHP_SESSION_NONE) {
     } elseif (isset($_POST['delete']) && password_verify($_POST['password'], $DELETE_PASSWORD)) {
         echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }
+    // Show footer
+    if (isset($_COOKIE['nocount'])) {
+        $FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
+    }
     if ($LINKS) {
         $array_length = count($URLS);
-        echo '<div class="footer">';
+        echo '<div class="footer" style="z-index: 2">';
         for ($i = 0; $i < $array_length; $i++) {
             echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
         }
-        echo $FOOTER . '</div>';
+        echo  $FOOTER . '</div>';
     } else {
         echo '<div class="footer">' . $FOOTER . '</div>';
     }

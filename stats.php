@@ -9,7 +9,7 @@ $i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif library is installed
 if (!extension_loaded('exif')) {
-    exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
+    exit('<center><code style="color: #f7768e;">' . L::warning_php_exif . '</code></center>');
 }
 
 class DiskSpaceCheck
@@ -73,10 +73,10 @@ function round_to_ten($value)
         <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
             <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px; color: #59a2d8ff;"><?php echo $TITLE ?></h1>
+                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
             </a>
         </div>
-        <div class="center" style="color: gray; margin-bottom: 1em;"><?php echo $SUBTITLE ?></div>
+        <div class="center" style="margin-bottom: 1em;"><?php echo $SUBTITLE ?></div>
         <hr>
         <?php
         function rsearch($dir, $excluded, $pattern_array)
@@ -218,16 +218,19 @@ function round_to_ten($value)
             <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
         </div>
         <?php
-        // Show links and footer
+        // Show footer
+        if (isset($_COOKIE['nocount'])) {
+            $FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
+        }
         if ($LINKS) {
             $array_length = count($URLS);
-            echo '<div class="footer">';
+            echo '<div class="footer" style="z-index: 2">';
             for ($i = 0; $i < $array_length; $i++) {
-                echo '<span style="word-spacing:0.1em;"><a style="color: white" href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
+                echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
             }
             echo  $FOOTER . '</div>';
         } else {
-            echo '<div class="footer"' . $FOOTER . '</div>';
+            echo '<div class="footer">' . $FOOTER . '</div>';
         }
         ?>
 </body>

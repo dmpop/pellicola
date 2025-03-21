@@ -78,3 +78,21 @@ if (ctype_xdigit($_GET['file'])) {
     } elseif (isset($_POST['download']) && password_verify($_POST['password'], $DOWNLOAD_PASSWORD)) {
         echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_wrong_password . '</h3>';
     }
+    // Show footer
+    if (isset($_COOKIE['nocount'])) {
+        $FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
+    }
+    if ($LINKS) {
+        $array_length = count($URLS);
+        echo '<div class="footer" style="z-index: 2">';
+        for ($i = 0; $i < $array_length; $i++) {
+            echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
+        }
+        echo  $FOOTER . '</div>';
+    } else {
+        echo '<div class="footer">' . $FOOTER . '</div>';
+    }
+    ?>
+</body>
+
+</html>
