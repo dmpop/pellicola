@@ -51,6 +51,7 @@ function find_files($directory)
     <link rel="shortcut icon" href="favicon.png" />
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <?php
     echo "<meta http-equiv='refresh' content='" . $AUTO_REFRESH . "' >";
     ?>
