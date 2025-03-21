@@ -9,7 +9,7 @@
    version="1.1"
    id="svg4"
    sodipodi:docname="map.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -32,12 +32,14 @@
      inkscape:zoom="27.21875"
      inkscape:cx="8.6337543"
      inkscape:cy="13.318025"
-     inkscape:window-width="2560"
-     inkscape:window-height="1368"
+     inkscape:window-width="1200"
+     inkscape:window-height="1186"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg4" />
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <path
      d="M 5.2500001,12.75 1.342305,14.0526 C 1.050915,14.149725 0.75,13.932825 0.75,13.625625 V 2.5743451 c 0,-0.193695 0.123945,-0.3656625 0.307695,-0.4269075 L 5.2500001,0.75 m 0,12 4.5000001,1.5 m -4.5000001,-1.5 v -12 m 4.5000001,13.5 4.1922748,-1.3974 C 14.126025,12.791325 14.25,12.61935 14.25,12.425625 V 1.374345 c 0,-0.307155 -0.3009,-0.52404 -0.592275,-0.4269075 L 9.7500002,2.2500001 m 0,11.9999999 V 2.2500001 m 0,0 L 5.2500001,0.75"
      stroke="#000000"
@@ -45,5 +47,5 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path2"
-     style="stroke:#c15d7b;stroke-opacity:1" />
+     style="stroke:#7aa2f7;stroke-opacity:1" />
 </svg>

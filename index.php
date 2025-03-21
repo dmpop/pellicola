@@ -9,10 +9,10 @@ $i18n->setFallbackLang('en');
 $i18n->init();
 // Check whether the php-exif and php-gd libraries are installed
 if (!extension_loaded('gd')) {
-	exit('<center><code style="color: red;">' . L::warning_php_gd . '</code></center>');
+	exit('<center><code style="color: #f7768e;">' . L::warning_php_gd . '</code></center>');
 }
 if (!extension_loaded('exif')) {
-	exit('<center><code style="color: red;">' . L::warning_php_exif . '</code></center>');
+	exit('<center><code style="color: #f7768e;">' . L::warning_php_exif . '</code></center>');
 }
 // Time allowed the script to run. Generating tims can take time,
 // and increasing the time limit prevents the script from ending prematurely
@@ -202,16 +202,16 @@ $protect = false;
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && !isset($_GET['file'])) {
-				echo '<a color: #e3e3e3;" href="?page=1"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
+				echo '<a href="?page=1"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
 			if ($current_page > 1 && !isset($_GET['file'])) {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
+				echo '<a href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
 			if ($current_page < $last_page && !isset($_GET['file'])) {
-				echo '<a color: #e3e3e3;" href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
+				echo '<a href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
 			if ($current_page != $last_page && !isset($_GET['file'])) {
-				echo ' <a style="color: #e3e3e3;" href="?page=' . ($last_page) . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
+				echo ' <a href="?page=' . ($last_page) . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
 		}
@@ -292,7 +292,7 @@ $protect = false;
 			echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $TITLE . '" /></a>';
 			echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $TITLE . '</h1></a>';
 			echo '</div>';
-			echo '<div class="center" style="color: gray; margin-bottom: 1em;">' . $SUBTITLE . '</div>';
+			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
 			// Show stats icon
 			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
@@ -310,7 +310,7 @@ $protect = false;
 			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
 			$sub_dirs = array_diff($all_sub_dirs, array($TIMS_DIR));
 			$count = count(glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE));
-			echo '<span style="color: gray">' . L::album_items_count . ': </span>' . $count;
+			echo L::album_items_count . ': ' . $count;
 			echo '</div>';
 
 			// Populate a drop-down list with subdirectories
@@ -591,7 +591,7 @@ $protect = false;
 	<?php endif; ?>
 	<?php // Show links
 	if (isset($_COOKIE['nocount'])) {
-		$FOOTER = $FOOTER . " <span style='color: #ffa927;'>&there4;</span>";
+		$FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
 	}
 	if ($LINKS) {
 		$array_length = count($URLS);

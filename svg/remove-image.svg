@@ -8,8 +8,8 @@
    color="#000000"
    version="1.1"
    id="svg6"
-   sodipodi:docname="remove-media-image.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="remove-image.svg"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,18 +26,20 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="31.041667"
-     inkscape:cx="10.002685"
-     inkscape:cy="10.002685"
-     inkscape:window-width="1920"
-     inkscape:window-height="1012"
+     inkscape:cx="10.018792"
+     inkscape:cy="10.002684"
+     inkscape:window-width="1200"
+     inkscape:window-height="1186"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg6"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <path
      d="m 1,14 7,-3 4,1.818 M 14,8 a 2,2 0 1 1 0,-4 2,2 0 0 1 0,4 z M 14.879,19.121 17,17 M 19.121,14.879 17,17 m 0,0 -2.121,-2.121 M 17,17 l 2.121,2.121"
      stroke="#000000"
@@ -45,7 +47,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path2"
-     style="stroke:#ff0000;stroke-opacity:1" />
+     style="stroke:#f7768e;stroke-opacity:1" />
   <path
      d="M 11,19 H 1.6 A 0.6,0.6 0 0 1 1,18.4 V 1.6 A 0.6,0.6 0 0 1 1.6,1 H 18.4 A 0.6,0.6 0 0 1 19,1.6 V 11"
      stroke="#000000"
@@ -53,5 +55,5 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path4"
-     style="stroke:#ff0000;stroke-opacity:1" />
+     style="stroke:#f7768e;stroke-opacity:1" />
 </svg>

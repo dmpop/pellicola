@@ -4,7 +4,7 @@ html * {
 
 body {
   font-family: "Inter", sans-serif;
-  color: #e3e3e3;
+  color: #9aa5ce;
   font-size: 1em;
   text-align: left;
   background-color: #303030;
@@ -25,7 +25,7 @@ pre {
 }
 
 a {
-  color: #e3e3e3;
+  color: #9aa5ce;
 }
 
 hr {
@@ -42,7 +42,7 @@ hr {
 }
 
 h1 {
-  color: #59a2d8ff;
+  color: #7aa2f7;
   font-family: "Inter", sans-serif;
   font-size: 2em;
   font-weight: bold;
@@ -93,7 +93,7 @@ select {
   padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
   color: #fff;
-  background: #59a2d8ff;
+  background: #7aa2f7;
   border: 0;
   border-radius: 5px;
   font: "Inter";
@@ -117,7 +117,8 @@ input[type="password"] {
 
 /* CUSTOM STYLES */
 
-.caption {
+.caption, figcaption {
+  color: #9aa5ce;
   max-width: 60em;
   font-size: 0.9em;
   margin-left: auto;
@@ -144,8 +145,8 @@ summary {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 3pt;
-  color: #fff;
-  background: #6f6f6f;
+  color: #9aa5ce;
+  background: #565f89;
   cursor: pointer;
 }
 
@@ -176,20 +177,20 @@ summary {
 
 .btn.primary {
   color: #fff;
-  background: #59a2d8ff;
-  border: solid #59a2d8ff;
+  background: #7aa2f7;
+  border: solid #7aa2f7;
 }
 
 .btn.green {
   color: #fff;
-  background: #00a529;
-  border: solid #00a529;
+  background: #9ece6a;
+  border: solid #9ece6a;
 }
 
 .btn.red {
   color: #fff;
-  background: #ff0000;
-  border: solid #ff0000;
+  background: #f7768e;
+  border: solid #f7768e;
 }
 
 .btn:hover,
@@ -215,7 +216,7 @@ a:hover {
   bottom: 0px;
   height: 1.5em;
   width: 100%;
-  background: #59a2d8ff;
+  background: #565f89;
 }
 
 /* https://www.imarketinx.de/artikel/responsive-image-gallery-with-css-grid.html */
