@@ -165,7 +165,7 @@ $protect = false;
 		/* EXTRACT LATITUDE AND LONGITUDE ---END--- */
 
 		/* CREATE TIMS ---START--- */
-		function createTim($original, $tim, $timWidth)
+		function create_tim($original, $tim, $timWidth)
 		{
 			// Load image
 			$img = @imagecreatefromjpeg($original);
@@ -257,7 +257,7 @@ $protect = false;
 			$tim = $TIMS_DIR . basename($file);
 
 			if (!file_exists($tim)) {
-				createTim($file, $tim, $TIM_SIZE);
+				create_tim($file, $tim, $TIM_SIZE);
 			}
 		}
 
@@ -415,7 +415,7 @@ $protect = false;
 
 	/* SHOW SINGLE PHOTO */
 	// The $file parameter is used to show an individual photo
-	$file = isset($_GET['file']) ? unmask_param($_GET['file']) : NULL;
+	$file = isset($_GET['file']) ? unmask_param($_GET['file']) : '';
 	// Get the current views and downloads count
 	$filename = pathinfo($file, PATHINFO_FILENAME);
 	$views_file = $STATS_DIR . DIRECTORY_SEPARATOR . $filename . ".views";
@@ -425,7 +425,7 @@ $protect = false;
 	} else {
 		$downloads_count = 0;
 	}
-	if (isset($file)) {
+	if (!empty($file)) {
 		// If $views_file exists, increment views count by 1
 		if (file_exists($views_file)) {
 			$views_count = fgets(fopen($views_file, 'r'));
@@ -459,7 +459,7 @@ $protect = false;
 		// Easter egg: if $_GET['t'] is set, rebuild the tim of the currently viewed photo
 		if (isset($_GET['t'])) {
 			unlink($tim);
-			createTim($file, $tim, $TIM_SIZE);
+			create_tim($file, $tim, $TIM_SIZE);
 		}
 
 		// Get URL of the current page for use with the Back button

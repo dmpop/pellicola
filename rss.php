@@ -21,8 +21,9 @@ $rss_items = array();
 
 foreach ($iterator as $file) {
     if (!$file->isDir() && !str_contains($file->getPathname(), ".tims") && file_exists($TIMS_DIR . basename($file->getPathname()))) {
-        $exif = @exif_read_data($file, 0, true);
-        $datestamp = htmlentities(date('Y-m-d', strtotime($exif['EXIF']['DateTimeOriginal']))) ?? NULL;
+        $exif = exif_read_data($file, 0, true);
+        $date_time_original = isset($exif['EXIF']['DateTimeOriginal']) ? strtotime($exif['EXIF']['DateTimeOriginal']) : NULL;
+        $datestamp = htmlentities(date('Y-m-d', $date_time_original)) ?? NULL;
         if ($datestamp > $date) {
             array_push($rss_items, $file);
         }
