@@ -252,10 +252,8 @@ $protect = false;
 		$file_count = count($files);
 
 		// Generate missing tims
-		for ($i = 0; $i < $file_count; $i++) {
-			$file  = $files[$i];
+		foreach ($files as $file) {
 			$tim = $TIMS_DIR . basename($file);
-
 			if (!file_exists($tim)) {
 				create_tim($file, $tim, $TIM_SIZE);
 			}
@@ -383,8 +381,7 @@ $protect = false;
 			/* SHOW THE GRID WITH TIMS ---START --- */
 			echo '<div class="gallery-grid">';
 			if (isset($_GET['all'])) {
-				for ($i = 0; $i < $file_count; $i++) {
-					$file = $files[$i];
+				foreach ($files as $file) {
 					$tim = $TIMS_DIR . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
@@ -596,8 +593,8 @@ $protect = false;
 	if ($LINKS) {
 		$array_length = count($URLS);
 		echo '<div class="footer" style="z-index: 2">';
-		for ($i = 0; $i < $array_length; $i++) {
-			echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
+		foreach ($URLS as $url) {
+			echo '<span style="word-spacing:0.1em;"><a href="' . $url[0] . '">' . $url[1] . '</a> • </span>';
 		}
 		echo  $FOOTER . '</div>';
 	} else {
