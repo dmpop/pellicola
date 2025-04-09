@@ -171,7 +171,20 @@ $protect = false;
 			$img = @imagecreatefromjpeg($original);
 			if (!$img) return false;
 			// Rotate $original based on orientation EXIF data
-			$img = imagerotate($img, array_values([0, 0, 0, 180, 0, 0, -90, 0, 90])[@exif_read_data($original)['Orientation'] ?: 0], 0);
+			$exif = exif_read_data($original);
+			if (!empty($exif['Orientation'])) {
+				switch ($exif['Orientation']) {
+					case 3:
+						$img = imagerotate($img, -180, 0);
+						break;
+					case 6:
+						$img = imagerotate($img, -90, 0);
+						break;
+					case 8:
+						$img = imagerotate($img, 90, 0);
+						break;
+				}
+			}
 
 			// Get image size
 			$width = imagesx($img);
