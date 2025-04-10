@@ -220,6 +220,11 @@ a:hover {
   padding: 0px;
 }
 
+.center > img {
+	max-width: 100%;
+	border-radius: 7px;
+}
+
 .footer {
   text-decoration: none;
   text-align: center;

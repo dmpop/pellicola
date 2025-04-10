@@ -567,12 +567,12 @@ $protect = false;
 			$raw_download = NULL;
 		}
 		if ($DOWNLOAD) {
-			echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" onclick="this.requestFullscreen()" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '" /><div class="caption">' . $comment . ' ' . $description . '</div>';
+			echo '<div class="center"><img src="' . htmlentities($tim) . '" onclick="this.requestFullscreen()" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '" /><div class="caption">' . $comment . ' ' . $description . '</div>';
 			echo '<div class="caption">' . $exif_info . '</div>';
 			echo '<div class="caption">' . $image_download . $raw_download . $image_delete . '</div>';
 			echo '<div class="caption">' . L::views . ': ' . $views_count . ' ' . L::downloads . ": " . $downloads_count . '</div>';
 		} else {
-			echo '<div class="center"><img style="max-width: 100%; border-radius: 7px;" src="' . htmlentities($tim) . '" onclick="this.requestFullscreen()" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '" /><div class="caption">' . $comment . ' ' . $description . '</div>';
+			echo '<div class="center"><img src="' . htmlentities($tim) . '" onclick="this.requestFullscreen()" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '" /><div class="caption">' . $comment . ' ' . $description . '</div>';
 			echo '<div class="caption">' . $exif_info . "<span style='margin-left: 1em;'>" . $image_delete . '</span></div>';
 		}
 		// Show embedded map if photo is geotagged and $SHOW_MAP is true
