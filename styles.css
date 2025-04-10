@@ -114,7 +114,8 @@ input[type="password"] {
 
 /* CUSTOM STYLES */
 
-.caption, figcaption {
+.caption,
+figcaption {
   color: #9aa5ce;
   max-width: 60em;
   font-size: 0.9em;
@@ -129,8 +130,16 @@ input[type="password"] {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-	margin-right: 0.25em;
+  margin-right: 0.25em;
   margin-bottom: 0.5em;
+}
+
+#map {
+  z-index: 1;
+  margin: 1.5em auto;
+  width: 250px;
+  height: 250px;
+  border-radius: 5px;
 }
 
 /* Details styles */
@@ -272,5 +281,4 @@ a:hover {
   font-weight: 100 600;
   font-display: swap;
   src: url("fonts/InterVariable-Italic.woff2") format("woff2");
-
 }
