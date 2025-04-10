@@ -125,6 +125,14 @@ input[type="password"] {
   text-align: center;
 }
 
+.navigation {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+	margin-right: 0.25em;
+  margin-bottom: 0.5em;
+}
+
 /* Details styles */
 
 details {
