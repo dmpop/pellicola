@@ -217,13 +217,13 @@ $protect = false;
 		{
 			echo '<div class="center">';
 			if ($current_page != 1 && !isset($_GET['file'])) {
-				echo '<a href="?page=1"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
+				echo '<a href="?page=1"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
 			}
 			if ($current_page > 1 && !isset($_GET['file'])) {
-				echo '<a href="?page=' . ($current_page - 1) . '"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
+				echo '<a href="?page=' . ($current_page - 1) . '"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
 			}
 			if ($current_page < $last_page && !isset($_GET['file'])) {
-				echo '<a href="?page=' . ($current_page + 1) . '"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
+				echo '<a href="?page=' . ($current_page + 1) . '"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
 			if ($current_page != $last_page && !isset($_GET['file'])) {
 				echo ' <a href="?page=' . ($last_page) . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
@@ -491,16 +491,16 @@ $protect = false;
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
 		}
 		// Show all navigation links
 		else {
 
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img style="margin-right:1em;" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img style="margin-right:1em;" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img style="margin-right:1em;" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img style="margin-right:1em;" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		/* NAVIGATION LINKS ---END--- */
 
