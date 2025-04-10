@@ -31,7 +31,6 @@ a {
 hr {
   border: 0;
   height: 1px;
-  margin-bottom: 1em;
   margin-top: 1em;
   background-image: linear-gradient(
     to right,
@@ -130,8 +129,8 @@ figcaption {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  margin-right: 0.5em;
-  margin-bottom: 0.5em;
+  padding: 0.5em;
+  vertical-align: middle;
 }
 
 #map {

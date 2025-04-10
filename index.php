@@ -226,7 +226,7 @@ $protect = false;
 				echo '<a href="?page=' . ($current_page + 1) . '"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
 			}
 			if ($current_page != $last_page && !isset($_GET['file'])) {
-				echo ' <a href="?page=' . ($last_page) . '"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
+				echo ' <a href="?page=' . ($last_page) . '"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
 			}
 			echo '</div>';
 		}
@@ -313,17 +313,17 @@ $protect = false;
 			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
 			// Show stats icon
-			echo '<a href="stats.php"><img src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
+			echo '<a href="stats.php"><img class="navigation" src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show map icon
 			if ($SHOW_MAP) {
-				echo '<a href="map.php" target="_blank"><img style="margin-left: .5em;" src="svg/map.svg" alt="' . L::map . '" title="' . L::map . '"/></a>';
+				echo '<a href="map.php" target="_blank"><img class="navigation" src="svg/map.svg" alt="' . L::map . '" title="' . L::map . '"/></a>';
 			}
 			// Show the grid icon if there are several pages
 			if (!isset($_GET['all']) && $file_count > $PER_PAGE) {
-				echo '<a href="?all=show"><img style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
+				echo '<a href="?all=show"><img class="navigation" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
 			// Show randomize icon
-			echo '<a href="?shuffle"><img style="margin-left: .5em;" src="svg/dice-three.svg" alt="' . L::shuffle . '" title="' . L::shuffle . '"/></a>';
+			echo '<a href="?shuffle"><img class="navigation" src="svg/dice-three.svg" alt="' . L::shuffle . '" title="' . L::shuffle . '"/></a>';
 			
 			echo '<hr style="margin-bottom: 1em;">';
 
@@ -340,7 +340,7 @@ $protect = false;
 				echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_enable_js . '</h3>';
 				echo '</noscript>';
 				echo '<div class="center" style="margin-bottom: 1em;">';
-				echo '<a href="'  . $BASE_URL . '?album="><img style="vertical-align: middle;" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
+				echo '<a href="'  . $BASE_URL . '?album="><img class="navigation" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
 				if (isset($_GET['album'])) {
 					$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
 				} else {
@@ -380,7 +380,7 @@ $protect = false;
 					<input type="hidden" name="album" value="<?php echo $album; ?>">
 					<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
 					<input type="hidden" name="all" value="show">
-					<input style="vertical-align: middle;" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
+					<input class="navigation" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
 				</form>
 			</div>
 
@@ -499,7 +499,7 @@ $protect = false;
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
@@ -543,7 +543,7 @@ $protect = false;
 
 		// Concatenate $exif_info
 		if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
-			$exif_info = '<img style="margin-right: .5rem;" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . '<img style="margin-left: .5rem; margin-right: .5rem;" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
+			$exif_info = '<img class="navigation" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . '<img class="navigation" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
 		} else {
 			$exif_info = NULL;
 		}
@@ -552,25 +552,25 @@ $protect = false;
 		if (!empty($lat) && !empty($lon)) {
 			//Generate Geo URI
 			if ($OPENSTREETMAP) {
-				$map_url = '<a href="http://www.openstreetmap.org/index.html?mlat=' . $lat . '&mlon=' . $lon . '&zoom=18" target="_blank"><img style="margin-left: .5rem;" src="svg/pin.svg" alt="' . L::img_map . '" title="' . L::img_map . '"/></a>';
+				$map_url = '<a href="http://www.openstreetmap.org/index.html?mlat=' . $lat . '&mlon=' . $lon . '&zoom=18" target="_blank"><img class="navigation" src="svg/pin.svg" alt="' . L::img_map . '" title="' . L::img_map . '"/></a>';
 			} else {
-				$map_url = '<a href="geo:' . $lat . ',' . $lon . '"><img style="margin-left: .5rem;" src="svg/pin.svg" alt="' . L::img_map . '" title="' . L::img_map . '"/></a>';
+				$map_url = '<a href="geo:' . $lat . ',' . $lon . '"><img class="navigation" src="svg/pin.svg" alt="' . L::img_map . '" title="' . L::img_map . '"/></a>';
 			}
 			$exif_info = $exif_info . $map_url;
 		}
 		// Find all RAW files
 		$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $RAW_FORMATS . "}", GLOB_BRACE) ?? NULL;
 		$raw = !empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : NULL;
-		$image_download = '<a href="' . $BASE_URL . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img style="margin-right: 1em;" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
+		$image_download = '<a href="' . $BASE_URL . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img class="navigation" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
 		if ($raw) {
-			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img class="navigation" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 		} else {
-			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . '"><img src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . '"><img class="navigation" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 		}
 
 		//Check if the related RAW file exists and link to it
 		if (!empty($raw_file)) {
-			$raw_download = '<a href="' . $BASE_URL . '/download.php?file=' . $raw . '"><img style="margin-right: 1em;" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
+			$raw_download = '<a href="' . $BASE_URL . '/download.php?file=' . $raw . '"><img class="navigation" alt="' . L::raw_download . '" title="' . L::raw_download . '" src="svg/raw.svg"/></a>';
 		} else {
 			$raw_download = NULL;
 		}
