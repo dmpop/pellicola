@@ -263,6 +263,11 @@ $protect = false;
 			rsort($files);
 		}
 
+		// Randomize the $files array
+		if (isset($_GET['shuffle'])) {
+			shuffle($files);
+		}
+
 		// Update count (we might have removed some files)
 		$file_count = count($files);
 
@@ -317,6 +322,9 @@ $protect = false;
 			if (!isset($_GET['all']) && $file_count > $PER_PAGE) {
 				echo '<a href="?all=show"><img style="margin-left: .5em;" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
 			}
+			// Show randomize icon
+			echo '<a href="?shuffle"><img style="margin-left: .5em;" src="svg/dice-three.svg" alt="' . L::shuffle . '" title="' . L::shuffle . '"/></a>';
+			
 			echo '<hr style="margin-bottom: 1em;">';
 
 			// Create an array with all subdirectories
