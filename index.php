@@ -165,8 +165,9 @@ $protect = false;
 		/* EXTRACT LATITUDE AND LONGITUDE ---END--- */
 
 		/* CREATE TIMS ---START--- */
-		function create_tim($original, $tim, $timWidth)
+		function create_tim($original, $tim, $tim_size)
 		{
+			global $TIM_QUALITY;
 			// Load image
 			$img = @imagecreatefromjpeg($original);
 			if (!$img) return false;
@@ -191,8 +192,8 @@ $protect = false;
 			$height = imagesy($img);
 
 			// Calculate tim size
-			$new_width	= $timWidth;
-			$new_height = floor($height * ($timWidth / $width));
+			$new_width	= $tim_size;
+			$new_height = floor($height * ($tim_size / $width));
 
 			// Create a new temporary image
 			$tmp_img = imagecreatetruecolor($new_width, $new_height);
@@ -201,7 +202,7 @@ $protect = false;
 			imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
 			// Save tim into a file
-			$ok = @imagejpeg($tmp_img, $tim, 100);
+			$ok = @imagejpeg($tmp_img, $tim, $TIM_QUALITY);
 
 			// Cleanup
 			imagedestroy($img);
