@@ -325,7 +325,7 @@ $protect = false;
 			}
 			// Show randomize icon
 			echo '<a href="?shuffle"><img class="navigation" src="svg/dice-three.svg" alt="' . L::shuffle . '" title="' . L::shuffle . '"/></a>';
-			
+
 			echo '<hr style="margin-bottom: 1em;">';
 
 			// Create an array with all subdirectories
@@ -464,7 +464,7 @@ $protect = false;
 		$tim = $TIMS_DIR . basename($file);
 		// Get the content of the ImageDescription EXIF tag
 		$exif = @exif_read_data($file);
-		$comment = (!isset($exif['ImageDescription']) ? NULL : htmlentities($exif['ImageDescription']));
+		$comment = isset($exif['ImageDescription']) ? htmlentities($exif['ImageDescription']) : NULL;
 		// Get latitude and longitude values
 		$exif = @exif_read_data($file, 0, true);
 		if (array_key_exists('GPS', $exif)) {
@@ -473,6 +473,15 @@ $protect = false;
 		} else {
 			$lat = NULL;
 			$lon = NULL;
+		}
+		// Get width and height, calculate resolution in megapixels
+		$image_size = getimagesize($file);
+		$width = $image_size[0];
+		$height = $image_size[1];
+		if (!$width || !$height) {
+			$resolution = NULL;
+		} else {
+			$resolution = ' • ' . sprintf("%.2f", ($width * $height) / 1000000) . 'MP';
 		}
 
 		$file_path = pathinfo($file);
@@ -543,11 +552,7 @@ $protect = false;
 		$datetime = !isset($exif['EXIF']['DateTimeOriginal']) ? NULL : htmlentities((date('Y-m-d H:i', strtotime($exif['EXIF']['DateTimeOriginal']))));
 
 		// Concatenate $exif_info
-		if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
-			$exif_info = '<img class="navigation" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . '<img class="navigation" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
-		} else {
-			$exif_info = NULL;
-		}
+		$exif_info = '<img class="navigation" src="svg/camera.svg" alt="' . L::img_exif . '" title="' . L::img_exif . '"/>' . $aperture . $f_length . $exposure . $iso . $resolution . '<img class="navigation" src="svg/calendar.svg" alt="' . L::img_date . '" title="' . L::img_date . '"/>' .  $datetime;
 
 		// Add the pin icon if the photo contains geographical coordinates
 		if (!empty($lat) && !empty($lon)) {
