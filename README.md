@@ -4,8 +4,6 @@ Pellicola is an easy-to-use PHP web app for instant photo publishing.
 
 <img src="pellicola.jpg" alt="Pellicola">
 
-The [Pellicola manual](https://dmpop.gumroad.com/l/pellicola-manual) provides detailed information on installing and using Pellicola. Get your copy at [Gumroad](https://dmpop.gumroad.com/l/pellicola-manual).
-
 ## Features
 
 - **Simplicity** Pellicola requires no installation, and it can be deployed on any web server with PHP.
