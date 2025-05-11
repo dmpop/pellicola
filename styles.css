@@ -56,6 +56,12 @@ h1 {
   text-overflow: ellipsis;
 }
 
+@media screen and (max-width: 35em) {
+  .hide {
+    display: none;
+  }
+}
+
 h2 {
   font-size: 2em;
   font-weight: bold;

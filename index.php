@@ -307,9 +307,9 @@ $protect = false;
 		// The $grid parameter is used to show the main grid
 		$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
 		if (!isset($grid)) {
-			echo '<div style="text-align:center; margin-bottom: 1.5em; margin-top: 5em;">';
-			echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="' . $TITLE . '" /></a>';
-			echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle;">' . $TITLE . '</h1></a>';
+			echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 5em;">';
+			echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><img style="height: 5em; vertical-align: middle; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
+			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><h1 class="hide" style="font-size: 2.3em; margin: auto; vertical-align: middle;">' . $TITLE . '</h1></a>';
 			echo '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
@@ -370,7 +370,7 @@ $protect = false;
 	?>
 
 			<!-- Search field in the upper-right corner -->
-			<div class="topcorner">
+			<div class="topcorner hide">
 				<form autocomplete="off" method="GET" action=" ">
 					<select style="vertical-align: middle;" name="search">
 						<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
