@@ -49,6 +49,11 @@ h1 {
   margin-bottom: 0.5em;
   line-height: 100%;
   letter-spacing: 3px;
+  margin: auto;
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 h2 {
