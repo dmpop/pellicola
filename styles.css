@@ -107,6 +107,7 @@ select {
 }
 
 input[type="text"] {
+  width: 7em;
   height: 2em;
   padding: 0.5em 0.5em;
   margin: 0.7em 0.3em;
@@ -180,12 +181,6 @@ summary {
   min-width: 10em;
   margin-right: 0.5em;
   border-radius: 5px;
-}
-
-.topcorner {
-  position: absolute;
-  top: 0.3em;
-  right: 1em;
 }
 
 .btn {

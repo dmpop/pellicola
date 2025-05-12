@@ -307,12 +307,29 @@ $protect = false;
 		// The $grid parameter is used to show the main grid
 		$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
 		if (!isset($grid)) {
-			echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 5em;">';
-			echo '<a style="text-decoration:none;" href="' . $BASE_URL . '/index.php?album="><img style="height: 5em; vertical-align: middle; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
+			echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">';
+			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
 			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><h1 class="hide" style="font-size: 2.3em; margin: auto; vertical-align: middle;">' . $TITLE . '</h1></a>';
 			echo '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
+	?>
+			<!-- Search form -->
+			<div style="margin-bottom: 0.5em;">
+				<form autocomplete="off" method="GET" action=" ">
+					<select style="vertical-align: middle;" name="search">
+						<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
+						<option value="search_name"><?php echo L::find_by_name; ?></option>
+					</select>
+					<input style="vertical-align: middle;" type="text" name="query">
+					<!-- The hidden input field is used to pass the $album value (album) to the search -->
+					<input type="hidden" name="album" value="<?php echo $album; ?>">
+					<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
+					<input type="hidden" name="all" value="show">
+					<input class="navigation" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
+				</form>
+			</div>
+			<?php
 			// Show stats icon
 			echo '<a href="stats.php"><img class="navigation" src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
 			// Show map icon
@@ -367,23 +384,7 @@ $protect = false;
 				}
 				echo '</select></div>';
 			}
-	?>
-
-			<!-- Search field in the upper-right corner -->
-			<div class="topcorner hide">
-				<form autocomplete="off" method="GET" action=" ">
-					<select style="vertical-align: middle;" name="search">
-						<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
-						<option value="search_name"><?php echo L::find_by_name; ?></option>
-					</select>
-					<input style="vertical-align: middle;" type="text" name="query">
-					<!-- The hidden input field is used to pass the $album value (album) to the search -->
-					<input type="hidden" name="album" value="<?php echo $album; ?>">
-					<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
-					<input type="hidden" name="all" value="show">
-					<input class="navigation" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
-				</form>
-			</div>
+			?>
 
 	<?php
 			// Check whether $photo_dir directory exists

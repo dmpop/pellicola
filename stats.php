@@ -69,170 +69,169 @@ function round_to_ten($value)
 </head>
 
 <body>
-    <div id="content">
-        <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
-            <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
-            </a>
-        </div>
-        <div class="center" style="margin-bottom: 1em;"><?php echo $SUBTITLE ?></div>
-        <hr>
-        <?php
-        function rsearch($dir, $excluded, $pattern_array)
-        {
-            $return = array();
-            $iti = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
-            foreach (new RecursiveIteratorIterator($iti) as $file => $details) {
-                if (!is_file($iti->getBasename()) && ($iti->getBasename() != $excluded)) {
-                    $file_ext = pathinfo($file, PATHINFO_EXTENSION);
-                    if (in_array($file_ext, $pattern_array)) {
-                        $return[] = $file;
-                    }
+    <div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">
+        <a style="text-decoration: one;" href="index.php"><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
+        <a style="text-decoration: none;" href="index.php">
+            <h1 class="hide" style="font-size: 2.3em; margin: auto; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
+        </a>
+    </div>
+    <div class="center" style="margin-bottom: 1em;"><?php echo $SUBTITLE ?></div>
+    <hr>
+    <?php
+    function rsearch($dir, $excluded, $pattern_array)
+    {
+        $return = array();
+        $iti = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
+        foreach (new RecursiveIteratorIterator($iti) as $file => $details) {
+            if (!is_file($iti->getBasename()) && ($iti->getBasename() != $excluded)) {
+                $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+                if (in_array($file_ext, $pattern_array)) {
+                    $return[] = $file;
                 }
             }
-            return $return;
         }
-        ?>
-        <div class='c'>
-            <details open>
-                <summary><?php echo L::stats; ?></summary>
-                <table>
+        return $return;
+    }
+    ?>
+    <div class='c'>
+        <details open>
+            <summary><?php echo L::stats; ?></summary>
+            <table>
+                <tr>
+                    <td><?php echo L::total_views; ?></td>
+                    <td>
+                        <?php
+                        $views_count = 0;
+                        // Get all .views files
+                        $all_views_files = glob($STATS_DIR . DIRECTORY_SEPARATOR . "*.views");
+                        // Read value from each .views file and add it $views_count
+                        foreach ($all_views_files  as $views_file) {
+                            $views_count += fgets(fopen($views_file, 'r'));
+                        }
+                        echo '<strong>' . $views_count . '</strong>';
+                        ?>
+                    </td>
+                </tr>
+
+                <?php if ($DOWNLOAD) : ?>
                     <tr>
-                        <td><?php echo L::total_views; ?></td>
+                        <td><?php echo L::total_downloads; ?></td>
                         <td>
                             <?php
-                            $views_count = 0;
-                            // Get all .views files
-                            $all_views_files = glob($STATS_DIR . DIRECTORY_SEPARATOR . "*.views");
-                            // Read value from each .views file and add it $views_count
-                            foreach ($all_views_files  as $views_file) {
-                                $views_count += fgets(fopen($views_file, 'r'));
+                            $downloads_count = 0;
+                            // Get all .downloads files
+                            $all_downloads_files = glob($STATS_DIR . DIRECTORY_SEPARATOR . "*.downloads");
+                            // Read value from each .download file and add it $downloads_count
+                            foreach ($all_downloads_files  as $downloads_file) {
+                                $downloads_count += fgets(fopen($downloads_file, 'r'));
                             }
-                            echo '<strong>' . $views_count . '</strong>';
+                            echo '<strong>' . $downloads_count . '<strong>';
                             ?>
                         </td>
                     </tr>
+                <?php endif; ?>
+            </table>
+        </details>
 
-                    <?php if ($DOWNLOAD) : ?>
-                        <tr>
-                            <td><?php echo L::total_downloads; ?></td>
-                            <td>
-                                <?php
-                                $downloads_count = 0;
-                                // Get all .downloads files
-                                $all_downloads_files = glob($STATS_DIR . DIRECTORY_SEPARATOR . "*.downloads");
-                                // Read value from each .download file and add it $downloads_count
-                                foreach ($all_downloads_files  as $downloads_file) {
-                                    $downloads_count += fgets(fopen($downloads_file, 'r'));
-                                }
-                                echo '<strong>' . $downloads_count . '<strong>';
-                                ?>
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                </table>
-            </details>
-
-            <details>
-                <summary><?php echo L::storage; ?></summary>
-                <?php
-                $disk = new DiskSpaceCheck(dirname(__FILE__));
-                ?>
-                <table>
-                    <tr>
-                        <td><?php echo L::total_storage; ?></td>
-                        <td><strong><?php echo $disk->formatBytes($disk->total_space); ?></strong></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo L::used_storage; ?></td>
-                        <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
-                    </tr>
-                </table>
-            </details>
-
-            <?php if (`which vnstati`) : ?>
-                <details>
-                    <summary><?php echo L::network_traffic; ?></summary>
-                    <?php
-                    shell_exec("vnstati -m -s -o vnstat.png");
-                    ?>
-                    <img style="max-width:100%; height: auto; margin-top: 1em;" src="vnstat.png" />
-                </details>
-            <?php endif; ?>
-
+        <details>
+            <summary><?php echo L::storage; ?></summary>
             <?php
-            $files = rsearch($ROOT_PHOTO_DIR, 'tims', explode(',', $IMG_FORMATS));
+            $disk = new DiskSpaceCheck(dirname(__FILE__));
+            ?>
+            <table>
+                <tr>
+                    <td><?php echo L::total_storage; ?></td>
+                    <td><strong><?php echo $disk->formatBytes($disk->total_space); ?></strong></td>
+                </tr>
+                <tr>
+                    <td><?php echo L::used_storage; ?></td>
+                    <td><strong><?php echo $disk->formatBytes($disk->used_space); ?></strong> (<?php echo floor($disk->percent); ?>%) <progress value="<?php echo $disk->percent; ?>" max="100"><?php echo $disk->percent; ?></progress></td>
+                </tr>
+            </table>
+        </details>
 
-            $model = array();
-            foreach ($files as $file) {
-                $exif = @exif_read_data($file);
-                if (!empty($exif["Model"])) {
-                    array_push($model, $exif["Model"]);
-                }
+        <?php if (`which vnstati`) : ?>
+            <details>
+                <summary><?php echo L::network_traffic; ?></summary>
+                <?php
+                shell_exec("vnstati -m -s -o vnstat.png");
+                ?>
+                <img style="max-width:100%; height: auto; margin-top: 1em;" src="vnstat.png" />
+            </details>
+        <?php endif; ?>
+
+        <?php
+        $files = rsearch($ROOT_PHOTO_DIR, 'tims', explode(',', $IMG_FORMATS));
+
+        $model = array();
+        foreach ($files as $file) {
+            $exif = @exif_read_data($file);
+            if (!empty($exif["Model"])) {
+                array_push($model, $exif["Model"]);
             }
-            $f_length = array();
-            foreach ($files as $file) {
-                $exif = @exif_read_data($file);
-                if (!empty($exif['FocalLength'])) {
-                    // Focal length in $exif['FocalLength'] is stored as X/10
-                    // The eval() function perform the division to calculate the actual focal length in mm
-                    $f_length_mm = eval('return ' . $exif['FocalLength'] . ';');
-                    // The round_to_ten() function rounds the focal length value up or down to the nearest 10
-                    $f_length_rounded = (int)round_to_ten($f_length_mm);
-                    array_push($f_length, $f_length_rounded);
-                }
+        }
+        $f_length = array();
+        foreach ($files as $file) {
+            $exif = @exif_read_data($file);
+            if (!empty($exif['FocalLength'])) {
+                // Focal length in $exif['FocalLength'] is stored as X/10
+                // The eval() function perform the division to calculate the actual focal length in mm
+                $f_length_mm = eval('return ' . $exif['FocalLength'] . ';');
+                // The round_to_ten() function rounds the focal length value up or down to the nearest 10
+                $f_length_rounded = (int)round_to_ten($f_length_mm);
+                array_push($f_length, $f_length_rounded);
             }
-            echo '
+        }
+        echo '
             <details>
                   <summary>' . L::camera_model . '</summary>
                     <table>
         ';
-            $count = array_count_values(array_filter($model));
-            arsort($count);
-            foreach ($count as $key => $value) {
-                echo "<tr><td>$key</td><td style='text-align: right;'>$value</td></tr>";
-            }
-            echo '
+        $count = array_count_values(array_filter($model));
+        arsort($count);
+        foreach ($count as $key => $value) {
+            echo "<tr><td>$key</td><td style='text-align: right;'>$value</td></tr>";
+        }
+        echo '
         </table>
         </details>
         ';
 
-            echo '
+        echo '
         <details>
                   <summary>' . L::f_length  . '</summary>
                     <table>
         ';
-            $count = array_count_values(array_filter($f_length));
-            arsort($count);
-            foreach ($count as $key => $value) {
-                echo "<tr><td>$key</td><td>$value</td></tr>";
-            }
-            echo '
+        $count = array_count_values(array_filter($f_length));
+        arsort($count);
+        foreach ($count as $key => $value) {
+            echo "<tr><td>$key</td><td>$value</td></tr>";
+        }
+        echo '
         </table>
         </details>
         ';
-            ?>
-        </div>
-        <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
-            <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
-        </div>
-        <?php
-        // Show footer
-        if (isset($_COOKIE['nocount'])) {
-            $FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
-        }
-        if ($LINKS) {
-            $array_length = count($URLS);
-            echo '<div class="footer" style="z-index: 2">';
-            for ($i = 0; $i < $array_length; $i++) {
-                echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
-            }
-            echo  $FOOTER . '</div>';
-        } else {
-            echo '<div class="footer">' . $FOOTER . '</div>';
-        }
         ?>
+    </div>
+    <div class="center" style="margin-top: 1em; margin-bottom: 3.5em;">
+        <a class="btn primary" style="text-decoration: none;" href="index.php"><?php echo L::btn_back; ?></a>
+    </div>
+    <?php
+    // Show footer
+    if (isset($_COOKIE['nocount'])) {
+        $FOOTER = $FOOTER . " <span style='color: #ff9e64;'>&there4;</span>";
+    }
+    if ($LINKS) {
+        $array_length = count($URLS);
+        echo '<div class="footer" style="z-index: 2">';
+        for ($i = 0; $i < $array_length; $i++) {
+            echo '<span style="word-spacing:0.1em;"><a href="' . $URLS[$i][0] . '">' . $URLS[$i][1] . '</a> • </span>';
+        }
+        echo  $FOOTER . '</div>';
+    } else {
+        echo '<div class="footer">' . $FOOTER . '</div>';
+    }
+    ?>
 </body>
 
 </html>
