@@ -290,7 +290,7 @@ $protect = false;
 		if (!isset($grid)) {
 			echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">';
 			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
-			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><h1 class="hide" style="font-size: 2.3em; margin: auto; vertical-align: middle;">' . $TITLE . '</h1></a>';
+			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><h1 class="hide" style="font-size: 2.3em; margin: auto;">' . $TITLE . '</h1></a>';
 			echo '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
