@@ -289,8 +289,8 @@ $protect = false;
 		$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
 		if (!isset($grid)) {
 			echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">';
-			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
-			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album="><h1 class="hide" style="font-size: 2.3em; margin: auto;">' . $TITLE . '</h1></a>';
+			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album"><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
+			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album"><h1 class="hide" style="font-size: 2.3em; margin: auto;">' . $TITLE . '</h1></a>';
 			echo '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
 			echo '<div class="center" style="margin-bottom: 1em;">';
@@ -339,7 +339,7 @@ $protect = false;
 				echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_enable_js . '</h3>';
 				echo '</noscript>';
 				echo '<div class="center" style="margin-bottom: 1em;">';
-				echo '<a href="'  . $BASE_URL . '?album="><img class="navigation" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
+				echo '<a href="'  . $BASE_URL . '?album"><img class="navigation" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
 				if (isset($_GET['album'])) {
 					$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
 				} else {
@@ -448,8 +448,8 @@ $protect = false;
 		$exif = @exif_read_data($file);
 		$comment = isset($exif['ImageDescription']) ? htmlentities($exif['ImageDescription']) : NULL;
 		// Get latitude and longitude values
-		$exif = @exif_read_data($file, 0, true);
-		if (array_key_exists('GPS', $exif)) {
+		$exif = exif_read_data($file, 0, true);
+		if ($exif && array_key_exists('GPS', $exif)) {
 			$lat = gps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
 			$lon = gps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
 		} else {
