@@ -119,25 +119,6 @@ $protect = false;
 
 		/* ======= FUNCTIONS ======= */
 
-		// Mask and unmask URL parameter using bin2hex() and hex2bin()
-		function mask_param($param)
-		{
-			if (file_exists($param)) {
-				return bin2hex($param);
-			} else {
-				exit('<div style="text-align: center;"><code>¯\_(ツ)_/¯</code></div>');
-			}
-		}
-		function unmask_param($param)
-		{
-			// Check if $param is a hex string
-			if (ctype_xdigit($param)) {
-				return hex2bin($param);
-			} else {
-				exit('<div style="text-align: center;"><code>¯\_(ツ)_/¯</code></div>');
-			}
-		}
-
 		/* EXTRACT LATITUDE AND LONGITUDE ---START---
 	   * https://stackoverflow.com/a/16437888
 	   */
@@ -410,7 +391,7 @@ $protect = false;
 					$tim = $TIMS_DIR . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="' . $BASE_URL . '/index.php?file=' . mask_param($file)  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="' . $BASE_URL . '/index.php?file=' . $file  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			} else {
@@ -419,7 +400,7 @@ $protect = false;
 					$tim = $TIMS_DIR . basename($file);
 					$file_path = pathinfo($file);
 					echo '<figure class="gallery-frame">';
-					echo '<a href="' . $BASE_URL . '/index.php?file=' . mask_param($file) . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+					echo '<a href="' . $BASE_URL . '/index.php?file=' . $file . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
 					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 				}
 			}
@@ -437,7 +418,7 @@ $protect = false;
 
 	/* SHOW SINGLE PHOTO */
 	// The $file parameter is used to show an individual photo
-	$file = isset($_GET['file']) ? unmask_param($_GET['file']) : '';
+	$file = isset($_GET['file']) ? $_GET['file'] : '';
 	// Get the current views and downloads count
 	$filename = pathinfo($file, PATHINFO_FILENAME);
 	$views_file = $STATS_DIR . DIRECTORY_SEPARATOR . $filename . ".views";
@@ -510,16 +491,16 @@ $protect = false;
 		}
 		// Disable the Previous link if this is the FIRST photo
 		elseif (empty($files[$key - 1])) {
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $files[$key + 1] . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg"  alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $last_photo . '" accesskey="l"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		// Disable the Next link if this is the LAST photo
 		elseif (empty($files[$key + 1])) {
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $first_photo . '" accesskey="f"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $files[$key - 1] . '" accesskey="p"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a></div>';
 		}
 		// Show all navigation links
 		else {
 
-			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($first_photo) . '" accesskey="f"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key - 1]) . '" accesskey="p"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($files[$key + 1]) . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . mask_param($last_photo) . '" accesskey="l"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
+			echo '<div class="navigation"><a href="' . $BASE_URL . '/index.php?album=' . $album . '" accesskey="g"><img class="navigation" src="svg/home.svg" alt="' . L::nav_home . '" title="' . L::nav_home . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $first_photo . '" accesskey="f"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $files[$key - 1] . '" accesskey="p"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $files[$key + 1] . '" accesskey="n"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a><a href="' . $BASE_URL . '/index.php?file=' . $last_photo . '" accesskey="l"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a></div>';
 		}
 		/* NAVIGATION LINKS ---END--- */
 
@@ -567,12 +548,12 @@ $protect = false;
 		}
 		// Find all RAW files
 		$raw_file = glob($photo_dir . $file_path['filename'] . "*.{" . $RAW_FORMATS . "}", GLOB_BRACE) ?? NULL;
-		$raw = !empty($raw_file[0]) ? mask_param(htmlentities($raw_file[0])) : NULL;
-		$image_download = '<a href="' . $BASE_URL . '/download.php?file=' . mask_param(htmlentities($file)) . '"><img class="navigation" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
+		$raw = !empty($raw_file[0]) ? htmlentities($raw_file[0]) : NULL;
+		$image_download = '<a href="' . $BASE_URL . '/download.php?file=' . htmlentities($file) . '"><img class="navigation" src="svg/download.svg" alt="' . L::img_download . '" title="' . L::img_download . '" /></a>';
 		if ($raw) {
-			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . "&raw=" . $raw . '"><img class="navigation" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . htmlentities($file) . "&raw=" . $raw . '"><img class="navigation" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 		} else {
-			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . mask_param(htmlentities($file)) . '"><img class="navigation" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
+			$image_delete = '<a href="' . $BASE_URL . '/delete.php?file=' . htmlentities($file) . '"><img class="navigation" src="svg/remove-image.svg" alt="' . L::img_delete . '" title="' . L::img_delete . '" /></a>';
 		}
 
 		//Check if the related RAW file exists and link to it
