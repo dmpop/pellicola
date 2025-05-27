@@ -33,7 +33,7 @@ foreach ($rss_items as $item) {
     $album = str_replace($ROOT_PHOTO_DIR, "", dirname($item->getPathname()));
     echo "<item>" . PHP_EOL;
     echo "<title>" . htmlspecialchars(pathinfo(basename($item->getPathname()), PATHINFO_FILENAME), ENT_QUOTES) . "</title>" . PHP_EOL;
-    echo "<link>" . htmlspecialchars("$BASE_URL/index.php?file=" . bin2hex($item->getPathname()) . "&album=" . ltrim($album, "/"), ENT_QUOTES) . "</link>" . PHP_EOL;
+    echo "<link>" . htmlspecialchars("$BASE_URL/index.php?file=" . $item->getPathname() . "&album=" . ltrim($album, "/"), ENT_QUOTES) . "</link>" . PHP_EOL;
     echo "<description>" . htmlspecialchars("<img src='" . $BASE_URL . DIRECTORY_SEPARATOR . $TIMS_DIR . basename($item->getPathname()) . "' width=128 />", ENT_QUOTES) . "</description>" . PHP_EOL;
     echo "<pubDate>" . htmlspecialchars(date("Y-m-d H:i:s", $item->getMTime()), ENT_QUOTES) . "</pubDate>" . PHP_EOL;
     echo "</item>" . PHP_EOL;
