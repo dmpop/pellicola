@@ -94,57 +94,48 @@ function find_files($directory)
             <a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="index.php"><?php echo L::btn_back; ?></a>
         </div>
     </div>
-    <?php
-    if (isset($_POST['key'])) {
-        if (password_verify($_POST['key'], $PASSWORD)) {
-            $_SESSION['random_photo'] = 1;
-            echo '<script type="text/javascript">location.reload();</script>';
-        }
-    }
-    ?>
 <?php endif; ?>
 
 <?php
 
-if (isset($_SESSION['random_photo']) || empty($PASSWORD)) {
-    $files = find_files($ROOT_PHOTO_DIR);
-    $file = array_rand($files);
-    $background = $BASE_URL . "/tim.php?image=" . bin2hex($files[$file]);
-    // Get aperture, exposure, iso, and datetime from EXIF
-    $exif = exif_read_data($files[$file], true);
-    $aperture = (!isset($exif['COMPUTED']['ApertureFNumber']) ? NULL : htmlentities($exif['COMPUTED']['ApertureFNumber']));
-    $exposure = (!isset($exif['ExposureTime']) ? NULL : htmlentities($exif['ExposureTime']));
-    $f_length = (!isset($exif['FocalLength']) ? NULL : ' • ' . eval('return ' . htmlentities($exif['FocalLength']) . ';') . 'mm');
-    $image_description = (!isset($exif['ImageDescription']) ? NULL : "<hr>" . htmlentities($exif['ImageDescription']));
-    // Normalize exposure
-    // https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
-    if (!is_null($exposure)) {
-        $parts = explode('/', $exposure);
-        if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
-            $exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0) . 's');
+
+$files = find_files($ROOT_PHOTO_DIR);
+$file = array_rand($files);
+$background = $BASE_URL . "/tim.php?image=" . bin2hex($files[$file]);
+// Get aperture, exposure, iso, and datetime from EXIF
+$exif = exif_read_data($files[$file], true);
+$aperture = (!isset($exif['COMPUTED']['ApertureFNumber']) ? NULL : htmlentities($exif['COMPUTED']['ApertureFNumber']));
+$exposure = (!isset($exif['ExposureTime']) ? NULL : htmlentities($exif['ExposureTime']));
+$f_length = (!isset($exif['FocalLength']) ? NULL : ' • ' . eval('return ' . htmlentities($exif['FocalLength']) . ';') . 'mm');
+$image_description = (!isset($exif['ImageDescription']) ? NULL : "<hr>" . htmlentities($exif['ImageDescription']));
+// Normalize exposure
+// https://stackoverflow.com/questions/3049998/parsing-exifs-exposuretime-using-php
+if (!is_null($exposure)) {
+    $parts = explode('/', $exposure);
+    if (($parts[1] % $parts[0]) == 0 || $parts[1] == 1000000) {
+        $exposure = htmlentities(' • 1/' . round($parts[1] / $parts[0], 0) . 's');
+    } else {
+        if ($parts[1] == 1) {
+            $exposure = htmlentities(' • ' . $parts[0] . 's');
         } else {
-            if ($parts[1] == 1) {
-                $exposure = htmlentities(' • ' . $parts[0] . 's');
-            } else {
-                $exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1] . 's');
-            }
+            $exposure = htmlentities(' • ' . $parts[0] . '/' . $parts[1] . 's');
         }
     }
-    $iso = !isset($exif['ISOSpeedRatings']) ? NULL : ' • ISO' . htmlentities($exif['ISOSpeedRatings']);
-    $datetime = !isset($exif['DateTimeOriginal']) ? NULL : ' • ' . htmlentities((date('Y-m-d H:i', strtotime($exif['DateTimeOriginal']))));
+}
+$iso = !isset($exif['ISOSpeedRatings']) ? NULL : ' • ISO' . htmlentities($exif['ISOSpeedRatings']);
+$datetime = !isset($exif['DateTimeOriginal']) ? NULL : ' • ' . htmlentities((date('Y-m-d H:i', strtotime($exif['DateTimeOriginal']))));
 
-    // Concatenate $exif_info
-    if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
-        $exif_info = $aperture . $f_length . $exposure . $iso . $datetime;
-    } else {
-        $exif_info = NULL;
-    }
-    echo "
+// Concatenate $exif_info
+if (!is_null($aperture) || !is_null($exposure) || !is_null($f_length) || !is_null($iso) || !is_null($datetime)) {
+    $exif_info = $aperture . $f_length . $exposure . $iso . $datetime;
+} else {
+    $exif_info = NULL;
+}
+echo "
     <body style='background-color:#000000; background: url(" . $background . "); background-size: cover; background-position: center;  background-repeat: no-repeat; background-attachment: fixed;'>
     <div class='flexbox'>" . $exif_info . $image_description . "</div>
     </body>
     ";
-}
 ?>
 
 </html>

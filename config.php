@@ -2,8 +2,6 @@
 $BASE_URL = 'https://domain.tld'; // Domain name or IP address of the server Pellicola runs on. Include the full path, if necessary (for example, https://domain.tld/pellicola)
 $TITLE = 'Pellicola'; // Name of the Pellicola instance.
 $SUBTITLE = 'Responsive open-source photo grid'; // Tagline displayed under the title.
-$PASSWORD = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // Password for the random photo page and protected albums
-$PROTECTED_ALBUMS = 'Personal, Private'; // List of password-protected albums
 $DELETE_PASSWORD = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // Hashed password to delete photos
 $PER_PAGE = 12; // Number of images per page for pagination
 $REVERSED_SORT = true; // Set to true to show tims in the newest to oldest order
@@ -19,7 +17,6 @@ $RAW_FORMATS = 'ARW,arw,NEF,nef,ORF,orf,DNG,dng'; // Supported RAW formats. Add 
 $TIM_QUALITY = 100; // Quality of generated tims (thumbnails).
 $TIM_SIZE = 1200; //Tim size
 $DOWNLOAD = false; // Toggle photo download
-$DOWNLOAD_PASSWORD = '$2y$12$7U709KLbqR1vdGuWAfcvZ.SKVk46OJE4qyfcUcAH0oXcoRrFiAIc6'; // Hashed password to protect downloads. Leave empty to disable password protection.
 $RSS_LIMIT = 31; // Show only items in the RSS feed that are newer than the specified number of days.
 $SHOW_MAP = false; // If set to "true", shows a Leaflet-based map marking the position of the geotagged photo. 
 $OPENSTREETMAP = true; // If set to "true", the application generates a URL that shows the position of the geotagged photo in OpenStreetMap. Otherwise, the application generates a geo URI that shows the position in the default map application.

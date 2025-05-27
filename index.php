@@ -72,14 +72,6 @@ $protect = false;
 	} else {
 		$album = NULL;
 	}
-
-	// Check if the current album is in the $PROTECTED_ALBUMS list
-	if (!is_null($album)) {
-		$protected_albums = explode(", ", $PROTECTED_ALBUMS);
-		if (in_array($album, $protected_albums)) {
-			$protect = true;
-		}
-	}
 	?>
 	<?php if ($protect && !isset($_SESSION['protect'])) : ?>
 		<div class="c">
@@ -92,15 +84,6 @@ $protect = false;
 				<a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="index.php"><?php echo L::btn_back; ?></a>
 			</div>
 		</div>
-		<?php
-		if (isset($_POST['key'])) {
-			if (password_verify($_POST['key'], $PASSWORD)) {
-				// If the entered password matches $PASSWORD, set the $_SESSION['protect']
-				$_SESSION['protect'] = 1;
-				echo '<script type="text/javascript">location.reload();</script>';
-			}
-		}
-		?>
 	<?php endif; ?>
 	<?php
 	// Show the grid only if 1) album is not protected or 2) album is protected and password check was successful

@@ -17,10 +17,9 @@ Pellicola is an easy-to-use PHP web app for instant photo publishing.
 - **Optional album description** If a _preamble.html_ file exists in the album's folder, Pellicola displays its contents as the album's description.
 - **Optional photo description** You can add a description to each photo by creating an accompanying _.txt_ file. The app can also read and display descriptions from the photo's _UserComment_ EXIF field.
 - **Automatic language detection** Pellicola automatically detects the browser language and picks the description text file with the appropriate language prefix.
-- **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos. Downloads are password protected by default. Password protection can be disabled by leaving `$DOWNLOAD_PASSWORD` in the _config.php_ file empty.
+- **Downloads** With the download option in the _config.php_ file enabled, visitors can download photos.
 - **RAW downloads** For each photo in the JPEG format, you can upload the accompanying RAW file, and Pellicola automatically adds a download link to it when the download option is enabled.
 - **Multiple albums** Subdirectories inside the default photo directory are rendered as individual albums.
-- **Protected albums** Albums can be protected with a password.
 - **Statistics** View basic statistics: camera models, focal length stats, the total number of photos and RAW files, disk usage, and the total number of downloads.
 - **Random photo** feature. Can be used to display photos in a browser in full-screen mode.
 - **Access keys** The application supports [access keys](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey) for common actions.
@@ -44,7 +43,7 @@ Pellicola is an easy-to-use PHP web app for instant photo publishing.
 
 ### Important note about passwords
 
-The `PASSWORD`, `$DELETE_PASSWORD`, and `$DOWNLOAD_PASSWORD` variables in _config.php_ are set to _secret_. To change them you have to create a hashed version of the desired passwords. To do this, you can use the following command (replace _secret_ with the desired password.)
+The `$DOWNLOAD_PASSWORD` variable in _config.php_ is set to _secret_. To change it, you have to create a hashed version of the desired password. To do this, you can use the following command (replace _secret_ with the desired password.)
 
 ```bash
 php -r 'echo password_hash("secret", PASSWORD_DEFAULT);'
