@@ -48,10 +48,10 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <body>
     <div id="content">
-        <div style="text-align:center; margin-bottom: 1.5em; margin-top: 1.5em;">
-            <a style="text-decoration:none;" href="index.php"><img style="display: inline; height: 3.5em; vertical-align: middle;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
+        <div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">
+            <a style="text-decoration:none;" href="index.php"><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="<?php echo $TITLE; ?>" /></a>
             <a style="text-decoration:none;" href="index.php">
-                <h1 style="display: inline; font-size: 2.3em; margin-left: 0.19em; vertical-align: middle; letter-spacing: 3px;"><?php echo $TITLE ?></h1>
+                <h1 style="font-size: 2.3em; margin: auto;"><?php echo $TITLE ?></h1>
             </a>
         </div>
         <div class="center"><?php echo $SUBTITLE ?></div>
