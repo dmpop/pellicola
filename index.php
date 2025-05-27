@@ -73,328 +73,313 @@ $protect = false;
 		$album = NULL;
 	}
 	?>
-	<?php if ($protect && !isset($_SESSION['protect'])) : ?>
-		<div class="c">
-			<div class="card" style="text-align: center;">
-				<form style="margin-top: .7em; display: inline;" action=" " method="POST">
-					<label for="password"><?php echo L::password; ?></label>
-					<input style="vertical-align: middle;" class="card" type="password" name="key" value="">
-					<button style="display: inline; vertical-align: middle; margin-left: 0.2em;" class="btn green" type="submit" name="submit"><?php echo L::btn_confirm; ?></button>
-				</form>
-				<a class="btn primary" style="text-decoration: none; vertical-align: middle; margin-left: 0.2em;" href="index.php"><?php echo L::btn_back; ?></a>
-			</div>
-		</div>
-	<?php endif; ?>
 	<?php
-	// Show the grid only if 1) album is not protected or 2) album is protected and password check was successful
-	if (!$protect || ($protect && isset($_SESSION['protect']))) {
-		// Create $ROOT_PHOTO_DIR if it doesn't exist
-		if (!file_exists($ROOT_PHOTO_DIR)) {
-			mkdir($ROOT_PHOTO_DIR, 0755, true);
-		}
+	// Create $ROOT_PHOTO_DIR if it doesn't exist
+	if (!file_exists($ROOT_PHOTO_DIR)) {
+		mkdir($ROOT_PHOTO_DIR, 0755, true);
+	}
 
-		if (!file_exists($STATS_DIR)) {
-			mkdir($STATS_DIR, 0755, true);
-		}
+	if (!file_exists($STATS_DIR)) {
+		mkdir($STATS_DIR, 0755, true);
+	}
 
-		// htmlentities() and str_replace() are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
-		$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $ROOT_PHOTO_DIR . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
+	// htmlentities() and str_replace() are used to sanitize the path and prevent the path traversal attacks. Not very elegant, but it should do the trick.
+	$photo_dir = htmlentities(str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $ROOT_PHOTO_DIR . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR));
 
-		/* ======= FUNCTIONS ======= */
+	/* ======= FUNCTIONS ======= */
 
-		/* EXTRACT LATITUDE AND LONGITUDE ---START---
+	/* EXTRACT LATITUDE AND LONGITUDE ---START---
 	   * https://stackoverflow.com/a/16437888
 	   */
-		function gps($coordinate, $hemisphere)
-		{
-			if (!empty($coordinate) && !empty($hemisphere)) {
-				if (is_string($coordinate)) {
-					$coordinate = array_map('trim', explode(',', $coordinate));
-				}
-				for ($i = 0; $i < 3; $i++) {
-					$part = explode('/', $coordinate[$i]);
-					if (count($part) == 1) {
-						$coordinate[$i] = $part[0];
-					} else if (count($part) == 2) {
-						$coordinate[$i] = floatval($part[0]) / floatval($part[1]);
-					} else {
-						$coordinate[$i] = 0;
-					}
-				}
-				list($degrees, $minutes, $seconds) = $coordinate;
-				$sign = ($hemisphere == 'W' || $hemisphere == 'S') ? -1 : 1;
-				return $sign * ($degrees + $minutes / 60 + $seconds / 3600);
+	function gps($coordinate, $hemisphere)
+	{
+		if (!empty($coordinate) && !empty($hemisphere)) {
+			if (is_string($coordinate)) {
+				$coordinate = array_map('trim', explode(',', $coordinate));
 			}
-		}
-		/* EXTRACT LATITUDE AND LONGITUDE ---END--- */
-
-		/* CREATE TIMS ---START--- */
-		function create_tim($original, $tim, $tim_size)
-		{
-			global $TIM_QUALITY;
-			// Load image
-			$img = @imagecreatefromjpeg($original);
-			if (!$img) return false;
-			// Rotate $original based on orientation EXIF data
-			$exif = exif_read_data($original);
-			if (!empty($exif['Orientation'])) {
-				switch ($exif['Orientation']) {
-					case 3:
-						$img = imagerotate($img, -180, 0);
-						break;
-					case 6:
-						$img = imagerotate($img, -90, 0);
-						break;
-					case 8:
-						$img = imagerotate($img, 90, 0);
-						break;
-				}
-			}
-
-			// Get image size
-			$width = imagesx($img);
-			$height = imagesy($img);
-
-			// Calculate tim size
-			$new_width	= $tim_size;
-			$new_height = floor($height * ($tim_size / $width));
-
-			// Create a new temporary image
-			$tmp_img = imagecreatetruecolor($new_width, $new_height);
-
-			// Copy and resize old image into new image
-			imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-
-			// Save tim into a file
-			$ok = @imagejpeg($tmp_img, $tim, $TIM_QUALITY);
-
-			// Cleanup
-			imagedestroy($img);
-			imagedestroy($tmp_img);
-
-			// Return bool true if tim creation worked
-			return $ok;
-		}
-		/* CREATE TIMS ---END--- */
-
-		/* PAGINATION LINKS ---START --- */
-		function show_pagination($current_page, $last_page)
-		{
-			echo '<div class="center">';
-			if ($current_page != 1 && !isset($_GET['file'])) {
-				echo '<a href="?page=1"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
-			}
-			if ($current_page > 1 && !isset($_GET['file'])) {
-				echo '<a href="?page=' . ($current_page - 1) . '"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
-			}
-			if ($current_page < $last_page && !isset($_GET['file'])) {
-				echo '<a href="?page=' . ($current_page + 1) . '"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
-			}
-			if ($current_page != $last_page && !isset($_GET['file'])) {
-				echo ' <a href="?page=' . ($last_page) . '"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
-			}
-			echo '</div>';
-		}
-		/* PAGINATION LINKS ---END --- */
-
-		/* ======= FUNCTIONS ======= */
-
-		// Create missing tims
-		if (file_exists($photo_dir) && !file_exists($TIMS_DIR)) {
-			mkdir($TIMS_DIR);
-		}
-
-		$files = array();
-		// Find all files or a specific file if $_GET['query'] is set
-		if (isset($_GET['query'])) {
-			if ($_GET['search'] == 'search_name') {
-				$files = glob($photo_dir . "*" . $_GET['query'] . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
-			} else {
-				$all_files = glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
-				foreach ($all_files as $file) {
-					$exif = exif_read_data($file);
-					if (isset($exif['ImageDescription']) && stripos($exif['ImageDescription'], $_GET['query']) !== FALSE) {
-						array_push($files, $file);
-					}
-				}
-			}
-			// Find all files if $_GET['query'] is not set
-		} else {
-			$files = glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
-		}
-
-		// Check whether the reversed order option is enabled and sort the array accordingly
-		if ($REVERSED_SORT) {
-			rsort($files);
-		}
-
-		// Randomize the $files array
-		if (isset($_GET['shuffle'])) {
-			shuffle($files);
-		}
-
-		// Update count (we might have removed some files)
-		$file_count = count($files);
-
-		// Generate missing tims
-		foreach ($files as $file) {
-			$tim = $TIMS_DIR . basename($file);
-			if (!file_exists($tim)) {
-				create_tim($file, $tim, $TIM_SIZE);
-			}
-		}
-
-		/* Prepare pagination. Calculate total items per page ---START--- */
-		$total = count($files);
-		$last_page = ceil($total / $PER_PAGE);
-
-		if (!isset($_GET['file'])) {
-
-			if (isset($_GET['page']) && ($_GET['page'] <= $last_page) && ($_GET['page'] > 0) && (!isset($_GET['all']))) {
-				$page = $_GET['page'];
-				$offset = ($PER_PAGE) * ($page - 1);
-			} else {
-				$page = 1;
-				$offset = 0;
-			}
-
-			$max = $offset + $PER_PAGE;
-		}
-		if (!isset($max)) {
-			$max = NULL;
-		}
-		if ($max > $total) {
-			$max = $total;
-		}
-		/* Pagination. Calculate total items per page ---END --- */
-
-		// The $grid parameter is used to show the main grid
-		$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
-		if (!isset($grid)) {
-			echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">';
-			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album"><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
-			echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album"><h1 class="hide" style="font-size: 2.3em; margin: auto;">' . $TITLE . '</h1></a>';
-			echo '</div>';
-			echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
-			echo '<div class="center" style="margin-bottom: 1em;">';
-	?>
-			<!-- Search form -->
-			<div style="margin-bottom: 0.5em;">
-				<form autocomplete="off" method="GET" action=" ">
-					<select style="vertical-align: middle;" name="search">
-						<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
-						<option value="search_name"><?php echo L::find_by_name; ?></option>
-					</select>
-					<input style="vertical-align: middle;" type="text" name="query">
-					<!-- The hidden input field is used to pass the $album value (album) to the search -->
-					<input type="hidden" name="album" value="<?php echo $album; ?>">
-					<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
-					<input type="hidden" name="all" value="show">
-					<input class="navigation" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
-				</form>
-			</div>
-			<?php
-			// Show stats icon
-			echo '<a href="stats.php"><img class="navigation" src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
-			// Show map icon
-			if ($SHOW_MAP) {
-				echo '<a href="map.php" target="_blank"><img class="navigation" src="svg/map.svg" alt="' . L::map . '" title="' . L::map . '"/></a>';
-			}
-			// Show the grid icon if there are several pages
-			if (!isset($_GET['all']) && $file_count > $PER_PAGE) {
-				echo '<a href="?all=show"><img class="navigation" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
-			}
-			// Show randomize icon
-			echo '<a href="?shuffle"><img class="navigation" src="svg/dice-three.svg" alt="' . L::shuffle . '" title="' . L::shuffle . '"/></a>';
-
-			echo '<hr style="margin-bottom: 1em;">';
-
-			// Create an array with all subdirectories
-			$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
-			$sub_dirs = array_diff($all_sub_dirs, array($TIMS_DIR));
-			$count = count(glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE));
-			echo L::album_items_count . ': ' . $count;
-			echo '</div>';
-
-			// Populate a drop-down list with subdirectories
-			if ((count($sub_dirs)) > 0 or (!empty($album))) {
-				echo '<noscript>';
-				echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_enable_js . '</h3>';
-				echo '</noscript>';
-				echo '<div class="center" style="margin-bottom: 1em;">';
-				echo '<a href="'  . $BASE_URL . '?album"><img class="navigation" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
-				if (isset($_GET['album'])) {
-					$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
+			for ($i = 0; $i < 3; $i++) {
+				$part = explode('/', $coordinate[$i]);
+				if (count($part) == 1) {
+					$coordinate[$i] = $part[0];
+				} else if (count($part) == 2) {
+					$coordinate[$i] = floatval($part[0]) / floatval($part[1]);
 				} else {
-					$higher_dirs = [];
+					$coordinate[$i] = 0;
 				}
-				$higher_dir_cascade = '';
-				foreach ($higher_dirs as $higher_dir) {
-					if (!empty($higher_dir)) {
-						if (!empty($higher_dir_cascade)) {
-							$higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
-						}
-						$higher_dir_cascade = $higher_dir_cascade . $higher_dir;
-						echo '<a href="'  . $BASE_URL . '?album=' . $higher_dir_cascade . '">' . $higher_dir . '</a> &rarr;&nbsp;';
-					}
-				}
-
-				echo '<select class="select" name="" onchange="javascript:location.href = this.value;">';
-				echo '<option value="Default">' . L::album . '</option>';
-				foreach ($sub_dirs as $dir) {
-					$dir_name = basename($dir);
-					$dir_option = str_replace('\'', '&apos;', $album . DIRECTORY_SEPARATOR . $dir_name);
-					echo '<option value="?album=' . ltrim($dir_option, '/') . '">' . $dir_name . '</option>';
-				}
-				echo '</select></div>';
 			}
-			?>
+			list($degrees, $minutes, $seconds) = $coordinate;
+			$sign = ($hemisphere == 'W' || $hemisphere == 'S') ? -1 : 1;
+			return $sign * ($degrees + $minutes / 60 + $seconds / 3600);
+		}
+	}
+	/* EXTRACT LATITUDE AND LONGITUDE ---END--- */
+
+	/* CREATE TIMS ---START--- */
+	function create_tim($original, $tim, $tim_size)
+	{
+		global $TIM_QUALITY;
+		// Load image
+		$img = @imagecreatefromjpeg($original);
+		if (!$img) return false;
+		// Rotate $original based on orientation EXIF data
+		$exif = exif_read_data($original);
+		if (!empty($exif['Orientation'])) {
+			switch ($exif['Orientation']) {
+				case 3:
+					$img = imagerotate($img, -180, 0);
+					break;
+				case 6:
+					$img = imagerotate($img, -90, 0);
+					break;
+				case 8:
+					$img = imagerotate($img, 90, 0);
+					break;
+			}
+		}
+
+		// Get image size
+		$width = imagesx($img);
+		$height = imagesy($img);
+
+		// Calculate tim size
+		$new_width	= $tim_size;
+		$new_height = floor($height * ($tim_size / $width));
+
+		// Create a new temporary image
+		$tmp_img = imagecreatetruecolor($new_width, $new_height);
+
+		// Copy and resize old image into new image
+		imagecopyresampled($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+		// Save tim into a file
+		$ok = @imagejpeg($tmp_img, $tim, $TIM_QUALITY);
+
+		// Cleanup
+		imagedestroy($img);
+		imagedestroy($tmp_img);
+
+		// Return bool true if tim creation worked
+		return $ok;
+	}
+	/* CREATE TIMS ---END--- */
+
+	/* PAGINATION LINKS ---START --- */
+	function show_pagination($current_page, $last_page)
+	{
+		echo '<div class="center">';
+		if ($current_page != 1 && !isset($_GET['file'])) {
+			echo '<a href="?page=1"><img class="navigation" src="svg/arrow-up.svg" alt="' . L::nav_first . '" title="' . L::nav_first . '"/></a> ';
+		}
+		if ($current_page > 1 && !isset($_GET['file'])) {
+			echo '<a href="?page=' . ($current_page - 1) . '"><img class="navigation" src="svg/arrow-left.svg" alt="' . L::nav_prev . '" title="' . L::nav_prev . '"/></a> ';
+		}
+		if ($current_page < $last_page && !isset($_GET['file'])) {
+			echo '<a href="?page=' . ($current_page + 1) . '"><img class="navigation" src="svg/arrow-right.svg" alt="' . L::nav_next . '" title="' . L::nav_next . '"/></a>';
+		}
+		if ($current_page != $last_page && !isset($_GET['file'])) {
+			echo ' <a href="?page=' . ($last_page) . '"><img class="navigation" src="svg/arrow-down.svg" alt="' . L::nav_last . '" title="' . L::nav_last . '"/></a>';
+		}
+		echo '</div>';
+	}
+	/* PAGINATION LINKS ---END --- */
+
+	/* ======= FUNCTIONS ======= */
+
+	// Create missing tims
+	if (file_exists($photo_dir) && !file_exists($TIMS_DIR)) {
+		mkdir($TIMS_DIR);
+	}
+
+	$files = array();
+	// Find all files or a specific file if $_GET['query'] is set
+	if (isset($_GET['query'])) {
+		if ($_GET['search'] == 'search_name') {
+			$files = glob($photo_dir . "*" . $_GET['query'] . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
+		} else {
+			$all_files = glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
+			foreach ($all_files as $file) {
+				$exif = exif_read_data($file);
+				if (isset($exif['ImageDescription']) && stripos($exif['ImageDescription'], $_GET['query']) !== FALSE) {
+					array_push($files, $file);
+				}
+			}
+		}
+		// Find all files if $_GET['query'] is not set
+	} else {
+		$files = glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE);
+	}
+
+	// Check whether the reversed order option is enabled and sort the array accordingly
+	if ($REVERSED_SORT) {
+		rsort($files);
+	}
+
+	// Randomize the $files array
+	if (isset($_GET['shuffle'])) {
+		shuffle($files);
+	}
+
+	// Update count (we might have removed some files)
+	$file_count = count($files);
+
+	// Generate missing tims
+	foreach ($files as $file) {
+		$tim = $TIMS_DIR . basename($file);
+		if (!file_exists($tim)) {
+			create_tim($file, $tim, $TIM_SIZE);
+		}
+	}
+
+	/* Prepare pagination. Calculate total items per page ---START--- */
+	$total = count($files);
+	$last_page = ceil($total / $PER_PAGE);
+
+	if (!isset($_GET['file'])) {
+
+		if (isset($_GET['page']) && ($_GET['page'] <= $last_page) && ($_GET['page'] > 0) && (!isset($_GET['all']))) {
+			$page = $_GET['page'];
+			$offset = ($PER_PAGE) * ($page - 1);
+		} else {
+			$page = 1;
+			$offset = 0;
+		}
+
+		$max = $offset + $PER_PAGE;
+	}
+	if (!isset($max)) {
+		$max = NULL;
+	}
+	if ($max > $total) {
+		$max = $total;
+	}
+	/* Pagination. Calculate total items per page ---END --- */
+
+	// The $grid parameter is used to show the main grid
+	$grid = (isset($_GET['file']) ? $_GET['file'] : NULL);
+	if (!isset($grid)) {
+		echo '<div style="text-align: center; margin-bottom: 1.5em; margin-top: 1.5em;">';
+		echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album"><img style="height: 5em; margin-bottom: 1.5em;" src="favicon.png" alt="' . $TITLE . '" /></a>';
+		echo '<a style="text-decoration: none;" href="' . $BASE_URL . '/index.php?album"><h1 class="hide" style="font-size: 2.3em; margin: auto;">' . $TITLE . '</h1></a>';
+		echo '</div>';
+		echo '<div class="center" style="margin-bottom: 1em;">' . $SUBTITLE . '</div>';
+		echo '<div class="center" style="margin-bottom: 1em;">';
+	?>
+		<!-- Search form -->
+		<div style="margin-bottom: 0.5em;">
+			<form autocomplete="off" method="GET" action=" ">
+				<select style="vertical-align: middle;" name="search">
+					<option value="search_usercomment"><?php echo L::find_by_usercomment; ?></option>
+					<option value="search_name"><?php echo L::find_by_name; ?></option>
+				</select>
+				<input style="vertical-align: middle;" type="text" name="query">
+				<!-- The hidden input field is used to pass the $album value (album) to the search -->
+				<input type="hidden" name="album" value="<?php echo $album; ?>">
+				<!-- The hidden input field to set $_GET['all'] to show all results without pagination -->
+				<input type="hidden" name="all" value="show">
+				<input class="navigation" type="image" src="svg/search.svg" alt="<?php echo L::search_btn; ?>" title="<?php echo L::search_btn; ?>">
+			</form>
+		</div>
+		<?php
+		// Show stats icon
+		echo '<a href="stats.php"><img class="navigation" src="svg/stats.svg" alt="' . L::stats . '" title="' . L::stats . '"/></a>';
+		// Show map icon
+		if ($SHOW_MAP) {
+			echo '<a href="map.php" target="_blank"><img class="navigation" src="svg/map.svg" alt="' . L::map . '" title="' . L::map . '"/></a>';
+		}
+		// Show the grid icon if there are several pages
+		if (!isset($_GET['all']) && $file_count > $PER_PAGE) {
+			echo '<a href="?all=show"><img class="navigation" src="svg/display-grid.svg" alt="' . L::img_show_all . '" title="' . L::img_show_all . '"/></a>';
+		}
+		// Show randomize icon
+		echo '<a href="?shuffle"><img class="navigation" src="svg/dice-three.svg" alt="' . L::shuffle . '" title="' . L::shuffle . '"/></a>';
+
+		echo '<hr style="margin-bottom: 1em;">';
+
+		// Create an array with all subdirectories
+		$all_sub_dirs = array_filter(glob($photo_dir . '*'), 'is_dir');
+		$sub_dirs = array_diff($all_sub_dirs, array($TIMS_DIR));
+		$count = count(glob($photo_dir . "*.{" . $IMG_FORMATS . "}", GLOB_BRACE));
+		echo L::album_items_count . ': ' . $count;
+		echo '</div>';
+
+		// Populate a drop-down list with subdirectories
+		if ((count($sub_dirs)) > 0 or (!empty($album))) {
+			echo '<noscript>';
+			echo '<h3><img style="vertical-align: middle; margin-right: .5em;" src="svg/denied.svg"/> ' . L::warning_enable_js . '</h3>';
+			echo '</noscript>';
+			echo '<div class="center" style="margin-bottom: 1em;">';
+			echo '<a href="'  . $BASE_URL . '?album"><img class="navigation" alt="' . L::img_root_album . '" title="' . L::img_root_album . '" src="svg/home.svg"/></a> &rarr;&nbsp;';
+			if (isset($_GET['album'])) {
+				$higher_dirs = explode(DIRECTORY_SEPARATOR, $_GET['album']);
+			} else {
+				$higher_dirs = [];
+			}
+			$higher_dir_cascade = '';
+			foreach ($higher_dirs as $higher_dir) {
+				if (!empty($higher_dir)) {
+					if (!empty($higher_dir_cascade)) {
+						$higher_dir_cascade = $higher_dir_cascade . DIRECTORY_SEPARATOR;
+					}
+					$higher_dir_cascade = $higher_dir_cascade . $higher_dir;
+					echo '<a href="'  . $BASE_URL . '?album=' . $higher_dir_cascade . '">' . $higher_dir . '</a> &rarr;&nbsp;';
+				}
+			}
+
+			echo '<select class="select" name="" onchange="javascript:location.href = this.value;">';
+			echo '<option value="Default">' . L::album . '</option>';
+			foreach ($sub_dirs as $dir) {
+				$dir_name = basename($dir);
+				$dir_option = str_replace('\'', '&apos;', $album . DIRECTORY_SEPARATOR . $dir_name);
+				echo '<option value="?album=' . ltrim($dir_option, '/') . '">' . $dir_name . '</option>';
+			}
+			echo '</select></div>';
+		}
+		?>
 
 	<?php
-			// Check whether $photo_dir directory exists
-			if (!file_exists($photo_dir)) {
-				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
-				exit;
-			}
-			if ($file_count < 1) {
-				echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty . "</h3>");
-				exit;
-			}
-			// Show the content of the preamble.html file if it exists in the album
-			if (file_exists($photo_dir . "preamble.html")) {
-				echo '<div style="margin: auto; margin: 1.5em 1.5em;">';
-				echo file_get_contents($photo_dir . "preamble.html");
-				echo '</div>';
-			}
+		// Check whether $photo_dir directory exists
+		if (!file_exists($photo_dir)) {
+			echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/>" . L::warning_no_album . "</h3>");
+			exit;
+		}
+		if ($file_count < 1) {
+			echo ("<h3 style='margin-top: 2em;'><img style='vertical-align: middle; margin-right: .5em;' src='svg/denied.svg'/> " . L::warning_empty . "</h3>");
+			exit;
+		}
+		// Show the content of the preamble.html file if it exists in the album
+		if (file_exists($photo_dir . "preamble.html")) {
+			echo '<div style="margin: auto; margin: 1.5em 1.5em;">';
+			echo file_get_contents($photo_dir . "preamble.html");
 			echo '</div>';
-			/* SHOW THE GRID WITH TIMS ---START --- */
-			echo '<div class="gallery-grid">';
-			if (isset($_GET['all'])) {
-				foreach ($files as $file) {
-					$tim = $TIMS_DIR . basename($file);
-					$file_path = pathinfo($file);
-					echo '<figure class="gallery-frame">';
-					echo '<a href="' . $BASE_URL . '/index.php?file=' . $file  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
-					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
-				}
-			} else {
-				for ($i = $offset; $i < $max; $i++) {
-					$file = $files[$i];
-					$tim = $TIMS_DIR . basename($file);
-					$file_path = pathinfo($file);
-					echo '<figure class="gallery-frame">';
-					echo '<a href="' . $BASE_URL . '/index.php?file=' . $file . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
-					echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
-				}
+		}
+		echo '</div>';
+		/* SHOW THE GRID WITH TIMS ---START --- */
+		echo '<div class="gallery-grid">';
+		if (isset($_GET['all'])) {
+			foreach ($files as $file) {
+				$tim = $TIMS_DIR . basename($file);
+				$file_path = pathinfo($file);
+				echo '<figure class="gallery-frame">';
+				echo '<a href="' . $BASE_URL . '/index.php?file=' . $file  . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+				echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
 			}
-			echo '</div>';
+		} else {
+			for ($i = $offset; $i < $max; $i++) {
+				$file = $files[$i];
+				$tim = $TIMS_DIR . basename($file);
+				$file_path = pathinfo($file);
+				echo '<figure class="gallery-frame">';
+				echo '<a href="' . $BASE_URL . '/index.php?file=' . $file . '"><img class="gallery-img" src="' . $tim . '" alt="' . $file_path['filename'] . '" title="' . $file_path['filename'] . '"></a>';
+				echo '<figcaption>' . $file_path['filename'] . '</figcaption></figure>';
+			}
+		}
+		echo '</div>';
 
-			/* SHOW PAGINATION */
-			if (!isset($_GET['all'])) {
-				// Set $page to NULL if $file is set to avoid undefined variable warning
-				(isset($_GET['file'])) ? $page = NULL : NULL;
-				show_pagination($page, $last_page, $album); // Pagination. Show navigation on bottom of page
-			}
+		/* SHOW PAGINATION */
+		if (!isset($_GET['all'])) {
+			// Set $page to NULL if $file is set to avoid undefined variable warning
+			(isset($_GET['file'])) ? $page = NULL : NULL;
+			show_pagination($page, $last_page, $album); // Pagination. Show navigation on bottom of page
 		}
 	}
 	/* SHOW THE GRID WITH TIMS ---END --- */
